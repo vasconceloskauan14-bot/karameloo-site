@@ -101,7 +101,39 @@
     @keyframes screenIn{to{opacity:1; transform:none}}
 
     .section-title{margin:26px 0 12px; color:#c7d2fe; font-size:1.25rem;}
-    .pill{display:inline-block;margin-top:6px;color:var(--muted);font-size:.95rem}
+    .pill{display:inline-block;margin-top:6px;color:var(--muted);font-size:.95rem;}
+
+    /* extras UI */
+    .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .mini label{display:block;font-size:.88rem;color:#cbd5e1;margin:0 0 6px}
+    select{
+      width:100%;
+      padding:11px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      outline:none;
+    }
+    .checks{display:grid;gap:8px}
+    .chk{display:flex;gap:10px;align-items:center;color:#cbd5e1;font-size:.95rem}
+    .chk input{width:auto;margin:0}
+
+    .total-box{
+      margin-top:12px;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(56,189,248,.22);
+      background: rgba(56,189,248,.06);
+    }
+    .total-line{display:flex;justify-content:space-between;align-items:center}
+    .total-line strong{font-size:1.25rem;color:var(--cyan)}
+    .total-sub{margin-top:6px;color:var(--muted);font-size:.95rem}
+
+    .card.highlight{
+      border:1px solid rgba(56,189,248,.35);
+      box-shadow:0 12px 34px rgba(0,0,0,.35), 0 0 0 4px rgba(56,189,248,.06);
+    }
 
     /* ===== MODAL CENTRALIZADO ===== */
     .overlay{
@@ -226,43 +258,60 @@
   <!-- TELA CLIENTE (após cadastro) -->
   <section id="screenClient" class="screen">
     <div class="section-title">Bem-vindo, <span id="clientName">Cliente</span> 👋</div>
-    <div class="pill">Escolha um pacote para começar seu pedido.</div>
+    <div class="pill">Escolha um pacote pronto ou monte um pacote personalizado.</div>
 
-    <div class="grid" style="margin-top:16px">
-      <div class="card" style="opacity:1;transform:none">
-        <h3>Pacote Básico</h3>
-        <div class="price">R$ 29</div>
-        <ul>
-          <li>1 Foto editada</li>
-          <li>Correção de cor</li>
-          <li>Estilo profissional</li>
-          <li>Entrega em até 48h</li>
-        </ul>
-        <button class="btn" type="button" onclick="alert('Próxima etapa: escolher editor e enviar arquivos (ETAPA 3).')">Escolher pacote</button>
-      </div>
+    <div class="section-title" style="margin-top:18px">Pacotes prontos (15 opções)</div>
+    <div id="packagesGrid" class="grid" style="margin-top:12px"></div>
 
-      <div class="card" style="opacity:1;transform:none">
-        <h3>Pacote Criador</h3>
-        <div class="price">R$ 59</div>
-        <ul>
-          <li>1 Vídeo editado</li>
-          <li>Edição para Reels/TikTok</li>
-          <li>Cor cinematográfica</li>
-          <li>Entrega em até 48h</li>
-        </ul>
-        <button class="btn" type="button" onclick="alert('Próxima etapa: escolher editor e enviar arquivos (ETAPA 3).')">Escolher pacote</button>
-      </div>
+    <div class="section-title" style="margin-top:26px">Pacote Personalizado ✨</div>
+    <div class="grid" style="margin-top:12px">
+      <div class="card highlight" style="opacity:1;transform:none">
+        <h3>Monte seu pacote</h3>
+        <p>Escolha quantas fotos/vídeos você quer, para qual plataforma e o tipo de vídeo. O site soma tudo por trás e mostra só o total.</p>
 
-      <div class="card" style="opacity:1;transform:none">
-        <h3>Pacote Completo</h3>
-        <div class="price">R$ 99</div>
-        <ul>
-          <li>1 Foto + 1 Vídeo</li>
-          <li>Edição cinematográfica</li>
-          <li>1 revisão inclusa</li>
-          <li>Entrega em até 24h</li>
-        </ul>
-        <button class="btn" type="button" onclick="alert('Próxima etapa: escolher editor e enviar arquivos (ETAPA 3).')">Escolher pacote</button>
+        <div class="mini-grid">
+          <div class="mini">
+            <label>Fotos</label>
+            <input id="custFotos" type="number" min="0" value="0" />
+          </div>
+          <div class="mini">
+            <label>Vídeos</label>
+            <input id="custVideos" type="number" min="0" value="0" />
+          </div>
+        </div>
+
+        <div class="mini-grid" style="margin-top:10px">
+          <div class="mini">
+            <label>Plataforma</label>
+            <select id="custPlataforma">
+              <option value="reels">Instagram Reels</option>
+              <option value="tiktok">TikTok</option>
+              <option value="insta">Instagram Feed</option>
+              <option value="shorts">YouTube Shorts</option>
+            </select>
+          </div>
+          <div class="mini">
+            <label>Tipo de vídeo</label>
+            <select id="custTipoVideo">
+              <option value="15">Curto (até 15s)</option>
+              <option value="45">Médio (30–45s)</option>
+              <option value="60">Longo (até 60s)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="checks" style="margin-top:10px">
+          <label class="chk"><input id="custCor" type="checkbox" /> Cor cinematográfica (vídeos)</label>
+          <label class="chk"><input id="custLegenda" type="checkbox" /> Legendas (vídeos)</label>
+        </div>
+
+        <div class="total-box">
+          <div class="total-line"><span>Valor total</span><strong id="custTotal">R$ 0</strong></div>
+          <div class="total-sub">Entrega estimada: <strong id="custEntrega">13h30</strong> (mínimo)</div>
+        </div>
+
+        <button class="btn" type="button" onclick="confirmCustom()">Continuar com o personalizado</button>
+        <div class="hint">* Preços baseados em referências de mercado (foto por unidade e edição de vídeo por complexidade). Na ETAPA futura, isso vira checkout real.</div>
       </div>
     </div>
 
@@ -363,6 +412,7 @@
 
   let role = null; // 'cliente' | 'editor'
 
+  // ===== MODAL CADASTRO =====
   function openCadastro(tipo){
     role = tipo;
     titleCadastro.textContent = (tipo === 'cliente') ? 'Criar conta como Cliente' : 'Criar conta como Editor';
@@ -394,10 +444,9 @@
     if(e.target === overlay) closeCadastro();
   });
 
+  // ===== TELAS =====
   function showScreen(which){
-    // esconde todas
     [screenStart, screenClient, screenEditor].forEach(s => s.classList.remove('show'));
-    // pequena espera para a animacao entrar certinho
     setTimeout(() => {
       which.classList.add('show');
       window.scrollTo({top:0, behavior:'smooth'});
@@ -408,6 +457,131 @@
     showScreen(screenStart);
   }
 
+  // ===== PACOTES (15) =====
+  const packages = [
+    {id:1,  name:'Starter 1',  price:35,  eta:'13h30', items:['1 Foto (básica)','Cor + nitidez']},
+    {id:2,  name:'Starter 2',  price:65,  eta:'13h30', items:['2 Fotos (básicas)','Cor + nitidez']},
+    {id:3,  name:'Foto Pro 3',  price:95,  eta:'14h00', items:['3 Fotos (pro)','Ajustes finos + cor']},
+    {id:4,  name:'Vídeo Short 1',price:110, eta:'14h00', items:['1 Vídeo curto (até 15s)','Cortes + ritmo']},
+    {id:5,  name:'Foto Pro 5',  price:145, eta:'15h00', items:['5 Fotos (pro)','Cor + detalhes']},
+    {id:6,  name:'Short Duo',   price:190, eta:'15h30', items:['2 Vídeos curtos (até 15s)','Cortes + transições simples']},
+    {id:7,  name:'Combo Social',price:210, eta:'16h00', items:['1 Foto + 1 Vídeo curto','Look cinematográfico leve']},
+    {id:8,  name:'Foto Pack 8', price:235, eta:'18h00', items:['8 Fotos (pro)','Padronização de cor']},
+    {id:9,  name:'Short Trio',  price:260, eta:'18h00', items:['3 Vídeos curtos (até 15s)','Cor + ritmo']},
+    {id:10, name:'Foto Pack 12',price:310, eta:'24h',   items:['12 Fotos (pro)','Cor + retoques leves']},
+    {id:11, name:'Short 5',     price:390, eta:'24h',   items:['5 Vídeos curtos','Cortes + cor']},
+    {id:12, name:'Creator Mix', price:430, eta:'24h',   items:['10 Fotos + 1 Vídeo curto','Padronização completa']},
+    {id:13, name:'Reels Médio', price:480, eta:'24h',   items:['1 Vídeo médio (30–45s)','Cor + transições']},
+    {id:14, name:'Reels Longo', price:620, eta:'48h',   items:['1 Vídeo longo (até 60s)','Edição avançada']},
+    {id:15, name:'Premium',     price:890, eta:'48h',   items:['15 Fotos + 3 Vídeos curtos','Look premium + revisão']},
+  ];
+
+  function brl(v){
+    return v.toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
+  }
+
+  function renderPackages(){
+    const grid = document.getElementById('packagesGrid');
+    if(!grid) return;
+    grid.innerHTML = '';
+
+    packages.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.style.opacity = '1';
+      card.style.transform = 'none';
+
+      const itemsHtml = p.items.map(i => `<li>${i}</li>`).join('');
+
+      card.innerHTML = `
+        <h3>${p.id}. ${p.name}</h3>
+        <p>Entrega a partir de <strong>${p.eta}</strong> (mínimo 13h30)</p>
+        <div class="price">${brl(p.price)}</div>
+        <ul>${itemsHtml}</ul>
+        <button class="btn" type="button" onclick="choosePackage(${p.id})">Escolher pacote</button>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function choosePackage(id){
+    const p = packages.find(x => x.id === id);
+    if(!p) return;
+    alert(`Pacote selecionado: ${p.id}. ${p.name}
+Valor: ${brl(p.price)}
+Entrega: ${p.eta}
+
+Próxima etapa (futura): escolher editor + enviar arquivos.`);
+  }
+
+  // ===== PERSONALIZADO (soma por trás, mostra só total) =====
+  const custFotos = document.getElementById('custFotos');
+  const custVideos = document.getElementById('custVideos');
+  const custPlataforma = document.getElementById('custPlataforma');
+  const custTipoVideo = document.getElementById('custTipoVideo');
+  const custCor = document.getElementById('custCor');
+  const custLegenda = document.getElementById('custLegenda');
+  const custTotal = document.getElementById('custTotal');
+  const custEntrega = document.getElementById('custEntrega');
+
+  const PRICES = {
+    foto: 35,
+    video15: 110,
+    video45: 170,
+    video60: 240,
+    extraCor: 15,
+    extraLegenda: 20,
+    platformMult: { reels:1.00, tiktok:1.00, insta:1.05, shorts:1.05 }
+  };
+
+  function calcEntrega(total){
+    // mínimo 13h30, aumenta conforme total
+    if(total <= 120) return '13h30';
+    if(total <= 250) return '14h30';
+    if(total <= 400) return '18h00';
+    if(total <= 700) return '24h';
+    return '48h';
+  }
+
+  function calcCustom(){
+    if(!custTotal) return;
+
+    const fotos = Math.max(0, parseInt(custFotos?.value || '0', 10));
+    const vids  = Math.max(0, parseInt(custVideos?.value || '0', 10));
+    const plat  = custPlataforma?.value || 'reels';
+    const tipo  = custTipoVideo?.value || '15';
+
+    let unitVideo = PRICES.video15;
+    if(tipo === '45') unitVideo = PRICES.video45;
+    if(tipo === '60') unitVideo = PRICES.video60;
+
+    const mult = PRICES.platformMult[plat] ?? 1.0;
+
+    const extrasPerVideo = (custCor?.checked ? PRICES.extraCor : 0) + (custLegenda?.checked ? PRICES.extraLegenda : 0);
+
+    const total = (fotos * PRICES.foto) + (vids * (unitVideo * mult + extrasPerVideo));
+
+    custTotal.textContent = brl(total);
+    if(custEntrega) custEntrega.textContent = calcEntrega(total);
+  }
+
+  function confirmCustom(){
+    const totalStr = custTotal?.textContent || 'R$ 0';
+    const entregaStr = custEntrega?.textContent || '13h30';
+    alert(`Personalizado criado!
+Total: ${totalStr}
+Entrega estimada: ${entregaStr}
+
+Próxima etapa (futura): escolher editor + enviar arquivos.`);
+  }
+
+  [custFotos, custVideos, custPlataforma, custTipoVideo, custCor, custLegenda].forEach(el => {
+    if(!el) return;
+    el.addEventListener('input', calcCustom);
+    el.addEventListener('change', calcCustom);
+  });
+
+  // ===== REGISTRO (fluxo) =====
   btnCadastrar.addEventListener('click', () => {
     const nome = (inNome.value || '').trim();
     const sobrenome = (inSobrenome.value || '').trim();
@@ -424,6 +598,11 @@
     if(role === 'cliente'){
       clientName.textContent = firstName;
       showScreen(screenClient);
+      // renderiza pacotes e inicia calculo do personalizado
+      setTimeout(() => {
+        renderPackages();
+        calcCustom();
+      }, 80);
     } else {
       editorName.textContent = firstName;
       showScreen(screenEditor);
