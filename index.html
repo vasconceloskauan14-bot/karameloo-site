@@ -4,120 +4,200 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Karamello | Edição Profissional</title>
-
   <style>
     :root{
       --bg:#0f172a;
-      --panel:#020617;
+      --panel:#0b1226;
       --text:#e5e7eb;
       --muted:#9ca3af;
       --accent1:#7c3aed;
       --accent2:#2563eb;
       --cyan:#38bdf8;
+      --card:#0b1226;
       --border:rgba(255,255,255,.08);
     }
     *{box-sizing:border-box}
-
+    html,body{height:100%}
     body{
       margin:0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      background: radial-gradient(1200px 700px at 20% 10%, rgba(124,58,237,.35), transparent 55%),
+                  radial-gradient(900px 600px at 90% 20%, rgba(37,99,235,.35), transparent 55%),
+                  var(--bg);
+      color:var(--text);
       overflow-x:hidden;
     }
-    body.preload{opacity:0; transform: translateY(10px);}
-    body.loaded{opacity:1; transform:none; transition: opacity .55s ease, transform .55s ease;}
+
+    /* FAILSAFE: mesmo se JS falhar, nada fica invisivel */
+    body{opacity:1;visibility:visible}
+
+    /* Entrada profissional */
+    .page{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      opacity:0;
+      transform: translateY(8px);
+      animation: pageIn .55s ease forwards;
+    }
+    @keyframes pageIn{
+      to{opacity:1; transform:translateY(0)}
+    }
 
     header{
-      background: linear-gradient(135deg, var(--accent1), var(--accent2));
-      padding: 46px 20px;
-      text-align:center;
-      border-bottom:1px solid rgba(255,255,255,.08);
+      padding:44px 18px 28px;
+      background: linear-gradient(90deg, rgba(124,58,237,.65), rgba(37,99,235,.65));
+      border-bottom:1px solid rgba(255,255,255,.12);
     }
-    header h1{margin:0;font-size:2.6rem}
-    header p{margin-top:10px;opacity:.9}
+    .wrap{max-width:1100px;margin:0 auto}
+    h1{
+      margin:0;
+      font-size: clamp(2rem, 3.4vw, 3rem);
+      letter-spacing:.3px;
+    }
+    .subtitle{
+      margin-top:10px;
+      color: rgba(229,231,235,.9);
+      font-size:1.05rem;
+    }
 
-    .container{max-width:1100px;margin:34px auto;padding:0 18px}
+    main{padding:26px 18px 60px}
+    .screen{display:none;opacity:0;transform: translateY(10px);}
+    .screen.show{
+      display:block;
+      animation: screenIn .35s ease forwards;
+    }
+    @keyframes screenIn{
+      to{opacity:1;transform:translateY(0)}
+    }
 
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+    .hero{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 860px){
+      .hero{grid-template-columns:1fr}
+    }
 
     .card{
-      background: rgba(255,255,255,.04);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       border:1px solid var(--border);
-      border-radius:16px;
-      padding:22px;
-      box-shadow:0 12px 34px rgba(0,0,0,.35);
-      transform: translateY(12px);
-      opacity:0;
+      border-radius:18px;
+      padding:18px;
+      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
     }
-    body.loaded .card{animation: cardIn .6s ease forwards;}
-    body.loaded .card:nth-child(1){animation-delay:.08s}
-    body.loaded .card:nth-child(2){animation-delay:.16s}
-    @keyframes cardIn{to{transform: translateY(0); opacity:1;}}
-
-    .card h3{margin-top:0;color:#a5b4fc}
-    .card p{color:var(--muted); line-height:1.5}
+    .card h3{
+      margin:0 0 8px;
+      font-size:1.15rem;
+      color:#c7d2fe;
+    }
+    .card p{margin:0;color:var(--muted);line-height:1.35}
 
     .btn{
+      margin-top:14px;
       width:100%;
-      margin-top:16px;
-      padding:12px;
-      background:linear-gradient(135deg,var(--accent1),var(--accent2));
+      padding:12px 14px;
       border:none;
       border-radius:12px;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
       color:white;
       font-weight:700;
       cursor:pointer;
-      transition: transform .12s ease, opacity .12s ease;
+      transition: transform .15s ease, filter .15s ease;
     }
-    .btn:hover{opacity:.94}
-    .btn:active{transform:scale(.985)}
-
+    .btn:hover{transform: translateY(-1px); filter: brightness(1.05);}
+    .btn:active{transform: translateY(0px); filter: brightness(.98);}
     .btn.secondary{
-      background: transparent;
-      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
       color: var(--text);
     }
-
-    .price{font-size:2rem;font-weight:900;color:var(--cyan);margin:12px 0 6px}
-    ul{padding-left:18px;margin:10px 0 0}
-    ul li{margin:0 0 8px;color:#cbd5e1}
-
-    footer{
-      text-align:center;
-      padding:30px 18px;
-      color:var(--muted);
-      border-top:1px solid rgba(255,255,255,.06);
-      margin-top:40px;
-      opacity:0;
-      transform: translateY(10px);
-    }
-    body.loaded footer{animation: footIn .55s ease forwards; animation-delay:.22s}
-    @keyframes footIn{to{opacity:1; transform:none}}
-
-    /* ===== TELAS (fluxo pós-cadastro) ===== */
-    .screen{display:none; opacity:0; transform: translateY(14px);}
-    .screen.show{display:block; animation: screenIn .45s ease forwards;}
-    @keyframes screenIn{to{opacity:1; transform:none}}
 
     .section-title{margin:26px 0 12px; color:#c7d2fe; font-size:1.25rem;}
     .pill{display:inline-block;margin-top:6px;color:var(--muted);font-size:.95rem;}
 
-    /* extras UI */
-    .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .mini label{display:block;font-size:.88rem;color:#cbd5e1;margin:0 0 6px}
-    select{
-      width:100%;
-      padding:11px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      outline:none;
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
     }
-    .checks{display:grid;gap:8px}
-    .chk{display:flex;gap:10px;align-items:center;color:#cbd5e1;font-size:.95rem}
-    .chk input{
+    @media (max-width: 980px){
+      .grid{grid-template-columns: repeat(2, 1fr);}
+    }
+    @media (max-width: 620px){
+      .grid{grid-template-columns: 1fr;}
+    }
+
+    .price{
+      margin:10px 0 10px;
+      font-weight:900;
+      font-size:1.25rem;
+      color: var(--cyan);
+    }
+    ul{margin:10px 0 0; padding-left:18px; color:#cbd5e1}
+    li{margin:6px 0}
+
+    .card.highlight{
+      border:1px solid rgba(56,189,248,.35);
+      box-shadow:0 12px 34px rgba(0,0,0,.35), 0 0 0 4px rgba(56,189,248,.06);
+    }
+
+    /* Modal */
+    .overlay{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:1000;
+    }
+    .overlay.show{display:flex; animation: fadeIn .2s ease forwards;}
+    .overlay.closing{animation: fadeOut .22s ease forwards;}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes fadeOut{from{opacity:1}to{opacity:0}}
+
+    .modal{
+      width:min(520px, 100%);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:18px;
+      box-shadow: 0 30px 90px rgba(0,0,0,.55);
+      overflow:hidden;
+      transform: translateY(10px) scale(.98);
+      opacity:0;
+      animation: modalIn .25s ease forwards;
+      position:relative;
+    }
+    .modal.closing{animation: modalOut .22s ease forwards;}
+    @keyframes modalIn{to{opacity:1;transform:translateY(0) scale(1)}}
+    @keyframes modalOut{to{opacity:0;transform:translateY(8px) scale(.98)}}
+
+    .modalHead{
+      padding:16px 18px;
+      background: linear-gradient(90deg, rgba(124,58,237,.55), rgba(37,99,235,.55));
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .modalHead strong{font-size:1.05rem}
+    .close{
+      width:36px;height:36px;
+      border-radius:12px;
+      border:none;
+      cursor:pointer;
+      background: rgba(255,255,255,.12);
+      color:white;
+      font-size:18px;
+    }
+    .modalBody{padding:18px}
+    .field{margin-bottom:12px}
+    .field label{display:block;font-size:.88rem;color:#cbd5e1;margin:0 0 6px}
+
+    input{
       width:100%;
       padding:11px;
       border-radius:10px;
@@ -137,497 +217,467 @@
       min-height:96px;
       resize:vertical;
     }
+    select{
+      width:100%;
+      padding:11px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      outline:none;
+    }
     input::placeholder, textarea::placeholder{color: rgba(229,231,235,.65)}
     input:focus, textarea:focus{border-color: rgba(56,189,248,.55)}
 
-    .google{
-      width:100%;
+    .hint{color:var(--muted); font-size:.9rem; margin-top:10px}
+
+    /* personalizado */
+    .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .mini label{display:block;font-size:.88rem;color:#cbd5e1;margin:0 0 6px}
+    .checks{display:grid;gap:8px}
+    .chk{display:flex;gap:10px;align-items:center;color:#cbd5e1;font-size:.95rem}
+    .chk input{width:auto;margin:0}
+
+    .total-box{
+      margin-top:12px;
       padding:12px;
-      background:white;
-      color:#0a2cff;
-      border:none;
-      border-radius:12px;
-      font-weight:800;
-      cursor:pointer;
-      transition: transform .12s ease, opacity .12s ease;
-      margin-top:10px;
+      border-radius:14px;
+      border:1px solid rgba(56,189,248,.22);
+      background: rgba(56,189,248,.06);
     }
-    .google:hover{opacity:.94}
-    .google:active{transform:scale(.985)}
+    .total-line{display:flex;justify-content:space-between;align-items:center}
+    .total-line strong{font-size:1.25rem;color:var(--cyan)}
+    .total-sub{margin-top:6px;color:var(--muted);font-size:.95rem}
 
-    .hint{margin-top:10px;color:#a5b4fc;font-size:.9rem;line-height:1.35}
-
-    @media (max-width:520px){
-      header h1{font-size:2.15rem}
+    footer{
+      padding:18px;
+      color:rgba(229,231,235,.7);
+      text-align:center;
     }
   </style>
 </head>
-<body class="preload">
-
-<header>
-  <h1>Karamello</h1>
-  <p>Escolha como deseja usar a plataforma</p>
-</header>
-
-<div class="container">
-  <!-- TELA INICIAL -->
-  <section id="screenStart" class="screen show">
-    <div class="grid">
-      <div class="card">
-        <h3>Sou Cliente</h3>
-        <p>Contrate edição profissional de fotos e vídeos.</p>
-        <button class="btn" type="button" onclick="openCadastro('cliente')">Criar conta (Cliente)</button>
+<body>
+  <div class="page">
+    <header>
+      <div class="wrap">
+        <h1>Karamello</h1>
+        <div class="subtitle">Plataforma profissional de edição de fotos e vídeos</div>
       </div>
+    </header>
 
-      <div class="card">
-        <h3>Quero Trabalhar</h3>
-        <p>Cadastre-se como editor e receba pedidos.</p>
-        <button class="btn" type="button" onclick="openCadastro('editor')">Criar conta (Editor)</button>
-      </div>
-    </div>
-  </section>
+    <main>
+      <div class="wrap">
 
-  <!-- TELA CLIENTE (após cadastro) -->
-  <section id="screenClient" class="screen">
-    <div class="section-title">Bem-vindo, <span id="clientName">Cliente</span> 👋</div>
-    <div class="pill">Escolha um pacote pronto ou monte um pacote personalizado.</div>
-
-    <div class="section-title" style="margin-top:18px">Pacotes prontos (15 opções)</div>
-    <div id="packagesGrid" class="grid" style="margin-top:12px"></div>
-
-    <div class="section-title" style="margin-top:26px">Pacote Personalizado ✨</div>
-    <div class="grid" style="margin-top:12px">
-      <div class="card highlight" style="opacity:1;transform:none">
-        <h3>Monte seu pacote</h3>
-        <p>Escolha quantas fotos/vídeos você quer, para qual plataforma e o tipo de vídeo. O site soma tudo por trás e mostra só o total.</p>
-
-        <div class="mini-grid">
-          <div class="mini">
-            <label>Fotos</label>
-            <input id="custFotos" type="number" min="0" value="0" />
+        <!-- START -->
+        <section id="screenStart" class="screen show">
+          <div class="hero">
+            <div class="card">
+              <h3>Sou Cliente</h3>
+              <p>Escolha um pacote pronto ou monte um pacote personalizado para suas fotos e vídeos.</p>
+              <button class="btn" type="button" onclick="openCadastro('cliente')">Criar conta (Cliente)</button>
+            </div>
+            <div class="card">
+              <h3>Quero Trabalhar</h3>
+              <p>Cadastre-se como editor e receba pedidos de edição dentro da plataforma.</p>
+              <button class="btn" type="button" onclick="openCadastro('editor')">Criar conta (Editor)</button>
+            </div>
           </div>
-          <div class="mini">
-            <label>Vídeos</label>
-            <input id="custVideos" type="number" min="0" value="0" />
+        </section>
+
+        <!-- CLIENTE -->
+        <section id="screenClient" class="screen">
+          <div class="section-title">Bem-vindo, <span id="clientName">Cliente</span> 👋</div>
+          <div class="pill">Escolha um pacote pronto ou monte um pacote personalizado.</div>
+
+          <div class="section-title" style="margin-top:18px">Pacotes prontos (15 opções)</div>
+          <div id="packagesGrid" class="grid" style="margin-top:12px"></div>
+
+          <div class="section-title" style="margin-top:26px">Pacote Personalizado ✨</div>
+          <div class="grid" style="margin-top:12px">
+            <div class="card highlight">
+              <h3>Monte seu pacote</h3>
+              <p>Escolha quantas fotos/vídeos você quer, para qual plataforma e o tipo de vídeo. O site soma tudo por trás e mostra só o total.</p>
+
+              <div class="mini-grid" style="margin-top:12px">
+                <div class="mini">
+                  <label>Fotos</label>
+                  <input id="custFotos" type="number" min="0" value="0" />
+                </div>
+                <div class="mini">
+                  <label>Vídeos</label>
+                  <input id="custVideos" type="number" min="0" value="0" />
+                </div>
+              </div>
+
+              <div class="mini-grid" style="margin-top:10px">
+                <div class="mini">
+                  <label>Plataforma</label>
+                  <select id="custPlataforma">
+                    <option value="reels">Instagram Reels</option>
+                    <option value="tiktok">TikTok</option>
+                    <option value="insta">Instagram Feed</option>
+                    <option value="shorts">YouTube Shorts</option>
+                  </select>
+                </div>
+                <div class="mini">
+                  <label>Tipo de vídeo</label>
+                  <select id="custTipoVideo">
+                    <option value="15">Curto (até 15s)</option>
+                    <option value="45">Médio (30–45s)</option>
+                    <option value="60">Longo (até 60s)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="checks" style="margin-top:10px">
+                <label class="chk"><input data-custom-opt id="optCorCine" type="checkbox" /> Cor cinematográfica (vídeos)</label>
+                <label class="chk"><input data-custom-opt id="optLegenda" type="checkbox" /> Legendas (vídeos)</label>
+                <label class="chk"><input data-custom-opt id="optTransicoes" type="checkbox" /> Transições premium (vídeos)</label>
+                <label class="chk"><input data-custom-opt id="optSFX" type="checkbox" /> Efeitos sonoros (SFX) (vídeos)</label>
+                <label class="chk"><input data-custom-opt id="optAudio" type="checkbox" /> Melhorar áudio + reduzir ruído (vídeos)</label>
+                <label class="chk"><input data-custom-opt id="optEstabilizar" type="checkbox" /> Estabilização (vídeos)</label>
+                <label class="chk"><input data-custom-opt id="optSpeedRamp" type="checkbox" /> Speed ramp / slow motion (vídeos)</label>
+                <label class="chk"><input data-custom-opt id="optMotion" type="checkbox" /> Motion graphics simples (títulos) (vídeos)</label>
+                <label class="chk"><input data-custom-opt id="optIntroOutro" type="checkbox" /> Intro/Outro + CTA (vídeos)</label>
+
+                <label class="chk"><input data-custom-opt id="optRetoquePro" type="checkbox" /> Retoque avançado (fotos)</label>
+                <label class="chk"><input data-custom-opt id="optPele" type="checkbox" /> Suavizar pele (fotos)</label>
+                <label class="chk"><input data-custom-opt id="optFundo" type="checkbox" /> Remover/alterar fundo (fotos)</label>
+                <label class="chk"><input data-custom-opt id="optCoresFoto" type="checkbox" /> Cor cinematográfica (fotos)</label>
+                <label class="chk"><input data-custom-opt id="optHDR" type="checkbox" /> HDR / nitidez premium (fotos)</label>
+                <label class="chk"><input data-custom-opt id="optObjeto" type="checkbox" /> Remover objetos (fotos)</label>
+                <label class="chk"><input data-custom-opt id="optTexto" type="checkbox" /> Texto/arte simples (fotos)</label>
+
+                <label class="chk"><input data-custom-opt id="optThumbnail" type="checkbox" /> Thumbnail (capa) (1 unidade)</label>
+                <label class="chk"><input data-custom-opt id="optUrgente" type="checkbox" /> Prioridade (entrega mais rápida)</label>
+              </div>
+
+              <div class="field" style="margin-top:12px">
+                <label>Categoria detalhada</label>
+                <textarea id="custDetalhe" placeholder="Descreva exatamente como você quer: estilo, referência, cores, cortes, músicas, legendas, plataformas, etc..."></textarea>
+              </div>
+
+              <div class="total-box">
+                <div class="total-line"><span>Valor total</span><strong id="custTotal">R$ 0</strong></div>
+                <div class="total-sub">Entrega estimada: <strong id="custEntrega">13h30</strong> (mínimo)</div>
+              </div>
+
+              <button class="btn" type="button" onclick="confirmCustom()">Continuar com o personalizado</button>
+              <div class="hint">* Os preços por item são internos e não aparecem. Na etapa futura, isso vira checkout real.</div>
+            </div>
           </div>
-        </div>
 
-        <div class="mini-grid" style="margin-top:10px">
-          <div class="mini">
-            <label>Plataforma</label>
-            <select id="custPlataforma">
-              <option value="reels">Instagram Reels</option>
-              <option value="tiktok">TikTok</option>
-              <option value="insta">Instagram Feed</option>
-              <option value="shorts">YouTube Shorts</option>
-            </select>
+          <button class="btn secondary" style="margin-top:18px" type="button" onclick="goBackStart()">Voltar</button>
+        </section>
+
+        <!-- EDITOR -->
+        <section id="screenEditor" class="screen">
+          <div class="section-title">Bem-vindo, <span id="editorName">Editor</span> 👋</div>
+          <div class="pill">Em breve você vai escolher em quais pacotes quer trabalhar (e para mudar depois: taxa futura de R$ 20).</div>
+
+          <div class="card" style="margin-top:14px">
+            <h3>Próximos passos</h3>
+            <p>Na próxima etapa vamos criar: perfil do editor, escolha de pacotes e depois lista de editores para o cliente selecionar.</p>
           </div>
-          <div class="mini">
-            <label>Tipo de vídeo</label>
-            <select id="custTipoVideo">
-              <option value="15">Curto (até 15s)</option>
-              <option value="45">Médio (30–45s)</option>
-              <option value="60">Longo (até 60s)</option>
-            </select>
-          </div>
+
+          <button class="btn secondary" style="margin-top:18px" type="button" onclick="goBackStart()">Voltar</button>
+        </section>
+
+      </div>
+    </main>
+
+    <footer>© 2026 • Karamello • Edição profissional</footer>
+  </div>
+
+  <!-- MODAL CADASTRO -->
+  <div id="overlay" class="overlay" aria-hidden="true">
+    <div id="modal" class="modal" role="dialog" aria-modal="true">
+      <div class="modalHead">
+        <strong id="titleCadastro">Criar conta</strong>
+        <button class="close" type="button" onclick="closeCadastro()">×</button>
+      </div>
+      <div class="modalBody">
+        <div class="field">
+          <label>Nome</label>
+          <input id="inNome" placeholder="Seu nome" />
+        </div>
+        <div class="field">
+          <label>Sobrenome</label>
+          <input id="inSobrenome" placeholder="Seu sobrenome" />
+        </div>
+        <div class="field">
+          <label>Data de nascimento</label>
+          <input id="inData" type="date" />
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input id="inEmail" type="email" placeholder="seuemail@gmail.com" />
+        </div>
+        <div class="field">
+          <label>Senha</label>
+          <input id="inSenha" type="password" placeholder="••••••••" />
         </div>
 
-        <div class="checks" style="margin-top:10px">
-          <label class="chk"><input data-custom-opt id="optCorCine" type="checkbox" /> Cor cinematográfica (vídeos)</label>
-          <label class="chk"><input data-custom-opt id="optLegenda" type="checkbox" /> Legendas (vídeos)</label>
-          <label class="chk"><input data-custom-opt id="optTransicoes" type="checkbox" /> Transições premium (vídeos)</label>
-          <label class="chk"><input data-custom-opt id="optSFX" type="checkbox" /> Efeitos sonoros (SFX) (vídeos)</label>
-          <label class="chk"><input data-custom-opt id="optAudio" type="checkbox" /> Melhorar áudio + reduzir ruído (vídeos)</label>
-          <label class="chk"><input data-custom-opt id="optEstabilizar" type="checkbox" /> Estabilização (vídeos)</label>
-          <label class="chk"><input data-custom-opt id="optSpeedRamp" type="checkbox" /> Speed ramp / slow motion (vídeos)</label>
-          <label class="chk"><input data-custom-opt id="optMotion" type="checkbox" /> Motion graphics simples (títulos) (vídeos)</label>
-          <label class="chk"><input data-custom-opt id="optIntroOutro" type="checkbox" /> Intro/Outro + CTA (vídeos)</label>
+        <button id="btnCadastrar" class="btn" type="button">Continuar</button>
+        <button class="btn secondary" type="button" onclick="alert('Entrar com Google: em breve (precisa backend).')">Entrar com Google (em breve)</button>
 
-          <label class="chk"><input data-custom-opt id="optRetoquePro" type="checkbox" /> Retoque avançado (fotos)</label>
-          <label class="chk"><input data-custom-opt id="optPele" type="checkbox" /> Suavizar pele (fotos)</label>
-          <label class="chk"><input data-custom-opt id="optFundo" type="checkbox" /> Remover/alterar fundo (fotos)</label>
-          <label class="chk"><input data-custom-opt id="optCoresFoto" type="checkbox" /> Cor cinematográfica (fotos)</label>
-          <label class="chk"><input data-custom-opt id="optHDR" type="checkbox" /> HDR / nitidez premium (fotos)</label>
-          <label class="chk"><input data-custom-opt id="optObjeto" type="checkbox" /> Remover objetos (fotos)</label>
-          <label class="chk"><input data-custom-opt id="optTexto" type="checkbox" /> Texto/arte simples (fotos)</label>
-          <label class="chk"><input data-custom-opt id="optThumbnail" type="checkbox" /> Thumbnail (capa) (1 unidade)</label>
-
-          <label class="chk"><input data-custom-opt id="optUrgente" type="checkbox" /> Prioridade (entrega mais rápida)</label>
-        </div>
-
-        <div class="field" style="margin-top:12px">
-          <label>Categoria detalhada</label>
-          <textarea id="custDetalhe" placeholder="Descreva exatamente como você quer: estilo, referência, cores, cortes, músicas, legendas, plataformas, etc..."></textarea>
-        </div>
-
-        <div class="total-box">
-          <div class="total-line"><span>Valor total</span><strong id="custTotal">R$ 0</strong></div>
-          <div class="total-sub">Entrega estimada: <strong id="custEntrega">13h30</strong> (mínimo)</div>
-        </div>
-
-        <button class="btn" type="button" onclick="confirmCustom()">Continuar com o personalizado</button>
-        <div class="hint">* Preços baseados em referências de mercado (foto por unidade e edição de vídeo por complexidade). Na ETAPA futura, isso vira checkout real.</div>
+        <div class="hint">* Login real com Google e segurança total entram na etapa futura (backend).</div>
       </div>
-    </div>
-
-    <button class="btn secondary" style="margin-top:18px" type="button" onclick="goBackStart()">Voltar</button>
-  </section>
-
-  <!-- TELA EDITOR (após cadastro) -->
-  <section id="screenEditor" class="screen">
-    <div class="section-title">Bem-vindo, <span id="editorName">Editor</span> 🎬</div>
-    <div class="pill">Complete seu perfil para começar a receber pedidos.</div>
-
-    <div class="grid" style="margin-top:16px">
-      <div class="card" style="opacity:1;transform:none">
-        <h3>Seu perfil (ETAPA 2)</h3>
-        <p>Na próxima etapa, você terá uma área para colocar seu portfólio, estilos e preços.</p>
-        <button class="btn" type="button" onclick="alert('Próxima etapa: perfil do editor + vitrine (ETAPA 3).')">Quero montar meu perfil</button>
-      </div>
-
-      <div class="card" style="opacity:1;transform:none">
-        <h3>Como funciona</h3>
-        <ul>
-          <li>Você recebe pedidos de clientes</li>
-          <li>Conversa via chat (ETAPA futura)</li>
-          <li>Entrega do trabalho após pagamento (futuro)</li>
-        </ul>
-        <button class="btn" type="button" onclick="alert('Próxima etapa: vitrine de editores + escolher editor (ETAPA 3).')">Entendi</button>
-      </div>
-    </div>
-
-    <button class="btn secondary" style="margin-top:18px" type="button" onclick="goBackStart()">Voltar</button>
-  </section>
-</div>
-
-<!-- MODAL -->
-<div id="overlay" class="overlay" aria-hidden="true">
-  <div id="modal" class="modal" role="dialog" aria-modal="true">
-    <div class="modal-head">
-      <h3 id="titleCadastro">Criar conta</h3>
-      <button class="x" type="button" onclick="closeCadastro()">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="field">
-        <label>Nome</label>
-        <input id="inNome" type="text" placeholder="Seu nome" />
-      </div>
-      <div class="field">
-        <label>Sobrenome</label>
-        <input id="inSobrenome" type="text" placeholder="Seu sobrenome" />
-      </div>
-      <div class="field">
-        <label>Data de nascimento</label>
-        <input id="inNasc" type="date" />
-      </div>
-      <div class="field">
-        <label>Email</label>
-        <input id="inEmail" type="email" placeholder="seuemail@exemplo.com" />
-      </div>
-      <div class="field">
-        <label>Senha</label>
-        <input id="inSenha" type="password" placeholder="Crie uma senha" />
-      </div>
-
-      <button id="btnCadastrar" class="btn" type="button">Continuar</button>
-      <button class="google" type="button" onclick="alert('Login com Google entra na ETAPA 2 (Firebase).')">Entrar com Google (em breve)</button>
-
-      <div class="hint">* ETAPA 2: login seguro (Google) + salvar dados. ETAPA 3: escolher editor + chat + envio de arquivos.</div>
     </div>
   </div>
-</div>
 
-<footer>
-  © 2026 • Karamello • Edição profissional
-</footer>
+  <script>
+    // FAILSAFE: nunca deixar o site invisivel
+    document.body.style.opacity = '1';
+    document.body.style.visibility = 'visible';
 
-<script>
-  // Entrada profissional do site
-  window.addEventListener('DOMContentLoaded', () => {
-    requestAnimationFrame(() => {
-      document.body.classList.remove('preload');
-      document.body.classList.add('loaded');
-    });
-  });
+    const overlay = document.getElementById('overlay');
+    const modal = document.getElementById('modal');
+    const titleCadastro = document.getElementById('titleCadastro');
+    const btnCadastrar = document.getElementById('btnCadastrar');
 
-  const overlay = document.getElementById('overlay');
-  const modal = document.getElementById('modal');
-  const titleCadastro = document.getElementById('titleCadastro');
-  const btnCadastrar = document.getElementById('btnCadastrar');
+    const screenStart = document.getElementById('screenStart');
+    const screenClient = document.getElementById('screenClient');
+    const screenEditor = document.getElementById('screenEditor');
 
-  const screenStart = document.getElementById('screenStart');
-  const screenClient = document.getElementById('screenClient');
-  const screenEditor = document.getElementById('screenEditor');
+    const inNome = document.getElementById('inNome');
+    const inSobrenome = document.getElementById('inSobrenome');
 
-  const inNome = document.getElementById('inNome');
-  const inSobrenome = document.getElementById('inSobrenome');
+    const clientName = document.getElementById('clientName');
+    const editorName = document.getElementById('editorName');
 
-  const clientName = document.getElementById('clientName');
-  const editorName = document.getElementById('editorName');
+    let role = null; // 'cliente' | 'editor'
 
-  let role = null; // 'cliente' | 'editor'
+    function openCadastro(tipo){
+      role = tipo;
+      titleCadastro.textContent = (tipo === 'cliente') ? 'Criar conta como Cliente' : 'Criar conta como Editor';
 
-  // ===== MODAL CADASTRO =====
-  function openCadastro(tipo){
-    role = tipo;
-    titleCadastro.textContent = (tipo === 'cliente') ? 'Criar conta como Cliente' : 'Criar conta como Editor';
-
-    overlay.classList.remove('closing');
-    modal.classList.remove('closing');
-
-    overlay.classList.add('show');
-    overlay.setAttribute('aria-hidden','false');
-
-    // reinicia animacao do modal
-    modal.style.animation = 'none';
-    void modal.offsetHeight;
-    modal.style.animation = '';
-  }
-
-  function closeCadastro(){
-    overlay.classList.add('closing');
-    modal.classList.add('closing');
-
-    setTimeout(() => {
-      overlay.classList.remove('show','closing');
+      overlay.classList.remove('closing');
       modal.classList.remove('closing');
-      overlay.setAttribute('aria-hidden','true');
-    }, 220);
-  }
 
-  overlay.addEventListener('click', (e) => {
-    if(e.target === overlay) closeCadastro();
-  });
+      overlay.classList.add('show');
+      overlay.setAttribute('aria-hidden','false');
 
-  // ===== TELAS =====
-  function showScreen(which){
-    [screenStart, screenClient, screenEditor].forEach(s => s.classList.remove('show'));
-    setTimeout(() => {
-      which.classList.add('show');
-      window.scrollTo({top:0, behavior:'smooth'});
-    }, 50);
-  }
-
-  function goBackStart(){
-    showScreen(screenStart);
-  }
-
-  // ===== PACOTES (15) =====
-  const packages = [
-    // Crescentes + numeros quebrados (psicologia de preco)
-    {id:1,  name:'Starter Foto',     price:27.40, eta:'13h30', items:['1 Foto (básica)','Cor + nitidez']},
-    {id:2,  name:'Duo Foto',         price:41.80, eta:'13h30', items:['2 Fotos (básicas)','Cor + nitidez']},
-    {id:3,  name:'Foto Pro 3',       price:53.60, eta:'14h30', items:['3 Fotos (pro)','Ajustes finos + cor']},
-    {id:4,  name:'Vídeo Short 15s',  price:63.90, eta:'14h30', items:['1 Vídeo curto (até 15s)','Cortes + ritmo']},
-    {id:5,  name:'Foto Pack 4',      price:73.50, eta:'15h00', items:['4 Fotos (pro)','Cor + detalhes']},
-    {id:6,  name:'Short Duo',        price:86.40, eta:'15h30', items:['2 Vídeos curtos (até 15s)','Cortes + transições simples']},
-    {id:7,  name:'Combo Social',     price:96.80, eta:'16h00', items:['1 Foto + 1 Vídeo curto','Look cinematográfico leve']},
-    {id:8,  name:'Foto Pack 5',      price:108.90,eta:'18h00', items:['5 Fotos (pro)','Padronização de cor']},
-    {id:9,  name:'Short Trio',       price:132.70,eta:'18h00', items:['3 Vídeos curtos (até 15s)','Cor + ritmo']},
-    {id:10, name:'Foto Pack 8',      price:151.40,eta:'24h',   items:['8 Fotos (pro)','Cor + retoques leves']},
-    {id:11, name:'Short 5',          price:176.90,eta:'24h',   items:['5 Vídeos curtos','Cortes + cor']},
-    {id:12, name:'Creator Mix',      price:197.80,eta:'24h',   items:['10 Fotos + 1 Vídeo curto','Padronização completa']},
-    {id:13, name:'Vídeo Médio 45s',  price:221.60,eta:'24h',   items:['1 Vídeo médio (30–45s)','Cor + transições']},
-    {id:14, name:'Vídeo Longo 60s',  price:259.40,eta:'48h',   items:['1 Vídeo longo (até 60s)','Edição avançada']},
-    {id:15, name:'Premium Creator',  price:329.90,eta:'48h',   items:['15 Fotos + 3 Vídeos curtos','Look premium + revisão']},
-  ];
-
-  function brl(v){
-    return v.toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
-  }
-
-  function renderPackages(){
-    const grid = document.getElementById('packagesGrid');
-    if(!grid) return;
-    grid.innerHTML = '';
-
-    packages.forEach(p => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.style.opacity = '1';
-      card.style.transform = 'none';
-
-      const itemsHtml = p.items.map(i => `<li>${i}</li>`).join('');
-
-      card.innerHTML = `
-        <h3>${p.id}. ${p.name}</h3>
-        <p>Entrega a partir de <strong>${p.eta}</strong> (mínimo 13h30)</p>
-        <div class="price">${brl(p.price)}</div>
-        <ul>${itemsHtml}</ul>
-        <button class="btn" type="button" onclick="choosePackage(${p.id})">Escolher pacote</button>
-      `;
-      grid.appendChild(card);
-    });
-  }
-
-  function choosePackage(id){
-    const p = packages.find(x => x.id === id);
-    if(!p) return;
-    alert(`Pacote selecionado: ${p.id}. ${p.name}
-Valor: ${brl(p.price)}
-Entrega: ${p.eta}
-
-Próxima etapa (futura): escolher editor + enviar arquivos.`);
-  }
-
-  // ===== PERSONALIZADO (soma por trás, mostra só total) =====
-  const custFotos = document.getElementById('custFotos');
-  const custVideos = document.getElementById('custVideos');
-  const custPlataforma = document.getElementById('custPlataforma');
-  const custTipoVideo = document.getElementById('custTipoVideo');
-    const custTotal = document.getElementById('custTotal');
-  const custEntrega = document.getElementById('custEntrega');
-
-  const PRICES = {
-    // Personalizado: precos internos (nao exibidos)
-    foto: 21.40,
-    video15: 44.90,
-    video45: 66.70,
-    video60: 84.60,
-    // pequenas variacoes por plataforma (nao exibidas)
-    platformMult: { reels:1.00, tiktok:1.00, insta:1.04, shorts:1.04 }
-  };
-
-  // Opcoes do personalizado: cada uma tem um preco interno (NAO exibido)
-  const EXTRA_OPTIONS = [
-    // video (por video)
-    { id:'optCorCine',    kind:'video', price:11.60 },
-    { id:'optLegenda',    kind:'video', price:11.60 },
-    { id:'optTransicoes', kind:'video', price:9.40  },
-    { id:'optSFX',        kind:'video', price:9.40  },
-    { id:'optAudio',      kind:'video', price:11.60 },
-    { id:'optEstabilizar',kind:'video', price:11.60 },
-    { id:'optSpeedRamp',  kind:'video', price:9.40  },
-    { id:'optMotion',     kind:'video', price:11.60 },
-    { id:'optIntroOutro', kind:'video', price:11.60 },
-
-    // foto (por foto)
-    { id:'optRetoquePro', kind:'photo', price:9.40  },
-    { id:'optPele',       kind:'photo', price:9.40  },
-    { id:'optFundo',      kind:'photo', price:11.60 },
-    { id:'optCoresFoto',  kind:'photo', price:9.40  },
-    { id:'optHDR',        kind:'photo', price:9.40  },
-    { id:'optObjeto',     kind:'photo', price:11.60 },
-    { id:'optTexto',      kind:'photo', price:9.40  },
-
-    // por pedido (flat)
-    { id:'optThumbnail',  kind:'order', price:19.90 },
-    { id:'optUrgente',    kind:'order', price:29.90 },
-  ];
-
-  function calcEntrega(total, urgent){
-    // mínimo 13h30, aumenta conforme total
-    let eta = '13h30';
-    if(total <= 120) eta = '13h30';
-    else if(total <= 250) eta = '14h30';
-    else if(total <= 400) eta = '18h00';
-    else if(total <= 700) eta = '24h';
-    else eta = '48h';
-
-    // prioridade encurta um nivel (sem passar do minimo)
-    if(urgent){
-      if(eta === '48h') eta = '24h';
-      else if(eta === '24h') eta = '18h00';
-      else if(eta === '18h00') eta = '14h30';
-      else eta = '13h30';
-    }
-    return eta;
-  }
-
-  function calcCustom(){
-    if(!custTotal) return;
-
-    const fotos = Math.max(0, parseInt(custFotos?.value || '0', 10));
-    const vids  = Math.max(0, parseInt(custVideos?.value || '0', 10));
-    const plat  = custPlataforma?.value || 'reels';
-    const tipo  = custTipoVideo?.value || '15';
-
-    let unitVideo = PRICES.video15;
-    if(tipo === '45') unitVideo = PRICES.video45;
-    if(tipo === '60') unitVideo = PRICES.video60;
-
-    const mult = PRICES.platformMult[plat] ?? 1.0;
-
-    let extraVideo = 0;
-    let extraPhoto = 0;
-    let extraOrder = 0;
-
-    EXTRA_OPTIONS.forEach(o => {
-      const el = document.getElementById(o.id);
-      if(!el || !el.checked) return;
-      if(o.kind === 'video') extraVideo += o.price;
-      else if(o.kind === 'photo') extraPhoto += o.price;
-      else extraOrder += o.price;
-    });
-
-    const rawTotal = (fotos * (PRICES.foto + extraPhoto)) + (vids * (unitVideo * mult + extraVideo)) + extraOrder;
-
-    // "jogo" de numeros: cria centavos nao redondos e dificulta comparacao
-    const jitter = (fotos + vids) > 0 ? (0.30 + ((fotos*7 + vids*11) % 7) * 0.10) : 0;
-    const total = Math.max(0, rawTotal + jitter);
-
-    custTotal.textContent = brl(total);
-    if(custEntrega) const urgent = document.getElementById('optUrgente')?.checked || false;
-    custEntrega.textContent = calcEntrega(total, urgent);
-  }
-
-  function confirmCustom(){
-    const totalStr = custTotal?.textContent || 'R$ 0';
-    const entregaStr = custEntrega?.textContent || '13h30';
-    alert(`Personalizado criado!
-Total: ${totalStr}
-Entrega estimada: ${entregaStr}
-
-Próxima etapa (futura): escolher editor + enviar arquivos.`);
-  }
-
-  [custFotos, custVideos, custPlataforma, custTipoVideo].forEach(el => {
-    if(!el) return;
-    el.addEventListener('input', calcCustom);
-    el.addEventListener('change', calcCustom);
-  });
-
-  // opcoes extras (16+)
-  Array.from(document.querySelectorAll('[data-custom-opt]')).forEach(el => {
-    el.addEventListener('change', calcCustom);
-  });
-
-  // campo livre (nao muda preco, mas ajuda no futuro)
-  const custDetalhe = document.getElementById('custDetalhe');
-  if(custDetalhe){
-    custDetalhe.addEventListener('input', () => {});
-  }
-    el.addEventListener('change', calcCustom);
-  });
-
-  // ===== REGISTRO (fluxo) =====
-  btnCadastrar.addEventListener('click', () => {
-    const nome = (inNome.value || '').trim();
-    const sobrenome = (inSobrenome.value || '').trim();
-
-    if(!nome || !sobrenome){
-      alert('Preencha Nome e Sobrenome para continuar.');
-      return;
+      modal.style.animation = 'none';
+      void modal.offsetHeight;
+      modal.style.animation = '';
     }
 
-    closeCadastro();
+    function closeCadastro(){
+      overlay.classList.add('closing');
+      modal.classList.add('closing');
 
-    const firstName = nome;
-
-    if(role === 'cliente'){
-      clientName.textContent = firstName;
-      showScreen(screenClient);
-      // renderiza pacotes e inicia calculo do personalizado
       setTimeout(() => {
-        renderPackages();
-        calcCustom();
-      }, 80);
-    } else {
-      editorName.textContent = firstName;
-      showScreen(screenEditor);
+        overlay.classList.remove('show','closing');
+        modal.classList.remove('closing');
+        overlay.setAttribute('aria-hidden','true');
+      }, 220);
     }
-  });
-</script>
 
+    overlay.addEventListener('click', (e) => {
+      if(e.target === overlay) closeCadastro();
+    });
+
+    function showScreen(which){
+      [screenStart, screenClient, screenEditor].forEach(s => s.classList.remove('show'));
+      setTimeout(() => {
+        which.classList.add('show');
+        window.scrollTo({top:0, behavior:'smooth'});
+      }, 50);
+    }
+
+    function goBackStart(){
+      showScreen(screenStart);
+    }
+
+    // ===== PACOTES (15) =====
+    const packages = [
+      {id:1,  name:'Starter Foto',     price:27.40, eta:'13h30', items:['1 Foto (básica)','Cor + nitidez']},
+      {id:2,  name:'Duo Foto',         price:41.80, eta:'13h30', items:['2 Fotos (básicas)','Cor + nitidez']},
+      {id:3,  name:'Foto Pro 3',       price:53.60, eta:'14h30', items:['3 Fotos (pro)','Ajustes finos + cor']},
+      {id:4,  name:'Vídeo Short 15s',  price:63.90, eta:'14h30', items:['1 Vídeo curto (até 15s)','Cortes + ritmo']},
+      {id:5,  name:'Foto Pack 4',      price:73.50, eta:'15h00', items:['4 Fotos (pro)','Cor + detalhes']},
+      {id:6,  name:'Short Duo',        price:86.40, eta:'15h30', items:['2 Vídeos curtos (até 15s)','Cortes + transições simples']},
+      {id:7,  name:'Combo Social',     price:96.80, eta:'16h00', items:['1 Foto + 1 Vídeo curto','Look cinematográfico leve']},
+      {id:8,  name:'Foto Pack 5',      price:108.90,eta:'18h00', items:['5 Fotos (pro)','Padronização de cor']},
+      {id:9,  name:'Short Trio',       price:132.70,eta:'18h00', items:['3 Vídeos curtos (até 15s)','Cor + ritmo']},
+      {id:10, name:'Foto Pack 8',      price:151.40,eta:'24h',   items:['8 Fotos (pro)','Cor + retoques leves']},
+      {id:11, name:'Short 5',          price:176.90,eta:'24h',   items:['5 Vídeos curtos','Cortes + cor']},
+      {id:12, name:'Creator Mix',      price:197.80,eta:'24h',   items:['10 Fotos + 1 Vídeo curto','Padronização completa']},
+      {id:13, name:'Vídeo Médio 45s',  price:221.60,eta:'24h',   items:['1 Vídeo médio (30–45s)','Cor + transições']},
+      {id:14, name:'Vídeo Longo 60s',  price:259.40,eta:'48h',   items:['1 Vídeo longo (até 60s)','Edição avançada']},
+      {id:15, name:'Premium Creator',  price:329.90,eta:'48h',   items:['15 Fotos + 3 Vídeos curtos','Look premium + revisão']},
+    ];
+
+    function brl(v){
+      return v.toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
+    }
+
+    function renderPackages(){
+      const grid = document.getElementById('packagesGrid');
+      if(!grid) return;
+      grid.innerHTML = '';
+
+      packages.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        const itemsHtml = p.items.map(i => `<li>${i}</li>`).join('');
+        card.innerHTML = `
+          <h3>${p.id}. ${p.name}</h3>
+          <p>Entrega a partir de <strong>${p.eta}</strong> (mínimo 13h30)</p>
+          <div class="price">${brl(p.price)}</div>
+          <ul>${itemsHtml}</ul>
+          <button class="btn" type="button" onclick="choosePackage(${p.id})">Escolher pacote</button>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function choosePackage(id){
+      const p = packages.find(x => x.id === id);
+      if(!p) return;
+      alert(`Pacote selecionado: ${p.id}. ${p.name}\nValor: ${brl(p.price)}\nEntrega: ${p.eta}\n\nPróxima etapa (futura): escolher editor + enviar arquivos.`);
+    }
+
+    // ===== PERSONALIZADO (soma por trás) =====
+    const custFotos = document.getElementById('custFotos');
+    const custVideos = document.getElementById('custVideos');
+    const custPlataforma = document.getElementById('custPlataforma');
+    const custTipoVideo = document.getElementById('custTipoVideo');
+    const custTotal = document.getElementById('custTotal');
+    const custEntrega = document.getElementById('custEntrega');
+
+    const PRICES = {
+      foto: 21.40,
+      video15: 44.90,
+      video45: 66.70,
+      video60: 84.60,
+      platformMult: { reels:1.00, tiktok:1.00, insta:1.04, shorts:1.04 }
+    };
+
+    const EXTRA_OPTIONS = [
+      { id:'optCorCine',    kind:'video', price:11.60 },
+      { id:'optLegenda',    kind:'video', price:11.60 },
+      { id:'optTransicoes', kind:'video', price:9.40  },
+      { id:'optSFX',        kind:'video', price:9.40  },
+      { id:'optAudio',      kind:'video', price:11.60 },
+      { id:'optEstabilizar',kind:'video', price:11.60 },
+      { id:'optSpeedRamp',  kind:'video', price:9.40  },
+      { id:'optMotion',     kind:'video', price:11.60 },
+      { id:'optIntroOutro', kind:'video', price:11.60 },
+
+      { id:'optRetoquePro', kind:'photo', price:9.40  },
+      { id:'optPele',       kind:'photo', price:9.40  },
+      { id:'optFundo',      kind:'photo', price:11.60 },
+      { id:'optCoresFoto',  kind:'photo', price:9.40  },
+      { id:'optHDR',        kind:'photo', price:9.40  },
+      { id:'optObjeto',     kind:'photo', price:11.60 },
+      { id:'optTexto',      kind:'photo', price:9.40  },
+
+      { id:'optThumbnail',  kind:'order', price:19.90 },
+      { id:'optUrgente',    kind:'order', price:29.90 },
+    ];
+
+    function calcEntrega(total, urgent){
+      let eta = '13h30';
+      if(total <= 120) eta = '13h30';
+      else if(total <= 250) eta = '14h30';
+      else if(total <= 400) eta = '18h00';
+      else if(total <= 700) eta = '24h';
+      else eta = '48h';
+
+      if(urgent){
+        if(eta === '48h') eta = '24h';
+        else if(eta === '24h') eta = '18h00';
+        else if(eta === '18h00') eta = '14h30';
+        else eta = '13h30';
+      }
+      return eta;
+    }
+
+    function calcCustom(){
+      if(!custTotal) return;
+
+      const fotos = Math.max(0, parseInt(custFotos?.value || '0', 10));
+      const vids  = Math.max(0, parseInt(custVideos?.value || '0', 10));
+      const plat  = custPlataforma?.value || 'reels';
+      const tipo  = custTipoVideo?.value || '15';
+
+      let unitVideo = PRICES.video15;
+      if(tipo === '45') unitVideo = PRICES.video45;
+      if(tipo === '60') unitVideo = PRICES.video60;
+
+      const mult = PRICES.platformMult[plat] ?? 1.0;
+
+      let extraVideo = 0;
+      let extraPhoto = 0;
+      let extraOrder = 0;
+
+      EXTRA_OPTIONS.forEach(o => {
+        const el = document.getElementById(o.id);
+        if(!el || !el.checked) return;
+        if(o.kind === 'video') extraVideo += o.price;
+        else if(o.kind === 'photo') extraPhoto += o.price;
+        else extraOrder += o.price;
+      });
+
+      const rawTotal = (fotos * (PRICES.foto + extraPhoto)) + (vids * (unitVideo * mult + extraVideo)) + extraOrder;
+
+      // "jogo" de numeros nos centavos
+      const jitter = (fotos + vids) > 0 ? (0.30 + ((fotos*7 + vids*11) % 7) * 0.10) : 0;
+      const total = Math.max(0, rawTotal + jitter);
+
+      custTotal.textContent = brl(total);
+
+      const urgent = document.getElementById('optUrgente')?.checked || false;
+      if(custEntrega) custEntrega.textContent = calcEntrega(total, urgent);
+    }
+
+    function confirmCustom(){
+      const totalStr = custTotal?.textContent || 'R$ 0';
+      const entregaStr = custEntrega?.textContent || '13h30';
+      alert(`Personalizado criado!\nTotal: ${totalStr}\nEntrega estimada: ${entregaStr}\n\nPróxima etapa (futura): escolher editor + enviar arquivos.`);
+    }
+
+    [custFotos, custVideos, custPlataforma, custTipoVideo].forEach(el => {
+      if(!el) return;
+      el.addEventListener('input', calcCustom);
+      el.addEventListener('change', calcCustom);
+    });
+    Array.from(document.querySelectorAll('[data-custom-opt]')).forEach(el => {
+      el.addEventListener('change', calcCustom);
+    });
+
+    btnCadastrar.addEventListener('click', () => {
+      const nome = (inNome.value || '').trim();
+      const sobrenome = (inSobrenome.value || '').trim();
+
+      if(!nome || !sobrenome){
+        alert('Preencha Nome e Sobrenome para continuar.');
+        return;
+      }
+
+      closeCadastro();
+
+      const firstName = nome;
+
+      if(role === 'cliente'){
+        clientName.textContent = firstName;
+        showScreen(screenClient);
+        setTimeout(() => {
+          renderPackages();
+          calcCustom();
+        }, 80);
+      } else {
+        editorName.textContent = firstName;
+        showScreen(screenEditor);
+      }
+    });
+
+    // inicia pacote custom ao carregar
+    window.addEventListener('DOMContentLoaded', () => {
+      calcCustom();
+    });
+  </script>
 </body>
 </html>
