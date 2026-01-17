@@ -284,7 +284,6 @@
     .hint{color:var(--muted); font-size:.9rem; margin-top:10px}
 
     .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    @media (max-width: 620px){ .mini-grid{grid-template-columns:1fr} }
     .mini label{display:block;font-size:.88rem;color:#cbd5e1;margin:0 0 6px}
 
     .checks{display:grid;gap:8px}
@@ -329,6 +328,11 @@
       box-shadow: 0 10px 24px rgba(0,0,0,.35);
       overflow:hidden;
       flex:0 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:900;
+      color:rgba(229,231,235,.92);
     }
     .avatar img{width:100%;height:100%;object-fit:cover;display:block;}
     .who .meta{display:flex;flex-direction:column;gap:2px}
@@ -336,6 +340,7 @@
       display:inline-flex; gap:3px; align-items:center;
       font-size:14px;
       letter-spacing:.2px;
+      flex-wrap:wrap;
     }
     .star{
       color: rgba(56,189,248,.95);
@@ -351,6 +356,57 @@
       font-size:.9rem;
       font-weight:700;
     }
+
+    /* ===== B: Seleção de Editores (Cliente) ===== */
+    .toolbar{
+      display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center; justify-content:space-between;
+      margin-top:12px;
+    }
+    .toolbar .left, .toolbar .right{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+    .chip{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color:#e5e7eb;
+      font-size:.92rem;
+    }
+    .editor-cards{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+      margin-top:12px;
+    }
+    @media (max-width: 980px){ .editor-cards{grid-template-columns: repeat(2, 1fr);} }
+    @media (max-width: 620px){ .editor-cards{grid-template-columns: 1fr;} }
+
+    .eCard{
+      background: linear-gradient(180deg, rgba(11,18,38,.92), rgba(10,16,34,.88));
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:18px;
+      padding:14px;
+      box-shadow: 0 10px 26px rgba(0,0,0,.35);
+      content-visibility:auto;
+      contain-intrinsic-size: 320px 280px;
+      contain: layout paint style;
+    }
+    .eTop{display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
+    .eName{font-weight:900; color:#e5e7eb; font-size:1.05rem}
+    .eMeta{color:rgba(229,231,235,.70); font-size:.92rem; margin-top:4px}
+    .eBio{margin-top:10px;color:rgba(156,163,175,.95);line-height:1.35;font-size:.95rem;}
+    .eBadges{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+    .badge{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color:#e5e7eb;
+      font-size:.9rem;
+    }
+    .badge.pillBlue{border-color: rgba(124,58,237,.30);background: rgba(124,58,237,.10);}
+    .badge.you{border-color: rgba(56,189,248,.30);background: rgba(56,189,248,.10);}
+    .badge.off{opacity:.6}
 
     /* ===== Editor Dashboard ===== */
     .editor-grid{
@@ -443,14 +499,31 @@
     }
 
     .pkg-list{display:grid; gap:10px; margin-top:10px;}
+
+    /* ✅ THUMB (preenche o vazio) + layout */
     .pkg-item{
-      display:flex; gap:12px; align-items:flex-start;
+      display:grid;
+      grid-template-columns: 92px 1fr;
+      gap:14px;
+      align-items:start;
       padding:10px;
       border-radius:14px;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.05);
     }
-    .pkg-item input{ margin-top:3px; }
+    .pkg-thumb{
+      width:88px;
+      height:88px;
+      border-radius:14px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(56,189,248,.35), transparent 60%),
+        radial-gradient(circle at 70% 70%, rgba(124,58,237,.35), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow: 0 10px 24px rgba(0,0,0,.35);
+      flex-shrink:0;
+    }
+    .pkg-item input{ margin-top:4px; width:auto; }
     .pkg-title{ font-weight:900; color:#e5e7eb }
     .pkg-sub{ color:rgba(229,231,235,.72); font-size:.92rem; margin-top:2px }
     .pkg-meta{ color:rgba(156,163,175,.92); font-size:.9rem; margin-top:6px }
@@ -461,39 +534,12 @@
     }
     .uploadRow .avatar{width:56px;height:56px}
 
-    /* ===== (Opcional) cards de editor para o cliente (demo) ===== */
-    .editor-cards{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:14px;
-      margin-top:12px;
+    /* “Ver mais” centralizado */
+    .moreRow{
+      margin-top:10px;
+      display:flex;
+      justify-content:center;
     }
-    @media (max-width: 980px){ .editor-cards{grid-template-columns: repeat(2, 1fr);} }
-    @media (max-width: 620px){ .editor-cards{grid-template-columns: 1fr;} }
-    .eCard{
-      background: linear-gradient(180deg, rgba(11,18,38,.92), rgba(10,16,34,.88));
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:18px;
-      padding:14px;
-      box-shadow: 0 10px 26px rgba(0,0,0,.35);
-      content-visibility:auto;
-      contain-intrinsic-size: 320px 280px;
-      contain: layout paint style;
-    }
-    .eTop{display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
-    .eName{font-weight:900; color:#e5e7eb; font-size:1.05rem}
-    .eMeta{color:rgba(229,231,235,.70); font-size:.92rem; margin-top:4px}
-    .eBio{margin-top:10px;color:rgba(156,163,175,.95);line-height:1.35;font-size:.95rem;}
-    .eBadges{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
-    .badge{
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color:#e5e7eb;
-      font-size:.9rem;
-    }
-    .badge.you{border-color: rgba(56,189,248,.30);background: rgba(56,189,248,.10);}
   </style>
 </head>
 
@@ -581,7 +627,6 @@
                   <option value="pinterest">Pinterest</option>
                   <option value="linkedin">LinkedIn</option>
                   <option value="x">X (Twitter)</option>
-                  <option value="snap">Snapchat</option>
                 </select>
               </div>
             </div>
@@ -640,14 +685,11 @@
                     <option value="shorts">YouTube Shorts</option>
                     <option value="ytlong">YouTube (vídeo normal)</option>
                     <option value="facebookreels">Facebook Reels</option>
-                    <option value="facebook">Facebook (vídeo normal)</option>
                     <option value="kwai">Kwai</option>
                     <option value="snap">Snapchat Spotlight</option>
                     <option value="pinterest">Pinterest Idea Pins</option>
                     <option value="linkedin">LinkedIn</option>
                     <option value="x">X (Twitter)</option>
-                    <option value="twitch">Twitch (clipe)</option>
-                    <option value="discord">Discord</option>
                   </select>
                 </div>
                 <div class="mini">
@@ -704,7 +746,30 @@
           <button class="btn secondary" style="margin-top:18px" type="button" onclick="goBackStart()">Voltar</button>
         </section>
 
-        <!-- EDITOR -->
+        <!-- ✅ Seleção de Editor (Cliente) -->
+        <section id="screenPickEditor" class="screen">
+          <div class="section-title">Escolha seu Editor ⭐</div>
+          <div class="pill">Você verá editores compatíveis com o seu pedido (avaliação começa em 5 estrelas).</div>
+
+          <div class="toolbar">
+            <div class="left">
+              <span class="chip" id="pickInfo">Pedido: —</span>
+              <span class="chip">Avaliação: ⭐⭐⭐⭐⭐</span>
+            </div>
+            <div class="right">
+              <select id="pickSort" style="min-width:240px">
+                <option value="best">Melhores avaliados</option>
+                <option value="fast">Mais rápidos (simulado)</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="editorsGrid" class="editor-cards"></div>
+
+          <button class="btn secondary" style="margin-top:18px" type="button" onclick="backToOrder()">Voltar</button>
+        </section>
+
+        <!-- ✅ EDITOR DASHBOARD -->
         <section id="screenEditor" class="screen">
           <div class="section-title">Bem-vindo, <span id="editorName">Editor</span> 👋</div>
           <div class="pill">Complete seu perfil, selecione pacotes e fique disponível para receber pedidos.</div>
@@ -742,6 +807,7 @@
                 <div class="hint" style="margin-top:0">* Foto opcional (salva no navegador).</div>
               </div>
 
+              <!-- KPIs úteis (sem comissão/admin aqui) -->
               <div class="kpi">
                 <div class="k">
                   <div class="t">Avaliação</div>
@@ -822,11 +888,19 @@
                     <option value="video">Só Vídeo</option>
                     <option value="foto">Só Foto</option>
                     <option value="mix">Mix (Foto + Vídeo)</option>
+                    <option value="audio">Áudio</option>
                   </select>
                 </div>
               </div>
 
               <div id="editorPackages" class="pkg-list"></div>
+
+              <!-- ✅ BOTÃO SETA: mostra só 5 e abre o resto -->
+              <div class="moreRow">
+                <button class="btn secondary small" id="toggleMorePkgs" type="button" onclick="toggleMorePackages()">
+                  Ver mais pacotes ↓
+                </button>
+              </div>
 
               <div class="total-box" style="margin-top:12px">
                 <div class="total-line">
@@ -846,8 +920,9 @@
             </div>
           </div>
 
+          <!-- Preview público -->
           <div class="section-title" style="margin-top:22px">Como você aparece para o cliente</div>
-          <div class="pill">Preview do seu card público.</div>
+          <div class="pill">Esse é o card que vai aparecer na tela de escolha do editor.</div>
 
           <div class="editor-cards" style="margin-top:12px">
             <div class="eCard" id="edPublicPreview"></div>
@@ -893,24 +968,51 @@
         .replaceAll('"',"&quot;")
         .replaceAll("'","&#039;");
     }
+    function brl(v){ return Number(v||0).toLocaleString('pt-BR', {style:'currency', currency:'BRL'}); }
 
     function renderStarsHTML(value, max=5){
       const v = Math.max(0, Math.min(max, Number(value||0)));
-      const full = Math.floor(v);
-      const empty = max - full;
+      const full = Math.round(v); // aqui é sempre 5, mas fica pronto
       let html = "";
       for(let i=0;i<full;i++) html += `<span class="star">★</span>`;
-      for(let i=0;i<empty;i++) html += `<span class="star off">★</span>`;
+      for(let i=full;i<max;i++) html += `<span class="star off">★</span>`;
       html += `<small>${v.toFixed(1)}/${max}</small>`;
       return html;
     }
 
-    function setAvatar(box, dataUrl){
-      if(!box) return;
-      box.innerHTML = dataUrl ? `<img alt="Foto" src="${dataUrl}">` : "";
+    function setAvatar(el, photoDataUrl, fallbackText){
+      if(!el) return;
+      el.innerHTML = "";
+      if(photoDataUrl){
+        const img = document.createElement("img");
+        img.src = photoDataUrl;
+        el.appendChild(img);
+      }else{
+        el.textContent = (fallbackText || "K").slice(0,1).toUpperCase();
+      }
     }
 
-    // ===== Base =====
+    function readFileAsDataURL(file){
+      return new Promise((resolve, reject)=>{
+        const r = new FileReader();
+        r.onload = () => resolve(String(r.result||""));
+        r.onerror = reject;
+        r.readAsDataURL(file);
+      });
+    }
+
+    function lsGet(key, fallback){
+      try{
+        const raw = localStorage.getItem(key);
+        if(!raw) return fallback;
+        return JSON.parse(raw);
+      }catch(e){ return fallback; }
+    }
+    function lsSet(key, value){
+      try{ localStorage.setItem(key, JSON.stringify(value)); }catch(e){}
+    }
+
+    // ===== Base (screens) =====
     const overlay = document.getElementById('overlay');
     const modal = document.getElementById('modal');
     const titleCadastro = document.getElementById('titleCadastro');
@@ -919,6 +1021,7 @@
     const screenStart = document.getElementById('screenStart');
     const screenClientProfile = document.getElementById('screenClientProfile');
     const screenClient = document.getElementById('screenClient');
+    const screenPickEditor = document.getElementById('screenPickEditor');
     const screenEditor = document.getElementById('screenEditor');
 
     const inNome = document.getElementById('inNome');
@@ -928,6 +1031,7 @@
     const editorName = document.getElementById('editorName');
 
     let role = null;
+    let currentOrder = null;
 
     function openCadastro(tipo){
       role = tipo;
@@ -938,7 +1042,6 @@
       overlay.setAttribute('aria-hidden','false');
       modal.style.animation = 'none'; void modal.offsetHeight; modal.style.animation = '';
     }
-
     function closeCadastro(){
       overlay.classList.add('closing');
       modal.classList.add('closing');
@@ -951,7 +1054,7 @@
     overlay.addEventListener('click', (e) => { if(e.target === overlay) closeCadastro(); });
 
     function showScreen(which){
-      [screenStart, screenClientProfile, screenClient, screenEditor].forEach(s => s.classList.remove('show'));
+      [screenStart, screenClientProfile, screenClient, screenPickEditor, screenEditor].forEach(s => s.classList.remove('show'));
       setTimeout(() => {
         which.classList.add('show');
         window.scrollTo({top:0, behavior:'smooth'});
@@ -960,8 +1063,8 @@
     function goBackStart(){ showScreen(screenStart); }
 
     // ===== Storage =====
-    const LS_EDITOR = "karamello_editor_v5";
-    const LS_CLIENT = "karamello_client_v1";
+    const LS_EDITOR = "karamello_editor_v6";
+    const LS_CLIENT = "karamello_client_v2";
 
     // ===== Pacotes =====
     const packages = [
@@ -981,7 +1084,6 @@
       {id:14, name:'Vídeo Longo 60s',  price:259.40,eta:'48h',   items:['1 Vídeo longo (até 60s)','Edição avançada']},
       {id:15, name:'Premium Creator',  price:329.90,eta:'48h',   items:['15 Fotos + 3 Vídeos curtos','Look premium + revisão']},
     ];
-    function brl(v){ return v.toLocaleString('pt-BR', {style:'currency', currency:'BRL'}); }
 
     function renderPackages(){
       const grid = document.getElementById('packagesGrid');
@@ -1000,12 +1102,7 @@
       });
     }
 
-    function choosePackage(id){
-      const p = packages.find(x => x.id === id);
-      alert(`Pacote selecionado: ${p.id}. ${p.name}\nValor: ${brl(p.price)}\nEntrega: ${p.eta}`);
-    }
-
-    // ===== CLIENTE =====
+    // ===== CLIENTE (perfil) =====
     const clientAvatarBox = document.getElementById("clientAvatarBox");
     const clientAvatarTop = document.getElementById("clientAvatarTop");
     const clientProfileName = document.getElementById("clientProfileName");
@@ -1019,302 +1116,80 @@
     const clMainPlatform = document.getElementById("clMainPlatform");
     const clAbout = document.getElementById("clAbout");
 
-    function getClient(){
-      const raw = localStorage.getItem(LS_CLIENT);
-      let data = {};
-      try{ data = raw ? JSON.parse(raw) : {}; }catch(e){ data = {}; }
-      if(typeof data.rating !== "number") data.rating = 5.0;
-      if(!data.name) data.name = "Cliente";
-      return data;
-    }
-    function setClient(data){
-      localStorage.setItem(LS_CLIENT, JSON.stringify(data));
-    }
+    let clientData = lsGet(LS_CLIENT, null);
 
-    function paintClientUI(){
-      const c = getClient();
-      clientProfileName.textContent = c.name || "Cliente";
-      clientName.textContent = c.name || "Cliente";
-
-      clientStars.innerHTML = renderStarsHTML(c.rating, 5);
-      clientStarsTop.innerHTML = renderStarsHTML(c.rating, 5);
-
-      setAvatar(clientAvatarBox, c.photo || "");
-      setAvatar(clientAvatarTop, c.photo || "");
-
-      clWhats.value = c.whats || "";
-      clCity.value = c.city || "";
-      clNiche.value = c.niche || "";
-      clMainPlatform.value = c.mainPlatform || "instagram";
-      clAbout.value = c.about || "";
+    function ensureClientData(nome, sobrenome){
+      const full = `${nome} ${sobrenome}`.trim();
+      clientData = clientData || {
+        first:nome||"Cliente",
+        last:sobrenome||"",
+        full: full || "Cliente",
+        stars: 5.0,
+        photo: "",
+        whats:"",
+        city:"",
+        niche:"",
+        mainPlatform:"instagram",
+        about:""
+      };
+      clientData.first = nome || clientData.first;
+      clientData.last = sobrenome || clientData.last;
+      clientData.full = full || clientData.full;
+      clientData.stars = 5.0; // ✅ sempre começa com 5
+      lsSet(LS_CLIENT, clientData);
     }
 
-    function handleImageFile(file, cb){
+    function paintClientProfile(){
+      clientProfileName.textContent = clientData?.full || "Cliente";
+      clientStars.innerHTML = renderStarsHTML(5.0, 5);
+
+      setAvatar(clientAvatarBox, clientData?.photo, (clientData?.full||"C")[0]);
+      clWhats.value = clientData?.whats || "";
+      clCity.value = clientData?.city || "";
+      clNiche.value = clientData?.niche || "";
+      clMainPlatform.value = clientData?.mainPlatform || "instagram";
+      clAbout.value = clientData?.about || "";
+    }
+
+    function paintClientTop(){
+      clientName.textContent = clientData?.first || "Cliente";
+      clientStarsTop.innerHTML = renderStarsHTML(5.0, 5);
+      setAvatar(clientAvatarTop, clientData?.photo, (clientData?.full||"C")[0]);
+    }
+
+    clientPhoto?.addEventListener("change", async (e)=>{
+      const file = e.target.files?.[0];
       if(!file) return;
-      const reader = new FileReader();
-      reader.onload = () => cb(String(reader.result || ""));
-      reader.readAsDataURL(file);
-    }
-
-    clientPhoto.addEventListener("change", (e)=>{
-      const file = e.target.files && e.target.files[0];
-      if(!file) return;
-      handleImageFile(file, (dataUrl)=>{
-        const c = getClient();
-        c.photo = dataUrl;
-        setClient(c);
-        paintClientUI();
-      });
-      clientPhoto.value = "";
+      const data = await readFileAsDataURL(file);
+      clientData.photo = data;
+      lsSet(LS_CLIENT, clientData);
+      paintClientProfile();
+      paintClientTop();
     });
 
     function removeClientPhoto(){
-      const c = getClient();
-      delete c.photo;
-      setClient(c);
-      paintClientUI();
+      if(!clientData) return;
+      clientData.photo = "";
+      lsSet(LS_CLIENT, clientData);
+      paintClientProfile();
+      paintClientTop();
     }
 
     function saveClientProfileAndGo(){
-      const c = getClient();
-      c.whats = (clWhats.value||"").trim();
-      c.city = (clCity.value||"").trim();
-      c.niche = (clNiche.value||"").trim();
-      c.mainPlatform = clMainPlatform.value || "instagram";
-      c.about = (clAbout.value||"").trim();
-      setClient(c);
+      clientData.whats = (clWhats.value||"").trim();
+      clientData.city = (clCity.value||"").trim();
+      clientData.niche = (clNiche.value||"").trim();
+      clientData.mainPlatform = clMainPlatform.value || "instagram";
+      clientData.about = (clAbout.value||"").trim();
+      clientData.stars = 5.0;
+      lsSet(LS_CLIENT, clientData);
 
-      renderPackages();
-      calcCustom();
+      paintClientTop();
       showScreen(screenClient);
+      setTimeout(()=>{ renderPackages(); calcCustom(); }, 80);
     }
 
-    // ===== EDITOR =====
-    const editorAvatarBox = document.getElementById("editorAvatarBox");
-    const editorFullName = document.getElementById("editorFullName");
-    const editorStars = document.getElementById("editorStars");
-
-    const editorPhoto = document.getElementById("editorPhoto");
-    const edAvailable = document.getElementById("edAvailable");
-    const edAvailText = document.getElementById("edAvailText");
-    const edRatingTxt = document.getElementById("edRatingTxt");
-    const edStarsRow = document.getElementById("edStarsRow");
-    const edDone = document.getElementById("edDone");
-    const edStatus = document.getElementById("edStatus");
-
-    const edXp = document.getElementById("edXp");
-    const edWhats = document.getElementById("edWhats");
-    const edBio = document.getElementById("edBio");
-    const edSoft = document.getElementById("edSoft");
-    const edPortfolio = document.getElementById("edPortfolio");
-    const edTags = document.getElementById("edTags");
-    const edTagsPreview = document.getElementById("edTagsPreview");
-
-    const editorPackagesBox = document.getElementById("editorPackages");
-    const edSearchPkg = document.getElementById("edSearchPkg");
-    const edQuick = document.getElementById("edQuick");
-    const edPkgCount = document.getElementById("edPkgCount");
-    const edPkgHint = document.getElementById("edPkgHint");
-    const edPublicPreview = document.getElementById("edPublicPreview");
-
-    function getEditor(){
-      const raw = localStorage.getItem(LS_EDITOR);
-      let data = {};
-      try{ data = raw ? JSON.parse(raw) : {}; }catch(e){ data = {}; }
-      if(typeof data.rating !== "number") data.rating = 5.0;
-      if(typeof data.done !== "number") data.done = 0;
-      if(!data.name) data.name = "Editor";
-      if(!Array.isArray(data.packages)) data.packages = [];
-      if(typeof data.available !== "boolean") data.available = false;
-      return data;
-    }
-    function setEditor(data){
-      localStorage.setItem(LS_EDITOR, JSON.stringify(data));
-    }
-
-    function paintEditorUI(){
-      const ed = getEditor();
-      editorName.textContent = ed.name || "Editor";
-      editorFullName.textContent = ed.name || "Editor";
-
-      setAvatar(editorAvatarBox, ed.photo || "");
-      editorStars.innerHTML = renderStarsHTML(ed.rating, 5);
-      edRatingTxt.textContent = (ed.rating || 5).toFixed(1);
-      edStarsRow.innerHTML = renderStarsHTML(ed.rating, 5);
-
-      edDone.textContent = String(ed.done || 0);
-      edStatus.textContent = ed.available ? "Disponível" : "Novo";
-
-      edAvailable.checked = !!ed.available;
-      edAvailText.textContent = ed.available ? "On" : "Off";
-
-      edXp.value = ed.xp || "iniciante";
-      edWhats.value = ed.whats || "";
-      edBio.value = ed.bio || "";
-      edSoft.value = ed.soft || "";
-      edPortfolio.value = ed.portfolio || "";
-      edTags.value = ed.tags || "";
-
-      renderTagsPreview();
-      renderEditorPackages();
-      updatePkgCount();
-      renderPublicPreview();
-    }
-
-    editorPhoto.addEventListener("change", (e)=>{
-      const file = e.target.files && e.target.files[0];
-      if(!file) return;
-      handleImageFile(file, (dataUrl)=>{
-        const ed = getEditor();
-        ed.photo = dataUrl;
-        setEditor(ed);
-        paintEditorUI();
-      });
-      editorPhoto.value = "";
-    });
-
-    function removeEditorPhoto(){
-      const ed = getEditor();
-      delete ed.photo;
-      setEditor(ed);
-      paintEditorUI();
-    }
-
-    edAvailable.addEventListener("change", ()=>{
-      const ed = getEditor();
-      ed.available = !!edAvailable.checked;
-      setEditor(ed);
-      edAvailText.textContent = ed.available ? "On" : "Off";
-      edStatus.textContent = ed.available ? "Disponível" : "Novo";
-      renderPublicPreview();
-    });
-
-    function saveEditorProfile(){
-      const ed = getEditor();
-      ed.xp = edXp.value || "iniciante";
-      ed.whats = (edWhats.value||"").trim();
-      ed.bio = (edBio.value||"").trim();
-      ed.soft = (edSoft.value||"").trim();
-      ed.portfolio = (edPortfolio.value||"").trim();
-      ed.tags = (edTags.value||"").trim();
-      setEditor(ed);
-      renderTagsPreview();
-      renderPublicPreview();
-      alert("Perfil do editor salvo!");
-    }
-
-    function resetEditor(){
-      localStorage.removeItem(LS_EDITOR);
-      paintEditorUI();
-      alert("Resetado (demo).");
-    }
-
-    function splitTags(){
-      const raw = (edTags.value||"").split(",").map(s=>s.trim()).filter(Boolean);
-      return raw.slice(0, 10);
-    }
-    function renderTagsPreview(){
-      const tags = splitTags();
-      edTagsPreview.innerHTML = tags.map(t=>`<span class="tag blue">${escapeHtml(t)}</span>`).join("");
-    }
-    edTags.addEventListener("input", ()=>{ renderTagsPreview(); renderPublicPreview(); });
-
-    function renderEditorPackages(){
-      const ed = getEditor();
-      const q = (edSearchPkg.value||"").trim().toLowerCase();
-      const quick = edQuick.value || "all";
-
-      const filtered = packages.filter(p=>{
-        const name = (p.name||"").toLowerCase();
-        const isVideo = name.includes("vídeo") || name.includes("short") || name.includes("45") || name.includes("60");
-        const isFoto = name.includes("foto");
-        if(quick==="video" && !isVideo) return false;
-        if(quick==="foto" && !isFoto) return false;
-        if(quick==="mix" && !(isVideo || isFoto)) return false;
-        if(q && !(name.includes(q) || String(p.id).includes(q))) return false;
-        return true;
-      });
-
-      editorPackagesBox.innerHTML = filtered.map(p=>{
-        const checked = ed.packages.includes(p.id) ? "checked" : "";
-        return `
-          <label class="pkg-item">
-            <input type="checkbox" data-ed-pkg="${p.id}" ${checked} />
-            <div>
-              <div class="pkg-title">${escapeHtml(p.id + ". " + p.name)}</div>
-              <div class="pkg-sub">Entrega: ${escapeHtml(p.eta)} • Valor: ${brl(p.price)}</div>
-              <div class="pkg-meta">${p.items.map(i=>escapeHtml(i)).join(" • ")}</div>
-            </div>
-          </label>
-        `;
-      }).join("");
-
-      editorPackagesBox.querySelectorAll('input[data-ed-pkg]').forEach(chk=>{
-        chk.addEventListener("change", ()=>{
-          const id = Number(chk.getAttribute("data-ed-pkg"));
-          const ed2 = getEditor();
-          const set = new Set(ed2.packages);
-          if(chk.checked) set.add(id); else set.delete(id);
-          ed2.packages = Array.from(set);
-          setEditor(ed2);
-          updatePkgCount();
-          renderPublicPreview();
-        });
-      });
-    }
-
-    function updatePkgCount(){
-      const ed = getEditor();
-      const count = ed.packages.length;
-      edPkgCount.textContent = String(count);
-      edPkgHint.textContent = count ? "Pronto: você já aparece para pedidos compatíveis." : "Dica: selecione pelo menos 1 pacote para aparecer para clientes.";
-    }
-
-    edSearchPkg.addEventListener("input", renderEditorPackages);
-    edQuick.addEventListener("change", renderEditorPackages);
-
-    function saveEditorPackages(){
-      updatePkgCount();
-      alert("Pacotes salvos!");
-    }
-
-    function selectAllEditorPackages(on){
-      const ed = getEditor();
-      ed.packages = on ? packages.map(p=>p.id) : [];
-      setEditor(ed);
-      renderEditorPackages();
-      updatePkgCount();
-      renderPublicPreview();
-    }
-
-    function renderPublicPreview(){
-      const ed = getEditor();
-      const tags = (ed.tags||"").split(",").map(s=>s.trim()).filter(Boolean).slice(0,6);
-      const badges = [];
-      if(ed.available) badges.push(`<span class="badge you">Disponível</span>`);
-      if(ed.packages.length) badges.push(`<span class="badge">Pacotes: ${ed.packages.length}</span>`);
-      const bio = ed.bio ? escapeHtml(ed.bio) : "Adicione uma bio para aparecer melhor para os clientes.";
-
-      edPublicPreview.innerHTML = `
-        <div class="eTop">
-          <div style="display:flex; gap:10px; align-items:center">
-            <div class="avatar" style="width:48px;height:48px">${ed.photo ? `<img alt="Foto" src="${ed.photo}">` : ""}</div>
-            <div>
-              <div class="eName">${escapeHtml(ed.name||"Editor")}</div>
-              <div class="stars">${renderStarsHTML(ed.rating,5)}</div>
-            </div>
-          </div>
-        </div>
-        <div class="eBio">${bio}</div>
-        <div class="eBadges">
-          ${badges.join("")}
-          ${tags.map(t=>`<span class="badge">${escapeHtml(t)}</span>`).join("")}
-        </div>
-        <button class="btn" type="button" style="margin-top:12px" onclick="alert('Preview: cliente veria este card.')">Ver como cliente</button>
-      `;
-    }
-
-    // ===== Personalizado (Cliente) =====
+    // ===== CUSTOM (Cliente) =====
     const custFotos = document.getElementById('custFotos');
     const custVideos = document.getElementById('custVideos');
     const custPlataforma = document.getElementById('custPlataforma');
@@ -1329,9 +1204,8 @@
       video60: 84.60,
       platformMult: {
         reels:1.00, tiktok:1.00, insta:1.04, shorts:1.04,
-        ytlong:1.08, facebookreels:1.02, facebook:1.04,
-        kwai:1.00, snap:1.04, pinterest:1.04,
-        linkedin:1.08, x:1.06, twitch:1.08, discord:1.03
+        ytlong:1.06, facebookreels:1.02, kwai:1.00, snap:1.02,
+        pinterest:1.02, linkedin:1.03, x:1.02
       }
     };
 
@@ -1408,10 +1282,6 @@
       custEntrega.textContent = calcEntrega(total, urgent);
     }
 
-    function confirmCustom(){
-      alert(`Personalizado criado!\nTotal: ${custTotal.textContent}\nEntrega: ${custEntrega.textContent}`);
-    }
-
     [custFotos,custVideos,custPlataforma,custTipoVideo].forEach(el=>{
       el.addEventListener('input', calcCustom);
       el.addEventListener('change', calcCustom);
@@ -1420,36 +1290,485 @@
       el.addEventListener('change', calcCustom);
     });
 
-    // ===== Cadastro fluxo =====
+    // ===== Pedido -> Escolher Editor =====
+    function choosePackage(id){
+      const p = packages.find(x => x.id === id);
+      currentOrder = {
+        kind: "package",
+        packageId: p.id,
+        title: `${p.id}. ${p.name}`,
+        total: p.price,
+        eta: p.eta
+      };
+      startPickEditor();
+    }
+
+    function confirmCustom(){
+      currentOrder = {
+        kind: "custom",
+        title: "Pacote Personalizado",
+        totalText: custTotal.textContent,
+        eta: custEntrega.textContent,
+        fotos: parseInt(custFotos.value||"0",10),
+        videos: parseInt(custVideos.value||"0",10)
+      };
+      startPickEditor();
+    }
+
+    function startPickEditor(){
+      const pickInfo = document.getElementById("pickInfo");
+      if(currentOrder?.kind === "package"){
+        pickInfo.textContent = `Pedido: ${currentOrder.title} • ${brl(currentOrder.total)} • ${currentOrder.eta}`;
+      }else{
+        pickInfo.textContent = `Pedido: Personalizado • ${currentOrder.totalText} • ${currentOrder.eta}`;
+      }
+      renderPickEditors();
+      showScreen(screenPickEditor);
+    }
+
+    function backToOrder(){
+      showScreen(screenClient);
+    }
+
+    // ===== EDITOR (dashboard) =====
+    const editorAvatarBox = document.getElementById("editorAvatarBox");
+    const editorFullName = document.getElementById("editorFullName");
+    const editorStars = document.getElementById("editorStars");
+
+    const editorPhoto = document.getElementById("editorPhoto");
+    const edAvailable = document.getElementById("edAvailable");
+    const edAvailText = document.getElementById("edAvailText");
+
+    const edRatingTxt = document.getElementById("edRatingTxt");
+    const edStarsRow = document.getElementById("edStarsRow");
+    const edDone = document.getElementById("edDone");
+    const edStatus = document.getElementById("edStatus");
+
+    const edXp = document.getElementById("edXp");
+    const edWhats = document.getElementById("edWhats");
+    const edBio = document.getElementById("edBio");
+    const edSoft = document.getElementById("edSoft");
+    const edPortfolio = document.getElementById("edPortfolio");
+    const edTags = document.getElementById("edTags");
+    const edTagsPreview = document.getElementById("edTagsPreview");
+
+    const edSearchPkg = document.getElementById("edSearchPkg");
+    const edQuick = document.getElementById("edQuick");
+    const edPkgCount = document.getElementById("edPkgCount");
+    const edPkgHint = document.getElementById("edPkgHint");
+    const edPublicPreview = document.getElementById("edPublicPreview");
+
+    let editorData = lsGet(LS_EDITOR, null);
+
+    function ensureEditorData(nome, sobrenome){
+      const full = `${nome} ${sobrenome}`.trim();
+      editorData = editorData || {
+        first:nome||"Editor",
+        last:sobrenome||"",
+        full: full || "Editor",
+        stars: 5.0,
+        photo: "",
+        available:false,
+        xp:"iniciante",
+        whats:"",
+        bio:"",
+        soft:"",
+        portfolio:"",
+        tags:[],
+        done:0,
+        status:"Novo",
+        packages:[]
+      };
+      editorData.first = nome || editorData.first;
+      editorData.last = sobrenome || editorData.last;
+      editorData.full = full || editorData.full;
+      editorData.stars = 5.0; // ✅ sempre começa com 5
+      lsSet(LS_EDITOR, editorData);
+    }
+
+    function paintEditor(){
+      editorName.textContent = editorData?.first || "Editor";
+      editorFullName.textContent = editorData?.full || "Editor";
+
+      editorStars.innerHTML = renderStarsHTML(5.0,5);
+      edRatingTxt.textContent = "5.0";
+      edStarsRow.innerHTML = renderStarsHTML(5.0,5);
+
+      edDone.textContent = String(editorData?.done || 0);
+      edStatus.textContent = editorData?.status || "Novo";
+
+      edAvailable.checked = !!editorData?.available;
+      edAvailText.textContent = editorData?.available ? "On" : "Off";
+
+      edXp.value = editorData?.xp || "iniciante";
+      edWhats.value = editorData?.whats || "";
+      edBio.value = editorData?.bio || "";
+      edSoft.value = editorData?.soft || "";
+      edPortfolio.value = editorData?.portfolio || "";
+      edTags.value = (editorData?.tags || []).join(", ");
+
+      setAvatar(editorAvatarBox, editorData?.photo, (editorData?.full||"E")[0]);
+
+      renderTagsPreview();
+      renderEditorPackages();
+      updatePkgCount();
+      renderPublicPreview();
+    }
+
+    editorPhoto?.addEventListener("change", async (e)=>{
+      const file = e.target.files?.[0];
+      if(!file) return;
+      const data = await readFileAsDataURL(file);
+      editorData.photo = data;
+      lsSet(LS_EDITOR, editorData);
+      paintEditor();
+    });
+
+    function removeEditorPhoto(){
+      if(!editorData) return;
+      editorData.photo = "";
+      lsSet(LS_EDITOR, editorData);
+      paintEditor();
+    }
+
+    edAvailable?.addEventListener("change", ()=>{
+      editorData.available = !!edAvailable.checked;
+      edAvailText.textContent = editorData.available ? "On" : "Off";
+      lsSet(LS_EDITOR, editorData);
+      renderPublicPreview();
+    });
+
+    function renderTagsPreview(){
+      const raw = (edTags.value||"").split(",").map(s=>s.trim()).filter(Boolean).slice(0,12);
+      edTagsPreview.innerHTML = raw.map(t=>`<span class="tag blue">${escapeHtml(t)}</span>`).join("");
+    }
+    edTags?.addEventListener("input", ()=>{
+      renderTagsPreview();
+    });
+
+    function saveEditorProfile(){
+      editorData.xp = edXp.value || "iniciante";
+      editorData.whats = (edWhats.value||"").trim();
+      editorData.bio = (edBio.value||"").trim();
+      editorData.soft = (edSoft.value||"").trim();
+      editorData.portfolio = (edPortfolio.value||"").trim();
+      editorData.tags = (edTags.value||"").split(",").map(s=>s.trim()).filter(Boolean).slice(0,12);
+      editorData.stars = 5.0;
+      lsSet(LS_EDITOR, editorData);
+      renderPublicPreview();
+      alert("Perfil do editor salvo (demo).");
+    }
+
+    function resetEditor(){
+      localStorage.removeItem(LS_EDITOR);
+      editorData = null;
+      alert("Reset feito. Reabra como Editor para criar de novo.");
+      goBackStart();
+    }
+
+    // ===== Pacotes do Editor (com: thumbs + só 5 + seta + atalho Áudio + áudio no 9+) =====
+    let showAllPackages = false;
+
+    function toggleMorePackages(){
+      showAllPackages = !showAllPackages;
+      document.getElementById("toggleMorePkgs").textContent = showAllPackages ? "Mostrar menos ↑" : "Ver mais pacotes ↓";
+      renderEditorPackages();
+    }
+
+    function updatePkgCount(){
+      const count = (editorData?.packages || []).length;
+      edPkgCount.textContent = String(count);
+      edPkgHint.textContent = count ? "Perfeito: você vai aparecer em pedidos compatíveis." : "Dica: selecione pelo menos 1 pacote para aparecer para clientes.";
+    }
+
+    function renderEditorPackages(){
+      const wrap = document.getElementById("editorPackages");
+      if(!wrap) return;
+
+      const search = (edSearchPkg?.value || "").toLowerCase().trim();
+      const quick = (edQuick?.value || "all");
+
+      // se a pessoa começar a filtrar, já abre o restante para facilitar
+      if((search && !showAllPackages) || (quick !== "all" && !showAllPackages)){
+        showAllPackages = true;
+        const btn = document.getElementById("toggleMorePkgs");
+        if(btn) btn.textContent = "Mostrar menos ↑";
+      }
+
+      wrap.innerHTML = "";
+
+      packages.forEach((p, index) => {
+        // ✅ regra: mostra só 5 se não abriu
+        if (!showAllPackages && index >= 5) return;
+
+        const text = `${p.name} ${p.items.join(" ")}`.toLowerCase();
+        if (search && !text.includes(search)) return;
+
+        const isVideo = p.name.toLowerCase().includes("vídeo") || p.name.toLowerCase().includes("short");
+        const isFoto  = p.name.toLowerCase().includes("foto");
+        const isMix   = p.name.toLowerCase().includes("combo") || p.name.toLowerCase().includes("mix") || (isVideo && isFoto);
+
+        if (quick === "video" && !isVideo) return;
+        if (quick === "foto" && !isFoto) return;
+        if (quick === "mix" && !isMix) return;
+        if (quick === "audio" && index < 8) return; // ✅ áudio a partir do pacote 9
+
+        const checked = (editorData?.packages || []).includes(p.id);
+        const audioExtras = (index >= 8)
+          ? `<div class="pkg-meta">🎧 Ajustes de áudio incluídos</div>`
+          : "";
+
+        const el = document.createElement("label");
+        el.className = "pkg-item";
+        el.innerHTML = `
+          <div class="pkg-thumb"></div>
+          <div>
+            <div style="display:flex; gap:10px; align-items:flex-start;">
+              <input type="checkbox" data-pkg="${p.id}" ${checked ? "checked" : ""}>
+              <div>
+                <div class="pkg-title">${p.id}. ${escapeHtml(p.name)}</div>
+                <div class="pkg-sub">Entrega: ${escapeHtml(p.eta)} • ${brl(p.price)}</div>
+              </div>
+            </div>
+            <div class="pkg-meta">${p.items.map(x=>escapeHtml(x)).join(" • ")}</div>
+            ${audioExtras}
+          </div>
+        `;
+        wrap.appendChild(el);
+      });
+
+      // listeners
+      wrap.querySelectorAll('input[type="checkbox"][data-pkg]').forEach(chk=>{
+        chk.addEventListener("change", ()=>{
+          const id = Number(chk.getAttribute("data-pkg"));
+          editorData.packages = editorData.packages || [];
+          if(chk.checked && !editorData.packages.includes(id)) editorData.packages.push(id);
+          if(!chk.checked) editorData.packages = editorData.packages.filter(x=>x!==id);
+          lsSet(LS_EDITOR, editorData);
+          updatePkgCount();
+          renderPublicPreview();
+        });
+      });
+    }
+
+    edSearchPkg?.addEventListener("input", renderEditorPackages);
+    edQuick?.addEventListener("change", renderEditorPackages);
+
+    function selectAllEditorPackages(flag){
+      editorData.packages = flag ? packages.map(p=>p.id) : [];
+      lsSet(LS_EDITOR, editorData);
+      renderEditorPackages();
+      updatePkgCount();
+      renderPublicPreview();
+    }
+
+    function saveEditorPackages(){
+      lsSet(LS_EDITOR, editorData);
+      alert("Pacotes salvos (demo).");
+    }
+
+    function renderPublicPreview(){
+      const tags = (editorData?.tags || []).slice(0,8);
+      const pkgs = (editorData?.packages || []).slice(0,6);
+
+      const pkgBadges = pkgs.map(id=>{
+        const p = packages.find(x=>x.id===id);
+        return p ? `<span class="badge pillBlue">${escapeHtml(p.name)}</span>` : "";
+      }).join("");
+
+      const tagBadges = tags.map(t=>`<span class="badge">${escapeHtml(t)}</span>`).join("");
+
+      const statusBadge = editorData?.available
+        ? `<span class="badge you">Disponível</span>`
+        : `<span class="badge off">Indisponível</span>`;
+
+      edPublicPreview.innerHTML = `
+        <div class="eTop">
+          <div style="display:flex; gap:10px; align-items:center;">
+            <div class="avatar" style="width:48px;height:48px" id="pubAvatar"></div>
+            <div>
+              <div class="eName">${escapeHtml(editorData?.full || "Editor")}</div>
+              <div class="stars" style="margin-top:4px">${renderStarsHTML(5.0,5)}</div>
+              <div class="eMeta">${escapeHtml(editorData?.xp || "iniciante")} • ${escapeHtml(editorData?.soft || "Softwares")}</div>
+            </div>
+          </div>
+          <div style="text-align:right">
+            ${statusBadge}
+            <div class="eMeta" style="margin-top:6px">Pacotes: <strong>${(editorData?.packages||[]).length}</strong></div>
+          </div>
+        </div>
+
+        <div class="eBio">${escapeHtml(editorData?.bio || "Escreva uma bio curta e forte para aparecer melhor para clientes.")}</div>
+
+        <div class="eBadges">
+          ${tagBadges || `<span class="badge off">Sem tags</span>`}
+        </div>
+
+        <div class="eBadges" style="margin-top:10px">
+          ${pkgBadges || `<span class="badge off">Sem pacotes selecionados</span>`}
+        </div>
+
+        <div class="hint" style="margin-top:10px">* Demo sem backend: informações ficam salvas no seu navegador.</div>
+      `;
+
+      // pinta avatar no preview
+      const pubAvatar = document.getElementById("pubAvatar");
+      setAvatar(pubAvatar, editorData?.photo, (editorData?.full||"E")[0]);
+    }
+
+    // ===== Tela “Escolher Editor” (demo) =====
+    const DEMO_EDITORS = [
+      { id:"d1", name:"Editor Neon",   xp:"avancado", tags:["Reels","TikTok","Áudio"], packages:[4,6,9,11,13,14,15], available:true },
+      { id:"d2", name:"Editor Flux",   xp:"intermediario", tags:["Foto pro","Cor cine"], packages:[1,2,3,5,8,10,12,15], available:true },
+      { id:"d3", name:"Editor Pulse",  xp:"intermediario", tags:["Motion","Legendas"], packages:[4,6,7,9,11,13,15], available:true },
+      { id:"d4", name:"Editor Vibe",   xp:"iniciante", tags:["Shorts","Cortes"], packages:[4,6,7,9], available:true },
+      { id:"d5", name:"Editor Clean",  xp:"avancado", tags:["Áudio","Ruído","Voz"], packages:[9,11,13,14,15], available:true },
+    ];
+
+    function getAllEditors(){
+      const list = [];
+      // editor real (se existir)
+      if(editorData){
+        list.push({
+          id:"you",
+          name: editorData.full || "Você",
+          xp: editorData.xp || "iniciante",
+          tags: editorData.tags || [],
+          packages: editorData.packages || [],
+          available: !!editorData.available,
+          photo: editorData.photo || ""
+        });
+      }
+      // demos
+      DEMO_EDITORS.forEach(e=> list.push({...e, stars:5.0}));
+      return list;
+    }
+
+    function isCompatible(editor, order){
+      if(!editor.available) return false;
+
+      if(order?.kind === "package"){
+        return (editor.packages || []).includes(order.packageId);
+      }
+
+      // personalizado: regra simples
+      const vids = Number(order?.videos||0);
+      const fotos = Number(order?.fotos||0);
+
+      if(vids > 0){
+        // precisa ter algum pacote de vídeo (id 4+ geralmente)
+        return (editor.packages||[]).some(id => {
+          const p = packages.find(x=>x.id===id);
+          const n = (p?.name||"").toLowerCase();
+          return n.includes("vídeo") || n.includes("short");
+        });
+      }
+      if(fotos > 0){
+        return (editor.packages||[]).some(id => {
+          const p = packages.find(x=>x.id===id);
+          const n = (p?.name||"").toLowerCase();
+          return n.includes("foto");
+        });
+      }
+      return (editor.packages||[]).length > 0;
+    }
+
+    function renderPickEditors(){
+      const grid = document.getElementById("editorsGrid");
+      const sort = document.getElementById("pickSort")?.value || "best";
+      const all = getAllEditors();
+
+      let compatible = all.filter(e => isCompatible(e, currentOrder));
+
+      if(sort === "fast"){
+        const rank = { avancado:3, intermediario:2, iniciante:1 };
+        compatible.sort((a,b)=>(rank[b.xp]||1)-(rank[a.xp]||1));
+      }else{
+        compatible.sort((a,b)=>5-5);
+      }
+
+      grid.innerHTML = "";
+      if(!compatible.length){
+        grid.innerHTML = `<div class="card full" style="grid-column:1/-1">
+          <h3>Nenhum editor compatível (demo)</h3>
+          <p>Peça para um editor marcar os pacotes compatíveis e ficar “Disponível”.</p>
+        </div>`;
+        return;
+      }
+
+      compatible.forEach(e=>{
+        const you = e.id === "you";
+        const card = document.createElement("div");
+        card.className = "eCard";
+        card.innerHTML = `
+          <div class="eTop">
+            <div style="display:flex; gap:10px; align-items:center;">
+              <div class="avatar" style="width:46px;height:46px" id="pickAv_${e.id}">${escapeHtml(e.name[0])}</div>
+              <div>
+                <div class="eName">${escapeHtml(e.name)} ${you ? "• (Você)" : ""}</div>
+                <div class="stars" style="margin-top:4px">${renderStarsHTML(5.0,5)}</div>
+                <div class="eMeta">${escapeHtml(e.xp)} • Pacotes: ${e.packages?.length||0}</div>
+              </div>
+            </div>
+            <div>
+              <span class="badge ${e.available ? "you" : "off"}">${e.available ? "Disponível" : "Off"}</span>
+            </div>
+          </div>
+
+          <div class="eBio">${escapeHtml((e.tags||[]).slice(0,5).join(" • ") || "Editor demo")}</div>
+          <div class="eBadges">
+            ${(e.tags||[]).slice(0,6).map(t=>`<span class="badge pillBlue">${escapeHtml(t)}</span>`).join("") || `<span class="badge off">Sem tags</span>`}
+          </div>
+
+          <button class="btn" type="button" onclick="selectEditor('${e.id}')">Selecionar este editor</button>
+          <div class="hint">* Demo: sem pagamento/entrega real ainda.</div>
+        `;
+        grid.appendChild(card);
+
+        // avatar
+        const av = document.getElementById(`pickAv_${e.id}`);
+        if(av) setAvatar(av, e.photo || "", e.name[0]);
+      });
+    }
+
+    document.getElementById("pickSort")?.addEventListener("change", renderPickEditors);
+
+    function selectEditor(id){
+      if(id === "you" && !editorData?.available){
+        alert("Seu perfil está como OFF. Ative ‘Disponível’ no painel do editor.");
+        return;
+      }
+      alert("Editor selecionado! (demo)\nNa próxima etapa vamos criar: checkout + envio de arquivos + chat.");
+    }
+
+    // ===== Cadastro (modal) =====
     btnCadastrar.addEventListener('click', ()=>{
       const nome=(inNome.value||'').trim();
       const sobrenome=(inSobrenome.value||'').trim();
       if(!nome||!sobrenome){ alert('Preencha Nome e Sobrenome.'); return; }
+
       closeCadastro();
 
       if(role==='cliente'){
-        const c = getClient();
-        c.name = nome;
-        c.rating = 5.0; // começa 5 estrelas
-        setClient(c);
-        paintClientUI();
+        ensureClientData(nome, sobrenome);
+        clientProfileName.textContent = clientData.full;
+        clientStars.innerHTML = renderStarsHTML(5.0,5);
+        paintClientProfile();
         showScreen(screenClientProfile);
       }else{
-        const ed = getEditor();
-        ed.name = nome;
-        ed.rating = 5.0; // começa 5 estrelas
-        setEditor(ed);
-        paintEditorUI();
+        ensureEditorData(nome, sobrenome);
+        paintEditor();
         showScreen(screenEditor);
       }
     });
 
     window.addEventListener('DOMContentLoaded', ()=>{
-      // carrega dados salvos se tiver
-      paintClientUI();
-      paintEditorUI();
+      // se já tiver dados salvos, mantém (sem forçar tela)
+      clientData = lsGet(LS_CLIENT, clientData);
+      editorData = lsGet(LS_EDITOR, editorData);
       calcCustom();
     });
   </script>
 </body>
 </html>
+
