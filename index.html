@@ -32,6 +32,7 @@
       background: linear-gradient(135deg, var(--accent1), var(--accent2));
       padding: 46px 20px;
       text-align:center;
+      border-bottom:1px solid rgba(255,255,255,.08);
     }
     header h1{margin:0;font-size:2.6rem}
     header p{margin-top:10px;opacity:.9}
@@ -55,7 +56,7 @@
     @keyframes cardIn{to{transform: translateY(0); opacity:1;}}
 
     .card h3{margin-top:0;color:#a5b4fc}
-    .card p{color:var(--muted)}
+    .card p{color:var(--muted); line-height:1.5}
 
     .btn{
       width:100%;
@@ -67,7 +68,20 @@
       color:white;
       font-weight:700;
       cursor:pointer;
+      transition: transform .12s ease, opacity .12s ease;
     }
+    .btn:hover{opacity:.94}
+    .btn:active{transform:scale(.985)}
+
+    .btn.secondary{
+      background: transparent;
+      border:1px solid rgba(255,255,255,.18);
+      color: var(--text);
+    }
+
+    .price{font-size:2rem;font-weight:900;color:var(--cyan);margin:12px 0 6px}
+    ul{padding-left:18px;margin:10px 0 0}
+    ul li{margin:0 0 8px;color:#cbd5e1}
 
     footer{
       text-align:center;
@@ -80,6 +94,14 @@
     }
     body.loaded footer{animation: footIn .55s ease forwards; animation-delay:.22s}
     @keyframes footIn{to{opacity:1; transform:none}}
+
+    /* ===== TELAS (fluxo pós-cadastro) ===== */
+    .screen{display:none; opacity:0; transform: translateY(14px);}
+    .screen.show{display:block; animation: screenIn .45s ease forwards;}
+    @keyframes screenIn{to{opacity:1; transform:none}}
+
+    .section-title{margin:26px 0 12px; color:#c7d2fe; font-size:1.25rem;}
+    .pill{display:inline-block;margin-top:6px;color:var(--muted);font-size:.95rem}
 
     /* ===== MODAL CENTRALIZADO ===== */
     .overlay{
@@ -132,19 +154,27 @@
       border-radius:8px;
       cursor:pointer;
       font-weight:bold;
+      transition: transform .12s ease, opacity .12s ease;
     }
+    .x:hover{opacity:.92}
+    .x:active{transform:scale(.97)}
 
-    .modal-body{padding:18px}
+    .modal-body{padding:18px; background: rgba(2,6,23,.25)}
+
+    .field{margin-bottom:10px}
+    .field label{display:block;font-size:.88rem;color:#cbd5e1;margin:0 0 6px}
 
     input{
       width:100%;
       padding:11px;
-      margin-bottom:10px;
       border-radius:10px;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.06);
       color: var(--text);
+      outline:none;
     }
+    input::placeholder{color: rgba(229,231,235,.65)}
+    input:focus{border-color: rgba(56,189,248,.55)}
 
     .google{
       width:100%;
@@ -155,7 +185,16 @@
       border-radius:12px;
       font-weight:800;
       cursor:pointer;
+      transition: transform .12s ease, opacity .12s ease;
       margin-top:10px;
+    }
+    .google:hover{opacity:.94}
+    .google:active{transform:scale(.985)}
+
+    .hint{margin-top:10px;color:#a5b4fc;font-size:.9rem;line-height:1.35}
+
+    @media (max-width:520px){
+      header h1{font-size:2.15rem}
     }
   </style>
 </head>
@@ -167,36 +206,129 @@
 </header>
 
 <div class="container">
-  <div class="grid">
-    <div class="card">
-      <h3>Sou Cliente</h3>
-      <p>Contrate edição profissional de fotos e vídeos.</p>
-      <button class="btn" onclick="openCadastro('cliente')">Criar conta (Cliente)</button>
+  <!-- TELA INICIAL -->
+  <section id="screenStart" class="screen show">
+    <div class="grid">
+      <div class="card">
+        <h3>Sou Cliente</h3>
+        <p>Contrate edição profissional de fotos e vídeos.</p>
+        <button class="btn" type="button" onclick="openCadastro('cliente')">Criar conta (Cliente)</button>
+      </div>
+
+      <div class="card">
+        <h3>Quero Trabalhar</h3>
+        <p>Cadastre-se como editor e receba pedidos.</p>
+        <button class="btn" type="button" onclick="openCadastro('editor')">Criar conta (Editor)</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TELA CLIENTE (após cadastro) -->
+  <section id="screenClient" class="screen">
+    <div class="section-title">Bem-vindo, <span id="clientName">Cliente</span> 👋</div>
+    <div class="pill">Escolha um pacote para começar seu pedido.</div>
+
+    <div class="grid" style="margin-top:16px">
+      <div class="card" style="opacity:1;transform:none">
+        <h3>Pacote Básico</h3>
+        <div class="price">R$ 29</div>
+        <ul>
+          <li>1 Foto editada</li>
+          <li>Correção de cor</li>
+          <li>Estilo profissional</li>
+          <li>Entrega em até 48h</li>
+        </ul>
+        <button class="btn" type="button" onclick="alert('Próxima etapa: escolher editor e enviar arquivos (ETAPA 3).')">Escolher pacote</button>
+      </div>
+
+      <div class="card" style="opacity:1;transform:none">
+        <h3>Pacote Criador</h3>
+        <div class="price">R$ 59</div>
+        <ul>
+          <li>1 Vídeo editado</li>
+          <li>Edição para Reels/TikTok</li>
+          <li>Cor cinematográfica</li>
+          <li>Entrega em até 48h</li>
+        </ul>
+        <button class="btn" type="button" onclick="alert('Próxima etapa: escolher editor e enviar arquivos (ETAPA 3).')">Escolher pacote</button>
+      </div>
+
+      <div class="card" style="opacity:1;transform:none">
+        <h3>Pacote Completo</h3>
+        <div class="price">R$ 99</div>
+        <ul>
+          <li>1 Foto + 1 Vídeo</li>
+          <li>Edição cinematográfica</li>
+          <li>1 revisão inclusa</li>
+          <li>Entrega em até 24h</li>
+        </ul>
+        <button class="btn" type="button" onclick="alert('Próxima etapa: escolher editor e enviar arquivos (ETAPA 3).')">Escolher pacote</button>
+      </div>
     </div>
 
-    <div class="card">
-      <h3>Quero Trabalhar</h3>
-      <p>Cadastre-se como editor e receba pedidos.</p>
-      <button class="btn" onclick="openCadastro('editor')">Criar conta (Editor)</button>
+    <button class="btn secondary" style="margin-top:18px" type="button" onclick="goBackStart()">Voltar</button>
+  </section>
+
+  <!-- TELA EDITOR (após cadastro) -->
+  <section id="screenEditor" class="screen">
+    <div class="section-title">Bem-vindo, <span id="editorName">Editor</span> 🎬</div>
+    <div class="pill">Complete seu perfil para começar a receber pedidos.</div>
+
+    <div class="grid" style="margin-top:16px">
+      <div class="card" style="opacity:1;transform:none">
+        <h3>Seu perfil (ETAPA 2)</h3>
+        <p>Na próxima etapa, você terá uma área para colocar seu portfólio, estilos e preços.</p>
+        <button class="btn" type="button" onclick="alert('Próxima etapa: perfil do editor + vitrine (ETAPA 3).')">Quero montar meu perfil</button>
+      </div>
+
+      <div class="card" style="opacity:1;transform:none">
+        <h3>Como funciona</h3>
+        <ul>
+          <li>Você recebe pedidos de clientes</li>
+          <li>Conversa via chat (ETAPA futura)</li>
+          <li>Entrega do trabalho após pagamento (futuro)</li>
+        </ul>
+        <button class="btn" type="button" onclick="alert('Próxima etapa: vitrine de editores + escolher editor (ETAPA 3).')">Entendi</button>
+      </div>
     </div>
-  </div>
+
+    <button class="btn secondary" style="margin-top:18px" type="button" onclick="goBackStart()">Voltar</button>
+  </section>
 </div>
 
 <!-- MODAL -->
 <div id="overlay" class="overlay" aria-hidden="true">
-  <div id="modal" class="modal">
+  <div id="modal" class="modal" role="dialog" aria-modal="true">
     <div class="modal-head">
       <h3 id="titleCadastro">Criar conta</h3>
       <button class="x" type="button" onclick="closeCadastro()">✕</button>
     </div>
     <div class="modal-body">
-      <input type="text" placeholder="Nome" />
-      <input type="text" placeholder="Sobrenome" />
-      <input type="date" />
-      <input type="email" placeholder="Email" />
-      <input type="password" placeholder="Senha" />
-      <button class="btn">Cadastrar</button>
-      <button class="google">Entrar com Google (em breve)</button>
+      <div class="field">
+        <label>Nome</label>
+        <input id="inNome" type="text" placeholder="Seu nome" />
+      </div>
+      <div class="field">
+        <label>Sobrenome</label>
+        <input id="inSobrenome" type="text" placeholder="Seu sobrenome" />
+      </div>
+      <div class="field">
+        <label>Data de nascimento</label>
+        <input id="inNasc" type="date" />
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input id="inEmail" type="email" placeholder="seuemail@exemplo.com" />
+      </div>
+      <div class="field">
+        <label>Senha</label>
+        <input id="inSenha" type="password" placeholder="Crie uma senha" />
+      </div>
+
+      <button id="btnCadastrar" class="btn" type="button">Continuar</button>
+      <button class="google" type="button" onclick="alert('Login com Google entra na ETAPA 2 (Firebase).')">Entrar com Google (em breve)</button>
+
+      <div class="hint">* ETAPA 2: login seguro (Google) + salvar dados. ETAPA 3: escolher editor + chat + envio de arquivos.</div>
     </div>
   </div>
 </div>
@@ -206,21 +338,42 @@
 </footer>
 
 <script>
+  // Entrada profissional do site
   window.addEventListener('DOMContentLoaded', () => {
-    document.body.classList.remove('preload');
-    document.body.classList.add('loaded');
+    requestAnimationFrame(() => {
+      document.body.classList.remove('preload');
+      document.body.classList.add('loaded');
+    });
   });
 
   const overlay = document.getElementById('overlay');
   const modal = document.getElementById('modal');
   const titleCadastro = document.getElementById('titleCadastro');
+  const btnCadastrar = document.getElementById('btnCadastrar');
+
+  const screenStart = document.getElementById('screenStart');
+  const screenClient = document.getElementById('screenClient');
+  const screenEditor = document.getElementById('screenEditor');
+
+  const inNome = document.getElementById('inNome');
+  const inSobrenome = document.getElementById('inSobrenome');
+
+  const clientName = document.getElementById('clientName');
+  const editorName = document.getElementById('editorName');
+
+  let role = null; // 'cliente' | 'editor'
 
   function openCadastro(tipo){
-    titleCadastro.textContent = tipo === 'cliente' ? 'Criar conta como Cliente' : 'Criar conta como Editor';
+    role = tipo;
+    titleCadastro.textContent = (tipo === 'cliente') ? 'Criar conta como Cliente' : 'Criar conta como Editor';
+
     overlay.classList.remove('closing');
     modal.classList.remove('closing');
+
     overlay.classList.add('show');
     overlay.setAttribute('aria-hidden','false');
+
+    // reinicia animacao do modal
     modal.style.animation = 'none';
     void modal.offsetHeight;
     modal.style.animation = '';
@@ -229,6 +382,7 @@
   function closeCadastro(){
     overlay.classList.add('closing');
     modal.classList.add('closing');
+
     setTimeout(() => {
       overlay.classList.remove('show','closing');
       modal.classList.remove('closing');
@@ -239,8 +393,43 @@
   overlay.addEventListener('click', (e) => {
     if(e.target === overlay) closeCadastro();
   });
+
+  function showScreen(which){
+    // esconde todas
+    [screenStart, screenClient, screenEditor].forEach(s => s.classList.remove('show'));
+    // pequena espera para a animacao entrar certinho
+    setTimeout(() => {
+      which.classList.add('show');
+      window.scrollTo({top:0, behavior:'smooth'});
+    }, 50);
+  }
+
+  function goBackStart(){
+    showScreen(screenStart);
+  }
+
+  btnCadastrar.addEventListener('click', () => {
+    const nome = (inNome.value || '').trim();
+    const sobrenome = (inSobrenome.value || '').trim();
+
+    if(!nome || !sobrenome){
+      alert('Preencha Nome e Sobrenome para continuar.');
+      return;
+    }
+
+    closeCadastro();
+
+    const firstName = nome;
+
+    if(role === 'cliente'){
+      clientName.textContent = firstName;
+      showScreen(screenClient);
+    } else {
+      editorName.textContent = firstName;
+      showScreen(screenEditor);
+    }
+  });
 </script>
 
 </body>
 </html>
-
