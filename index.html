@@ -1,780 +1,633 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Karamello | Edição Profissional</title>
 
   <style>
     :root{
-      --bg1:#070b16;
-      --bg2:#0a1b2c;
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.09);
-      --stroke: rgba(255,255,255,.14);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.66);
-      --accent: #ff6b6b;
-      --accent2:#ffd166;
-      --ok:#64f58d;
-      --shadow: 0 20px 60px rgba(0,0,0,.45);
-      --radius: 18px;
-      --radius2: 26px;
-      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      --bg:#0f172a;
+      --panel:#020617;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --accent1:#7c3aed;
+      --accent2:#2563eb;
+      --cyan:#38bdf8;
+      --border:rgba(255,255,255,.08);
     }
-
     *{box-sizing:border-box}
-    html,body{height:100%}
+
     body{
       margin:0;
-      font-family:var(--font);
-      color:var(--text);
-      background:
-        radial-gradient(1200px 800px at 10% 10%, rgba(255,107,107,.16), transparent 60%),
-        radial-gradient(900px 700px at 90% 20%, rgba(255,209,102,.12), transparent 55%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       overflow-x:hidden;
     }
+    body.preload{opacity:0; transform: translateY(10px);}
+    body.loaded{opacity:1; transform:none; transition: opacity .55s ease, transform .55s ease;}
 
-    a{color:inherit}
-
-    .wrap{max-width:1100px;margin:0 auto;padding:28px 18px 64px}
     header{
-      display:flex;align-items:center;justify-content:space-between;gap:14px;
-      padding:14px 0 18px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      padding: 46px 20px;
+      text-align:center;
+      border-bottom:1px solid rgba(255,255,255,.08);
     }
-    .brand{
-      display:flex;align-items:center;gap:12px;
-    }
-    .logo{
-      width:38px;height:38px;border-radius:14px;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,209,102,.9), rgba(255,107,107,.85)),
-        linear-gradient(135deg, rgba(255,255,255,.15), rgba(255,255,255,0));
-      box-shadow: 0 10px 25px rgba(0,0,0,.35);
-      border: 1px solid rgba(255,255,255,.18);
-    }
-    .brand h1{margin:0;font-size:18px;letter-spacing:.3px}
-    .brand p{margin:0;color:var(--muted);font-size:12px}
+    header h1{margin:0;font-size:2.6rem}
+    header p{margin-top:10px;opacity:.9}
 
-    .btn{
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(255,255,255,.06);
-      color:var(--text);
-      padding:10px 14px;border-radius:14px;
-      cursor:pointer;
-      transition: transform .15s ease, background .15s ease, border .15s ease;
-      user-select:none;
-    }
-    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.22)}
-    .btn.primary{
-      border-color: rgba(255,107,107,.45);
-      background: linear-gradient(135deg, rgba(255,107,107,.18), rgba(255,209,102,.12));
-    }
-    .btn.primary:hover{border-color: rgba(255,107,107,.65)}
-    .btn.ghost{background:transparent}
+    .container{max-width:1100px;margin:34px auto;padding:0 18px}
 
-    .hero{
-      margin-top:14px;
-      padding:18px 18px 22px;
-      border-radius: var(--radius2);
-      border:1px solid rgba(255,255,255,.12);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      box-shadow: var(--shadow);
-      position:relative;
-      overflow:hidden;
-    }
-    .hero:before{
-      content:"";
-      position:absolute;inset:-120px -120px auto auto;
-      width:320px;height:320px;border-radius:50%;
-      background: radial-gradient(circle, rgba(255,107,107,.25), transparent 60%);
-      filter: blur(2px);
-      transform: rotate(15deg);
-    }
-    .hero h2{margin:0 0 6px;font-size:22px}
-    .hero p{margin:0;color:var(--muted);max-width:70ch;line-height:1.4}
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap:14px;
-      margin-top:16px;
-    }
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
 
     .card{
-      grid-column: span 4;
-      border-radius: var(--radius);
+      background: rgba(255,255,255,.04);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:22px;
+      box-shadow:0 12px 34px rgba(0,0,0,.35);
+      transform: translateY(12px);
+      opacity:0;
+    }
+    body.loaded .card{animation: cardIn .6s ease forwards;}
+    body.loaded .card:nth-child(1){animation-delay:.08s}
+    body.loaded .card:nth-child(2){animation-delay:.16s}
+    @keyframes cardIn{to{transform: translateY(0); opacity:1;}}
+
+    .card h3{margin-top:0;color:#a5b4fc}
+    .card p{color:var(--muted); line-height:1.5}
+
+    .btn{
+      width:100%;
+      margin-top:16px;
+      padding:12px;
+      background:linear-gradient(135deg,var(--accent1),var(--accent2));
+      border:none;
+      border-radius:12px;
+      color:white;
+      font-weight:700;
+      cursor:pointer;
+      transition: transform .12s ease, opacity .12s ease;
+    }
+    .btn:hover{opacity:.94}
+    .btn:active{transform:scale(.985)}
+
+    .btn.secondary{
+      background: transparent;
+      border:1px solid rgba(255,255,255,.18);
+      color: var(--text);
+    }
+
+    .price{font-size:2rem;font-weight:900;color:var(--cyan);margin:12px 0 6px}
+    ul{padding-left:18px;margin:10px 0 0}
+    ul li{margin:0 0 8px;color:#cbd5e1}
+
+    footer{
+      text-align:center;
+      padding:30px 18px;
+      color:var(--muted);
+      border-top:1px solid rgba(255,255,255,.06);
+      margin-top:40px;
+      opacity:0;
+      transform: translateY(10px);
+    }
+    body.loaded footer{animation: footIn .55s ease forwards; animation-delay:.22s}
+    @keyframes footIn{to{opacity:1; transform:none}}
+
+    /* ===== TELAS (fluxo pós-cadastro) ===== */
+    .screen{display:none; opacity:0; transform: translateY(14px);}
+    .screen.show{display:block; animation: screenIn .45s ease forwards;}
+    @keyframes screenIn{to{opacity:1; transform:none}}
+
+    .section-title{margin:26px 0 12px; color:#c7d2fe; font-size:1.25rem;}
+    .pill{display:inline-block;margin-top:6px;color:var(--muted);font-size:.95rem;}
+
+    /* extras UI */
+    .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .mini label{display:block;font-size:.88rem;color:#cbd5e1;margin:0 0 6px}
+    select{
+      width:100%;
+      padding:11px;
+      border-radius:10px;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.06);
-      box-shadow: 0 14px 40px rgba(0,0,0,.35);
-      padding:14px;
-      position:relative;
-      overflow:hidden;
-      transform: translateY(0);
-      transition: transform .15s ease, background .15s ease, border .15s ease;
-    }
-    .card:hover{transform: translateY(-2px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.18)}
-    .card h3{margin:0;font-size:16px}
-    .card .meta{margin-top:8px;color:var(--muted);font-size:12px;line-height:1.35}
-    .price{
-      margin-top:12px;
-      display:flex;align-items:baseline;justify-content:space-between;gap:10px;
-    }
-    .price strong{font-size:18px}
-    .pill{
-      font-size:11px;color:rgba(255,255,255,.88);
-      background: rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.14);
-      padding:6px 10px;border-radius:999px;
-    }
-
-    /* destaque personalizado */
-    .card.featured{
-      grid-column: span 12;
-      border-color: rgba(255,107,107,.28);
-      background:
-        radial-gradient(800px 260px at 20% 0%, rgba(255,107,107,.14), transparent 60%),
-        radial-gradient(700px 260px at 80% 0%, rgba(255,209,102,.10), transparent 55%),
-        rgba(255,255,255,.06);
-    }
-    .featuredHead{
-      display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;
-    }
-    .featuredHead h3{font-size:18px}
-    .featuredSub{color:var(--muted);font-size:13px;margin:6px 0 0;max-width:70ch}
-
-    .customGrid{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap:12px;
-      margin-top:14px;
-    }
-    .field{
-      grid-column: span 3;
-      display:flex;flex-direction:column;gap:6px;
-    }
-    .field.wide{grid-column: span 6}
-    .field.full{grid-column: span 12}
-    label{font-size:12px;color:var(--muted)}
-    input, select, textarea{
-      width:100%;
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.22);
-      color:var(--text);
-      padding:10px 12px;
+      color: var(--text);
       outline:none;
     }
-    textarea{min-height:88px;resize:vertical}
-    input:focus, select:focus, textarea:focus{border-color: rgba(255,209,102,.45)}
-
-    .extras{
+    .checks{display:grid;gap:8px}
+    .chk{display:flex;gap:10px;align-items:center;color:#cbd5e1;font-size:.95rem}
+    .chk input{
+      width:100%;
+      padding:11px;
+      border-radius:10px;
       border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      border-radius: 16px;
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      outline:none;
+    }
+    textarea{
+      width:100%;
+      padding:11px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      outline:none;
+      min-height:96px;
+      resize:vertical;
+    }
+    input::placeholder, textarea::placeholder{color: rgba(229,231,235,.65)}
+    input:focus, textarea:focus{border-color: rgba(56,189,248,.55)}
+
+    .google{
+      width:100%;
       padding:12px;
-    }
-    .extras h4{margin:0 0 10px;font-size:13px;color:rgba(255,255,255,.86)}
-    .extrasList{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:10px;
-    }
-    .check{
-      display:flex;align-items:center;gap:10px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      padding:10px 10px;border-radius:14px;
+      background:white;
+      color:#0a2cff;
+      border:none;
+      border-radius:12px;
+      font-weight:800;
       cursor:pointer;
-      transition: border .15s ease, background .15s ease, transform .15s ease;
-      user-select:none;
-    }
-    .check:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.18); background: rgba(0,0,0,.22)}
-    .check input{width:18px;height:18px;accent-color: var(--accent2)}
-    .check .txt{display:flex;flex-direction:column;gap:2px}
-    .check .t1{font-size:12px}
-    .check .t2{font-size:11px;color:var(--muted)}
-
-    .customFooter{
-      margin-top:14px;
-      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
-      border-top:1px solid rgba(255,255,255,.10);
-      padding-top:12px;
-    }
-    .totalBox{
-      display:flex;flex-direction:column;gap:3px;
-    }
-    .totalBox .big{
-      font-size:22px;font-weight:800;letter-spacing:.2px;
-    }
-    .totalBox .small{color:var(--muted);font-size:12px}
-    .note{
-      color:var(--muted);
-      font-size:12px;
-      line-height:1.4;
-      max-width:64ch;
-    }
-
-    /* modal */
-    .overlay{
-      position:fixed;inset:0;
-      background: rgba(0,0,0,.55);
-      display:none;
-      align-items:center;justify-content:center;
-      padding:18px;
-      z-index: 1000;
-    }
-    .overlay.show{display:flex}
-    .modal{
-      width:min(920px, 100%);
-      border-radius: 24px;
-      border:1px solid rgba(255,255,255,.14);
-      background:
-        radial-gradient(1000px 450px at 20% 0%, rgba(255,107,107,.18), transparent 60%),
-        radial-gradient(900px 450px at 80% 0%, rgba(255,209,102,.12), transparent 55%),
-        rgba(10,12,22,.92);
-      box-shadow: 0 30px 90px rgba(0,0,0,.55);
-      overflow:hidden;
-      transform: translateY(12px) scale(.98);
-      opacity:0;
-      animation: pop .22s ease forwards;
-    }
-    @keyframes pop{
-      to{transform: translateY(0) scale(1); opacity:1}
-    }
-    .modalTop{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-      padding:14px 16px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
-    .modalTop strong{font-size:14px}
-    .close{cursor:pointer}
-    .modalBody{
-      padding:16px;
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:14px;
-    }
-    .panel{
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      padding:14px;
-    }
-    .panel h3{margin:0 0 8px}
-    .roleBtns{display:flex;gap:10px;flex-wrap:wrap}
-    .roleBtns .btn{flex:1;min-width:160px}
-    .form{
-      display:grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap:10px;
+      transition: transform .12s ease, opacity .12s ease;
       margin-top:10px;
     }
-    .form .field{grid-column: span 2}
-    .form .half{grid-column: span 1}
+    .google:hover{opacity:.94}
+    .google:active{transform:scale(.985)}
 
-    .hidden{display:none !important}
+    .hint{margin-top:10px;color:#a5b4fc;font-size:.9rem;line-height:1.35}
 
-    /* responsivo */
-    @media (max-width: 980px){
-      .card{grid-column: span 6}
-      .extrasList{grid-template-columns: repeat(2,1fr)}
-      .modalBody{grid-template-columns: 1fr}
-    }
-    @media (max-width: 640px){
-      .card{grid-column: span 12}
-      .field{grid-column: span 6}
-      .field.wide{grid-column: span 12}
-      .extrasList{grid-template-columns: 1fr}
-      header{flex-direction:column;align-items:flex-start}
-    }
-
-    /* debug de erro (pra não ficar tela preta sem explicação) */
-    .fatal{
-      margin:18px 0 0;
-      padding:12px 14px;
-      border-radius: 16px;
-      border:1px solid rgba(255,107,107,.35);
-      background: rgba(255,107,107,.10);
-      color: rgba(255,255,255,.92);
-      font-size:13px;
-      line-height:1.45;
-      white-space:pre-wrap;
+    @media (max-width:520px){
+      header h1{font-size:2.15rem}
     }
   </style>
 </head>
+<body class="preload">
 
-<body>
-  <div class="wrap">
+<header>
+  <h1>Karamello</h1>
+  <p>Escolha como deseja usar a plataforma</p>
+</header>
 
-    <header>
-      <div class="brand">
-        <div class="logo"></div>
-        <div>
-          <h1>Karamello</h1>
-          <p>Edição Profissional • Pacotes e Personalizado</p>
-        </div>
+<div class="container">
+  <!-- TELA INICIAL -->
+  <section id="screenStart" class="screen show">
+    <div class="grid">
+      <div class="card">
+        <h3>Sou Cliente</h3>
+        <p>Contrate edição profissional de fotos e vídeos.</p>
+        <button class="btn" type="button" onclick="openCadastro('cliente')">Criar conta (Cliente)</button>
       </div>
 
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn ghost" id="btnOpenModal">Entrar / Cadastrar</button>
-        <button class="btn primary hidden" id="btnReset">Trocar conta</button>
+      <div class="card">
+        <h3>Quero Trabalhar</h3>
+        <p>Cadastre-se como editor e receba pedidos.</p>
+        <button class="btn" type="button" onclick="openCadastro('editor')">Criar conta (Editor)</button>
       </div>
-    </header>
+    </div>
+  </section>
 
-    <section class="hero" id="hero">
-      <h2 id="heroTitle">Escolha como você quer começar</h2>
-      <p id="heroSub">Cadastre-se como <b>Cliente</b> para ver os pacotes e montar um pedido personalizado. Se for <b>Editor</b>, em breve você terá seu painel.</p>
-      <div id="fatalBox" class="fatal hidden"></div>
-    </section>
+  <!-- TELA CLIENTE (após cadastro) -->
+  <section id="screenClient" class="screen">
+    <div class="section-title">Bem-vindo, <span id="clientName">Cliente</span> 👋</div>
+    <div class="pill">Escolha um pacote pronto ou monte um pacote personalizado.</div>
 
-    <!-- área de pacotes (aparece depois que cliente cadastra) -->
-    <section id="clientArea" class="hidden">
-      <div class="grid" id="packagesGrid"></div>
-    </section>
+    <div class="section-title" style="margin-top:18px">Pacotes prontos (15 opções)</div>
+    <div id="packagesGrid" class="grid" style="margin-top:12px"></div>
 
-    <!-- modal -->
-    <div class="overlay" id="overlay" aria-hidden="true">
-      <div class="modal" role="dialog" aria-modal="true" aria-label="Cadastro Karamello">
-        <div class="modalTop">
-          <strong>Cadastro • Karamello</strong>
-          <span class="btn close" id="btnClose">Fechar</span>
-        </div>
+    <div class="section-title" style="margin-top:26px">Pacote Personalizado ✨</div>
+    <div class="grid" style="margin-top:12px">
+      <div class="card highlight" style="opacity:1;transform:none">
+        <h3>Monte seu pacote</h3>
+        <p>Escolha quantas fotos/vídeos você quer, para qual plataforma e o tipo de vídeo. O site soma tudo por trás e mostra só o total.</p>
 
-        <div class="modalBody">
-          <div class="panel">
-            <h3>Você é…</h3>
-            <p style="margin:0;color:var(--muted);font-size:13px;line-height:1.4">Escolha seu perfil. Você pode trocar depois.</p>
-
-            <div class="roleBtns" style="margin-top:12px">
-              <button class="btn primary" id="roleClient">Cliente</button>
-              <button class="btn" id="roleEditor">Editor</button>
-            </div>
-
-            <div class="form" style="margin-top:14px">
-              <div class="field half">
-                <label for="name">Seu nome</label>
-                <input id="name" placeholder="Ex: Kauan" autocomplete="name">
-              </div>
-              <div class="field half">
-                <label for="phone">WhatsApp</label>
-                <input id="phone" placeholder="(DD) 99999-9999" inputmode="numeric">
-              </div>
-              <div class="field">
-                <label for="email">E-mail</label>
-                <input id="email" placeholder="voce@email.com" autocomplete="email">
-              </div>
-              <div class="field">
-                <button class="btn primary" id="btnConfirm" style="width:100%">Confirmar cadastro</button>
-              </div>
-            </div>
+        <div class="mini-grid">
+          <div class="mini">
+            <label>Fotos</label>
+            <input id="custFotos" type="number" min="0" value="0" />
           </div>
-
-          <div class="panel">
-            <h3>Como funciona</h3>
-            <ul style="margin:10px 0 0; padding-left:18px; color:var(--muted); font-size:13px; line-height:1.5">
-              <li>Você escolhe um pacote ou monta o <b>Personalizado</b>.</li>
-              <li>O valor é calculado por trás (sem mostrar preço por item).</li>
-              <li>Entrega mínima: <b>13h30</b> (pode variar conforme demanda).</li>
-              <li>Você finaliza o pedido e combinamos no WhatsApp.</li>
-            </ul>
-
-            <div style="margin-top:12px; border-top:1px solid rgba(255,255,255,.10); padding-top:12px;">
-              <p style="margin:0; color:rgba(255,255,255,.88); font-size:12px">
-                Dica: pacotes têm preço “de mercado” com números quebrados.
-              </p>
-            </div>
+          <div class="mini">
+            <label>Vídeos</label>
+            <input id="custVideos" type="number" min="0" value="0" />
           </div>
         </div>
 
+        <div class="mini-grid" style="margin-top:10px">
+          <div class="mini">
+            <label>Plataforma</label>
+            <select id="custPlataforma">
+              <option value="reels">Instagram Reels</option>
+              <option value="tiktok">TikTok</option>
+              <option value="insta">Instagram Feed</option>
+              <option value="shorts">YouTube Shorts</option>
+            </select>
+          </div>
+          <div class="mini">
+            <label>Tipo de vídeo</label>
+            <select id="custTipoVideo">
+              <option value="15">Curto (até 15s)</option>
+              <option value="45">Médio (30–45s)</option>
+              <option value="60">Longo (até 60s)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="checks" style="margin-top:10px">
+          <label class="chk"><input data-custom-opt id="optCorCine" type="checkbox" /> Cor cinematográfica (vídeos)</label>
+          <label class="chk"><input data-custom-opt id="optLegenda" type="checkbox" /> Legendas (vídeos)</label>
+          <label class="chk"><input data-custom-opt id="optTransicoes" type="checkbox" /> Transições premium (vídeos)</label>
+          <label class="chk"><input data-custom-opt id="optSFX" type="checkbox" /> Efeitos sonoros (SFX) (vídeos)</label>
+          <label class="chk"><input data-custom-opt id="optAudio" type="checkbox" /> Melhorar áudio + reduzir ruído (vídeos)</label>
+          <label class="chk"><input data-custom-opt id="optEstabilizar" type="checkbox" /> Estabilização (vídeos)</label>
+          <label class="chk"><input data-custom-opt id="optSpeedRamp" type="checkbox" /> Speed ramp / slow motion (vídeos)</label>
+          <label class="chk"><input data-custom-opt id="optMotion" type="checkbox" /> Motion graphics simples (títulos) (vídeos)</label>
+          <label class="chk"><input data-custom-opt id="optIntroOutro" type="checkbox" /> Intro/Outro + CTA (vídeos)</label>
+
+          <label class="chk"><input data-custom-opt id="optRetoquePro" type="checkbox" /> Retoque avançado (fotos)</label>
+          <label class="chk"><input data-custom-opt id="optPele" type="checkbox" /> Suavizar pele (fotos)</label>
+          <label class="chk"><input data-custom-opt id="optFundo" type="checkbox" /> Remover/alterar fundo (fotos)</label>
+          <label class="chk"><input data-custom-opt id="optCoresFoto" type="checkbox" /> Cor cinematográfica (fotos)</label>
+          <label class="chk"><input data-custom-opt id="optHDR" type="checkbox" /> HDR / nitidez premium (fotos)</label>
+          <label class="chk"><input data-custom-opt id="optObjeto" type="checkbox" /> Remover objetos (fotos)</label>
+          <label class="chk"><input data-custom-opt id="optTexto" type="checkbox" /> Texto/arte simples (fotos)</label>
+          <label class="chk"><input data-custom-opt id="optThumbnail" type="checkbox" /> Thumbnail (capa) (1 unidade)</label>
+
+          <label class="chk"><input data-custom-opt id="optUrgente" type="checkbox" /> Prioridade (entrega mais rápida)</label>
+        </div>
+
+        <div class="field" style="margin-top:12px">
+          <label>Categoria detalhada</label>
+          <textarea id="custDetalhe" placeholder="Descreva exatamente como você quer: estilo, referência, cores, cortes, músicas, legendas, plataformas, etc..."></textarea>
+        </div>
+
+        <div class="total-box">
+          <div class="total-line"><span>Valor total</span><strong id="custTotal">R$ 0</strong></div>
+          <div class="total-sub">Entrega estimada: <strong id="custEntrega">13h30</strong> (mínimo)</div>
+        </div>
+
+        <button class="btn" type="button" onclick="confirmCustom()">Continuar com o personalizado</button>
+        <div class="hint">* Preços baseados em referências de mercado (foto por unidade e edição de vídeo por complexidade). Na ETAPA futura, isso vira checkout real.</div>
       </div>
     </div>
 
+    <button class="btn secondary" style="margin-top:18px" type="button" onclick="goBackStart()">Voltar</button>
+  </section>
+
+  <!-- TELA EDITOR (após cadastro) -->
+  <section id="screenEditor" class="screen">
+    <div class="section-title">Bem-vindo, <span id="editorName">Editor</span> 🎬</div>
+    <div class="pill">Complete seu perfil para começar a receber pedidos.</div>
+
+    <div class="grid" style="margin-top:16px">
+      <div class="card" style="opacity:1;transform:none">
+        <h3>Seu perfil (ETAPA 2)</h3>
+        <p>Na próxima etapa, você terá uma área para colocar seu portfólio, estilos e preços.</p>
+        <button class="btn" type="button" onclick="alert('Próxima etapa: perfil do editor + vitrine (ETAPA 3).')">Quero montar meu perfil</button>
+      </div>
+
+      <div class="card" style="opacity:1;transform:none">
+        <h3>Como funciona</h3>
+        <ul>
+          <li>Você recebe pedidos de clientes</li>
+          <li>Conversa via chat (ETAPA futura)</li>
+          <li>Entrega do trabalho após pagamento (futuro)</li>
+        </ul>
+        <button class="btn" type="button" onclick="alert('Próxima etapa: vitrine de editores + escolher editor (ETAPA 3).')">Entendi</button>
+      </div>
+    </div>
+
+    <button class="btn secondary" style="margin-top:18px" type="button" onclick="goBackStart()">Voltar</button>
+  </section>
+</div>
+
+<!-- MODAL -->
+<div id="overlay" class="overlay" aria-hidden="true">
+  <div id="modal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <h3 id="titleCadastro">Criar conta</h3>
+      <button class="x" type="button" onclick="closeCadastro()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label>Nome</label>
+        <input id="inNome" type="text" placeholder="Seu nome" />
+      </div>
+      <div class="field">
+        <label>Sobrenome</label>
+        <input id="inSobrenome" type="text" placeholder="Seu sobrenome" />
+      </div>
+      <div class="field">
+        <label>Data de nascimento</label>
+        <input id="inNasc" type="date" />
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input id="inEmail" type="email" placeholder="seuemail@exemplo.com" />
+      </div>
+      <div class="field">
+        <label>Senha</label>
+        <input id="inSenha" type="password" placeholder="Crie uma senha" />
+      </div>
+
+      <button id="btnCadastrar" class="btn" type="button">Continuar</button>
+      <button class="google" type="button" onclick="alert('Login com Google entra na ETAPA 2 (Firebase).')">Entrar com Google (em breve)</button>
+
+      <div class="hint">* ETAPA 2: login seguro (Google) + salvar dados. ETAPA 3: escolher editor + chat + envio de arquivos.</div>
+    </div>
   </div>
+</div>
 
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const $ = (s) => document.querySelector(s);
-    const fatalBox = $("#fatalBox");
+<footer>
+  © 2026 • Karamello • Edição profissional
+</footer>
 
-    function showFatal(err){
-      console.error(err);
-      fatalBox.classList.remove("hidden");
-      fatalBox.textContent =
-        "Deu um erro no JavaScript e a página poderia ficar vazia. Aqui está o erro:\n\n" +
-        (err && err.stack ? err.stack : String(err));
+<script>
+  // Entrada profissional do site
+  window.addEventListener('DOMContentLoaded', () => {
+    requestAnimationFrame(() => {
+      document.body.classList.remove('preload');
+      document.body.classList.add('loaded');
+    });
+  });
+
+  const overlay = document.getElementById('overlay');
+  const modal = document.getElementById('modal');
+  const titleCadastro = document.getElementById('titleCadastro');
+  const btnCadastrar = document.getElementById('btnCadastrar');
+
+  const screenStart = document.getElementById('screenStart');
+  const screenClient = document.getElementById('screenClient');
+  const screenEditor = document.getElementById('screenEditor');
+
+  const inNome = document.getElementById('inNome');
+  const inSobrenome = document.getElementById('inSobrenome');
+
+  const clientName = document.getElementById('clientName');
+  const editorName = document.getElementById('editorName');
+
+  let role = null; // 'cliente' | 'editor'
+
+  // ===== MODAL CADASTRO =====
+  function openCadastro(tipo){
+    role = tipo;
+    titleCadastro.textContent = (tipo === 'cliente') ? 'Criar conta como Cliente' : 'Criar conta como Editor';
+
+    overlay.classList.remove('closing');
+    modal.classList.remove('closing');
+
+    overlay.classList.add('show');
+    overlay.setAttribute('aria-hidden','false');
+
+    // reinicia animacao do modal
+    modal.style.animation = 'none';
+    void modal.offsetHeight;
+    modal.style.animation = '';
+  }
+
+  function closeCadastro(){
+    overlay.classList.add('closing');
+    modal.classList.add('closing');
+
+    setTimeout(() => {
+      overlay.classList.remove('show','closing');
+      modal.classList.remove('closing');
+      overlay.setAttribute('aria-hidden','true');
+    }, 220);
+  }
+
+  overlay.addEventListener('click', (e) => {
+    if(e.target === overlay) closeCadastro();
+  });
+
+  // ===== TELAS =====
+  function showScreen(which){
+    [screenStart, screenClient, screenEditor].forEach(s => s.classList.remove('show'));
+    setTimeout(() => {
+      which.classList.add('show');
+      window.scrollTo({top:0, behavior:'smooth'});
+    }, 50);
+  }
+
+  function goBackStart(){
+    showScreen(screenStart);
+  }
+
+  // ===== PACOTES (15) =====
+  const packages = [
+    // Crescentes + numeros quebrados (psicologia de preco)
+    {id:1,  name:'Starter Foto',     price:27.40, eta:'13h30', items:['1 Foto (básica)','Cor + nitidez']},
+    {id:2,  name:'Duo Foto',         price:41.80, eta:'13h30', items:['2 Fotos (básicas)','Cor + nitidez']},
+    {id:3,  name:'Foto Pro 3',       price:53.60, eta:'14h30', items:['3 Fotos (pro)','Ajustes finos + cor']},
+    {id:4,  name:'Vídeo Short 15s',  price:63.90, eta:'14h30', items:['1 Vídeo curto (até 15s)','Cortes + ritmo']},
+    {id:5,  name:'Foto Pack 4',      price:73.50, eta:'15h00', items:['4 Fotos (pro)','Cor + detalhes']},
+    {id:6,  name:'Short Duo',        price:86.40, eta:'15h30', items:['2 Vídeos curtos (até 15s)','Cortes + transições simples']},
+    {id:7,  name:'Combo Social',     price:96.80, eta:'16h00', items:['1 Foto + 1 Vídeo curto','Look cinematográfico leve']},
+    {id:8,  name:'Foto Pack 5',      price:108.90,eta:'18h00', items:['5 Fotos (pro)','Padronização de cor']},
+    {id:9,  name:'Short Trio',       price:132.70,eta:'18h00', items:['3 Vídeos curtos (até 15s)','Cor + ritmo']},
+    {id:10, name:'Foto Pack 8',      price:151.40,eta:'24h',   items:['8 Fotos (pro)','Cor + retoques leves']},
+    {id:11, name:'Short 5',          price:176.90,eta:'24h',   items:['5 Vídeos curtos','Cortes + cor']},
+    {id:12, name:'Creator Mix',      price:197.80,eta:'24h',   items:['10 Fotos + 1 Vídeo curto','Padronização completa']},
+    {id:13, name:'Vídeo Médio 45s',  price:221.60,eta:'24h',   items:['1 Vídeo médio (30–45s)','Cor + transições']},
+    {id:14, name:'Vídeo Longo 60s',  price:259.40,eta:'48h',   items:['1 Vídeo longo (até 60s)','Edição avançada']},
+    {id:15, name:'Premium Creator',  price:329.90,eta:'48h',   items:['15 Fotos + 3 Vídeos curtos','Look premium + revisão']},
+  ];
+
+  function brl(v){
+    return v.toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
+  }
+
+  function renderPackages(){
+    const grid = document.getElementById('packagesGrid');
+    if(!grid) return;
+    grid.innerHTML = '';
+
+    packages.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.style.opacity = '1';
+      card.style.transform = 'none';
+
+      const itemsHtml = p.items.map(i => `<li>${i}</li>`).join('');
+
+      card.innerHTML = `
+        <h3>${p.id}. ${p.name}</h3>
+        <p>Entrega a partir de <strong>${p.eta}</strong> (mínimo 13h30)</p>
+        <div class="price">${brl(p.price)}</div>
+        <ul>${itemsHtml}</ul>
+        <button class="btn" type="button" onclick="choosePackage(${p.id})">Escolher pacote</button>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function choosePackage(id){
+    const p = packages.find(x => x.id === id);
+    if(!p) return;
+    alert(`Pacote selecionado: ${p.id}. ${p.name}
+Valor: ${brl(p.price)}
+Entrega: ${p.eta}
+
+Próxima etapa (futura): escolher editor + enviar arquivos.`);
+  }
+
+  // ===== PERSONALIZADO (soma por trás, mostra só total) =====
+  const custFotos = document.getElementById('custFotos');
+  const custVideos = document.getElementById('custVideos');
+  const custPlataforma = document.getElementById('custPlataforma');
+  const custTipoVideo = document.getElementById('custTipoVideo');
+    const custTotal = document.getElementById('custTotal');
+  const custEntrega = document.getElementById('custEntrega');
+
+  const PRICES = {
+    // Personalizado: precos internos (nao exibidos)
+    foto: 21.40,
+    video15: 44.90,
+    video45: 66.70,
+    video60: 84.60,
+    // pequenas variacoes por plataforma (nao exibidas)
+    platformMult: { reels:1.00, tiktok:1.00, insta:1.04, shorts:1.04 }
+  };
+
+  // Opcoes do personalizado: cada uma tem um preco interno (NAO exibido)
+  const EXTRA_OPTIONS = [
+    // video (por video)
+    { id:'optCorCine',    kind:'video', price:11.60 },
+    { id:'optLegenda',    kind:'video', price:11.60 },
+    { id:'optTransicoes', kind:'video', price:9.40  },
+    { id:'optSFX',        kind:'video', price:9.40  },
+    { id:'optAudio',      kind:'video', price:11.60 },
+    { id:'optEstabilizar',kind:'video', price:11.60 },
+    { id:'optSpeedRamp',  kind:'video', price:9.40  },
+    { id:'optMotion',     kind:'video', price:11.60 },
+    { id:'optIntroOutro', kind:'video', price:11.60 },
+
+    // foto (por foto)
+    { id:'optRetoquePro', kind:'photo', price:9.40  },
+    { id:'optPele',       kind:'photo', price:9.40  },
+    { id:'optFundo',      kind:'photo', price:11.60 },
+    { id:'optCoresFoto',  kind:'photo', price:9.40  },
+    { id:'optHDR',        kind:'photo', price:9.40  },
+    { id:'optObjeto',     kind:'photo', price:11.60 },
+    { id:'optTexto',      kind:'photo', price:9.40  },
+
+    // por pedido (flat)
+    { id:'optThumbnail',  kind:'order', price:19.90 },
+    { id:'optUrgente',    kind:'order', price:29.90 },
+  ];
+
+  function calcEntrega(total, urgent){
+    // mínimo 13h30, aumenta conforme total
+    let eta = '13h30';
+    if(total <= 120) eta = '13h30';
+    else if(total <= 250) eta = '14h30';
+    else if(total <= 400) eta = '18h00';
+    else if(total <= 700) eta = '24h';
+    else eta = '48h';
+
+    // prioridade encurta um nivel (sem passar do minimo)
+    if(urgent){
+      if(eta === '48h') eta = '24h';
+      else if(eta === '24h') eta = '18h00';
+      else if(eta === '18h00') eta = '14h30';
+      else eta = '13h30';
+    }
+    return eta;
+  }
+
+  function calcCustom(){
+    if(!custTotal) return;
+
+    const fotos = Math.max(0, parseInt(custFotos?.value || '0', 10));
+    const vids  = Math.max(0, parseInt(custVideos?.value || '0', 10));
+    const plat  = custPlataforma?.value || 'reels';
+    const tipo  = custTipoVideo?.value || '15';
+
+    let unitVideo = PRICES.video15;
+    if(tipo === '45') unitVideo = PRICES.video45;
+    if(tipo === '60') unitVideo = PRICES.video60;
+
+    const mult = PRICES.platformMult[plat] ?? 1.0;
+
+    let extraVideo = 0;
+    let extraPhoto = 0;
+    let extraOrder = 0;
+
+    EXTRA_OPTIONS.forEach(o => {
+      const el = document.getElementById(o.id);
+      if(!el || !el.checked) return;
+      if(o.kind === 'video') extraVideo += o.price;
+      else if(o.kind === 'photo') extraPhoto += o.price;
+      else extraOrder += o.price;
+    });
+
+    const rawTotal = (fotos * (PRICES.foto + extraPhoto)) + (vids * (unitVideo * mult + extraVideo)) + extraOrder;
+
+    // "jogo" de numeros: cria centavos nao redondos e dificulta comparacao
+    const jitter = (fotos + vids) > 0 ? (0.30 + ((fotos*7 + vids*11) % 7) * 0.10) : 0;
+    const total = Math.max(0, rawTotal + jitter);
+
+    custTotal.textContent = brl(total);
+    if(custEntrega) const urgent = document.getElementById('optUrgente')?.checked || false;
+    custEntrega.textContent = calcEntrega(total, urgent);
+  }
+
+  function confirmCustom(){
+    const totalStr = custTotal?.textContent || 'R$ 0';
+    const entregaStr = custEntrega?.textContent || '13h30';
+    alert(`Personalizado criado!
+Total: ${totalStr}
+Entrega estimada: ${entregaStr}
+
+Próxima etapa (futura): escolher editor + enviar arquivos.`);
+  }
+
+  [custFotos, custVideos, custPlataforma, custTipoVideo].forEach(el => {
+    if(!el) return;
+    el.addEventListener('input', calcCustom);
+    el.addEventListener('change', calcCustom);
+  });
+
+  // opcoes extras (16+)
+  Array.from(document.querySelectorAll('[data-custom-opt]')).forEach(el => {
+    el.addEventListener('change', calcCustom);
+  });
+
+  // campo livre (nao muda preco, mas ajuda no futuro)
+  const custDetalhe = document.getElementById('custDetalhe');
+  if(custDetalhe){
+    custDetalhe.addEventListener('input', () => {});
+  }
+    el.addEventListener('change', calcCustom);
+  });
+
+  // ===== REGISTRO (fluxo) =====
+  btnCadastrar.addEventListener('click', () => {
+    const nome = (inNome.value || '').trim();
+    const sobrenome = (inSobrenome.value || '').trim();
+
+    if(!nome || !sobrenome){
+      alert('Preencha Nome e Sobrenome para continuar.');
+      return;
     }
 
-    try {
-      // ===== Dados (15 pacotes + personalizado + 18 extras) =====
-      const PACKAGES = [
-        { id:"p1",  title:"Start Foto",        meta:"10 fotos • Edição e cor", price:79.90 },
-        { id:"p2",  title:"Foto Pro",          meta:"20 fotos • Tom cinema",  price:129.70 },
-        { id:"p3",  title:"Foto Premium",      meta:"35 fotos • Premium look", price:189.90 },
+    closeCadastro();
 
-        { id:"p4",  title:"Start Reels",       meta:"1 vídeo (15s) • Reels",  price:89.90 },
-        { id:"p5",  title:"Reels Pro",         meta:"2 vídeos (15s) • Reels", price:159.70 },
-        { id:"p6",  title:"Reels Boost",       meta:"3 vídeos (15s) • Reels", price:219.90 },
-        { id:"p7",  title:"Reels Premium",     meta:"5 vídeos (15s) • Reels", price:339.70 },
+    const firstName = nome;
 
-        { id:"p8",  title:"TikTok Starter",    meta:"2 vídeos (15s) • TikTok", price:149.90 },
-        { id:"p9",  title:"TikTok Pro",        meta:"4 vídeos (15s) • TikTok", price:269.70 },
-
-        { id:"p10", title:"Shorts Starter",    meta:"3 vídeos (15s) • Shorts", price:199.90 },
-        { id:"p11", title:"Shorts Pro",        meta:"6 vídeos (15s) • Shorts", price:359.70 },
-
-        { id:"p12", title:"Combo Social",      meta:"15 fotos + 2 vídeos (15s)", price:239.90 },
-        { id:"p13", title:"Combo Creator",     meta:"25 fotos + 4 vídeos (15s)", price:389.70 },
-        { id:"p14", title:"Combo Viral",       meta:"35 fotos + 6 vídeos (15s)", price:549.90 },
-        { id:"p15", title:"Marca Forte",       meta:"50 fotos + 8 vídeos (15s)", price:749.70 },
-      ];
-
-      const BASE = { photo: 6.70, video: 14.90 };
-
-      const PLATFORM_MULT = {
-        instagram: 1.00,
-        reels: 1.12,
-        tiktok: 1.10,
-        shorts: 1.08
-      };
-
-      const DURATION_MULT = { "15":1.00, "45":1.18, "60":1.30 };
-
-      const EXTRAS = [
-        { id:"ex1",  label:"Legendas (curtas)", value: 9.90 },
-        { id:"ex2",  label:"Legendas (dinâmicas)", value: 19.70 },
-        { id:"ex3",  label:"Correção de cor (cinema)", value: 24.90 },
-        { id:"ex4",  label:"LUT premium", value: 14.70 },
-        { id:"ex5",  label:"Transições avançadas", value: 17.90 },
-        { id:"ex6",  label:"Zoom/impact beats", value: 12.80 },
-        { id:"ex7",  label:"Motion simples (textos)", value: 18.90 },
-        { id:"ex8",  label:"Motion avançado", value: 34.70 },
-        { id:"ex9",  label:"Sound design", value: 16.90 },
-        { id:"ex10", label:"Mix de áudio (limpar ruído)", value: 13.90 },
-        { id:"ex11", label:"Música + sync", value: 11.70 },
-        { id:"ex12", label:"Thumbnail (capa)", value: 22.90 },
-        { id:"ex13", label:"Hook inicial (0–2s)", value: 15.90 },
-        { id:"ex14", label:"Estabilização", value: 12.90 },
-        { id:"ex15", label:"Remover fundo (simples)", value: 19.90 },
-        { id:"ex16", label:"Export extra (2 formatos)", value: 8.90 },
-        { id:"ex17", label:"Revisão extra", value: 14.90 },
-        { id:"ex18", label:"Entrega express (prioridade)", value: 39.90 },
-      ];
-
-      // ===== Helpers =====
-      const formatBRL = (n) => n.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
-
-      // preço “charm” terminando em .90
-      const roundToCharmPrice = (n) => {
-        const floor = Math.floor(n);
-        return floor + 0.90;
-      };
-
-      const getExtrasTotal = () => {
-        let sum = 0;
-        document.querySelectorAll('input[name="extra"]:checked').forEach(chk => {
-          const ex = EXTRAS.find(e => e.id === chk.value);
-          if(ex) sum += ex.value;
-        });
-        return sum;
-      };
-
-      const calcCustomTotal = () => {
-        const photos = Math.max(0, parseInt($("#cPhotos").value || "0", 10));
-        const videos = Math.max(0, parseInt($("#cVideos").value || "0", 10));
-        const platform = $("#cPlatform").value;
-        const duration = $("#cDuration").value;
-
-        const base = (photos * BASE.photo) + (videos * BASE.video);
-        const multP = PLATFORM_MULT[platform] ?? 1.0;
-        const multD = videos > 0 ? (DURATION_MULT[duration] ?? 1.0) : 1.0;
-        const extras = getExtrasTotal();
-
-        const raw = (base * multP * multD) + extras;
-        const total = roundToCharmPrice(raw);
-        return { total, photos, videos, platform, duration, extras };
-      };
-
-      // ===== Render pacotes + personalizado =====
-      const grid = $("#packagesGrid");
-
-      function renderClientUI(){
-        grid.innerHTML = "";
-
-        // Card Personalizado (destacado)
-        const featured = document.createElement("div");
-        featured.className = "card featured";
-        featured.innerHTML = `
-          <div class="featuredHead">
-            <div>
-              <h3>Pacote Personalizado</h3>
-              <p class="featuredSub">Monte do seu jeito. O total é calculado por trás e você vê apenas o valor final.</p>
-            </div>
-            <span class="pill">Entrega mínima: 13h30</span>
-          </div>
-
-          <div class="customGrid">
-            <div class="field">
-              <label>Qtd. Fotos</label>
-              <input id="cPhotos" type="number" min="0" value="0" />
-            </div>
-
-            <div class="field">
-              <label>Qtd. Vídeos</label>
-              <input id="cVideos" type="number" min="0" value="1" />
-            </div>
-
-            <div class="field wide">
-              <label>Plataforma</label>
-              <select id="cPlatform">
-                <option value="reels">Reels</option>
-                <option value="tiktok">TikTok</option>
-                <option value="instagram">Instagram</option>
-                <option value="shorts">Shorts</option>
-              </select>
-            </div>
-
-            <div class="field wide">
-              <label>Tipo de vídeo</label>
-              <select id="cDuration">
-                <option value="15">15s</option>
-                <option value="45">45s</option>
-                <option value="60">60s</option>
-              </select>
-            </div>
-
-            <div class="field full">
-              <div class="extras">
-                <h4>Extras (opcionais)</h4>
-                <div class="extrasList" id="extrasList"></div>
-              </div>
-            </div>
-
-            <div class="field full">
-              <label>Categoria detalhada</label>
-              <textarea id="cCategory" placeholder="Ex: loja de roupa, barbearia, carros, vlog, eventos..."></textarea>
-            </div>
-          </div>
-
-          <div class="customFooter">
-            <div class="totalBox">
-              <div class="small">Total estimado</div>
-              <div class="big" id="customTotal">R$ 0,00</div>
-              <div class="small" id="customInfo">Atualize as opções para recalcular.</div>
-            </div>
-
-            <div class="note">
-              • O preço é calculado internamente (sem mostrar por item).<br>
-              • Após confirmar, você finaliza pelo WhatsApp com os detalhes do pedido.
-            </div>
-
-            <button class="btn primary" id="btnCustomOrder">Fazer pedido personalizado</button>
-          </div>
-        `;
-        grid.appendChild(featured);
-
-        // Render extras
-        const extrasList = featured.querySelector("#extrasList");
-        extrasList.innerHTML = EXTRAS.map(ex => `
-          <label class="check" for="${ex.id}">
-            <input id="${ex.id}" type="checkbox" name="extra" value="${ex.id}">
-            <span class="txt">
-              <span class="t1">${ex.label}</span>
-              <span class="t2">${formatBRL(ex.value)}</span>
-            </span>
-          </label>
-        `).join("");
-
-        // 15 cards
-        PACKAGES.forEach(p => {
-          const c = document.createElement("div");
-          c.className = "card";
-          c.innerHTML = `
-            <h3>${p.title}</h3>
-            <div class="meta">${p.meta}</div>
-            <div class="price">
-              <strong>${formatBRL(p.price)}</strong>
-              <span class="pill">Pacote</span>
-            </div>
-            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-              <button class="btn primary" data-buy="${p.id}">Escolher</button>
-              <button class="btn" data-info="${p.id}">Detalhes</button>
-            </div>
-          `;
-          grid.appendChild(c);
-        });
-
-        // listeners do personalizado
-        function updateCustom(){
-          const data = calcCustomTotal();
-          featured.querySelector("#customTotal").textContent = formatBRL(data.total);
-          featured.querySelector("#customInfo").textContent =
-            `Fotos: ${data.photos} • Vídeos: ${data.videos} • Plataforma: ${data.platform.toUpperCase()} • Tipo: ${data.duration}s • Extras: ${formatBRL(data.extras)}`;
-        }
-
-        featured.querySelectorAll("#cPhotos,#cVideos,#cPlatform,#cDuration").forEach(el => {
-          el.addEventListener("input", updateCustom);
-          el.addEventListener("change", updateCustom);
-        });
-        featured.querySelectorAll('input[name="extra"]').forEach(chk => chk.addEventListener("change", updateCustom));
-
-        // default
-        updateCustom();
-
-        // pedido personalizado (whatsapp)
-        featured.querySelector("#btnCustomOrder").addEventListener("click", () => {
-          const data = calcCustomTotal();
-          const cat = (featured.querySelector("#cCategory").value || "").trim();
-          const selected = Array.from(featured.querySelectorAll('input[name="extra"]:checked'))
-            .map(chk => EXTRAS.find(e => e.id === chk.value)?.label)
-            .filter(Boolean);
-
-          const msg =
-`Olá! Quero um *Pacote Personalizado* no Karamello.
-• Fotos: ${data.photos}
-• Vídeos: ${data.videos}
-• Plataforma: ${data.platform}
-• Tipo: ${data.duration}s
-• Extras: ${selected.length ? selected.join(", ") : "Nenhum"}
-• Categoria detalhada: ${cat || "Não informado"}
-• Total estimado: ${formatBRL(data.total)}
-• Entrega mínima: 13h30`;
-
-          // troque o número abaixo pelo seu whatsapp com DDI/DDD (ex: 55 + DDD + numero)
-          const phone = "55XXXXXXXXXXX";
-          const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-          window.open(url, "_blank");
-        });
-
-        // botões pacotes
-        grid.querySelectorAll("[data-buy]").forEach(btn => {
-          btn.addEventListener("click", () => {
-            const id = btn.getAttribute("data-buy");
-            const p = PACKAGES.find(x => x.id === id);
-            if(!p) return;
-
-            const msg =
-`Olá! Quero o pacote *${p.title}* no Karamello.
-• Detalhes: ${p.meta}
-• Valor: ${formatBRL(p.price)}
-• Entrega mínima: 13h30`;
-
-            const phone = "55XXXXXXXXXXX";
-            const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-            window.open(url, "_blank");
-          });
-        });
-
-        grid.querySelectorAll("[data-info]").forEach(btn => {
-          btn.addEventListener("click", () => {
-            const id = btn.getAttribute("data-info");
-            const p = PACKAGES.find(x => x.id === id);
-            if(!p) return;
-            alert(`${p.title}\n\n${p.meta}\n\nPreço: ${formatBRL(p.price)}\nEntrega mínima: 13h30`);
-          });
-        });
-      }
-
-      // ===== Modal / Fluxo =====
-      const overlay = $("#overlay");
-      const btnOpenModal = $("#btnOpenModal");
-      const btnClose = $("#btnClose");
-      const btnConfirm = $("#btnConfirm");
-      const btnReset = $("#btnReset");
-      const roleClient = $("#roleClient");
-      const roleEditor = $("#roleEditor");
-
-      let selectedRole = "cliente";
-
-      function openModal(){
-        overlay.classList.add("show");
-        overlay.setAttribute("aria-hidden", "false");
-      }
-      function closeModal(){
-        overlay.classList.remove("show");
-        overlay.setAttribute("aria-hidden", "true");
-      }
-
-      btnOpenModal.addEventListener("click", openModal);
-      btnClose.addEventListener("click", closeModal);
-      overlay.addEventListener("click", (e) => {
-        if(e.target === overlay) closeModal();
-      });
-
-      function setRole(role){
-        selectedRole = role;
-        if(role === "cliente"){
-          roleClient.classList.add("primary");
-          roleEditor.classList.remove("primary");
-        } else {
-          roleEditor.classList.add("primary");
-          roleClient.classList.remove("primary");
-        }
-      }
-
-      roleClient.addEventListener("click", () => setRole("cliente"));
-      roleEditor.addEventListener("click", () => setRole("editor"));
-      setRole("cliente");
-
-      function setLoggedUI(role, name){
-        $("#btnOpenModal").classList.add("hidden");
-        btnReset.classList.remove("hidden");
-
-        if(role === "cliente"){
-          $("#heroTitle").textContent = `Bem-vindo${name ? ", " + name : ""}!`;
-          $("#heroSub").innerHTML = `Escolha um pacote ou monte o <b>Personalizado</b>. O preço é calculado internamente e você vê só o total.`;
-          $("#clientArea").classList.remove("hidden");
-          renderClientUI();
-        } else {
-          $("#heroTitle").textContent = `Bem-vindo${name ? ", " + name : ""}!`;
-          $("#heroSub").innerHTML = `Você entrou como <b>Editor</b>. Em breve: painel do editor, escolha de pacotes e regras.`;
-          $("#clientArea").classList.add("hidden");
-        }
-      }
-
-      btnConfirm.addEventListener("click", () => {
-        const name = ($("#name").value || "").trim();
-        const phone = ($("#phone").value || "").trim();
-        const email = ($("#email").value || "").trim();
-
-        if(!name){
-          alert("Coloque seu nome pra continuar.");
-          return;
-        }
-
-        // salva localmente (pra manter sessão simples)
-        const data = { role:selectedRole, name, phone, email, ts: Date.now() };
-        localStorage.setItem("karamello_user", JSON.stringify(data));
-
-        closeModal();
-        setLoggedUI(data.role, data.name);
-      });
-
-      btnReset.addEventListener("click", () => {
-        localStorage.removeItem("karamello_user");
-        location.reload();
-      });
-
-      // auto-login
-      const saved = localStorage.getItem("karamello_user");
-      if(saved){
-        try{
-          const user = JSON.parse(saved);
-          setLoggedUI(user.role, user.name);
-        }catch(e){
-          localStorage.removeItem("karamello_user");
-        }
-      } else {
-        // primeira vez: abre modal automaticamente (opcional)
-        openModal();
-      }
-
-    } catch (err) {
-      showFatal(err);
+    if(role === 'cliente'){
+      clientName.textContent = firstName;
+      showScreen(screenClient);
+      // renderiza pacotes e inicia calculo do personalizado
+      setTimeout(() => {
+        renderPackages();
+        calcCustom();
+      }, 80);
+    } else {
+      editorName.textContent = firstName;
+      showScreen(screenEditor);
     }
   });
-  </script>
+</script>
+
 </body>
 </html>
