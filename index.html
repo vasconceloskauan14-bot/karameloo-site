@@ -100,6 +100,9 @@
       to{ transform: translate3d(-80px, -60px, 0); }
     }
 
+    /* ✅ Pausar animações quando a aba não está visível */
+    .paused .orb, .paused .sparkles { animation-play-state: paused !important; }
+
     /* ✅ Entrada */
     .page{
       min-height:100vh;
@@ -300,6 +303,55 @@
     .total-line{display:flex;justify-content:space-between;align-items:center}
     .total-line strong{font-size:1.25rem;color:var(--accent3)}
     .total-sub{margin-top:6px;color:var(--muted);font-size:.95rem}
+    .total-sub strong{color:#e5e7eb}
+
+    /* ✅ NOVO: Tempo de entrega (vertical, azul/roxo/ciano) */
+    .deliveryList{display:grid; gap:10px; margin-top:8px;}
+    .dOpt{
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      padding:10px 12px;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+    }
+    .dOpt:hover{transform: translateY(-1px); border-color: rgba(56,189,248,.30);}
+    .dOpt input{margin-top:4px; width:auto;}
+    .dOpt .t{font-weight:900; color:#e5e7eb;}
+    .dOpt .s{margin-top:2px; color: rgba(229,231,235,.74); font-size:.92rem;}
+    .dOpt .chip{
+      margin-left:auto;
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:900;
+      border:1px solid rgba(56,189,248,.26);
+      background: rgba(56,189,248,.10);
+      color:#e5e7eb;
+      white-space:nowrap;
+    }
+    .dOpt.checked{
+      border-color: rgba(56,189,248,.42);
+      background:
+        linear-gradient(90deg, rgba(124,58,237,.18), rgba(37,99,235,.16), rgba(56,189,248,.10)),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: 0 10px 24px rgba(0,0,0,.28), 0 0 0 4px rgba(56,189,248,.05);
+    }
+    .rushLine{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:8px;
+      padding-top:8px;
+      border-top:1px dashed rgba(255,255,255,.12);
+      color: rgba(229,231,235,.80);
+      font-size:.95rem;
+    }
+    .rushLine strong{color: var(--accent3);}
 
     footer{padding:18px;color:rgba(229,231,235,.7);text-align:center;}
 
@@ -702,6 +754,66 @@
                 </div>
               </div>
 
+              <!-- ✅ NOVO: Escolha de prazo (vertical, no estilo do site) -->
+              <div class="field" style="margin-top:12px">
+                <label>Tempo de entrega</label>
+                <div id="custPrazoList" class="deliveryList">
+                  <label class="dOpt checked">
+                    <input type="radio" name="custPrazo" value="auto" checked>
+                    <div>
+                      <div class="t">Automático (recomendado)</div>
+                      <div class="s">O site calcula pelo tamanho do pedido</div>
+                    </div>
+                    <span class="chip" id="custAutoChip">—</span>
+                  </label>
+
+                  <label class="dOpt">
+                    <input type="radio" name="custPrazo" value="13h30">
+                    <div>
+                      <div class="t">Express</div>
+                      <div class="s">Prioridade máxima</div>
+                    </div>
+                    <span class="chip">13h30</span>
+                  </label>
+
+                  <label class="dOpt">
+                    <input type="radio" name="custPrazo" value="14h30">
+                    <div>
+                      <div class="t">Rápido</div>
+                      <div class="s">Entrega acelerada</div>
+                    </div>
+                    <span class="chip">14h30</span>
+                  </label>
+
+                  <label class="dOpt">
+                    <input type="radio" name="custPrazo" value="18h00">
+                    <div>
+                      <div class="t">Padrão</div>
+                      <div class="s">Bom custo-benefício</div>
+                    </div>
+                    <span class="chip">18h00</span>
+                  </label>
+
+                  <label class="dOpt">
+                    <input type="radio" name="custPrazo" value="24h">
+                    <div>
+                      <div class="t">Sem pressa</div>
+                      <div class="s">Entrega tranquila</div>
+                    </div>
+                    <span class="chip">24h</span>
+                  </label>
+
+                  <label class="dOpt">
+                    <input type="radio" name="custPrazo" value="48h">
+                    <div>
+                      <div class="t">Flex</div>
+                      <div class="s">Entrega mais longa</div>
+                    </div>
+                    <span class="chip">48h</span>
+                  </label>
+                </div>
+              </div>
+
               <div class="checks" style="margin-top:10px">
                 <label class="chk"><input data-custom-opt id="optCorCine" type="checkbox" /> Cor cinematográfica (vídeos)</label>
                 <label class="chk"><input data-custom-opt id="optLegenda" type="checkbox" /> Legendas (vídeos)</label>
@@ -725,7 +837,6 @@
                 <label class="chk"><input data-custom-opt id="optTexto" type="checkbox" /> Texto/arte simples (fotos)</label>
 
                 <label class="chk"><input data-custom-opt id="optThumbnail" type="checkbox" /> Thumbnail (capa) (1 unidade)</label>
-                <label class="chk"><input data-custom-opt id="optUrgente" type="checkbox" /> Prioridade (entrega mais rápida)</label>
               </div>
 
               <div class="field" style="margin-top:12px">
@@ -735,7 +846,12 @@
 
               <div class="total-box">
                 <div class="total-line"><span>Valor total</span><strong id="custTotal">R$ 0</strong></div>
-                <div class="total-sub">Entrega estimada: <strong id="custEntrega">13h30</strong> (mínimo)</div>
+                <div class="total-sub">Entrega: <strong id="custEntrega">13h30</strong></div>
+
+                <div class="rushLine" id="custRushWrap" style="display:none">
+                  <span>Taxa de urgência</span>
+                  <strong id="custRushFee">R$ 0</strong>
+                </div>
               </div>
 
               <button class="btn" type="button" onclick="confirmCustom()">Continuar com o personalizado</button>
@@ -895,7 +1011,6 @@
 
               <div id="editorPackages" class="pkg-list"></div>
 
-              <!-- ✅ BOTÃO SETA: mostra só 5 e abre o resto -->
               <div class="moreRow">
                 <button class="btn secondary small" id="toggleMorePkgs" type="button" onclick="toggleMorePackages()">
                   Ver mais pacotes ↓
@@ -972,7 +1087,7 @@
 
     function renderStarsHTML(value, max=5){
       const v = Math.max(0, Math.min(max, Number(value||0)));
-      const full = Math.round(v); // aqui é sempre 5, mas fica pronto
+      const full = Math.round(v);
       let html = "";
       for(let i=0;i<full;i++) html += `<span class="star">★</span>`;
       for(let i=full;i<max;i++) html += `<span class="star off">★</span>`;
@@ -1011,6 +1126,11 @@
     function lsSet(key, value){
       try{ localStorage.setItem(key, JSON.stringify(value)); }catch(e){}
     }
+
+    // ✅ Pausa animações quando aba estiver em background
+    document.addEventListener("visibilitychange", ()=>{
+      document.documentElement.classList.toggle("paused", document.hidden);
+    });
 
     // ===== Base (screens) =====
     const overlay = document.getElementById('overlay');
@@ -1057,7 +1177,9 @@
       [screenStart, screenClientProfile, screenClient, screenPickEditor, screenEditor].forEach(s => s.classList.remove('show'));
       setTimeout(() => {
         which.classList.add('show');
-        window.scrollTo({top:0, behavior:'smooth'});
+        const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if(reduce) window.scrollTo(0,0);
+        else window.scrollTo({top:0, behavior:'auto'}); // ✅ menos jank que smooth
       }, 50);
     }
     function goBackStart(){ showScreen(screenStart); }
@@ -1088,6 +1210,7 @@
     function renderPackages(){
       const grid = document.getElementById('packagesGrid');
       grid.innerHTML = '';
+      const frag = document.createDocumentFragment(); // ✅ evita reflow
       packages.forEach(p => {
         const card = document.createElement('div');
         card.className = 'card';
@@ -1098,8 +1221,9 @@
           <ul>${p.items.map(i=>`<li>${escapeHtml(i)}</li>`).join('')}</ul>
           <button class="btn" type="button" onclick="choosePackage(${p.id})">Escolher pacote</button>
         `;
-        grid.appendChild(card);
+        frag.appendChild(card);
       });
+      grid.appendChild(frag);
     }
 
     // ===== CLIENTE (perfil) =====
@@ -1135,7 +1259,7 @@
       clientData.first = nome || clientData.first;
       clientData.last = sobrenome || clientData.last;
       clientData.full = full || clientData.full;
-      clientData.stars = 5.0; // ✅ sempre começa com 5
+      clientData.stars = 5.0;
       lsSet(LS_CLIENT, clientData);
     }
 
@@ -1186,7 +1310,7 @@
 
       paintClientTop();
       showScreen(screenClient);
-      setTimeout(()=>{ renderPackages(); calcCustom(); }, 80);
+      setTimeout(()=>{ renderPackages(); scheduleCalc(); }, 80);
     }
 
     // ===== CUSTOM (Cliente) =====
@@ -1196,6 +1320,10 @@
     const custTipoVideo = document.getElementById('custTipoVideo');
     const custTotal = document.getElementById('custTotal');
     const custEntrega = document.getElementById('custEntrega');
+
+    const custAutoChip = document.getElementById('custAutoChip');
+    const custRushWrap = document.getElementById('custRushWrap');
+    const custRushFee  = document.getElementById('custRushFee');
 
     const PRICES = {
       foto: 21.40,
@@ -1232,24 +1360,43 @@
       { id:'optTexto',      kind:'photo', price:9.40  },
 
       { id:'optThumbnail',  kind:'order', price:19.90 },
-      { id:'optUrgente',    kind:'order', price:29.90 },
     ];
 
-    function calcEntrega(total, urgent){
-      let eta = '13h30';
-      if(total <= 120) eta = '13h30';
-      else if(total <= 250) eta = '14h30';
-      else if(total <= 400) eta = '18h00';
-      else if(total <= 700) eta = '24h';
-      else eta = '48h';
+    function etaRank(eta){
+      const map = { "13h30":0, "14h30":1, "18h00":2, "24h":3, "48h":4 };
+      return (eta in map) ? map[eta] : 99;
+    }
 
-      if(urgent){
-        if(eta === '48h') eta = '24h';
-        else if(eta === '24h') eta = '18h00';
-        else if(eta === '18h00') eta = '14h30';
-        else eta = '13h30';
+    function calcEntrega(total){
+      if(total <= 120) return '13h30';
+      if(total <= 250) return '14h30';
+      if(total <= 400) return '18h00';
+      if(total <= 700) return '24h';
+      return '48h';
+    }
+
+    // ✅ throttle de cálculo (evita travar quando marca várias opções)
+    let calcQueued = false;
+    function scheduleCalc(){
+      if(calcQueued) return;
+      calcQueued = true;
+      requestAnimationFrame(()=>{ calcQueued = false; calcCustom(); });
+    }
+
+    function paintPrazoChecked(){
+      const list = document.getElementById("custPrazoList");
+      if(!list) return;
+      list.querySelectorAll(".dOpt").forEach(opt => opt.classList.remove("checked"));
+      const checked = list.querySelector('input[name="custPrazo"]:checked');
+      if(checked){
+        const lab = checked.closest(".dOpt");
+        if(lab) lab.classList.add("checked");
       }
-      return eta;
+    }
+
+    function getSelectedPrazo(){
+      const el = document.querySelector('input[name="custPrazo"]:checked');
+      return el ? el.value : "auto";
     }
 
     function calcCustom(){
@@ -1275,19 +1422,52 @@
 
       const rawTotal = (fotos*(PRICES.foto+extraPhoto)) + (vids*(unitVideo*mult+extraVideo)) + extraOrder;
       const jitter = (fotos+vids)>0 ? (0.30 + ((fotos*7 + vids*11)%7)*0.10) : 0;
-      const total = Math.max(0, rawTotal + jitter);
+      const baseTotal = Math.max(0, rawTotal + jitter);
+
+      // base ETA pelo tamanho do pedido
+      const baseEta = calcEntrega(baseTotal);
+      custAutoChip.textContent = baseEta;
+
+      // escolha do cliente
+      const selected = getSelectedPrazo();
+      const chosenEta = (selected === "auto") ? baseEta : selected;
+
+      // taxa de urgência se escolher mais rápido que o recomendado
+      const baseR = etaRank(baseEta);
+      const chosenR = etaRank(chosenEta);
+
+      let rate = 0;
+      if(chosenR < baseR){
+        if(chosenEta === "13h30") rate = 0.25;
+        else if(chosenEta === "14h30") rate = 0.15;
+        else if(chosenEta === "18h00") rate = 0.08;
+      }
+
+      const fee = Math.max(0, baseTotal * rate);
+      const total = baseTotal + fee;
 
       custTotal.textContent = brl(total);
-      const urgent = document.getElementById('optUrgente')?.checked || false;
-      custEntrega.textContent = calcEntrega(total, urgent);
+      custEntrega.textContent = chosenEta;
+
+      if(fee > 0.01){
+        custRushWrap.style.display = "flex";
+        custRushFee.textContent = brl(fee);
+      }else{
+        custRushWrap.style.display = "none";
+      }
+
+      paintPrazoChecked();
     }
 
     [custFotos,custVideos,custPlataforma,custTipoVideo].forEach(el=>{
-      el.addEventListener('input', calcCustom);
-      el.addEventListener('change', calcCustom);
+      el.addEventListener('input', scheduleCalc);
+      el.addEventListener('change', scheduleCalc);
     });
     Array.from(document.querySelectorAll('[data-custom-opt]')).forEach(el=>{
-      el.addEventListener('change', calcCustom);
+      el.addEventListener('change', scheduleCalc);
+    });
+    Array.from(document.querySelectorAll('input[name="custPrazo"]')).forEach(el=>{
+      el.addEventListener('change', scheduleCalc);
     });
 
     // ===== Pedido -> Escolher Editor =====
@@ -1382,7 +1562,7 @@
       editorData.first = nome || editorData.first;
       editorData.last = sobrenome || editorData.last;
       editorData.full = full || editorData.full;
-      editorData.stars = 5.0; // ✅ sempre começa com 5
+      editorData.stars = 5.0;
       lsSet(LS_EDITOR, editorData);
     }
 
@@ -1442,9 +1622,7 @@
       const raw = (edTags.value||"").split(",").map(s=>s.trim()).filter(Boolean).slice(0,12);
       edTagsPreview.innerHTML = raw.map(t=>`<span class="tag blue">${escapeHtml(t)}</span>`).join("");
     }
-    edTags?.addEventListener("input", ()=>{
-      renderTagsPreview();
-    });
+    edTags?.addEventListener("input", ()=>{ renderTagsPreview(); });
 
     function saveEditorProfile(){
       editorData.xp = edXp.value || "iniciante";
@@ -1466,7 +1644,7 @@
       goBackStart();
     }
 
-    // ===== Pacotes do Editor (com: thumbs + só 5 + seta + atalho Áudio + áudio no 9+) =====
+    // ===== Pacotes do Editor =====
     let showAllPackages = false;
 
     function toggleMorePackages(){
@@ -1488,7 +1666,6 @@
       const search = (edSearchPkg?.value || "").toLowerCase().trim();
       const quick = (edQuick?.value || "all");
 
-      // se a pessoa começar a filtrar, já abre o restante para facilitar
       if((search && !showAllPackages) || (quick !== "all" && !showAllPackages)){
         showAllPackages = true;
         const btn = document.getElementById("toggleMorePkgs");
@@ -1498,7 +1675,6 @@
       wrap.innerHTML = "";
 
       packages.forEach((p, index) => {
-        // ✅ regra: mostra só 5 se não abriu
         if (!showAllPackages && index >= 5) return;
 
         const text = `${p.name} ${p.items.join(" ")}`.toLowerCase();
@@ -1511,7 +1687,7 @@
         if (quick === "video" && !isVideo) return;
         if (quick === "foto" && !isFoto) return;
         if (quick === "mix" && !isMix) return;
-        if (quick === "audio" && index < 8) return; // ✅ áudio a partir do pacote 9
+        if (quick === "audio" && index < 8) return;
 
         const checked = (editorData?.packages || []).includes(p.id);
         const audioExtras = (index >= 8)
@@ -1537,7 +1713,6 @@
         wrap.appendChild(el);
       });
 
-      // listeners
       wrap.querySelectorAll('input[type="checkbox"][data-pkg]').forEach(chk=>{
         chk.addEventListener("change", ()=>{
           const id = Number(chk.getAttribute("data-pkg"));
@@ -1611,7 +1786,6 @@
         <div class="hint" style="margin-top:10px">* Demo sem backend: informações ficam salvas no seu navegador.</div>
       `;
 
-      // pinta avatar no preview
       const pubAvatar = document.getElementById("pubAvatar");
       setAvatar(pubAvatar, editorData?.photo, (editorData?.full||"E")[0]);
     }
@@ -1627,7 +1801,6 @@
 
     function getAllEditors(){
       const list = [];
-      // editor real (se existir)
       if(editorData){
         list.push({
           id:"you",
@@ -1639,7 +1812,6 @@
           photo: editorData.photo || ""
         });
       }
-      // demos
       DEMO_EDITORS.forEach(e=> list.push({...e, stars:5.0}));
       return list;
     }
@@ -1651,12 +1823,10 @@
         return (editor.packages || []).includes(order.packageId);
       }
 
-      // personalizado: regra simples
       const vids = Number(order?.videos||0);
       const fotos = Number(order?.fotos||0);
 
       if(vids > 0){
-        // precisa ter algum pacote de vídeo (id 4+ geralmente)
         return (editor.packages||[]).some(id => {
           const p = packages.find(x=>x.id===id);
           const n = (p?.name||"").toLowerCase();
@@ -1725,7 +1895,6 @@
         `;
         grid.appendChild(card);
 
-        // avatar
         const av = document.getElementById(`pickAv_${e.id}`);
         if(av) setAvatar(av, e.photo || "", e.name[0]);
       });
@@ -1763,12 +1932,13 @@
     });
 
     window.addEventListener('DOMContentLoaded', ()=>{
-      // se já tiver dados salvos, mantém (sem forçar tela)
       clientData = lsGet(LS_CLIENT, clientData);
       editorData = lsGet(LS_EDITOR, editorData);
-      calcCustom();
+
+      // ✅ inicializa prazo (pinta checked certinho)
+      paintPrazoChecked();
+      scheduleCalc();
     });
   </script>
 </body>
 </html>
-
