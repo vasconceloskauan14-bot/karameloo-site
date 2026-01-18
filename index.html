@@ -148,7 +148,7 @@
 
     .hero{
       display:grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.15fr .85fr;
       gap:18px;
       align-items:stretch;
     }
@@ -263,6 +263,36 @@
       font-size:18px;
     }
     .modalBody{padding:18px}
+
+
+    /* ===== Modal: Cadastro <-> Login (animação) ===== */
+    .authWrap{ position:relative; min-height:520px; }
+    .authView{ position:absolute; inset:0; opacity:0; transform: translateX(18px) scale(.995);
+      pointer-events:none; }
+    .authView.active{ opacity:1; transform: translateX(0) scale(1); pointer-events:auto; }
+
+    @keyframes authInRight{ from{opacity:0; transform: translateX(22px) scale(.99);} to{opacity:1; transform: translateX(0) scale(1);} }
+    @keyframes authInLeft{ from{opacity:0; transform: translateX(-22px) scale(.99);} to{opacity:1; transform: translateX(0) scale(1);} }
+    @keyframes authOutLeft{ from{opacity:1; transform: translateX(0) scale(1);} to{opacity:0; transform: translateX(-22px) scale(.99);} }
+    @keyframes authOutRight{ from{opacity:1; transform: translateX(0) scale(1);} to{opacity:0; transform: translateX(22px) scale(.99);} }
+
+    .authView.enterRight{ animation: authInRight .28s cubic-bezier(.2,.9,.2,1) forwards; }
+    .authView.enterLeft{ animation: authInLeft .28s cubic-bezier(.2,.9,.2,1) forwards; }
+    .authView.leaveLeft{ animation: authOutLeft .26s cubic-bezier(.4,0,.2,1) forwards; }
+    .authView.leaveRight{ animation: authOutRight .26s cubic-bezier(.4,0,.2,1) forwards; }
+
+    .linkBtn{
+      background:none; border:none; padding:0;
+      color: rgba(56,189,248,.95);
+      font-weight:900;
+      cursor:pointer;
+      text-decoration:none;
+    }
+    .linkBtn:hover{ text-decoration:underline; }
+
+    /* ===== Personalizado: mostrar menos/mais ===== */
+    .hidden{ display:none !important; }
+    .collapsed{ display:none !important; }
     .field{margin-bottom:12px}
     .field label{display:block;font-size:.88rem;color:#cbd5e1;margin:0 0 6px}
 
@@ -772,30 +802,41 @@
                 </div>
               </div>
 
-              <div class="checks" style="margin-top:10px">
-                <label class="chk"><input data-custom-opt id="optCorCine" type="checkbox" /> Cor cinematográfica (vídeos)</label>
-                <label class="chk"><input data-custom-opt id="optLegenda" type="checkbox" /> Legendas (vídeos)</label>
-                <label class="chk"><input data-custom-opt id="optTransicoes" type="checkbox" /> Transições premium (vídeos)</label>
-                <label class="chk"><input data-custom-opt id="optMotion" type="checkbox" /> Motion graphics (títulos) (vídeos)</label>
-                <label class="chk"><input data-custom-opt id="optIntroOutro" type="checkbox" /> Intro/Outro + CTA (vídeos)</label>
-                <label class="chk"><input data-custom-opt id="optEstabilizar" type="checkbox" /> Estabilização (vídeos)</label>
-                <label class="chk"><input data-custom-opt id="optSpeedRamp" type="checkbox" /> Speed ramp / slow motion (vídeos)</label>
+              <div class="checks" style="margin-top:10px" id="customChecks">
+                <!-- principais (5) -->
+                <div id="customOptsMain">
+                  <label class="chk"><input data-custom-opt id="optCorCine" type="checkbox" /> Cor cinematográfica (vídeos)</label>
+                  <label class="chk"><input data-custom-opt id="optLegenda" type="checkbox" /> Legendas (vídeos)</label>
+                  <label class="chk"><input data-custom-opt id="optTransicoes" type="checkbox" /> Transições premium (vídeos)</label>
+                  <label class="chk"><input data-custom-opt id="optAudio" type="checkbox" /> Melhorar áudio + reduzir ruído (vídeos)</label>
+                  <label class="chk"><input data-custom-opt id="optRetoquePro" type="checkbox" /> Retoque avançado (fotos)</label>
+                </div>
 
-                <label class="chk"><input data-custom-opt id="optSFX" type="checkbox" /> Efeitos sonoros (SFX) (vídeos)</label>
-                <label class="chk"><input data-custom-opt id="optAudio" type="checkbox" /> Melhorar áudio + reduzir ruído (vídeos)</label>
-                <label class="chk"><input data-custom-opt id="optMusicSync" type="checkbox" /> Sincronizar cortes com música (vídeos)</label>
-                <label class="chk"><input data-custom-opt id="optVoiceClean" type="checkbox" /> Limpeza de voz / clareza (vídeos)</label>
+                <!-- mais opções (colapsado) -->
+                <div id="customOptsMore" class="collapsed">
+                  <label class="chk"><input data-custom-opt id="optMotion" type="checkbox" /> Motion graphics (títulos) (vídeos)</label>
+                  <label class="chk"><input data-custom-opt id="optIntroOutro" type="checkbox" /> Intro/Outro + CTA (vídeos)</label>
+                  <label class="chk"><input data-custom-opt id="optEstabilizar" type="checkbox" /> Estabilização (vídeos)</label>
+                  <label class="chk"><input data-custom-opt id="optSpeedRamp" type="checkbox" /> Speed ramp / slow motion (vídeos)</label>
 
-                <label class="chk"><input data-custom-opt id="optRetoquePro" type="checkbox" /> Retoque avançado (fotos)</label>
-                <label class="chk"><input data-custom-opt id="optPele" type="checkbox" /> Suavizar pele (fotos)</label>
-                <label class="chk"><input data-custom-opt id="optFundo" type="checkbox" /> Remover/alterar fundo (fotos)</label>
-                <label class="chk"><input data-custom-opt id="optCoresFoto" type="checkbox" /> Cor cinematográfica (fotos)</label>
-                <label class="chk"><input data-custom-opt id="optHDR" type="checkbox" /> HDR / nitidez premium (fotos)</label>
-                <label class="chk"><input data-custom-opt id="optObjeto" type="checkbox" /> Remover objetos (fotos)</label>
-                <label class="chk"><input data-custom-opt id="optTexto" type="checkbox" /> Texto/arte simples (fotos)</label>
+                  <label class="chk"><input data-custom-opt id="optSFX" type="checkbox" /> Efeitos sonoros (SFX) (vídeos)</label>
+                  <label class="chk"><input data-custom-opt id="optMusicSync" type="checkbox" /> Sincronizar cortes com música (vídeos)</label>
+                  <label class="chk"><input data-custom-opt id="optVoiceClean" type="checkbox" /> Limpeza de voz / clareza (vídeos)</label>
 
-                <label class="chk"><input data-custom-opt id="optThumbnail" type="checkbox" /> Thumbnail (capa) (1 unidade)</label>
-                <label class="chk"><input data-custom-opt id="optUrgente" type="checkbox" /> Prioridade (entrega mais rápida)</label>
+                  <label class="chk"><input data-custom-opt id="optPele" type="checkbox" /> Suavizar pele (fotos)</label>
+                  <label class="chk"><input data-custom-opt id="optFundo" type="checkbox" /> Remover/alterar fundo (fotos)</label>
+                  <label class="chk"><input data-custom-opt id="optCoresFoto" type="checkbox" /> Cor cinematográfica (fotos)</label>
+                  <label class="chk"><input data-custom-opt id="optHDR" type="checkbox" /> HDR / nitidez premium (fotos)</label>
+                  <label class="chk"><input data-custom-opt id="optObjeto" type="checkbox" /> Remover objetos (fotos)</label>
+                  <label class="chk"><input data-custom-opt id="optTexto" type="checkbox" /> Texto/arte simples (fotos)</label>
+
+                  <label class="chk"><input data-custom-opt id="optThumbnail" type="checkbox" /> Thumbnail (capa) (1 unidade)</label>
+                  <label class="chk"><input data-custom-opt id="optUrgente" type="checkbox" /> Prioridade (entrega mais rápida)</label>
+                </div>
+              </div>
+
+              <div class="moreRow">
+                <button class="btn secondary small" id="toggleCustomOpts" type="button" onclick="toggleCustomOptions()">Ver mais opções ↓</button>
               </div>
 
               <div class="field" style="margin-top:12px">
@@ -936,17 +977,15 @@
                 <button class="btn secondary" type="button" onclick="resetEditor()">Reset (demo)</button>
               </div>
 
-              <div class="hint">
-                * Comissão é fixa e só aparece no painel ADM no futuro (Karamello 25% / Editor 75%).
+              <!-- Preview público (movido para cima) -->
+              <div class="section-title" style="margin:18px 0 8px">Como você aparece para o cliente</div>
+              <div class="pill" style="margin:0 0 10px">Esse é o card que vai aparecer na tela de escolha do editor.</div>
+              <div class="editor-cards" style="margin-top:10px">
+                <div class="eCard" id="edPublicPreview"></div>
               </div>
 
-
-              <div style="margin-top:18px; padding-top:14px; border-top:1px solid rgba(255,255,255,.10)">
-                <div style="font-weight:900; color:#c7d2fe; font-size:1.05rem">Como você aparece para o cliente</div>
-                <div class="pill" style="margin-top:6px">Esse é o card que vai aparecer na tela de escolha do editor.</div>
-                <div style="margin-top:12px">
-                  <div class="eCard" id="edPublicPreview"></div>
-                </div>
+              <div class="hint">
+                * Comissão é fixa e só aparece no painel ADM no futuro (Karamello 25% / Editor 75%).
               </div>
             </div>
 
@@ -999,7 +1038,7 @@
             </div>
           </div>
 
-          <button class="btn secondary" style="margin-top:18px" type="button" onclick="goBackStart()">Voltar</button>
+          <button class="btn secondary" style="margin-top:18px" type="button" onclick="goBackStart\(\)">Voltar</button>
         </section>
 
       </div>
@@ -1016,15 +1055,38 @@
         <button class="close" type="button" onclick="closeCadastro()">×</button>
       </div>
       <div class="modalBody">
-        <div class="field"><label>Nome</label><input id="inNome" placeholder="Seu nome" /></div>
-        <div class="field"><label>Sobrenome</label><input id="inSobrenome" placeholder="Seu sobrenome" /></div>
-        <div class="field"><label>Data de nascimento</label><input id="inData" type="date" /></div>
-        <div class="field"><label>Email</label><input id="inEmail" type="email" placeholder="seuemail@gmail.com" /></div>
-        <div class="field"><label>Senha</label><input id="inSenha" type="password" placeholder="••••••••" /></div>
+        <div class="authWrap" id="authWrap">
+          <!-- Cadastro -->
+          <div class="authView active" data-view="register" id="viewRegister">
+            <div class="field"><label>Nome</label><input id="inNome" placeholder="Seu nome" /></div>
+            <div class="field"><label>Sobrenome</label><input id="inSobrenome" placeholder="Seu sobrenome" /></div>
+            <div class="field"><label>Data de nascimento</label><input id="inData" type="date" /></div>
+            <div class="field"><label>CPF</label><input id="inCPF" inputmode="numeric" placeholder="000.000.000-00" /></div>
+            <div class="field"><label>Email</label><input id="inEmail" type="email" placeholder="seuemail@gmail.com" /></div>
+            <div class="field"><label>Senha</label><input id="inSenha" type="password" placeholder="••••••••" /></div>
 
-        <button id="btnCadastrar" class="btn" type="button">Continuar</button>
-        <button class="btn secondary" type="button" onclick="alert('Entrar com Google: em breve (precisa backend).')">Entrar com Google (em breve)</button>
-        <div class="hint">* Login real com Google e segurança total entram na etapa futura (backend).</div>
+            <div class="authLinks">
+              <button class="linkBtn" type="button" id="toLogin">Já tenho conta</button>
+            </div>
+
+            <button id="btnCadastrar" class="btn" type="button">Continuar</button>
+            <button class="btn secondary" type="button" onclick="alert('Entrar com Google: em breve (precisa backend).')">Entrar com Google (em breve)</button>
+            <div class="hint">* Login real com Google e segurança total entram na etapa futura (backend).</div>
+          </div>
+
+          <!-- Login -->
+          <div class="authView" data-view="login" id="viewLogin">
+            <div class="field"><label>Email</label><input id="loginEmail" type="email" placeholder="seuemail@gmail.com" /></div>
+            <div class="field"><label>Senha</label><input id="loginSenha" type="password" placeholder="••••••••" /></div>
+
+            <div class="authLinks" style="margin-top:6px">
+              <button class="linkBtn" type="button" id="toRegister">Não tenho conta</button>
+            </div>
+
+            <button id="btnLogin" class="btn" type="button">Entrar</button>
+            <div class="hint">* Demo sem backend: login valida os dados salvos neste navegador.</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1033,36 +1095,6 @@
     // ===== Util =====
     const MAX_STARS = 10;
     const START_STARS = 5.0;
-
-    // Remove qualquer texto de "código" colado sem querer dentro da página (ex: 'path = Path(...)')
-    function removeAccidentalCodeLeaks(){
-      const bad = [
-        'path = Path(',
-        'write_text(',
-        '/mnt/data/',
-        'str(path)',
-        'encoding="utf-8"'
-      ];
-
-      // Remove blocos <pre>/<code> com esses padrões
-      document.querySelectorAll('pre, code').forEach(el=>{
-        const t = (el.textContent||'').trim();
-        if(bad.some(b=>t.includes(b))) el.remove();
-      });
-
-      // Remove nós de texto soltos que contenham esses padrões
-      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-      const toRemove = [];
-      while(walker.nextNode()){
-        const n = walker.currentNode;
-        const t = (n.nodeValue||'').trim();
-        if(!t) continue;
-        if(bad.some(b=>t.includes(b))) toRemove.push(n);
-      }
-      toRemove.forEach(n=>{
-        try{ n.parentNode && n.parentNode.removeChild(n); }catch(e){}
-      });
-    }
 
     function escapeHtml(str){
       return String(str ?? "")
@@ -1137,9 +1169,124 @@
     let role = null;
     let currentOrder = null;
 
+    // ===== Auth modal (Cadastro/Login) =====
+    const authWrap = document.getElementById('authWrap');
+    const viewRegister = document.getElementById('viewRegister');
+    const viewLogin = document.getElementById('viewLogin');
+    const toLogin = document.getElementById('toLogin');
+    const toRegister = document.getElementById('toRegister');
+    const btnLogin = document.getElementById('btnLogin');
+
+    const inData = document.getElementById('inData');
+    const inCPF = document.getElementById('inCPF');
+    const inEmail = document.getElementById('inEmail');
+    const inSenha = document.getElementById('inSenha');
+
+    const loginEmail = document.getElementById('loginEmail');
+    const loginSenha = document.getElementById('loginSenha');
+
+    let authMode = 'register';
+
+    function updateAuthTitle(){
+      titleCadastro.textContent = (authMode === 'register')
+        ? ((role === 'cliente') ? 'Criar conta como Cliente' : 'Criar conta como Editor')
+        : ((role === 'cliente') ? 'Entrar como Cliente' : 'Entrar como Editor');
+    }
+
+    function setAuthMode(mode, animate=true){
+      if(!authWrap || mode === authMode) return;
+      const from = (authMode === 'register') ? viewRegister : viewLogin;
+      const to = (mode === 'register') ? viewRegister : viewLogin;
+      if(!from || !to) { authMode = mode; updateAuthTitle(); return; }
+
+      // limpa classes
+      [from, to].forEach(el=>el.classList.remove('enter-left','enter-right','leave-left','leave-right'));
+
+      if(!animate){
+        from.classList.remove('active');
+        to.classList.add('active');
+        authMode = mode;
+        updateAuthTitle();
+        return;
+      }
+
+      const toLoginDir = (mode === 'login');
+      from.classList.add(toLoginDir ? 'leave-left' : 'leave-right');
+      to.classList.add('active', toLoginDir ? 'enter-right' : 'enter-left');
+      authMode = mode;
+      updateAuthTitle();
+
+      setTimeout(()=>{
+        from.classList.remove('active','leave-left','leave-right');
+        to.classList.remove('enter-left','enter-right');
+      }, 320);
+    }
+
+    function resetAuthUI(){
+      authMode = 'register';
+      viewRegister?.classList.add('active');
+      viewLogin?.classList.remove('active');
+      viewRegister?.classList.remove('enter-left','enter-right','leave-left','leave-right');
+      viewLogin?.classList.remove('enter-left','enter-right','leave-left','leave-right');
+      updateAuthTitle();
+    }
+
+    toLogin?.addEventListener('click', ()=> setAuthMode('login', true));
+    toRegister?.addEventListener('click', ()=> setAuthMode('register', true));
+
+    // ===== CPF / Idade (demo) =====
+    function cpfDigits(v){ return String(v||'').replace(/\D/g,'').slice(0,11); }
+    function formatCPF(d){
+      d = cpfDigits(d);
+      if(d.length<=3) return d;
+      if(d.length<=6) return d.slice(0,3)+'.'+d.slice(3);
+      if(d.length<=9) return d.slice(0,3)+'.'+d.slice(3,6)+'.'+d.slice(6);
+      return d.slice(0,3)+'.'+d.slice(3,6)+'.'+d.slice(6,9)+'-'+d.slice(9);
+    }
+    function isValidCPF(cpf){
+      const d = cpfDigits(cpf);
+      if(d.length !== 11) return false;
+      if(/^([0-9])\1+$/.test(d)) return false;
+      let sum=0; for(let i=0;i<9;i++) sum += parseInt(d.charAt(i),10)*(10-i);
+      let check = 11 - (sum % 11); if(check>=10) check=0;
+      if(check !== parseInt(d.charAt(9),10)) return false;
+      sum=0; for(let i=0;i<10;i++) sum += parseInt(d.charAt(i),10)*(11-i);
+      check = 11 - (sum % 11); if(check>=10) check=0;
+      return check === parseInt(d.charAt(10),10);
+    }
+    function calcAge(isoDate){
+      if(!isoDate) return NaN;
+      const b = new Date(isoDate);
+      if(isNaN(b.getTime())) return NaN;
+      const n = new Date();
+      let age = n.getFullYear() - b.getFullYear();
+      const m = n.getMonth() - b.getMonth();
+      if(m < 0 || (m===0 && n.getDate() < b.getDate())) age--;
+      return age;
+    }
+
+    if(inCPF){
+      inCPF.addEventListener('input', ()=>{
+        const d = cpfDigits(inCPF.value);
+        inCPF.value = formatCPF(d);
+      });
+    }
+
+
     function openCadastro(tipo){
       role = tipo;
-      titleCadastro.textContent = (tipo === 'cliente') ? 'Criar conta como Cliente' : 'Criar conta como Editor';
+      resetAuthUI();
+
+      // limpa campos (para nao misturar cadastros)
+      if(inNome) inNome.value = '';
+      if(inSobrenome) inSobrenome.value = '';
+      if(inData) inData.value = '';
+      if(inCPF) inCPF.value = '';
+      if(inEmail) inEmail.value = '';
+      if(inSenha) inSenha.value = '';
+      if(loginEmail) loginEmail.value = '';
+      if(loginSenha) loginSenha.value = '';
+
       overlay.classList.remove('closing');
       modal.classList.remove('closing');
       overlay.classList.add('show');
@@ -1169,6 +1316,22 @@
     // ===== Storage =====
     const LS_EDITOR = "karamello_editor_v6";
     const LS_CLIENT = "karamello_client_v2";
+
+    const LS_ACCOUNTS = "karamello_accounts_v1";
+
+    function normEmail(v){ return String(v||"").trim().toLowerCase(); }
+    function roleKey(){ return (role === "cliente") ? "client" : "editor"; }
+    function getAccounts(){ return lsGet(LS_ACCOUNTS, { client:{}, editor:{} }); }
+    function setAccounts(obj){ lsSet(LS_ACCOUNTS, obj); }
+    function findEmailByCPF(kind, cpfD){
+      const acc = getAccounts();
+      const m = acc?.[kind] || {};
+      for(const k of Object.keys(m)){
+        if(String(m[k]?.cpf||"") === String(cpfD)) return k;
+      }
+      return null;
+    }
+
 
     // ===== Pacotes =====
     const packages = [
@@ -1234,7 +1397,10 @@
         city:"",
         niche:"",
         mainPlatform:"instagram",
-        about:""
+        about:"",
+        cpf:"",
+        email:"",
+        dob:""
       };
       clientData.first = nome || clientData.first;
       clientData.last = sobrenome || clientData.last;
@@ -1394,6 +1560,20 @@
       el.addEventListener('change', calcCustom);
     });
 
+    // ===== UI: Personalizado (5 principais + setinha) =====
+    let showAllCustomOptions = false;
+    function toggleCustomOptions(){
+      showAllCustomOptions = !showAllCustomOptions;
+      const more = document.getElementById('customOptsMore');
+      const btn  = document.getElementById('toggleCustomOpts');
+      if(more){
+        more.classList.toggle('collapsed', !showAllCustomOptions);
+      }
+      if(btn){
+        btn.textContent = showAllCustomOptions ? 'Mostrar menos ↑' : 'Ver mais opções ↓';
+      }
+    }
+
     // ===== Pedido -> Escolher Editor =====
     function choosePackage(id){
       const p = packages.find(x => x.id === id);
@@ -1484,7 +1664,10 @@
         tags:[],
         done:0,
         status:"Novo",
-        packages:[]
+        packages:[],
+        cpf:"",
+        email:"",
+        dob:""
       };
       editorData.first = nome || editorData.first;
       editorData.last = sobrenome || editorData.last;
@@ -1850,28 +2033,171 @@
     }
 
     // ===== Cadastro (modal) =====
+    
+    function buildClientDefaults(){
+      return {
+        first:"Cliente", last:"", full:"Cliente",
+        stars: START_STARS,
+        photo:"",
+        whats:"", city:"", niche:"", mainPlatform:"instagram", about:"",
+        cpf:"", email:"", dob:""
+      };
+    }
+    function buildEditorDefaults(){
+      return {
+        first:"Editor", last:"", full:"Editor",
+        stars: START_STARS,
+        photo:"",
+        available:false,
+        xp:"iniciante", whats:"", bio:"", soft:"", portfolio:"", tags:[],
+        done:0, status:"Novo", packages:[],
+        cpf:"", email:"", dob:""
+      };
+    }
+
+    function saveAccount(kind, account){
+      const acc = getAccounts();
+      acc[kind] = acc[kind] || {};
+      acc[kind][normEmail(account.email)] = account;
+      setAccounts(acc);
+    }
+
+    function loadAccount(kind, email){
+      const acc = getAccounts();
+      return acc?.[kind]?.[normEmail(email)] || null;
+    }
+
+    function applyAccountToSession(kind, account){
+      if(kind === 'client'){
+        clientData = account.profile;
+        lsSet(LS_CLIENT, clientData);
+        paintClientProfile();
+        paintClientTop();
+      }else{
+        editorData = account.profile;
+        lsSet(LS_EDITOR, editorData);
+        paintEditor();
+      }
+    }
+
     btnCadastrar.addEventListener('click', ()=>{
       const nome=(inNome.value||'').trim();
       const sobrenome=(inSobrenome.value||'').trim();
+      const dob=(inData.value||'').trim();
+      const cpfRaw=(inCPF.value||'').trim();
+      const cpfD=cpfDigits(cpfRaw);
+      const email=(inEmail.value||'').trim();
+      const senha=(inSenha.value||'').trim();
+
+      // Atalho ADM (testes)
+      if(String(nome).trim().toLowerCase() === 'adm'){
+        closeCadastro();
+        if(role==='cliente'){
+          clientData = buildClientDefaults();
+          clientData.first = 'ADM';
+          clientData.full = 'ADM';
+          lsSet(LS_CLIENT, clientData);
+          paintClientProfile();
+          showScreen(screenClientProfile);
+        }else{
+          editorData = buildEditorDefaults();
+          editorData.first = 'ADM';
+          editorData.full = 'ADM';
+          lsSet(LS_EDITOR, editorData);
+          paintEditor();
+          showScreen(screenEditor);
+        }
+        return;
+      }
+
       if(!nome||!sobrenome){ alert('Preencha Nome e Sobrenome.'); return; }
+      if(!dob){ alert('Preencha a data de nascimento.'); return; }
+      if(!email){ alert('Preencha o email.'); return; }
+      if(!senha || senha.length < 4){ alert('Crie uma senha (mínimo 4 caracteres).'); return; }
+      if(!isValidCPF(cpfD)){ alert('CPF inválido.'); return; }
+
+      // Regra 18+ para Editor (menores só no futuro com autorização + RG)
+      if(role === 'editor'){
+        const age = calcAge(dob);
+        if(!(age >= 18)){
+          alert('Para ser Editor precisa ter 18+.\nMenores: somente no futuro com autorização dos pais e foto do RG (backend).');
+          return;
+        }
+      }
+
+      const kind = roleKey(); // client | editor
+      const acc = getAccounts();
+      acc[kind] = acc[kind] || {};
+
+      const eKey = normEmail(email);
+      if(acc[kind][eKey]){
+        alert('Esse email já está cadastrado. Clique em "Já tenho conta" para entrar.');
+        return;
+      }
+
+      // CPF único dentro do mesmo tipo de conta (pode repetir entre Cliente e Editor)
+      const existingEmail = findEmailByCPF(kind, cpfD);
+      if(existingEmail){
+        alert('Esse CPF já está cadastrado nessa modalidade de conta.\nUse "Já tenho conta" para entrar.');
+        return;
+      }
 
       closeCadastro();
 
       if(role==='cliente'){
         ensureClientData(nome, sobrenome);
+        clientData.cpf = cpfD;
+        clientData.email = eKey;
+        clientData.dob = dob;
+        clientData.stars = START_STARS;
+        lsSet(LS_CLIENT, clientData);
+
+        saveAccount('client', { email:eKey, pass:senha, cpf:cpfD, profile: clientData });
+
         clientProfileName.textContent = clientData.full;
         clientStars.innerHTML = renderStarsHTML(clientData?.stars ?? START_STARS, MAX_STARS);
         paintClientProfile();
         showScreen(screenClientProfile);
       }else{
         ensureEditorData(nome, sobrenome);
+        editorData.cpf = cpfD;
+        editorData.email = eKey;
+        editorData.dob = dob;
+        editorData.stars = START_STARS;
+        lsSet(LS_EDITOR, editorData);
+
+        saveAccount('editor', { email:eKey, pass:senha, cpf:cpfD, profile: editorData });
+
         paintEditor();
         showScreen(screenEditor);
       }
     });
 
+    btnLogin.addEventListener('click', ()=>{
+      const email=(loginEmail.value||'').trim();
+      const senha=(loginSenha.value||'').trim();
+      if(!email || !senha){ alert('Preencha email e senha.'); return; }
+
+      const kind = roleKey();
+      const account = loadAccount(kind, email);
+      if(!account || account.pass !== senha){
+        alert('Email ou senha incorretos (demo).');
+        return;
+      }
+
+      closeCadastro();
+      applyAccountToSession(kind, account);
+
+      if(role==='cliente'){
+        // volta para o perfil (para continuar)
+        showScreen(screenClientProfile);
+      }else{
+        showScreen(screenEditor);
+      }
+    });
+
+
     window.addEventListener('DOMContentLoaded', ()=>{
-      removeAccidentalCodeLeaks();
       // se já tiver dados salvos, mantém (sem forçar tela)
       clientData = lsGet(LS_CLIENT, clientData);
       editorData = lsGet(LS_EDITOR, editorData);
