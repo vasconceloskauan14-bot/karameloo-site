@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Karamello | Edição Profissional</title>
+  <title>Karamelo | Edição Profissional</title>
 
   <style>
     :root{
@@ -237,9 +237,6 @@
       border-radius:18px;
       box-shadow: 0 30px 80px rgba(0,0,0,.60);
       overflow:hidden;
-      max-height: calc(100vh - 28px);
-      display:flex;
-      flex-direction:column;
       transform: translateY(10px) scale(.98);
       opacity:0;
       animation: modalIn .25s ease forwards;
@@ -265,12 +262,7 @@
       color:white;
       font-size:18px;
     }
-    .modalBody{
-      padding:18px;
-      flex: 1 1 auto;
-      overflow:auto;
-      -webkit-overflow-scrolling: touch;
-    }
+    .modalBody{padding:18px}
 
     /* ✅ Mobile: evita cortar o formulário (sem mudar o visual, só permite rolagem) */
     @media (max-width: 560px){
@@ -698,144 +690,6 @@
       .subtitle{ font-size: 1.06rem; }
       .startCard{ min-height: 210px; }
     }
-
-    /* ===== Karamello IA (demo local) ===== */
-    .aiFab{
-      position:fixed;
-      right:16px;
-      bottom:16px;
-      z-index:1200;
-      width:56px;
-      height:56px;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.16);
-      background:
-        radial-gradient(22px 22px at 30% 30%, rgba(56,189,248,.55), transparent 60%),
-        linear-gradient(135deg, rgba(124,58,237,.92), rgba(37,99,235,.88));
-      box-shadow: 0 14px 34px rgba(0,0,0,.45);
-      color:white;
-      font-size:20px;
-      font-weight:900;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      user-select:none;
-    }
-    .aiFab:active{ transform: translateY(1px); }
-
-    .aiOverlay{
-      position:fixed;
-      inset:0;
-      z-index:1300;
-      display:none;
-      background: rgba(0,0,0,.58);
-      padding:16px;
-      align-items:flex-end;
-      justify-content:flex-end;
-    }
-    .aiOverlay.show{ display:flex; animation: fadeIn .18s ease forwards; }
-
-    .aiPanel{
-      width:min(420px, 100%);
-      max-height: calc(100vh - 32px);
-      border-radius:20px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.14);
-      background: linear-gradient(180deg, rgba(11,18,38,.96), rgba(10,16,34,.94));
-      box-shadow: 0 28px 80px rgba(0,0,0,.65);
-      display:flex;
-      flex-direction:column;
-    }
-    .aiHead{
-      padding:12px 14px;
-      background: linear-gradient(90deg, rgba(124,58,237,.78), rgba(37,99,235,.76));
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .aiHead .t{
-      display:flex;
-      flex-direction:column;
-      gap:2px;
-    }
-    .aiHead strong{ font-size:1rem; }
-    .aiHead small{ color: rgba(229,231,235,.82); font-weight:700; }
-    .aiClose{
-      width:38px;
-      height:38px;
-      border-radius:14px;
-      border:none;
-      background: rgba(255,255,255,.14);
-      color:white;
-      font-size:18px;
-      cursor:pointer;
-    }
-    .aiBody{
-      padding:12px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      overflow:auto;
-      -webkit-overflow-scrolling: touch;
-    }
-    .aiMsg{
-      max-width: 92%;
-      padding:10px 12px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      color: rgba(229,231,235,.95);
-      line-height:1.35;
-      font-size:.96rem;
-    }
-    .aiMsg.you{
-      margin-left:auto;
-      background: rgba(56,189,248,.10);
-      border-color: rgba(56,189,248,.22);
-    }
-    .aiQuick{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-    .aiQBtn{
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color:#e5e7eb;
-      font-weight:800;
-      font-size:.9rem;
-      cursor:pointer;
-    }
-    .aiFoot{
-      padding:12px;
-      border-top:1px solid rgba(255,255,255,.10);
-      display:flex;
-      gap:10px;
-      align-items:center;
-      background: rgba(0,0,0,.14);
-    }
-    .aiInput{
-      flex:1;
-      padding:11px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      outline:none;
-    }
-    .aiSend{
-      width:auto;
-      padding:11px 12px;
-      border-radius:12px;
-    }
-    @media (max-width: 560px){
-      .aiOverlay{ padding:12px; align-items:flex-end; justify-content:center; }
-      .aiFab{ right:14px; bottom:14px; }
-    }
   
 
     /* ====== START PRO (Entrada Premium) ====== */
@@ -946,7 +800,245 @@
       .roleCardPro{ padding:14px; }
     }
 
-  </style>
+  
+
+    /* ===== FIX: Modal scroll no celular + botao Continuar grande ===== */
+    .modal{ max-height: calc(100vh - 24px); }
+    .modalBody{ max-height: calc(100vh - 110px); overflow:auto; -webkit-overflow-scrolling:touch; padding-bottom:22px; }
+    #btnCadastrar, #btnLogin{ min-height:56px; font-size:1.05rem; }
+    .authLinks{ margin-bottom:10px; }
+    @media (max-width: 620px){
+      .authWrap{ min-height:unset; }
+    }
+
+    /* ===== Portfólio do Editor (até 30 fotos / 10 vídeos) ===== */
+    .work-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-top:10px; }
+    @media (max-width: 620px){ .work-grid{ grid-template-columns: repeat(2, 1fr);} }
+    .work-item{ aspect-ratio: 1 / 1; border-radius:14px; overflow:hidden; border:1px solid var(--border); background: rgba(0,0,0,.03); }
+    .work-item img, .work-item video{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    /* ===== TEMA CLARO DOURADO (mantém o layout) ===== */
+    :root{
+      /* tema claro mais confortável (menos brilho) */
+      --bg:#f6f1e6;
+      --panel:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --accent1:#d4af37; /* dourado */
+      --accent2:#f59e0b; /* amarelo */
+      --accent3:#fbbf24; /* amarelo claro */
+      --border:rgba(0,0,0,.12);
+    }
+    body{ color-scheme: light; background: var(--bg); }
+
+    /* fundo claro com enfeites dourados (menos brilho + mais decoração) */
+    .bg{
+      background:
+        radial-gradient(1200px 800px at 12% 10%, rgba(212,175,55,.18), transparent 62%),
+        radial-gradient(1200px 800px at 88% 12%, rgba(245,158,11,.14), transparent 62%),
+        radial-gradient(1100px 900px at 50% 85%, rgba(251,191,36,.10), transparent 62%),
+        /* listras bem sutis (ouro) para não ficar “vazio” */
+        repeating-linear-gradient(135deg, rgba(212,175,55,.045) 0 1px, transparent 1px 18px),
+        linear-gradient(135deg, rgba(212,175,55,.07) 0%, rgba(245,158,11,.06) 48%, rgba(251,191,36,.06) 100%),
+        linear-gradient(180deg, rgba(246,241,230,.98), rgba(244,239,229,.99));
+      filter:saturate(1.0) brightness(.98);
+    }
+    .orb{ opacity:.14; mix-blend-mode:multiply; }
+    .orb.one{ background: radial-gradient(circle at 35% 35%, rgba(212,175,55,.55), rgba(212,175,55,0) 60%); }
+    .orb.two{ background: radial-gradient(circle at 40% 35%, rgba(245,158,11,.48), rgba(245,158,11,0) 60%); }
+    .orb.three{ background: radial-gradient(circle at 50% 40%, rgba(251,191,36,.40), rgba(251,191,36,0) 62%); }
+    .sparkles{ opacity:.14; background-image:
+      radial-gradient(circle, rgba(0,0,0,.10) 1px, transparent 1.8px),
+      radial-gradient(circle, rgba(212,175,55,.18) 1px, transparent 1.8px);
+    }
+
+    header{
+      background: linear-gradient(90deg, rgba(212,175,55,.92), rgba(245,158,11,.86), rgba(251,191,36,.70));
+      border-bottom:1px solid rgba(0,0,0,.10);
+    }
+    /* reduz o “branco estourado” do conteúdo */
+    main::before{
+      background:
+        radial-gradient(900px 420px at 20% 6%, rgba(245,158,11,.08), transparent 60%),
+        radial-gradient(900px 420px at 80% 10%, rgba(212,175,55,.06), transparent 60%),
+        rgba(255,255,255,.18);
+    }
+
+    .card, .eCard{
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.86));
+      border:1px solid rgba(0,0,0,.10);
+      box-shadow: 0 10px 26px rgba(17,24,39,.12);
+    }
+
+    /* destaque do personalizado: menos “branco chapado” */
+    .card.highlight{
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(252,248,236,.88));
+      border-color: rgba(245,158,11,.22);
+      box-shadow: 0 12px 28px rgba(17,24,39,.14), 0 0 0 4px rgba(245,158,11,.06);
+    }
+    .total-box{ border-color: rgba(245,158,11,.22); background: rgba(245,158,11,.06); }
+    .card h3{ color:#7c5c12; }
+    .section-title{ color:#7c5c12; }
+    .pill{ color: rgba(17,24,39,.70); }
+    .price{ color: #b45309; }
+
+    /* entrada (títulos/chips) — estava com cores do tema escuro */
+    .subtitle{ color: rgba(17,24,39,.78); }
+    .startTitle{ color: var(--text); }
+    .startDesc{ color: rgba(17,24,39,.72); }
+    .startChip{
+      border:1px solid rgba(0,0,0,.12);
+      background: rgba(0,0,0,.03);
+      color: rgba(17,24,39,.88);
+    }
+    .startChip strong{ color:#7c5c12; }
+    .miniCard{ border:1px solid rgba(0,0,0,.10); background: rgba(0,0,0,.02); }
+    .miniT{ color:#7c5c12; }
+    .miniS{ color: rgba(17,24,39,.72); }
+
+    /* legibilidade (editor + listas + checkboxes) */
+    .chk{ color: rgba(17,24,39,.78); }
+    .card ul, .card li{ color: rgba(17,24,39,.78); }
+    .k .t{ color: rgba(17,24,39,.70); }
+    .k .v{ color: #7c5c12; }
+    .k .v small{ color: rgba(17,24,39,.65); }
+    .eName{ color: #111827; }
+    .eMeta{ color: rgba(17,24,39,.70); }
+    .eBio{ color: rgba(17,24,39,.74); }
+    .pkg-sub{ color: rgba(17,24,39,.70); }
+    .pkg-meta{ color: rgba(17,24,39,.66); }
+
+    input, textarea, select{
+      border:1px solid rgba(0,0,0,.12);
+      background: rgba(0,0,0,.03);
+      color: var(--text);
+      color-scheme: light;
+    }
+    input::placeholder, textarea::placeholder{ color: rgba(17,24,39,.45); }
+    input:focus, textarea:focus, select:focus{ border-color: rgba(245,158,11,.55); }
+    select option{ background: #fff; color: var(--text); }
+    input[type="date"]::-webkit-calendar-picker-indicator{ filter: none; opacity:.75; }
+
+    .btn{
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      box-shadow: 0 12px 26px rgba(245,158,11,.18);
+    }
+    .btn.secondary{
+      background: rgba(0,0,0,.03);
+      border:1px solid rgba(0,0,0,.12);
+      color: var(--text);
+    }
+
+    .modal{
+      background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.92));
+      border:1px solid rgba(0,0,0,.12);
+      box-shadow: 0 30px 80px rgba(17,24,39,.22);
+    }
+    .modalHead{ background: linear-gradient(90deg, rgba(212,175,55,.95), rgba(245,158,11,.88)); }
+    .close{ background: rgba(0,0,0,.06); color: rgba(17,24,39,.9); }
+    .overlay{ background: rgba(17,24,39,.42); }
+
+    .avatar{
+      border:1px solid rgba(0,0,0,.12);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(251,191,36,.28), transparent 55%),
+        radial-gradient(circle at 70% 70%, rgba(212,175,55,.22), transparent 55%),
+        rgba(0,0,0,.02);
+      box-shadow: 0 10px 24px rgba(17,24,39,.12);
+      color: rgba(17,24,39,.85);
+    }
+    .star{ color: rgba(180,83,9,.95); text-shadow: 0 0 10px rgba(245,158,11,.22); }
+    .star.off{ color: rgba(17,24,39,.20); text-shadow:none; }
+
+    .badge.pillBlue{ border-color: rgba(245,158,11,.30); background: rgba(245,158,11,.10); }
+    .badge.you{ border-color: rgba(212,175,55,.35); background: rgba(212,175,55,.14); }
+
+    .chip{ border:1px solid rgba(0,0,0,.12); background: rgba(0,0,0,.03); color: rgba(17,24,39,.88); }
+    .switch{ border:1px solid rgba(0,0,0,.12); background: rgba(0,0,0,.03); }
+    .track{ border:1px solid rgba(0,0,0,.12); background: rgba(0,0,0,.05); }
+    .switch input:checked + .track{ background: rgba(245,158,11,.20); border-color: rgba(245,158,11,.40); }
+    .switch input:checked + .track .thumb{ background: rgba(245,158,11,.95); box-shadow: 0 0 16px rgba(245,158,11,.30); }
+
+    footer{ color: rgba(17,24,39,.55); }
+
+    /* ===== IA Karamelo (Cliente + Editor) ===== */
+    .aiFab{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:1400;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border:none;
+      border-radius:999px;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      color:#111827;
+      font-weight:1000;
+      box-shadow: 0 16px 36px rgba(245,158,11,.22);
+    }
+    .aiFab .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: rgba(255,255,255,.95);
+      box-shadow: 0 0 0 4px rgba(255,255,255,.30);
+    }
+    .aiPanel{
+      position:fixed;
+      right:18px;
+      bottom:78px;
+      width:min(420px, calc(100vw - 36px));
+      max-height: min(70vh, 620px);
+      display:none;
+      flex-direction:column;
+      background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(252,248,236,.92));
+      border:1px solid rgba(0,0,0,.10);
+      border-radius:18px;
+      box-shadow: 0 30px 80px rgba(17,24,39,.22);
+      overflow:hidden;
+      z-index:1400;
+    }
+    .aiPanel.show{ display:flex; }
+    .aiHead{
+      padding:14px 14px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background: linear-gradient(90deg, rgba(212,175,55,.95), rgba(245,158,11,.88));
+      border-bottom:1px solid rgba(0,0,0,.08);
+    }
+    .aiTitle{ font-weight:1000; color:#111827; }
+    .aiSub{ font-size:.9rem; color: rgba(17,24,39,.80); margin-top:2px; }
+    .aiClose{
+      width:38px;height:38px;border-radius:12px;
+      border:1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.55);
+      cursor:pointer;
+      font-weight:900;
+      color:#111827;
+    }
+    .aiChips{ padding:10px 14px; display:flex; flex-wrap:wrap; gap:8px; }
+    .aiChips button{
+      border:1px solid rgba(0,0,0,.10);
+      background: rgba(0,0,0,.03);
+      color:#111827;
+      border-radius:999px;
+      padding:8px 10px;
+      font-weight:900;
+      cursor:pointer;
+      font-size:.92rem;
+    }
+    .aiMsgs{ padding: 4px 14px 12px; overflow:auto; flex:1; display:grid; gap:10px; }
+    .aiMsg{ padding:10px 12px; border-radius:14px; border:1px solid rgba(0,0,0,.08); background: rgba(255,255,255,.70); color:#111827; line-height:1.35; }
+    .aiMsg.me{ background: rgba(245,158,11,.10); border-color: rgba(245,158,11,.22); }
+    .aiForm{ display:flex; gap:10px; padding: 12px 14px 14px; border-top:1px solid rgba(0,0,0,.08); }
+    .aiInput{ flex:1; padding:12px; border-radius:12px; border:1px solid rgba(0,0,0,.12); background: rgba(0,0,0,.03); }
+    .aiSend{ padding:12px 14px; border:none; border-radius:12px; font-weight:1000; cursor:pointer; background: linear-gradient(90deg, var(--accent1), var(--accent2)); color:#111827; }
+    @media (max-width: 620px){
+      .aiFab{ right:12px; bottom:12px; }
+      .aiPanel{ left:12px; right:12px; width:auto; }
+    }
+</style>
 </head>
 
 <body>
@@ -959,7 +1051,7 @@
   <div class="page">
     <header>
       <div class="wrap">
-        <h1>Karamello</h1>
+        <h1>Karamelo</h1>
         <div class="subtitle">Plataforma profissional de edição de fotos e vídeos</div>
       </div>
     </header>
@@ -971,7 +1063,7 @@
         <section id="screenStart" class="screen show">
           <div class="startPro">
             <div class="startCopy">
-              <div class="startBadge">✨ 2026 • Karamello</div>
+              <div class="startBadge">✨ 2026 • Karamelo</div>
               <h2 class="startTitle">Edição profissional de fotos e vídeos, com cara de premium.</h2>
               <p class="startDesc">Escolha um pacote pronto ou monte um personalizado. Ideal para Reels, TikTok, Shorts e fotos com acabamento profissional.</p>
 
@@ -1070,18 +1162,18 @@
             <div class="mini-grid" style="margin-top:12px">
               <div class="mini">
                 <label>WhatsApp</label>
-                <input id="clWhats" placeholder="(DDD) 99999-9999" />
+                <input id="clWhats" placeholder="(DDD) 99999-9999" maxlength="15" inputmode="tel" />
               </div>
               <div class="mini">
                 <label>Cidade</label>
-                <input id="clCity" placeholder="Ex: São Paulo - SP" />
+                <input id="clCity" placeholder="Ex: São Paulo - SP" maxlength="40" />
               </div>
             </div>
 
             <div class="mini-grid" style="margin-top:10px">
               <div class="mini">
                 <label>Nicho / Categoria</label>
-                <input id="clNiche" placeholder="Ex: Moda, Gaming, Fitness, Loja, Influencer..." />
+                <input id="clNiche" placeholder="Ex: Moda, Gaming, Fitness, Loja, Influencer..." maxlength="40" />
               </div>
               <div class="mini">
                 <label>Rede principal</label>
@@ -1100,7 +1192,7 @@
 
             <div class="field" style="margin-top:10px">
               <label>Sobre você / Objetivo</label>
-              <textarea id="clAbout" placeholder="Ex: Quero vídeos curtos para Reels/TikTok, estilo cinematográfico, cortes rápidos, legendas..."></textarea>
+              <textarea id="clAbout" placeholder="Ex: Quero vídeos curtos para Reels/TikTok, estilo cinematográfico, cortes rápidos, legendas..." maxlength="420"></textarea>
             </div>
 
             <div class="mini-grid" style="margin-top:12px">
@@ -1134,11 +1226,11 @@
               <div class="mini-grid" style="margin-top:12px">
                 <div class="mini">
                   <label>Fotos</label>
-                  <input id="custFotos" type="number" min="0" value="0" />
+                  <input id="custFotos" type="number" min="0" value="0" max="999" inputmode="numeric" />
                 </div>
                 <div class="mini">
                   <label>Vídeos</label>
-                  <input id="custVideos" type="number" min="0" value="0" />
+                  <input id="custVideos" type="number" min="0" value="0" max="999" inputmode="numeric" />
                 </div>
               </div>
 
@@ -1208,7 +1300,7 @@
 
               <div class="field" style="margin-top:12px">
                 <label>Categoria detalhada</label>
-                <textarea id="custDetalhe" placeholder="Descreva exatamente como você quer: estilo, referência, cores, cortes, músicas, legendas, plataformas, etc..."></textarea>
+                <textarea id="custDetalhe" placeholder="Descreva exatamente como você quer: estilo, referência, cores, cortes, músicas, legendas, plataformas, etc..." maxlength="700"></textarea>
               </div>
 
               <div class="total-box">
@@ -1313,29 +1405,29 @@
                 </div>
                 <div class="mini">
                   <label>WhatsApp (opcional)</label>
-                  <input id="edWhats" placeholder="(DDD) 99999-9999" />
+                  <input id="edWhats" placeholder="(DDD) 99999-9999" maxlength="15" inputmode="tel" />
                 </div>
               </div>
 
               <div class="field" style="margin-top:10px">
                 <label>Bio (curta e forte)</label>
-                <textarea id="edBio" placeholder="Ex: cortes rápidos + cor cinematográfica + áudio limpo. Especialista em Reels e TikTok."></textarea>
+                <textarea id="edBio" placeholder="Ex: cortes rápidos + cor cinematográfica + áudio limpo. Especialista em Reels e TikTok." maxlength="320"></textarea>
               </div>
 
               <div class="mini-grid" style="margin-top:10px">
                 <div class="mini">
                   <label>Softwares</label>
-                  <input id="edSoft" placeholder="CapCut, Premiere, Lightroom..." />
+                  <input id="edSoft" placeholder="CapCut, Premiere, Lightroom..." maxlength="80" />
                 </div>
                 <div class="mini">
                   <label>Portfólio (link)</label>
-                  <input id="edPortfolio" placeholder="https://..." />
+                  <input id="edPortfolio" placeholder="https://..." maxlength="120" inputmode="url" />
                 </div>
               </div>
 
               <div class="field" style="margin-top:10px">
                 <label>Tags (separe por vírgula)</label>
-                <input id="edTags" placeholder="Reels, TikTok, Motion, Cor cine, Foto pro, Áudio..." />
+                <input id="edTags" placeholder="Reels, TikTok, Motion, Cor cine, Foto pro, Áudio..." maxlength="120" />
                 <div id="edTagsPreview" class="tags"></div>
               </div>
 
@@ -1352,7 +1444,7 @@
               </div>
 
               <div class="hint">
-                * Comissão é fixa e só aparece no painel ADM no futuro (Karamello 25% / Editor 75%).
+                * Comissão é fixa e só aparece no painel ADM no futuro (Karamelo 25% / Editor 75%).
               </div>
             </div>
 
@@ -1364,7 +1456,7 @@
               <div class="mini-grid" style="margin-top:10px">
                 <div class="mini">
                   <label>Buscar pacote</label>
-                  <input id="edSearchPkg" placeholder="Ex: Foto, Short, 45s..." />
+                  <input id="edSearchPkg" placeholder="Ex: Foto, Short, 45s..." maxlength="40" />
                 </div>
                 <div class="mini">
                   <label>Atalhos</label>
@@ -1405,13 +1497,32 @@
             </div>
           </div>
 
+              <!-- Portfólio do Editor (demo) -->
+              <div class="section-title" style="margin:18px 0 8px">Portfólio (trabalhos)</div>
+              <div class="pill" style="margin:0 0 10px">Carregue até <strong>30 fotos</strong> e <strong>10 vídeos</strong> para mostrar aos clientes (demo: não salva no navegador).</div>
+
+              <div class="mini-grid" style="margin-top:10px">
+                <label class="btn secondary small" style="cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px">
+                  Enviar fotos (até 30)
+                  <input id="edWorkPhotos" type="file" accept="image/*" multiple style="display:none" />
+                </label>
+                <label class="btn secondary small" style="cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px">
+                  Enviar vídeos (até 10)
+                  <input id="edWorkVideos" type="file" accept="video/*" multiple style="display:none" />
+                </label>
+              </div>
+              <div class="hint" id="edWorkCount" style="margin-top:10px">0/30 fotos • 0/10 vídeos</div>
+              <div id="edWorkGrid" class="work-grid"></div>
+              <button class="btn secondary small" type="button" style="margin-top:10px" onclick="clearEditorWorks()">Limpar portfólio</button>
+
+
           <button class="btn secondary" style="margin-top:18px" type="button" onclick="goBackStart()">Voltar</button>
         </section>
 
       </div>
     </main>
 
-    <footer>© 2026 • Karamello • Edição profissional</footer>
+    <footer>© 2026 • Karamelo • Edição profissional</footer>
   </div>
 
   <!-- MODAL CADASTRO -->
@@ -1425,12 +1536,12 @@
         <div class="authWrap" id="authWrap">
           <!-- Cadastro -->
           <div class="authView active" data-view="register" id="viewRegister">
-            <div class="field"><label>Nome</label><input id="inNome" placeholder="Seu nome" /></div>
-            <div class="field"><label>Sobrenome</label><input id="inSobrenome" placeholder="Seu sobrenome" /></div>
+            <div class="field"><label>Nome</label><input id="inNome" placeholder="Seu nome" maxlength="30" autocomplete="given-name" /></div>
+            <div class="field"><label>Sobrenome</label><input id="inSobrenome" placeholder="Seu sobrenome" maxlength="30" autocomplete="family-name" /></div>
             <div class="field"><label>Data de nascimento</label><input id="inData" type="date" /></div>
-            <div class="field"><label>CPF</label><input id="inCPF" inputmode="numeric" placeholder="000.000.000-00" /></div>
-            <div class="field"><label>Email</label><input id="inEmail" type="email" placeholder="seuemail@gmail.com" /></div>
-            <div class="field"><label>Senha</label><input id="inSenha" type="password" placeholder="••••••••" /></div>
+            <div class="field"><label>CPF</label><input id="inCPF" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" autocomplete="off" /></div>
+            <div class="field"><label>Email</label><input id="inEmail" type="email" placeholder="seuemail@gmail.com" maxlength="80" autocomplete="email" /></div>
+            <div class="field"><label>Senha</label><input id="inSenha" type="password" placeholder="••••••••" maxlength="32" autocomplete="new-password" /></div>
 
             <div class="authLinks">
               <button class="linkBtn" type="button" id="toLogin">Já tenho conta</button>
@@ -1443,8 +1554,8 @@
 
           <!-- Login -->
           <div class="authView" data-view="login" id="viewLogin">
-            <div class="field"><label>Email</label><input id="loginEmail" type="email" placeholder="seuemail@gmail.com" /></div>
-            <div class="field"><label>Senha</label><input id="loginSenha" type="password" placeholder="••••••••" /></div>
+            <div class="field"><label>Email</label><input id="loginEmail" type="email" placeholder="seuemail@gmail.com" maxlength="80" autocomplete="email" /></div>
+            <div class="field"><label>Senha</label><input id="loginSenha" type="password" placeholder="••••••••" maxlength="32" autocomplete="current-password" /></div>
 
             <div class="authLinks" style="margin-top:6px">
               <button class="linkBtn" type="button" id="toRegister">Não tenho conta</button>
@@ -1458,26 +1569,33 @@
     </div>
   </div>
 
-  <!-- KARAMELLO IA (demo local, sem backend) -->
-  <button id="aiFab" class="aiFab" type="button" aria-label="Abrir Karamello IA" title="Karamello IA">IA</button>
-  <div id="aiOverlay" class="aiOverlay" aria-hidden="true">
-    <div class="aiPanel" role="dialog" aria-modal="true" aria-label="Karamello IA">
-      <div class="aiHead">
-        <div class="t">
-          <strong>IA Karamello</strong>
-          <small id="aiSub">Assistente inteligente (demo)</small>
-        </div>
-        <button class="aiClose" id="aiClose" type="button">×</button>
-      </div>
+  <!-- IA Karamelo (demo local) -->
+  <button class="aiFab" id="aiFab" aria-label="Abrir IA Karamelo">
+    <span class="dot" aria-hidden="true"></span>
+    <span>IA</span>
+  </button>
 
-      <div class="aiBody" id="aiBody"></div>
-
-      <div class="aiFoot">
-        <input class="aiInput" id="aiInput" placeholder="Pergunte algo..." />
-        <button class="btn small aiSend" id="aiSend" type="button">Enviar</button>
+  <section class="aiPanel" id="aiPanel" aria-hidden="true">
+    <div class="aiHead">
+      <div>
+        <div class="aiTitle">IA Karamelo</div>
+        <div class="aiSub" id="aiSub">Ajuda para Cliente, Editor e novos usuários</div>
       </div>
+      <button class="aiClose" id="aiClose" type="button" aria-label="Fechar">×</button>
     </div>
-  </div>
+    <div class="aiChips" id="aiChips">
+      <button type="button" data-ai="novo">Primeiros passos</button>
+      <button type="button" data-ai="cliente">Sou Cliente</button>
+      <button type="button" data-ai="editor">Sou Editor</button>
+      <button type="button" data-ai="pacotes">Sugestão de pacotes</button>
+      <button type="button" data-ai="bio">Bio/Tags</button>
+    </div>
+    <div class="aiMsgs" id="aiMsgs" aria-live="polite"></div>
+    <form class="aiForm" id="aiForm">
+      <input class="aiInput" id="aiInput" placeholder="Pergunte algo..." autocomplete="off" />
+      <button class="aiSend" type="submit">Enviar</button>
+    </form>
+  </section>
 
   <script>
     // ===== Util =====
@@ -1581,6 +1699,14 @@
         : ((role === 'cliente') ? 'Entrar como Cliente' : 'Entrar como Editor');
     }
 
+    // garante que o conteúdo do cadastro/login não fique “cortado” (PC e celular)
+    function syncAuthWrapHeight(){
+      if(!authWrap) return;
+      const active = (authMode === 'register') ? viewRegister : viewLogin;
+      if(!active) return;
+      authWrap.style.height = `${active.scrollHeight}px`;
+    }
+
     let switchingAuth = false;
 
     function setAuthMode(mode, animate=true){
@@ -1607,6 +1733,7 @@
         from.classList.remove('active');
         authMode = mode;
         updateAuthTitle();
+        syncAuthWrapHeight();
         switchingAuth = false;
         return;
       }
@@ -1630,6 +1757,7 @@
         to.classList.remove('enterLeft','enterRight');
         from.style.zIndex = '';
         to.style.zIndex = '';
+        syncAuthWrapHeight();
         switchingAuth = false;
       }, 380);
     }
@@ -1648,6 +1776,7 @@
       });
 
       updateAuthTitle();
+      syncAuthWrapHeight();
     }
 
 
@@ -1712,6 +1841,7 @@
       overlay.classList.add('show');
       overlay.setAttribute('aria-hidden','false');
       modal.style.animation = 'none'; void modal.offsetHeight; modal.style.animation = '';
+      requestAnimationFrame(syncAuthWrapHeight);
     }
     function closeCadastro(){
       overlay.classList.add('closing');
@@ -1723,6 +1853,9 @@
       }, 220);
     }
     overlay.addEventListener('click', (e) => { if(e.target === overlay) closeCadastro(); });
+    window.addEventListener('resize', ()=>{
+      if(overlay?.classList.contains('show')) syncAuthWrapHeight();
+    });
 
     function showScreen(which){
       [screenStart, screenClientProfile, screenClient, screenPickEditor, screenEditor].forEach(s => s.classList.remove('show'));
@@ -1944,8 +2077,11 @@
     }
 
     function calcCustom(){
-      const fotos = Math.max(0, parseInt(custFotos?.value||'0',10));
-      const vids  = Math.max(0, parseInt(custVideos?.value||'0',10));
+      const maxN = 999;
+      const fotos = Math.min(maxN, Math.max(0, parseInt(custFotos?.value||'0',10) || 0));
+      const vids  = Math.min(maxN, Math.max(0, parseInt(custVideos?.value||'0',10) || 0));
+      if(custFotos) custFotos.value = String(fotos);
+      if(custVideos) custVideos.value = String(vids);
       const plat  = custPlataforma?.value||'reels';
       const tipo  = custTipoVideo?.value||'15';
 
@@ -2064,6 +2200,65 @@
 
     let editorData = lsGet(LS_EDITOR, null);
 
+    // ===== Portfólio (Editor) - demo (não salva em localStorage por tamanho) =====
+    let workPhotos = []; // object URLs
+    let workVideos = []; // object URLs
+
+    function updateWorkUI(){
+      const c = document.getElementById('edWorkCount');
+      const g = document.getElementById('edWorkGrid');
+      if(c) c.textContent = `${workPhotos.length}/${MAX_WORK_PHOTOS} fotos • ${workVideos.length}/${MAX_WORK_VIDEOS} vídeos`;
+      if(!g) return;
+      g.innerHTML = '';
+      const addItem = (node)=>{
+        const wrap = document.createElement('div');
+        wrap.className='work-item';
+        wrap.appendChild(node);
+        g.appendChild(wrap);
+      };
+      workPhotos.forEach(url=>{
+        const img=document.createElement('img');
+        img.src=url;
+        img.loading='lazy';
+        addItem(img);
+      });
+      workVideos.forEach(url=>{
+        const v=document.createElement('video');
+        v.src=url;
+        v.muted=true;
+        v.playsInline=true;
+        v.controls=true;
+        addItem(v);
+      });
+    }
+
+    function clearEditorWorks(){
+      workPhotos.forEach(u=>{ try{ URL.revokeObjectURL(u);}catch(e){} });
+      workVideos.forEach(u=>{ try{ URL.revokeObjectURL(u);}catch(e){} });
+      workPhotos=[]; workVideos=[];
+      const inP=document.getElementById('edWorkPhotos');
+      const inV=document.getElementById('edWorkVideos');
+      if(inP) inP.value='';
+      if(inV) inV.value='';
+      updateWorkUI();
+    }
+
+    function addFilesToWork(type, files){
+      const arr = (type==='photo') ? workPhotos : workVideos;
+      const max = (type==='photo') ? MAX_WORK_PHOTOS : MAX_WORK_VIDEOS;
+      const left = Math.max(0, max - arr.length);
+      const list = Array.from(files||[]).slice(0, left);
+      if((files||[]).length > left){
+        alert(`Limite atingido: no máximo ${max} ${type==='photo'?'fotos':'vídeos'}.`);
+      }
+      list.forEach(f=>{
+        try{ arr.push(URL.createObjectURL(f)); }catch(e){}
+      });
+      updateWorkUI();
+    }
+
+
+
     function ensureEditorData(nome, sobrenome){
       const full = `${nome} ${sobrenome}`.trim();
       editorData = editorData || {
@@ -2177,6 +2372,20 @@
       goBackStart();
     }
 
+
+
+    // ===== Limites / validações rápidas =====
+    const MAX_EDITOR_PACKAGES = 10;
+    const MAX_WORK_PHOTOS = 30;
+    const MAX_WORK_VIDEOS = 10;
+
+    // clamp para números (ex: fotos/vídeos no personalizado)
+    function clampInt(val, min, max){
+      const n = parseInt(val||'0',10);
+      if(isNaN(n)) return min;
+      return Math.max(min, Math.min(max, n));
+    }
+
     // ===== Pacotes do Editor (thumbs + só 5 + seta + atalhos) =====
     let showAllPackages = false;
 
@@ -2250,8 +2459,19 @@
           const id = Number(chk.getAttribute('data-pkg'));
           if(!editorData) return;
           editorData.packages = editorData.packages || [];
-          if(chk.checked && !editorData.packages.includes(id)) editorData.packages.push(id);
-          if(!chk.checked) editorData.packages = editorData.packages.filter(x=>x!==id);
+
+          if(chk.checked){
+            if(!editorData.packages.includes(id)) {
+              if(editorData.packages.length >= MAX_EDITOR_PACKAGES){
+                chk.checked = false;
+                alert(`Limite atingido: no máximo ${MAX_EDITOR_PACKAGES} pacotes por editor.`);
+                return;
+              }
+              editorData.packages.push(id);
+            }
+          }else{
+            editorData.packages = editorData.packages.filter(x=>x!==id);
+          }
           lsSet(LS_EDITOR, editorData);
           updatePkgCount();
           renderPublicPreview();
@@ -2264,7 +2484,7 @@
 
     function selectAllEditorPackages(flag){
       if(!editorData) return;
-      editorData.packages = flag ? packages.map(p=>p.id) : [];
+      editorData.packages = flag ? packages.slice(0, MAX_EDITOR_PACKAGES).map(p=>p.id) : [];
       lsSet(LS_EDITOR, editorData);
       renderEditorPackages();
       updatePkgCount();
@@ -2621,8 +2841,146 @@
       else showScreen(screenEditor);
     });
 
+    // ===== IA Karamelo (demo local — Cliente + Editor + novos usuários) =====
+    const aiFab = document.getElementById('aiFab');
+    const aiPanel = document.getElementById('aiPanel');
+    const aiClose = document.getElementById('aiClose');
+    const aiMsgs = document.getElementById('aiMsgs');
+    const aiForm = document.getElementById('aiForm');
+    const aiInput = document.getElementById('aiInput');
+    const aiChips = document.getElementById('aiChips');
+
+    const AI_INTRO_KEY = 'karamelo_ai_intro_v1';
+
+    function aiAdd(text, me=false){
+      if(!aiMsgs) return;
+      const div = document.createElement('div');
+      div.className = 'aiMsg' + (me ? ' me' : '');
+      div.innerHTML = escapeHtml(String(text||'')).replace(/\n/g,'<br>');
+      aiMsgs.appendChild(div);
+      aiMsgs.scrollTop = aiMsgs.scrollHeight;
+    }
+
+    function aiGetScreen(){
+      if(screenEditor?.classList.contains('show')) return 'editor';
+      if(screenClientProfile?.classList.contains('show')) return 'cliente_perfil';
+      if(screenClient?.classList.contains('show')) return 'cliente';
+      if(screenPickEditor?.classList.contains('show')) return 'escolha_editor';
+      return 'start';
+    }
+
+    function aiSuggestPackages(){
+      // dica simples baseada em quantidade (se o usuário estiver no personalizado)
+      const fotos = parseInt(document.getElementById('custFotos')?.value || '0', 10) || 0;
+      const vids  = parseInt(document.getElementById('custVideos')?.value || '0', 10) || 0;
+      if(fotos === 0 && vids === 0){
+        return 'Para começar rápido: “Starter Foto” (1 foto) ou “Vídeo Short 15s”.\nSe você já sabe quantas fotos/vídeos quer, use o Personalizado e eu te ajudo a montar.';
+      }
+      if(vids > 0 && fotos === 0){
+        return `Você colocou ${vids} vídeo(s). Dica: escolha o tipo (15s/45s/60s) e marque extras como Legendas/Cor cine.\nSe quiser rapidez, deixe sem extras e sem Urgente.`;
+      }
+      if(fotos > 0 && vids === 0){
+        return `Você colocou ${fotos} foto(s). Dica: marque Retoque avançado se for produto/beleza.\nSe for só ajuste, deixe sem extras para ficar mais barato.`;
+      }
+      return `Você colocou ${fotos} foto(s) e ${vids} vídeo(s). Dica: use “Combo Social” se quer algo pronto, ou finalize no Personalizado com extras só no que precisa.`;
+    }
+
+    function aiHelp(topic){
+      const where = aiGetScreen();
+      if(topic === 'novo'){
+        aiAdd('Bem-vindo(a) à Karamelo! ✨\n\n• Se você quer comprar edição: clique em “Sou Cliente” → Criar conta → preencha o perfil → escolha um pacote ou o Personalizado.\n• Se você quer trabalhar: clique em “Quero Trabalhar” → Criar conta → complete o perfil → selecione até 10 pacotes → ative “Disponível”.');
+        return;
+      }
+      if(topic === 'cliente'){
+        aiAdd('Modo Cliente ✅\n\n1) Crie sua conta e complete o perfil.\n2) Escolha um pacote pronto ou monte o Personalizado.\n3) Depois, selecione um editor compatível (demo).\n\nSe quiser, me diga “quantas fotos e vídeos” e eu sugiro o melhor caminho.');
+        if(where === 'cliente' || where === 'cliente_perfil') aiAdd('Dica: no Personalizado, marque só os extras essenciais (ex: Legendas + Cor cine) para não encarecer demais.');
+        return;
+      }
+      if(topic === 'editor'){
+        aiAdd('Modo Editor ✅\n\n1) Complete seu perfil (bio curta + softwares + tags).\n2) Selecione os pacotes que você aceita (limite: 10).\n3) Ative “Disponível” para aparecer para clientes.\n4) Portfólio: até 30 fotos e 10 vídeos (demo).');
+        aiAdd('Sugestão de bio: “Cortes rápidos + cor cinematográfica + áudio limpo. Reels/TikTok. Entrega rápida.”');
+        return;
+      }
+      if(topic === 'pacotes'){
+        aiAdd(aiSuggestPackages());
+        return;
+      }
+      if(topic === 'bio'){
+        aiAdd('Bio/Tags (Editor) ✍️\n\nBio curta (1–2 linhas) + 4–8 tags.\nExemplo tags: Reels, TikTok, Legendas, Cor cine, Áudio, Foto pro.\n\nSe você me disser seu estilo, eu monto uma bio pronta.');
+        return;
+      }
+    }
+
+    function aiOpen(){
+      if(!aiPanel) return;
+      aiPanel.classList.add('show');
+      aiPanel.setAttribute('aria-hidden','false');
+      if(aiMsgs && aiMsgs.childElementCount === 0){
+        aiHelp('novo');
+      }
+      document.getElementById('aiInput')?.focus();
+    }
+    function aiClosePanel(){
+      aiPanel?.classList.remove('show');
+      aiPanel?.setAttribute('aria-hidden','true');
+    }
+
+    function aiReply(userText){
+      const t = String(userText||'').toLowerCase();
+      if(t.includes('primeiro') || t.includes('começar') || t.includes('novo')) return aiHelp('novo');
+      if(t.includes('cliente') || t.includes('comprar') || t.includes('pedido')) return aiHelp('cliente');
+      if(t.includes('editor') || t.includes('trabalhar') || t.includes('portfólio') || t.includes('portfolio')) return aiHelp('editor');
+      if(t.includes('pacote') || t.includes('preço') || t.includes('personalizado') || t.includes('fotos') || t.includes('vídeos') || t.includes('videos')) return aiHelp('pacotes');
+      if(t.includes('bio') || t.includes('tag')) return aiHelp('bio');
+      aiAdd('Entendi! Me diga se você é Cliente ou Editor e o que você quer fazer agora (ex: “quero 3 vídeos de 15s com legenda”).');
+    }
+
+    aiFab?.addEventListener('click', ()=>{
+      if(aiPanel?.classList.contains('show')) aiClosePanel();
+      else aiOpen();
+    });
+    aiClose?.addEventListener('click', aiClosePanel);
+
+    aiChips?.addEventListener('click', (e)=>{
+      const btn = e.target?.closest('button[data-ai]');
+      if(!btn) return;
+      aiHelp(String(btn.getAttribute('data-ai')||''));
+    });
+
+    aiForm?.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const msg = String(aiInput?.value || '').trim();
+      if(!msg) return;
+      aiAdd(msg, true);
+      aiInput.value = '';
+      setTimeout(()=> aiReply(msg), 120);
+    });
+
     // ===== Init =====
     window.addEventListener('DOMContentLoaded', ()=>{
+      // Portfolio inputs
+      const edWorkPhotos = document.getElementById('edWorkPhotos');
+      const edWorkVideos = document.getElementById('edWorkVideos');
+      edWorkPhotos?.addEventListener('change', (e)=>{ addFilesToWork('photo', e.target.files); });
+      edWorkVideos?.addEventListener('change', (e)=>{ addFilesToWork('video', e.target.files); });
+      updateWorkUI();
+
+      // Clamp inputs numéricos (evita digitar infinito)
+      const cf = document.getElementById('custFotos');
+      const cv = document.getElementById('custVideos');
+      cf?.addEventListener('input', ()=>{ cf.value = String(clampInt(cf.value,0,999)); });
+      cv?.addEventListener('input', ()=>{ cv.value = String(clampInt(cv.value,0,999)); });
+
+      // WhatsApp: só números + ()- e espaço
+      const telFix = (el)=>{
+        if(!el) return;
+        el.addEventListener('input', ()=>{
+          el.value = String(el.value||'').replace(/[^0-9()\-\s+]/g,'').slice(0,15);
+        });
+      };
+      telFix(document.getElementById('clWhats'));
+      telFix(document.getElementById('edWhats'));
+
       clientData = lsGet(LS_CLIENT, clientData);
       editorData = lsGet(LS_EDITOR, editorData);
 
@@ -2632,190 +2990,16 @@
 
       calcCustom();
 
-      // ===== IA Karamello (demo local) =====
-      initKaramelloAI();
+      // IA: abre automaticamente 1x para quem nunca entrou (somente se não estiver com modal aberto)
+      try{
+        if(!localStorage.getItem(AI_INTRO_KEY)){
+          setTimeout(()=>{
+            if(!overlay?.classList.contains('show')) aiOpen();
+            localStorage.setItem(AI_INTRO_KEY,'1');
+          }, 700);
+        }
+      }catch(e){}
     });
-
-    function initKaramelloAI(){
-      const aiFab = document.getElementById('aiFab');
-      const aiOverlay = document.getElementById('aiOverlay');
-      const aiClose = document.getElementById('aiClose');
-      const aiBody = document.getElementById('aiBody');
-      const aiInput = document.getElementById('aiInput');
-      const aiSend = document.getElementById('aiSend');
-      const aiSub = document.getElementById('aiSub');
-      if(!aiFab || !aiOverlay || !aiBody || !aiInput || !aiSend) return;
-
-      const LS_AI = 'karamello_ai_chat_v1';
-      const loadAI = ()=> lsGet(LS_AI, []);
-      const saveAI = (arr)=> lsSet(LS_AI, arr.slice(-40));
-
-      function activeScreen(){
-        if(screenPickEditor?.classList.contains('show')) return 'pickEditor';
-        if(screenEditor?.classList.contains('show')) return 'editor';
-        if(screenClient?.classList.contains('show')) return 'client';
-        if(screenClientProfile?.classList.contains('show')) return 'clientProfile';
-        return 'start';
-      }
-
-      function contextLabel(){
-        const s = activeScreen();
-        if(s === 'editor') return 'Painel do Editor';
-        if(s === 'pickEditor') return 'Escolha do Editor';
-        if(s === 'client') return 'Pacotes (Cliente)';
-        if(s === 'clientProfile') return 'Perfil do Cliente';
-        return 'Entrada';
-      }
-
-      function lockBg(lock){
-        document.documentElement.style.overflow = lock ? 'hidden' : '';
-        document.body.style.overflow = lock ? 'hidden' : '';
-      }
-
-      function addMsg(text, who='ai', persist=true){
-        const msg = document.createElement('div');
-        msg.className = 'aiMsg' + (who==='you' ? ' you' : '');
-        msg.textContent = text;
-        aiBody.appendChild(msg);
-        aiBody.scrollTop = aiBody.scrollHeight;
-
-        if(persist){
-          const all = loadAI();
-          all.push({ who, text });
-          while(all.length > 30) all.shift();
-          saveAI(all);
-        }
-      }
-
-      function addQuickButtons(buttons){
-        const row = document.createElement('div');
-        row.className = 'aiQuick';
-        buttons.forEach(b=>{
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'aiQBtn';
-          btn.textContent = b;
-          btn.addEventListener('click', ()=>{
-            aiInput.value = b;
-            send();
-          });
-          row.appendChild(btn);
-        });
-        aiBody.appendChild(row);
-        aiBody.scrollTop = aiBody.scrollHeight;
-      }
-
-      function boot(){
-        aiSub.textContent = `${contextLabel()} • IA (demo)`;
-        aiBody.innerHTML = '';
-        const history = loadAI();
-        if(history?.length){
-          history.slice(-24).forEach(m=> addMsg(m.text, m.who, false));
-        }else{
-          addMsg('Oi! Eu sou a IA Karamello (demo). Eu te ajudo a escolher pacotes, montar pedido e otimizar o perfil do editor.');
-          addMsg('Me diga o que você quer fazer agora.');
-        }
-
-        const s = activeScreen();
-        if(s === 'editor') addQuickButtons(['Criar uma bio forte', 'Sugira tags pro meu perfil', 'O que marcar nos pacotes?', 'Como aparecer como Disponível?']);
-        else addQuickButtons(['Qual pacote é melhor pra mim?', 'Monte um pedido personalizado', 'Quais extras valem a pena?', 'Como escolher o editor ideal?']);
-      }
-
-      function openAI(){
-        aiOverlay.classList.add('show');
-        aiOverlay.setAttribute('aria-hidden','false');
-        lockBg(true);
-        boot();
-        setTimeout(()=> aiInput.focus(), 60);
-      }
-      function closeAI(){
-        aiOverlay.classList.remove('show');
-        aiOverlay.setAttribute('aria-hidden','true');
-        lockBg(false);
-      }
-
-      function recommendPackage(){
-        const fotos = Number(custFotos?.value||0);
-        const vids = Number(custVideos?.value||0);
-        const tipo = String(custTipoVideo?.value||'15');
-
-        if(vids > 0){
-          if(vids === 1){
-            if(tipo === '60') return 'Se for 1 vídeo de até 60s, o pacote 14 (Vídeo Longo 60s) costuma encaixar melhor.';
-            if(tipo === '45') return 'Se for 1 vídeo de 30–45s, o pacote 13 (Vídeo Médio 45s) é o mais direto.';
-            return 'Se for 1 vídeo curto, o pacote 4 (Vídeo Short 15s) é o mais indicado.';
-          }
-          if(vids <= 3) return 'Se você quer 2–3 vídeos curtos, os pacotes 6 (Short Duo) ou 9 (Short Trio) são os melhores.';
-          return 'Se você quer muitos vídeos, o pacote 11 (Short 5) ou 15 (Premium Creator) tende a valer mais.';
-        }
-        if(fotos > 0){
-          if(fotos <= 1) return 'Para poucas fotos, o pacote 1 (Starter Foto) é o mais simples.';
-          if(fotos <= 2) return 'Para 2 fotos, o pacote 2 (Duo Foto) é o mais direto.';
-          if(fotos <= 3) return 'Para 3 fotos com qualidade melhor, o pacote 3 (Foto Pro 3) encaixa bem.';
-          if(fotos <= 5) return 'Para 4–5 fotos, os pacotes 5 (Foto Pack 4) ou 8 (Foto Pack 5) são ótimos.';
-          return 'Para muitas fotos, o pacote 10 (Foto Pack 8) ou 12 (Creator Mix) costuma compensar.';
-        }
-        return 'Me diga quantas fotos e vídeos você quer (ou use o Personalizado) que eu recomendo certinho.';
-      }
-
-      function editorHelp(text){
-        const t = text.toLowerCase();
-        if(t.includes('bio')){
-          const xp = editorData?.xp || 'iniciante';
-          const soft = (editorData?.soft||'CapCut/Premiere/Lightroom').split(',').map(s=>s.trim()).filter(Boolean).slice(0,2).join(' + ') || 'CapCut';
-          return `Sugestão de bio (curta e forte): "${xp} focado em Reels/TikTok. Cortes rápidos, cor cinematográfica e áudio limpo. Trabalho no ${soft} e entrego com padrão profissional."`;
-        }
-        if(t.includes('tag')){
-          return 'Tags que costumam converter: Reels, TikTok, Shorts, Cor cine, Legendas, Áudio limpo, Ruído/voz, Motion, Thumbnail, Foto pro.';
-        }
-        if(t.includes('pacote') || t.includes('marcar')){
-          return 'Dica rápida: marque os pacotes que você REALMENTE quer receber. Se você edita vídeos, marque 4/6/9/11 e também 13/14. Se faz foto, marque 1/2/3/5/8/10. Depois ative “Disponível”.';
-        }
-        if(t.includes('dispon')){
-          return 'No painel do editor, ative a chave “Disponível”. Assim seu card aparece para clientes compatíveis.';
-        }
-        return 'Posso te ajudar com: bio, tags, pacotes, como aparecer para clientes, e como melhorar sua oferta.';
-      }
-
-      function clientHelp(text){
-        const t = text.toLowerCase();
-        if(t.includes('pacote') || t.includes('melhor')) return recommendPackage();
-        if(t.includes('personal') || t.includes('montar')){
-          return 'Use o “Pacote Personalizado”: coloque quantas fotos/vídeos, escolha a plataforma e marque extras (legenda, transições, áudio). Depois escreva a “Categoria detalhada” com referências e estilo.';
-        }
-        if(t.includes('extra') || t.includes('vale')){
-          return 'Extras que mais valem a pena em vídeo: Legendas, Cor cinematográfica, Melhorar áudio/ruído, Sincronizar com música. Em foto: Retoque avançado, Remover fundo/objetos, HDR/nitidez.';
-        }
-        if(t.includes('editor') || t.includes('escolher')){
-          return 'Na escolha do editor, prefira: “Disponível”, tags que combinem com seu pedido (ex: Legendas/Áudio/Cor cine), e pacotes compatíveis com o que você selecionou.';
-        }
-        return 'Posso te ajudar a escolher pacote, montar o personalizado, definir extras e explicar o que escrever na categoria detalhada.';
-      }
-
-      function respond(text){
-        const s = activeScreen();
-        if(s === 'editor') return editorHelp(text);
-        return clientHelp(text);
-      }
-
-      function send(){
-        const text = (aiInput.value||'').trim();
-        if(!text) return;
-        aiInput.value = '';
-        addMsg(text, 'you');
-        const reply = respond(text);
-        setTimeout(()=> addMsg(reply, 'ai'), 120);
-      }
-
-      aiFab.addEventListener('click', openAI);
-      aiClose?.addEventListener('click', closeAI);
-      aiOverlay.addEventListener('click', (e)=>{ if(e.target === aiOverlay) closeAI(); });
-      aiSend.addEventListener('click', send);
-      aiInput.addEventListener('keydown', (e)=>{
-        if(e.key === 'Enter') send();
-        if(e.key === 'Escape') closeAI();
-      });
-    }
 
   </script>
 </body>
