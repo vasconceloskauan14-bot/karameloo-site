@@ -784,6 +784,33 @@
     .roleList{margin:10px 0 0;padding-left:18px;color:#cbd5e1}
     .roleList li{margin:6px 0}
 
+    .startActions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+    .startActions .btn{ padding:12px 14px; border-radius:14px; font-size:1rem; }
+
+    .exploreBar{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .exploreBar input{ flex:1; min-width:240px; }
+
+    .chipsRow{display:flex; gap:8px; flex-wrap:wrap;}
+    .chipBtn{
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color:#e5e7eb;
+      font-size:.92rem;
+      font-weight:800;
+      cursor:pointer;
+      transition: .15s ease;
+    }
+    .chipBtn:hover{ transform: translateY(-1px); box-shadow: 0 10px 18px rgba(0,0,0,.22); }
+    .chipBtn.active{
+      border-color: rgba(56,189,248,.40);
+      background: rgba(56,189,248,.14);
+      color: rgba(229,231,235,.96);
+    }
+
+
+
     @media (max-width: 860px){
       .startPro{grid-template-columns:1fr;margin-top:10px}
       .startCopy{padding:0}
@@ -817,149 +844,334 @@
     .work-item{ aspect-ratio: 1 / 1; border-radius:14px; overflow:hidden; border:1px solid var(--border); background: rgba(0,0,0,.03); }
     .work-item img, .work-item video{ width:100%; height:100%; object-fit:cover; display:block; }
 
-    /* ===== TEMA CLARO DOURADO (mantém o layout) ===== */
-    :root{
-      /* tema claro mais confortável (menos brilho) */
-      --bg:#f6f1e6;
-      --panel:#ffffff;
-      --text:#111827;
-      --muted:#6b7280;
-      --accent1:#d4af37; /* dourado */
-      --accent2:#f59e0b; /* amarelo */
-      --accent3:#fbbf24; /* amarelo claro */
-      --border:rgba(0,0,0,.12);
-    }
-    body{ color-scheme: light; background: var(--bg); }
+    
 
-    /* fundo claro com enfeites dourados (menos brilho + mais decoração) */
+    /* ===== TEMA DARK (tons de amarelo + bordas com detalhes) ===== */
+    :root{
+      --bg:#07070a;
+      --panel:#0d1016;
+      --text:#f7f8fb;
+      --muted:#a6afbd;
+
+      /* amarelo vivo (sem brilho estourado) */
+      --accent1:#f5b400;
+      --accent2:#ffcc33;
+      --accent3:#ffe08a;
+
+      --border:rgba(255,255,255,.10);
+      --edge:rgba(245,180,0,.28);
+    }
+    body{ color-scheme: dark; background: var(--bg); }
+
+    /* fundo dark com detalhes dourados (sem brilho) */
     .bg{
       background:
-        radial-gradient(1200px 800px at 12% 10%, rgba(212,175,55,.18), transparent 62%),
-        radial-gradient(1200px 800px at 88% 12%, rgba(245,158,11,.14), transparent 62%),
-        radial-gradient(1100px 900px at 50% 85%, rgba(251,191,36,.10), transparent 62%),
-        /* listras bem sutis (ouro) para não ficar “vazio” */
-        repeating-linear-gradient(135deg, rgba(212,175,55,.045) 0 1px, transparent 1px 18px),
-        linear-gradient(135deg, rgba(212,175,55,.07) 0%, rgba(245,158,11,.06) 48%, rgba(251,191,36,.06) 100%),
-        linear-gradient(180deg, rgba(246,241,230,.98), rgba(244,239,229,.99));
-      filter:saturate(1.0) brightness(.98);
+        radial-gradient(1200px 800px at 16% 12%, rgba(245,180,0,.12), transparent 60%),
+        radial-gradient(900px 600px at 86% 18%, rgba(255,204,51,.09), transparent 62%),
+        radial-gradient(1000px 700px at 50% 86%, rgba(255,224,138,.06), transparent 60%),
+        repeating-linear-gradient(135deg, rgba(245,180,0,.025) 0 1px, transparent 1px 20px),
+        linear-gradient(180deg, rgba(7,7,10,.98), rgba(6,6,9,.99));
+      filter:saturate(1.05) contrast(1.02);
     }
-    .orb{ opacity:.14; mix-blend-mode:multiply; }
-    .orb.one{ background: radial-gradient(circle at 35% 35%, rgba(212,175,55,.55), rgba(212,175,55,0) 60%); }
-    .orb.two{ background: radial-gradient(circle at 40% 35%, rgba(245,158,11,.48), rgba(245,158,11,0) 60%); }
-    .orb.three{ background: radial-gradient(circle at 50% 40%, rgba(251,191,36,.40), rgba(251,191,36,0) 62%); }
-    .sparkles{ opacity:.14; background-image:
-      radial-gradient(circle, rgba(0,0,0,.10) 1px, transparent 1.8px),
-      radial-gradient(circle, rgba(212,175,55,.18) 1px, transparent 1.8px);
-    }
+    .sparkles{ display:none; }
+    .orb{ opacity:.08; mix-blend-mode:screen; filter: blur(26px); }
+    .orb.one{ background: radial-gradient(circle at 35% 35%, rgba(245,180,0,.60), rgba(245,180,0,0) 60%); }
+    .orb.two{ background: radial-gradient(circle at 40% 35%, rgba(255,204,51,.55), rgba(255,204,51,0) 60%); }
+    .orb.three{ background: radial-gradient(circle at 50% 40%, rgba(255,224,138,.40), rgba(255,224,138,0) 62%); }
 
     header{
-      background: linear-gradient(90deg, rgba(212,175,55,.92), rgba(245,158,11,.86), rgba(251,191,36,.70));
-      border-bottom:1px solid rgba(0,0,0,.10);
+      background: linear-gradient(90deg, rgba(245,180,0,.34), rgba(255,204,51,.22), rgba(255,224,138,.16));
+      border-bottom:1px solid rgba(255,255,255,.08);
     }
-    /* reduz o “branco estourado” do conteúdo */
-    main::before{
-      background:
-        radial-gradient(900px 420px at 20% 6%, rgba(245,158,11,.08), transparent 60%),
-        radial-gradient(900px 420px at 80% 10%, rgba(212,175,55,.06), transparent 60%),
-        rgba(255,255,255,.18);
-    }
+    header .subtitle{ color: rgba(247,248,251,.78); }
+    header h1{ color: rgba(247,248,251,.98); }
 
+    main::before{ background: rgba(0,0,0,.10); }
+
+    /* cards/painéis */
     .card, .eCard{
-      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.86));
-      border:1px solid rgba(0,0,0,.10);
-      box-shadow: 0 10px 26px rgba(17,24,39,.12);
+      position:relative;
+      background: linear-gradient(180deg, rgba(13,16,22,.88), rgba(10,12,18,.86));
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: 0 14px 34px rgba(0,0,0,.35);
+    }
+    /* detalhe de borda (amarelo discreto) */
+    .card::before, .eCard::before{
+      content:"";
+      position:absolute; inset:-1px;
+      border-radius: inherit;
+      pointer-events:none;
+      background: linear-gradient(135deg, rgba(245,180,0,.22), rgba(255,204,51,.10), rgba(255,224,138,.06));
+      opacity:.42;
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      padding:1px;
     }
 
-    /* destaque do personalizado: menos “branco chapado” */
     .card.highlight{
-      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(252,248,236,.88));
-      border-color: rgba(245,158,11,.22);
-      box-shadow: 0 12px 28px rgba(17,24,39,.14), 0 0 0 4px rgba(245,158,11,.06);
+      background: linear-gradient(180deg, rgba(16,18,26,.92), rgba(10,12,18,.88));
+      border-color: rgba(245,180,0,.22);
+      box-shadow: 0 18px 42px rgba(0,0,0,.40);
     }
-    .total-box{ border-color: rgba(245,158,11,.22); background: rgba(245,158,11,.06); }
-    .card h3{ color:#7c5c12; }
-    .section-title{ color:#7c5c12; }
-    .pill{ color: rgba(17,24,39,.70); }
-    .price{ color: #b45309; }
+    .total-box{ border-color: rgba(245,180,0,.22); background: rgba(245,180,0,.06); }
 
-    /* entrada (títulos/chips) — estava com cores do tema escuro */
-    .subtitle{ color: rgba(17,24,39,.78); }
+    .card h3{ color: rgba(255,224,138,.92); }
+    .section-title{ color: rgba(255,224,138,.92); }
+    .pill{ color: rgba(247,248,251,.82); }
+    .price{ color: rgba(255,204,51,.98); }
+
+    /* entrada */
+    .startBadge{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      color: rgba(247,248,251,.90);
+    }
+    .startBadge::after{ content:none; }
+    .startNote{ color: rgba(247,248,251,.74); }
+    .miniP{ color: rgba(247,248,251,.76); }
+
+    .subtitle{ color: rgba(247,248,251,.84); }
     .startTitle{ color: var(--text); }
-    .startDesc{ color: rgba(17,24,39,.72); }
+    .startDesc{ color: rgba(247,248,251,.78); }
     .startChip{
-      border:1px solid rgba(0,0,0,.12);
-      background: rgba(0,0,0,.03);
-      color: rgba(17,24,39,.88);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      color: rgba(247,248,251,.90);
     }
-    .startChip strong{ color:#7c5c12; }
-    .miniCard{ border:1px solid rgba(0,0,0,.10); background: rgba(0,0,0,.02); }
-    .miniT{ color:#7c5c12; }
-    .miniS{ color: rgba(17,24,39,.72); }
+    .startChip strong{ color: rgba(255,224,138,.95); }
+    .miniCard{ border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.02); }
+    .miniT{ color: rgba(255,224,138,.92); }
+    .miniS{ color: rgba(247,248,251,.74); }
 
-    /* legibilidade (editor + listas + checkboxes) */
-    .chk{ color: rgba(17,24,39,.78); }
-    .card ul, .card li{ color: rgba(17,24,39,.78); }
-    .k .t{ color: rgba(17,24,39,.70); }
-    .k .v{ color: #7c5c12; }
-    .k .v small{ color: rgba(17,24,39,.65); }
-    .eName{ color: #111827; }
-    .eMeta{ color: rgba(17,24,39,.70); }
-    .eBio{ color: rgba(17,24,39,.74); }
-    .pkg-sub{ color: rgba(17,24,39,.70); }
-    .pkg-meta{ color: rgba(17,24,39,.66); }
+    /* textos internos */
+    .chk{ color: rgba(247,248,251,.82); }
+    .card ul, .card li{ color: rgba(247,248,251,.80); }
+    .k .t{ color: rgba(247,248,251,.70); }
+    .k .v{ color: rgba(255,224,138,.92); }
+    .k .v small{ color: rgba(247,248,251,.65); }
+    .eName{ color: rgba(247,248,251,.96); }
+    .eMeta{ color: rgba(247,248,251,.72); }
+    .eBio{ color: rgba(247,248,251,.76); }
+    .pkg-sub{ color: rgba(247,248,251,.74); }
+    .pkg-meta{ color: rgba(247,248,251,.66); }
 
     input, textarea, select{
-      border:1px solid rgba(0,0,0,.12);
-      background: rgba(0,0,0,.03);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
       color: var(--text);
-      color-scheme: light;
+      color-scheme: dark;
     }
-    input::placeholder, textarea::placeholder{ color: rgba(17,24,39,.45); }
-    input:focus, textarea:focus, select:focus{ border-color: rgba(245,158,11,.55); }
-    select option{ background: #fff; color: var(--text); }
-    input[type="date"]::-webkit-calendar-picker-indicator{ filter: none; opacity:.75; }
+    input::placeholder, textarea::placeholder{ color: rgba(247,248,251,.48); }
+    input:focus, textarea:focus, select:focus{ border-color: rgba(245,180,0,.55); }
+    select option{ background: #0b0e14; color: var(--text); }
+    input[type="date"]::-webkit-calendar-picker-indicator{ filter: invert(1); opacity:.72; }
 
     .btn{
       background: linear-gradient(90deg, var(--accent1), var(--accent2));
-      box-shadow: 0 12px 26px rgba(245,158,11,.18);
+      color:#0b0e14;
+      box-shadow: 0 12px 26px rgba(245,180,0,.18);
     }
     .btn.secondary{
-      background: rgba(0,0,0,.03);
-      border:1px solid rgba(0,0,0,.12);
+      background: rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.12);
       color: var(--text);
     }
 
     .modal{
-      background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.92));
-      border:1px solid rgba(0,0,0,.12);
-      box-shadow: 0 30px 80px rgba(17,24,39,.22);
+      background: linear-gradient(180deg, rgba(13,16,22,.94), rgba(10,12,18,.92));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: 0 30px 80px rgba(0,0,0,.55);
     }
-    .modalHead{ background: linear-gradient(90deg, rgba(212,175,55,.95), rgba(245,158,11,.88)); }
-    .close{ background: rgba(0,0,0,.06); color: rgba(17,24,39,.9); }
-    .overlay{ background: rgba(17,24,39,.42); }
+    .modalHead{ background: linear-gradient(90deg, rgba(245,180,0,.85), rgba(255,204,51,.70)); }
+    .close{ background: rgba(255,255,255,.06); color: rgba(247,248,251,.92); }
+    .overlay{ background: rgba(0,0,0,.55); }
 
     .avatar{
-      border:1px solid rgba(0,0,0,.12);
+      border:1px solid rgba(255,255,255,.12);
       background:
-        radial-gradient(circle at 30% 30%, rgba(251,191,36,.28), transparent 55%),
-        radial-gradient(circle at 70% 70%, rgba(212,175,55,.22), transparent 55%),
-        rgba(0,0,0,.02);
-      box-shadow: 0 10px 24px rgba(17,24,39,.12);
-      color: rgba(17,24,39,.85);
+        radial-gradient(circle at 30% 30%, rgba(255,224,138,.20), transparent 55%),
+        radial-gradient(circle at 70% 70%, rgba(245,180,0,.16), transparent 55%),
+        rgba(255,255,255,.02);
+      box-shadow: 0 12px 30px rgba(0,0,0,.40);
+      color: rgba(247,248,251,.92);
     }
-    .star{ color: rgba(180,83,9,.95); text-shadow: 0 0 10px rgba(245,158,11,.22); }
-    .star.off{ color: rgba(17,24,39,.20); text-shadow:none; }
+    .star{ color: rgba(255,204,51,.98); text-shadow: none; }
+    .star.off{ color: rgba(247,248,251,.22); text-shadow:none; }
 
-    .badge.pillBlue{ border-color: rgba(245,158,11,.30); background: rgba(245,158,11,.10); }
-    .badge.you{ border-color: rgba(212,175,55,.35); background: rgba(212,175,55,.14); }
+    .badge.pillBlue{ border-color: rgba(245,180,0,.30); background: rgba(245,180,0,.10); }
+    .badge.you{ border-color: rgba(255,224,138,.28); background: rgba(255,224,138,.10); }
 
-    .chip{ border:1px solid rgba(0,0,0,.12); background: rgba(0,0,0,.03); color: rgba(17,24,39,.88); }
-    .switch{ border:1px solid rgba(0,0,0,.12); background: rgba(0,0,0,.03); }
-    .track{ border:1px solid rgba(0,0,0,.12); background: rgba(0,0,0,.05); }
-    .switch input:checked + .track{ background: rgba(245,158,11,.20); border-color: rgba(245,158,11,.40); }
-    .switch input:checked + .track .thumb{ background: rgba(245,158,11,.95); box-shadow: 0 0 16px rgba(245,158,11,.30); }
+    .chip{ border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03); color: rgba(247,248,251,.90); }
+    .switch{ border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03); }
+    .track{ border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.05); }
+    .switch input:checked + .track{ background: rgba(245,180,0,.18); border-color: rgba(245,180,0,.35); }
+    .switch input:checked + .track .thumb{ background: rgba(245,180,0,.95); box-shadow: none; }
 
-    footer{ color: rgba(17,24,39,.55); }
+    footer{ color: rgba(247,248,251,.55); }
+
+    /* ===== EXPLORAR (estilo marketplace tipo Fiverr) ===== */
+    .marketTop{
+      display:flex; align-items:center; gap:12px;
+      padding: 6px 2px 10px;
+      position:sticky; top:0;
+      backdrop-filter: blur(10px);
+      background: rgba(7,7,10,.70);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      z-index:5;
+    }
+    .marketLogo{
+      font-weight:1000; letter-spacing:.2px;
+      font-size: 1.1rem;
+      padding:10px 10px;
+      border-radius:12px;
+      cursor:pointer;
+      color: var(--text);
+      user-select:none;
+    }
+    .marketLogo b{ color: var(--accent2); }
+
+    .marketSearch{
+      flex:1;
+      display:flex; align-items:center; gap:10px;
+      min-width: 260px;
+    }
+    .marketSearch input{
+      flex:1;
+      padding:12px 14px;
+      border-radius: 999px;
+    }
+    .marketSearchBtn{
+      height:44px; min-width:44px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      color: rgba(247,248,251,.92);
+      cursor:pointer;
+      font-size: 1.05rem;
+    }
+
+    .marketActions{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+    .marketSort{
+      height:44px;
+      border-radius: 999px;
+      padding: 10px 12px;
+      min-width: 190px;
+    }
+    .iconBtn{
+      height:44px; min-width:44px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      color: rgba(247,248,251,.92);
+      cursor:pointer;
+      font-weight:900;
+    }
+
+    .marketCats{
+      display:flex; gap:10px;
+      overflow:auto;
+      padding: 10px 2px 2px;
+      scrollbar-width: none;
+    }
+    .marketCats::-webkit-scrollbar{ display:none; }
+    .catBtn{
+      white-space: nowrap;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      color: rgba(247,248,251,.88);
+      padding: 10px 12px;
+      cursor:pointer;
+      font-weight:900;
+      font-size:.95rem;
+    }
+    .catBtn.active{ border-color: rgba(245,180,0,.35); background: rgba(245,180,0,.10); color: rgba(255,224,138,.95); }
+
+    .marketWelcome{ margin-top:14px; }
+    .marketWelcomeTitle{ font-size: clamp(1.6rem, 4.2vw, 2.25rem); font-weight:1000; }
+    .marketWelcomeSub{ margin-top:6px; color: rgba(247,248,251,.78); }
+
+    .marketPromo{
+      margin-top:14px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px;
+      padding:14px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .promoLeft{ display:flex; gap:12px; align-items:center; }
+    .promoIcon{
+      width:44px; height:44px; border-radius:14px;
+      display:grid; place-items:center;
+      background: rgba(245,180,0,.12);
+      border:1px solid rgba(245,180,0,.22);
+      color: rgba(255,224,138,.98);
+      font-size: 1.1rem;
+      font-weight:1000;
+    }
+    .promoTitle{ font-weight:1000; }
+    .promoSub{ color: rgba(247,248,251,.72); margin-top:2px; font-size:.95rem; }
+
+    .marketSection{ margin-top:18px; }
+    .secHead{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+    .secTitle{ font-weight:1000; font-size:1.15rem; }
+    .secBtn{
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      color: rgba(247,248,251,.92);
+      padding: 10px 12px;
+      cursor:pointer;
+      font-weight:900;
+    }
+
+    .hScroll{
+      margin-top:12px;
+      display:flex; gap:12px;
+      overflow:auto;
+      padding-bottom: 4px;
+      scrollbar-width:none;
+    }
+    .hScroll::-webkit-scrollbar{ display:none; }
+
+    .miniGig{
+      width: min(280px, 72vw);
+      flex: 0 0 auto;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(13,16,22,.90);
+      overflow:hidden;
+      cursor:pointer;
+      position:relative;
+    }
+    .miniGig::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, transparent 38%, rgba(0,0,0,.65));
+      pointer-events:none;
+    }
+    .miniGig .thumb{
+      height: 138px;
+      background:
+        radial-gradient(120px 90px at 30% 30%, rgba(245,180,0,.22), transparent 60%),
+        radial-gradient(120px 90px at 70% 60%, rgba(255,224,138,.14), transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
+    .miniGig .info{
+      position:absolute; left:12px; right:12px; bottom:12px;
+      z-index:1;
+      display:flex; align-items:flex-end; justify-content:space-between; gap:10px;
+    }
+    .miniGig .whoMini{ display:flex; gap:10px; align-items:center; }
+    .miniGig .avMini{ width:38px; height:38px; border-radius: 14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.06); display:grid; place-items:center; font-weight:1000; }
+    .miniGig .nm{ font-weight:1000; }
+    .miniGig .mt{ font-size:.9rem; color: rgba(247,248,251,.74); margin-top:2px; }
+
+    .marketChips{ margin-top:12px; }
 
     /* ===== IA Karamelo (Cliente + Editor) ===== */
     .aiFab{
@@ -974,15 +1186,11 @@
       border:none;
       border-radius:999px;
       background: linear-gradient(90deg, var(--accent1), var(--accent2));
-      color:#111827;
+      color:#0b0e14;
       font-weight:1000;
-      box-shadow: 0 16px 36px rgba(245,158,11,.22);
+      box-shadow: 0 16px 36px rgba(245,180,0,.20);
     }
-    .aiFab .dot{
-      width:10px;height:10px;border-radius:50%;
-      background: rgba(255,255,255,.95);
-      box-shadow: 0 0 0 4px rgba(255,255,255,.30);
-    }
+    .aiFab .dot{ width:10px;height:10px;border-radius:50%; background: rgba(0,0,0,.75); box-shadow:none; }
     .aiPanel{
       position:fixed;
       right:18px;
@@ -991,10 +1199,10 @@
       max-height: min(70vh, 620px);
       display:none;
       flex-direction:column;
-      background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(252,248,236,.92));
-      border:1px solid rgba(0,0,0,.10);
+      background: linear-gradient(180deg, rgba(13,16,22,.96), rgba(10,12,18,.94));
+      border:1px solid rgba(255,255,255,.12);
       border-radius:18px;
-      box-shadow: 0 30px 80px rgba(17,24,39,.22);
+      box-shadow: 0 30px 80px rgba(0,0,0,.55);
       overflow:hidden;
       z-index:1400;
     }
@@ -1004,24 +1212,24 @@
       display:flex;
       justify-content:space-between;
       align-items:center;
-      background: linear-gradient(90deg, rgba(212,175,55,.95), rgba(245,158,11,.88));
-      border-bottom:1px solid rgba(0,0,0,.08);
+      background: linear-gradient(90deg, rgba(245,180,0,.80), rgba(255,204,51,.62));
+      border-bottom:1px solid rgba(255,255,255,.10);
     }
-    .aiTitle{ font-weight:1000; color:#111827; }
-    .aiSub{ font-size:.9rem; color: rgba(17,24,39,.80); margin-top:2px; }
+    .aiTitle{ font-weight:1000; color:#0b0e14; }
+    .aiSub{ font-size:.9rem; color: rgba(0,0,0,.70); margin-top:2px; }
     .aiClose{
       width:38px;height:38px;border-radius:12px;
-      border:1px solid rgba(0,0,0,.10);
-      background: rgba(255,255,255,.55);
+      border:1px solid rgba(0,0,0,.20);
+      background: rgba(255,255,255,.18);
       cursor:pointer;
       font-weight:900;
-      color:#111827;
+      color:#0b0e14;
     }
     .aiChips{ padding:10px 14px; display:flex; flex-wrap:wrap; gap:8px; }
     .aiChips button{
-      border:1px solid rgba(0,0,0,.10);
-      background: rgba(0,0,0,.03);
-      color:#111827;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      color: rgba(247,248,251,.92);
       border-radius:999px;
       padding:8px 10px;
       font-weight:900;
@@ -1029,14 +1237,15 @@
       font-size:.92rem;
     }
     .aiMsgs{ padding: 4px 14px 12px; overflow:auto; flex:1; display:grid; gap:10px; }
-    .aiMsg{ padding:10px 12px; border-radius:14px; border:1px solid rgba(0,0,0,.08); background: rgba(255,255,255,.70); color:#111827; line-height:1.35; }
-    .aiMsg.me{ background: rgba(245,158,11,.10); border-color: rgba(245,158,11,.22); }
-    .aiForm{ display:flex; gap:10px; padding: 12px 14px 14px; border-top:1px solid rgba(0,0,0,.08); }
-    .aiInput{ flex:1; padding:12px; border-radius:12px; border:1px solid rgba(0,0,0,.12); background: rgba(0,0,0,.03); }
-    .aiSend{ padding:12px 14px; border:none; border-radius:12px; font-weight:1000; cursor:pointer; background: linear-gradient(90deg, var(--accent1), var(--accent2)); color:#111827; }
+    .aiMsg{ padding:10px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.03); color: rgba(247,248,251,.92); line-height:1.35; }
+    .aiMsg.me{ background: rgba(245,180,0,.10); border-color: rgba(245,180,0,.22); }
+    .aiForm{ display:flex; gap:10px; padding: 12px 14px 14px; border-top:1px solid rgba(255,255,255,.10); }
+    .aiInput{ flex:1; padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03); }
+    .aiSend{ padding:12px 14px; border:none; border-radius:12px; font-weight:1000; cursor:pointer; background: linear-gradient(90deg, var(--accent1), var(--accent2)); color:#0b0e14; }
     @media (max-width: 620px){
       .aiFab{ right:12px; bottom:12px; }
       .aiPanel{ left:12px; right:12px; width:auto; }
+      .marketSort{ min-width: 160px; }
     }
 </style>
 </head>
@@ -1049,7 +1258,7 @@
   <div class="sparkles"></div>
 
   <div class="page">
-    <header>
+    <header id="siteHeader">
       <div class="wrap">
         <h1>Karamelo</h1>
         <div class="subtitle">Plataforma profissional de edição de fotos e vídeos</div>
@@ -1073,28 +1282,34 @@
                 <span class="startChip">🔒 CPF único (demo)</span>
               </div>
 
+              
               <div class="startMini">
                 <div class="miniCard">
-                  <div class="miniIco">🎯</div>
+                  <div class="miniIco">🧩</div>
                   <div>
-                    <div class="miniT">Pacotes prontos + Personalizado</div>
-                    <div class="miniP">Você escolhe o que precisa. O site mostra só o total.</div>
+                    <div class="miniT">Um marketplace de edição (tipo Fiverr, só que focado em vídeo e foto)</div>
+                    <div class="miniP">No Karamelo você explora serviços, compara opções e monta seu pedido no seu ritmo, sem bagunça e com padrão premium.</div>
                   </div>
                 </div>
                 <div class="miniCard">
-                  <div class="miniIco">🧠</div>
+                  <div class="miniIco">🔎</div>
                   <div>
-                    <div class="miniT">Escolha do editor</div>
-                    <div class="miniP">Veja editores compatíveis com seu pedido (demo).</div>
+                    <div class="miniT">Feito para descobrir o editor ideal</div>
+                    <div class="miniP">Encontre por estilo, prazo e extras (áudio, legendas, motion). Depois, escolha o editor compatível com seu pedido (demo).</div>
                   </div>
                 </div>
                 <div class="miniCard">
-                  <div class="miniIco">✨</div>
+                  <div class="miniIco">🛡️</div>
                   <div>
-                    <div class="miniT">Visual consistente</div>
-                    <div class="miniP">Cor cine, cortes, áudio limpo e retoque avançado.</div>
+                    <div class="miniT">Qualidade com confiança</div>
+                    <div class="miniP">Avaliação 0–10 (começa em 5) + selo especial do admin para destacar os editores mais confiáveis.</div>
                   </div>
                 </div>
+              </div>
+
+              
+              <div class="startActions">
+                <button class="btn secondary" type="button" onclick="goExplore()">Explorar serviços (demo)</button>
               </div>
 
               <div class="startNote">* Sem backend nesta versão: dados ficam salvos no navegador (LocalStorage).</div>
@@ -1136,7 +1351,188 @@
           </div>
         </section>
 
+        <!-- ✅ EXPLORAR (Marketplace) -->
+        
+        <section id="screenExplore" class="screen">
+          <div class="marketTop">
+            <div class="marketLogo" onclick="showScreen(screenExplore)">Kara<b>melo</b></div>
+
+            <div class="marketSearch">
+              <input id="exploreSearch" placeholder="Que serviço você está procurando hoje? (ex: reels, áudio, legenda)" maxlength="60" />
+              <button class="marketSearchBtn" type="button" onclick="renderExploreEditors()">🔎</button>
+            </div>
+
+            <div class="marketActions">
+              <select id="exploreSort" class="marketSort" aria-label="Ordenar">
+                <option value="best">Relevância</option>
+                <option value="fast">Entrega rápida</option>
+                <option value="pkgs">Mais pacotes</option>
+                <option value="new">Novos</option>
+              </select>
+              <button class="iconBtn" type="button" onclick="openExploreApiConfig()" title="Conectar backend">⛓</button>
+              <button class="iconBtn" type="button" id="btnExploreProfile" onclick="goClientProfileFromExplore()" title="Meu perfil">👤</button>
+              <button class="iconBtn" type="button" onclick="backToExploreFromPackages()" title="Voltar">↩</button>
+            </div>
+          </div>
+
+          <div class="marketCats" id="marketCats">
+            <button class="catBtn active" type="button" data-filter="all">Tendência 🔥</button>
+            <button class="catBtn" type="button" data-filter="video">Edição de Vídeo</button>
+            <button class="catBtn" type="button" data-filter="foto">Edição de Foto</button>
+            <button class="catBtn" type="button" data-filter="audio">Música e Áudio</button>
+            <button class="catBtn" type="button" data-filter="legenda">Legendas</button>
+            <button class="catBtn" type="button" data-filter="motion">Motion</button>
+            <button class="catBtn" type="button" data-filter="premium">Premium</button>
+            <button class="catBtn" type="button" data-filter="fav">⭐ Salvos</button>
+          </div>
+
+          <div class="marketWelcome">
+            <div class="marketWelcomeTitle">Boas-vindas de novo, <span id="exploreWelcomeName">Cliente</span></div>
+            <div class="marketWelcomeSub" id="exploreSubtitle">Descubra perfis, compare estilos e salve seus favoritos.</div>
+          </div>
+
+          <div class="marketPromo" style="margin-top:14px">
+            <div class="promoLeft">
+              <div class="promoIcon">📝</div>
+              <div>
+                <div class="promoTitle">Publique um briefing de projeto</div>
+                <div class="promoSub">Conte o que você precisa e encontre um editor perfeito pro seu estilo.</div>
+              </div>
+            </div>
+            <button class="btn secondary" type="button" onclick="startBriefing()">Iniciar</button>
+          </div>
+
+          <div class="marketSection">
+            <div class="secHead">
+              <div class="secTitle">Com base no que você pode estar procurando</div>
+              <button class="secBtn" type="button" onclick="scrollToExploreGrid()">Continue explorando</button>
+            </div>
+            <div id="exploreEditorsCarousel" class="hScroll"></div>
+          </div>
+
+          <div class="marketSection" id="exploreGridAnchor">
+            <div class="secHead">
+              <div class="secTitle">Editores recomendados</div>
+              <div class="hint" id="exploreBackendStatus" style="margin:0"></div>
+            </div>
+
+            <div class="chipsRow marketChips" style="margin-top:12px">
+              <button class="chipBtn" type="button" data-filter="all">Todos</button>
+              <button class="chipBtn" type="button" data-filter="video">Vídeo</button>
+              <button class="chipBtn" type="button" data-filter="foto">Foto</button>
+              <button class="chipBtn" type="button" data-filter="audio">Áudio</button>
+              <button class="chipBtn" type="button" data-filter="legenda">Legendas</button>
+              <button class="chipBtn" type="button" data-filter="motion">Motion</button>
+              <button class="chipBtn" type="button" data-filter="premium">Premium</button>
+              <button class="chipBtn" type="button" data-filter="fav">⭐ Favoritos</button>
+            </div>
+
+            <div class="hint" id="exploreHint" style="margin-top:10px">Dica: clique em um editor para ver o perfil completo.</div>
+
+            <div id="exploreEditorsGrid" class="editor-cards" style="margin-top:12px"></div>
+          </div>
+        </section>
+
+        <!-- ✅ EXPLORAR (Editor → clientes) -->
+        <section id="screenExploreEditor" class="screen">
+          <div class="marketTop">
+            <div class="marketLogo" onclick="showScreen(screenExploreEditor)">Kara<b>melo</b></div>
+
+            <div class="marketSearch">
+              <input id="exploreESearch" placeholder="Que tipo de cliente/pedido você quer? (ex: reels, foto, áudio)" maxlength="60" />
+              <button class="marketSearchBtn" type="button" onclick="renderExploreClients()">🔎</button>
+            </div>
+
+            <div class="marketActions">
+              <select id="exploreESort" class="marketSort" aria-label="Ordenar">
+                <option value="best">Relevância</option>
+                <option value="new">Novos</option>
+                <option value="urg">Urgentes</option>
+                <option value="fit">Melhor encaixe</option>
+              </select>
+              <button class="iconBtn" type="button" onclick="goEditorDashboard()" title="Meu painel">👤</button>
+              <button class="iconBtn" type="button" onclick="goEditorDashboard()" title="Voltar">↩</button>
+            </div>
+          </div>
+
+          <div class="marketCats" id="marketCatsE">
+            <button class="catBtn active" type="button" data-filter="all">Tendência 🔥</button>
+            <button class="catBtn" type="button" data-filter="reels">Reels/TikTok</button>
+            <button class="catBtn" type="button" data-filter="foto">Fotos</button>
+            <button class="catBtn" type="button" data-filter="audio">Áudio</button>
+            <button class="catBtn" type="button" data-filter="legenda">Legendas</button>
+            <button class="catBtn" type="button" data-filter="motion">Motion</button>
+            <button class="catBtn" type="button" data-filter="urg">Urgente</button>
+            <button class="catBtn" type="button" data-filter="fav">⭐ Salvos</button>
+          </div>
+
+          <div class="marketWelcome">
+            <div class="marketWelcomeTitle">Explore clientes, <span id="exploreEWelcomeName">Editor</span></div>
+            <div class="marketWelcomeSub" id="exploreESubtitle">Encontre pedidos compatíveis com seus pacotes e envie uma proposta (demo).</div>
+          </div>
+
+          <div class="marketPromo" style="margin-top:14px">
+            <div class="promoLeft">
+              <div class="promoIcon">📌</div>
+              <div>
+                <div class="promoTitle">Clientes procurando editores agora</div>
+                <div class="promoSub">Escolha um pedido, veja o briefing e chame o cliente (demo).</div>
+              </div>
+            </div>
+            <div class="promoRight">
+              <button class="btn" type="button" onclick="scrollToExploreClientsGrid()">Continue explorando</button>
+            </div>
+          </div>
+
+          <div class="marketSection" style="margin-top:16px">
+            <div class="marketSectionTitle">Com base no que você pode estar procurando</div>
+            <div class="carousel" id="exploreClientsCarousel"></div>
+          </div>
+
+          <div id="exploreClientsGridAnchor" style="height:1px"></div>
+          <div class="marketGrid" id="exploreClientsGrid"></div>
+
+          <div class="hint" id="exploreEHint" style="margin-top:12px">Dica: clique no card para ver o briefing.</div>
+        </section>
+
+
+        <!-- Perfil do editor (modal) -->
+        <div class="overlay" id="profileOverlay" aria-hidden="true">
+          <div class="modal" id="profileModal" style="max-width:760px">
+            <div class="modalHead">
+              <div class="modalTitle" id="profileTitle">Perfil do editor</div>
+              <button class="x" type="button" onclick="closeEditorProfile()">✕</button>
+            </div>
+
+            <div class="modalBody" id="profileBody"></div>
+          </div>
+        </div>
+
+        <!-- Chat com o editor (demo) -->
+        <div class="overlay" id="chatOverlay" aria-hidden="true">
+          <div class="modal" id="chatModal" style="max-width:680px">
+            <div class="modalHead">
+              <div class="modalTitle" id="chatTitle">Conversar</div>
+              <button class="x" type="button" onclick="closeChat()">✕</button>
+            </div>
+            <div class="modalBody">
+              <div id="chatIntro" class="pill" style="margin:0 0 10px">* Demo: mensagens ficam salvas no seu navegador.</div>
+              <div id="chatMsgs" style="display:grid; gap:10px; max-height:380px; overflow:auto; padding:10px; border:1px solid rgba(255,255,255,.10); border-radius:14px; background: rgba(255,255,255,.03)"></div>
+              <div style="display:flex; gap:10px; margin-top:12px">
+                <input id="chatInput" class="aiInput" placeholder="Escreva sua mensagem…" maxlength="280" />
+                <button class="btn" type="button" onclick="sendChat()">Enviar</button>
+              </div>
+              <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px">
+                <button class="btn secondary small" type="button" onclick="openChatWhats()">📱 WhatsApp</button>
+                <button class="btn secondary small" type="button" onclick="closeChat()">Fechar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
         <!-- CLIENTE: PERFIL (ANTES DOS PACOTES) -->
+
         <section id="screenClientProfile" class="screen">
           <div class="section-title">Seu perfil (Cliente)</div>
           <div class="pill">Complete seu perfil para uma experiência melhor (começa com 5 estrelas).</div>
@@ -1197,7 +1593,7 @@
 
             <div class="mini-grid" style="margin-top:12px">
               <button class="btn" type="button" onclick="saveClientProfileAndGo()">Salvar e continuar</button>
-              <button class="btn secondary" type="button" onclick="goBackStart()">Voltar</button>
+              <button class="btn secondary" type="button" onclick="backToExploreFromPackages()">Voltar</button>
             </div>
           </div>
         </section>
@@ -1213,6 +1609,8 @@
           </div>
 
           <div class="pill" style="margin-top:10px">Escolha um pacote pronto ou monte um pacote personalizado.</div>
+
+          <div class="pill" id="clientEditorContext" style="margin-top:10px; display:none"></div>
 
           <div class="section-title" style="margin-top:18px">Pacotes prontos (15 opções)</div>
           <div id="packagesGrid" class="grid" style="margin-top:12px"></div>
@@ -1313,7 +1711,7 @@
             </div>
           </div>
 
-          <button class="btn secondary" style="margin-top:18px" type="button" onclick="goBackStart()">Voltar</button>
+          <button class="btn secondary" style="margin-top:18px" type="button" onclick="backToExploreFromPackages()">Voltar</button>
         </section>
 
         <!-- ✅ Seleção de Editor (Cliente) -->
@@ -1343,6 +1741,17 @@
         <section id="screenEditor" class="screen">
           <div class="section-title">Bem-vindo, <span id="editorName">Editor</span> 👋</div>
           <div class="pill">Complete seu perfil, selecione pacotes e fique disponível para receber pedidos.</div>
+
+          <div class="toolbar" style="margin-top:14px">
+            <div class="left">
+              <span class="chip">🔎 Marketplace</span>
+              <span class="chip">Você também pode explorar clientes (demo)</span>
+            </div>
+            <div class="right">
+              <button class="btn secondary" type="button" onclick="goExploreEditor()">Explorar clientes</button>
+              <button class="btn secondary" type="button" onclick="goExplore()">Explorar editores</button>
+            </div>
+          </div>
 
           <div class="editor-grid">
             <!-- Perfil -->
@@ -1516,7 +1925,7 @@
               <button class="btn secondary small" type="button" style="margin-top:10px" onclick="clearEditorWorks()">Limpar portfólio</button>
 
 
-          <button class="btn secondary" style="margin-top:18px" type="button" onclick="goBackStart()">Voltar</button>
+          <button class="btn secondary" style="margin-top:18px" type="button" onclick="backToExploreFromPackages()">Voltar</button>
         </section>
 
       </div>
@@ -1661,10 +2070,14 @@
     const btnCadastrar = document.getElementById('btnCadastrar');
 
     const screenStart = document.getElementById('screenStart');
+    const screenExplore = document.getElementById('screenExplore');
+    const screenExploreEditor = document.getElementById('screenExploreEditor');
     const screenClientProfile = document.getElementById('screenClientProfile');
     const screenClient = document.getElementById('screenClient');
     const screenPickEditor = document.getElementById('screenPickEditor');
     const screenEditor = document.getElementById('screenEditor');
+
+    const siteHeader = document.getElementById('siteHeader');
 
     const inNome = document.getElementById('inNome');
     const inSobrenome = document.getElementById('inSobrenome');
@@ -1858,7 +2271,12 @@
     });
 
     function showScreen(which){
-      [screenStart, screenClientProfile, screenClient, screenPickEditor, screenEditor].forEach(s => s.classList.remove('show'));
+      [screenStart, screenExplore, screenExploreEditor, screenClientProfile, screenClient, screenPickEditor, screenEditor].forEach(s => s.classList.remove('show'));
+
+      // Header grande só na tela inicial (tira a "marca gigantesca" depois que entra)
+      if(siteHeader){
+        siteHeader.style.display = (which === screenStart) ? '' : 'none';
+      }
       setTimeout(() => {
         which.classList.add('show');
         window.scrollTo({top:0, behavior:'smooth'});
@@ -1909,8 +2327,23 @@
     function renderPackages(){
       const grid = document.getElementById('packagesGrid');
       if(!grid) return;
+
+      // Se o cliente veio da tela Explorar, mostramos só os pacotes que esse editor aceita
+      const ctx = document.getElementById('clientEditorContext');
+      let arr = packages.slice();
+      if(typeof selectedEditorFromExplore !== 'undefined' && selectedEditorFromExplore){
+        const allow = new Set((selectedEditorFromExplore.packages||[]).map(n=>Number(n)));
+        arr = arr.filter(p=>allow.has(p.id));
+        if(ctx){
+          ctx.style.display = '';
+          ctx.innerHTML = `Editor selecionado: <strong>${escapeHtml(selectedEditorFromExplore.name)}</strong> • Pacotes: <strong>${arr.length}</strong> <span style="opacity:.85">(voltar para explorar para trocar)</span>`;
+        }
+      }else{
+        if(ctx){ ctx.style.display='none'; ctx.textContent=''; }
+      }
+
       grid.innerHTML = '';
-      packages.forEach(p => {
+      arr.forEach(p => {
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
@@ -1922,7 +2355,879 @@
         `;
         grid.appendChild(card);
       });
+
+      if(selectedEditorFromExplore && !arr.length){
+        grid.innerHTML = `
+          <div class="card full" style="grid-column:1/-1">
+            <h3>Esse editor ainda não selecionou pacotes</h3>
+            <p>Volte para explorar e escolha outro editor, ou peça um Personalizado.</p>
+          </div>`;
+      }
     }
+
+
+
+    // ===== EXPLORAR (Marketplace) =====
+    const LS_API_BASE = 'karamelo_api_base_v1';
+    const LS_FAV_EDITORS = 'karamelo_fav_editors_v1';
+    const LS_RECENT_EDITORS = 'karamelo_recent_editors_v1';
+
+    let exploreFilter = 'all';
+    let exploreEditorsCache = [];
+    let exploreEditorsById = {};
+    let selectedEditorFromExplore = null; // editor selecionado (para filtrar pacotes)
+
+    const exploreEditorsGrid = document.getElementById('exploreEditorsGrid');
+    const exploreSearch = document.getElementById('exploreSearch');
+    const exploreSort = document.getElementById('exploreSort');
+    const exploreAvatar = document.getElementById('exploreAvatar');
+    const exploreSubtitle = document.getElementById('exploreSubtitle');
+    const exploreHint = document.getElementById('exploreHint');
+    const exploreBackendStatus = document.getElementById('exploreBackendStatus');
+    const exploreWelcomeName = document.getElementById('exploreWelcomeName');
+    const exploreEditorsCarousel = document.getElementById('exploreEditorsCarousel');
+    const marketCats = document.getElementById('marketCats');
+
+    // Editor -> explorar clientes
+    const LS_FAV_CLIENTS = 'karamelo_fav_clients_v1';
+    let exploreEFilter = 'all';
+    const exploreESearch = document.getElementById('exploreESearch');
+    const exploreESort = document.getElementById('exploreESort');
+    const exploreEWelcomeName = document.getElementById('exploreEWelcomeName');
+    const exploreESubtitle = document.getElementById('exploreESubtitle');
+    const exploreEHint = document.getElementById('exploreEHint');
+    const exploreClientsGrid = document.getElementById('exploreClientsGrid');
+    const exploreClientsCarousel = document.getElementById('exploreClientsCarousel');
+    const marketCatsE = document.getElementById('marketCatsE');
+
+    const btnExploreProfile = document.getElementById('btnExploreProfile');
+
+    const profileOverlay = document.getElementById('profileOverlay');
+    const profileModal = document.getElementById('profileModal');
+    const profileTitle = document.getElementById('profileTitle');
+    const profileBody = document.getElementById('profileBody');
+
+    const chatOverlay = document.getElementById('chatOverlay');
+    const chatModal = document.getElementById('chatModal');
+    const chatTitle = document.getElementById('chatTitle');
+    const chatMsgs = document.getElementById('chatMsgs');
+    const chatInput = document.getElementById('chatInput');
+    let chatCtx = null; // { peerId, peerName, peerWhats, key }
+
+    function isClientLogged(){
+      return !!(clientData && (clientData.email || clientData.full));
+    }
+
+    function apiBase(){
+      const v = (localStorage.getItem(LS_API_BASE) || '').trim();
+      return v.replace(/\/+$/,'');
+    }
+
+    async function apiFetch(path, opts){
+      const base = apiBase();
+      if(!base) throw new Error('no_api');
+      const url = base + path;
+      const res = await fetch(url, { headers:{'Content-Type':'application/json'}, ...opts });
+      if(!res.ok) throw new Error('api_' + res.status);
+      return await res.json();
+    }
+
+    async function apiHealth(){
+      try{
+        await apiFetch('/api/health', { method:'GET' });
+        return true;
+      }catch(e){
+        return false;
+      }
+    }
+
+    async function apiGetEditors(){
+      const data = await apiFetch('/api/editors', { method:'GET' });
+      const list = Array.isArray(data?.editors) ? data.editors : (Array.isArray(data) ? data : []);
+      return list;
+    }
+
+    function getFavIds(){
+      const arr = lsGet(LS_FAV_EDITORS, []);
+      return new Set(Array.isArray(arr) ? arr : []);
+    }
+
+    function setFavIds(setObj){
+      lsSet(LS_FAV_EDITORS, Array.from(setObj));
+    }
+
+    function toggleFavEditor(id){
+      const s = getFavIds();
+      if(s.has(id)) s.delete(id);
+      else s.add(id);
+      setFavIds(s);
+    }
+
+    function addRecentEditor(id){
+      const arr = lsGet(LS_RECENT_EDITORS, []);
+      const list = Array.isArray(arr) ? arr : [];
+      const next = [id, ...list.filter(x=>x!==id)].slice(0, 12);
+      lsSet(LS_RECENT_EDITORS, next);
+    }
+
+    function hasAnyVideoPkg(editor){
+      return (editor.packages||[]).some(pid=>{
+        const p = packages.find(x=>x.id===pid);
+        const n = (p?.name||'').toLowerCase();
+        return n.includes('vídeo') || n.includes('video') || n.includes('short');
+      });
+    }
+
+    function hasAnyFotoPkg(editor){
+      return (editor.packages||[]).some(pid=>{
+        const p = packages.find(x=>x.id===pid);
+        const n = (p?.name||'').toLowerCase();
+        return n.includes('foto');
+      });
+    }
+
+    function normalizeEditor(raw, fallbackId){
+      const name = raw?.name || raw?.full || raw?.nome || 'Editor';
+      const id = String(raw?.id || raw?.uid || raw?.email || fallbackId || name).replace(/\s+/g,'_');
+      return {
+        id,
+        name,
+        xp: raw?.xp || 'iniciante',
+        tags: Array.isArray(raw?.tags) ? raw.tags : (Array.isArray(raw?.skills) ? raw.skills : []),
+        packages: Array.isArray(raw?.packages) ? raw.packages.map(n=>Number(n)).filter(Boolean) : [],
+        available: !!raw?.available,
+        stars: (raw?.stars ?? START_STARS),
+        photo: raw?.photo || '',
+        bio: raw?.bio || '',
+        soft: raw?.soft || raw?.software || '',
+        whats: raw?.whats || raw?.whatsapp || raw?.wpp || ''
+      };
+    }
+
+    function getLocalEditorsFromAccounts(){
+      const acc = getAccounts();
+      const edMap = acc?.editor || {};
+      const list = [];
+      Object.keys(edMap).forEach((k, idx)=>{
+        const prof = edMap[k]?.profile || edMap[k]?.perfil || edMap[k];
+        if(!prof) return;
+        const e = normalizeEditor({
+          id: 'acc_' + k,
+          name: prof.full || prof.name || ('Editor ' + (idx+1)),
+          xp: prof.xp,
+          tags: prof.tags,
+          packages: prof.packages,
+          available: prof.available,
+          stars: prof.stars,
+          photo: prof.photo,
+          bio: prof.bio,
+          soft: prof.soft,
+          whats: prof.whats
+        }, 'acc_' + k);
+        list.push(e);
+      });
+      return list;
+    }
+
+    function getExploreEditorsLocal(){
+      const list = [];
+
+      // editores cadastrados (no mesmo navegador)
+      getLocalEditorsFromAccounts().forEach(e=> list.push(e));
+
+      // seu editor (se existir)
+      if(editorData && (editorData.full || editorData.first)){
+        list.push(normalizeEditor({
+          id:'you',
+          name: editorData.full || 'Você',
+          xp: editorData.xp,
+          tags: editorData.tags,
+          packages: editorData.packages,
+          available: editorData.available,
+          stars: editorData.stars,
+          photo: editorData.photo,
+          bio: editorData.bio,
+          soft: editorData.soft,
+          whats: editorData.whats
+        }, 'you'));
+      }
+
+      // demos
+      DEMO_EDITORS.forEach((e, i)=> list.push(normalizeEditor(e, 'demo_'+(i+1))));
+
+      // remove duplicados por id
+      const seen = new Set();
+      const uniq = [];
+      list.forEach(e=>{
+        if(seen.has(e.id)) return;
+        seen.add(e.id);
+        uniq.push(e);
+      });
+      return uniq;
+    }
+
+    async function getExploreEditors(){
+      const base = apiBase();
+      if(base){
+        const ok = await apiHealth();
+        if(ok){
+          try{
+            const apiEditors = await apiGetEditors();
+            const list = apiEditors.map((e,i)=>normalizeEditor(e, 'api_'+(i+1)));
+            return list;
+          }catch(e){
+            // cai para local
+          }
+        }
+      }
+      return getExploreEditorsLocal();
+    }
+
+    function editorMatchesSearch(e, q){
+      if(!q) return true;
+      const hay = [e.name, e.xp, e.soft, e.bio, (e.tags||[]).join(' ')].join(' ').toLowerCase();
+      return hay.includes(q);
+    }
+
+    function editorMatchesFilter(e){
+      const f = exploreFilter;
+      const fav = getFavIds();
+      if(f==='fav') return fav.has(e.id);
+      if(f==='video') return hasAnyVideoPkg(e) || (e.tags||[]).join(' ').toLowerCase().includes('vídeo');
+      if(f==='foto') return hasAnyFotoPkg(e) || (e.tags||[]).join(' ').toLowerCase().includes('foto');
+      if(f==='audio') return (e.tags||[]).join(' ').toLowerCase().includes('áudio') || (e.tags||[]).join(' ').toLowerCase().includes('audio');
+      if(f==='legenda') return (e.tags||[]).join(' ').toLowerCase().includes('legenda');
+      if(f==='motion') return (e.tags||[]).join(' ').toLowerCase().includes('motion');
+      if(f==='premium') return (Number(e.stars||START_STARS) >= 8) || (e.packages||[]).length >= 8 || (String(e.xp||'').toLowerCase()==='avancado');
+      return true;
+    }
+
+    function sortEditors(arr, mode){
+      const rank = { avancado:3, intermediario:2, iniciante:1 };
+      if(mode==='fast') return arr.sort((a,b)=>(rank[b.xp]||1)-(rank[a.xp]||1));
+      if(mode==='pkgs') return arr.sort((a,b)=>(b.packages?.length||0)-(a.packages?.length||0));
+      if(mode==='new') return arr.sort((a,b)=>String(b.id).localeCompare(String(a.id)));
+      // best
+      return arr.sort((a,b)=>(Number(b.stars||START_STARS))-(Number(a.stars||START_STARS)));
+    }
+
+    function updateExploreHeader(){
+      const logged = isClientLogged();
+      if(btnExploreProfile) btnExploreProfile.style.display = logged ? '' : 'none';
+
+      if(exploreSubtitle){
+        exploreSubtitle.textContent = logged
+          ? `Bem-vindo, ${clientData?.first || clientData?.full || 'Cliente'} — escolha um editor e veja os pacotes dele.`
+          : 'Descubra perfis, compare estilos e salve seus favoritos.';
+      }
+
+      if(exploreAvatar){
+        const letter = (clientData?.full||'K')[0];
+        setAvatar(exploreAvatar, logged ? (clientData?.photo||'') : '', letter);
+      }
+
+      if(exploreBackendStatus){
+        const base = apiBase();
+        exploreBackendStatus.textContent = base ? `Backend conectado: ${base}` : 'Modo demo/local (sem backend).';
+        exploreBackendStatus.style.opacity = '.9';
+      }
+    }
+
+    function renderEditorCard(e){
+      const fav = getFavIds();
+      const isFav = fav.has(e.id);
+      const tags = (e.tags||[]).slice(0,6);
+      const statusBadge = e.available
+        ? `<span class="badge you">Disponível</span>`
+        : `<span class="badge off">Off</span>`;
+
+      const btnPrimary = isClientLogged()
+        ? `<button class="btn" type="button" onclick="openEditorProfile('${escapeHtml(e.id)}')">Ver perfil</button>`
+        : `<button class="btn" type="button" onclick="openCadastro('cliente')">Criar conta para contratar</button>`;
+
+      const btnSecondary = `<button class="btn secondary" type="button" onclick="toggleExploreFav('${escapeHtml(e.id)}')">${isFav ? '★ Salvo' : '☆ Salvar'}</button>`;
+
+      return `
+        <div class="eTop">
+          <div style="display:flex; gap:10px; align-items:center;">
+            <div class="avatar" style="width:46px;height:46px" id="exAv_${escapeHtml(e.id)}">${escapeHtml((e.name||'E')[0])}</div>
+            <div>
+              <div class="eName">${escapeHtml(e.name)}</div>
+              <div class="stars" style="margin-top:4px">${renderStarsHTML(e.stars ?? START_STARS, MAX_STARS)}</div>
+              <div class="eMeta">${escapeHtml(e.xp)} • Pacotes: ${e.packages?.length||0}</div>
+            </div>
+          </div>
+          <div style="text-align:right">${statusBadge}</div>
+        </div>
+        <div class="eBio">${escapeHtml(e.bio || (tags.length ? tags.join(' • ') : 'Editor com estilo premium.'))}</div>
+        <div class="eBadges">
+          ${tags.map(t=>`<span class="badge pillBlue">${escapeHtml(t)}</span>`).join('') || `<span class="badge off">Sem tags</span>`}
+        </div>
+        <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap">
+          ${btnPrimary}
+          ${btnSecondary}
+        </div>
+      `;
+    }
+
+    function renderExploreCarousel(list){
+      if(!exploreEditorsCarousel) return;
+      exploreEditorsCarousel.innerHTML = '';
+      const top = (list || []).slice(0, 10);
+
+      top.forEach(e=>{
+        const id = String(e.id);
+        const nm = escapeHtml(e.name || 'Editor');
+        const initials = escapeHtml((e.name||'E')[0]);
+        const mt = escapeHtml(((e.tags||[]).slice(0,2).join(' • ')) || e.xp || 'Editor premium');
+        const rating = Math.round((Number(e.stars ?? START_STARS))*10)/10;
+
+        const card = document.createElement('div');
+        card.className = 'miniGig';
+        card.innerHTML = `
+          <div class="thumb"></div>
+          <div class="info">
+            <div class="whoMini">
+              <div class="avMini" id="miniAv_${id}">${initials}</div>
+              <div>
+                <div class="nm">${nm}</div>
+                <div class="mt">${mt}</div>
+              </div>
+            </div>
+            <div style="font-weight:1000; color:rgba(255,224,138,.95)">${rating}</div>
+          </div>`;
+
+        card.addEventListener('click', ()=>{ openEditorProfile(id); });
+        exploreEditorsCarousel.appendChild(card);
+        const av = document.getElementById(`miniAv_${id}`);
+        if(av) setAvatar(av, e.photo || '', (e.name||'E')[0]);
+      });
+    }
+
+
+    async function renderExploreEditors(){
+      if(!exploreEditorsGrid) return;
+      updateExploreHeader();
+
+      const q = (exploreSearch?.value || '').trim().toLowerCase();
+      const sort = exploreSort?.value || 'best';
+
+      const all = await getExploreEditors();
+      exploreEditorsCache = all.slice();
+      exploreEditorsById = {};
+      exploreEditorsCache.forEach(e=>{ exploreEditorsById[e.id] = e; });
+
+      let arr = all.slice();
+
+      // sempre mostra OFF também, mas joga pro final
+      arr = arr.filter(e => editorMatchesFilter(e) && editorMatchesSearch(e, q));
+      arr = sortEditors(arr, sort);
+      arr.sort((a,b)=> (b.available===a.available)?0:(b.available? -1: 1));
+
+      renderExploreCarousel(arr);
+
+      exploreEditorsGrid.innerHTML = '';
+      if(!arr.length){
+        exploreEditorsGrid.innerHTML = `
+          <div class="card full" style="grid-column:1/-1">
+            <h3>Nenhum editor encontrado</h3>
+            <p>Tente outra busca ou filtre por “Todos”.</p>
+          </div>`;
+        return;
+      }
+
+      arr.forEach(e=>{
+        const card = document.createElement('div');
+        card.className = 'eCard';
+        card.innerHTML = renderEditorCard(e);
+        exploreEditorsGrid.appendChild(card);
+        const av = document.getElementById(`exAv_${e.id}`);
+        if(av) setAvatar(av, e.photo || '', (e.name||'E')[0]);
+      });
+
+      // ativa chip selecionado
+      const row = document.querySelector('.chipsRow');
+      row?.querySelectorAll('.chipBtn').forEach(b=>{
+        const f = b.getAttribute('data-filter') || 'all';
+        b.classList.toggle('active', f === exploreFilter);
+      });
+
+      // sincroniza categorias do topo
+      if(marketCats){
+        marketCats.querySelectorAll('.catBtn').forEach(b=>{
+          const f = b.getAttribute('data-filter') || 'all';
+          b.classList.toggle('active', f === exploreFilter);
+        });
+      }
+
+      if(exploreHint){
+        exploreHint.textContent = isClientLogged()
+          ? 'Dica: abra o perfil do editor e clique em “Ver pacotes deste editor”.'
+          : 'Dica: você pode explorar — para contratar, crie uma conta de cliente.';
+      }
+    }
+
+    function goExplore(){
+      renderExploreEditors();
+      showScreen(screenExplore);
+    }
+
+    function goExploreEditor(){
+      if(!editorData) editorData = buildEditorDefaults();
+      if(exploreEWelcomeName) exploreEWelcomeName.textContent = (editorData.full || editorData.first || 'Editor');
+      if(exploreESubtitle){
+        exploreESubtitle.textContent = 'Encontre clientes compatíveis com seus pacotes e envie uma proposta (demo).';
+      }
+      renderExploreClients();
+      showScreen(screenExploreEditor);
+    }
+
+    function goEditorDashboard(){
+      if(!editorData) editorData = buildEditorDefaults();
+      paintEditor();
+      showScreen(screenEditor);
+    }
+
+    function scrollToExploreClientsGrid(){
+      const el = document.getElementById('exploreClientsGridAnchor');
+      el?.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    function getFavClientIds(){
+      const arr = lsGet(LS_FAV_CLIENTS, []);
+      return new Set(Array.isArray(arr) ? arr : []);
+    }
+    function setFavClientIds(setObj){ lsSet(LS_FAV_CLIENTS, Array.from(setObj)); }
+    function toggleFavClient(id){
+      const s = getFavClientIds();
+      if(s.has(id)) s.delete(id); else s.add(id);
+      setFavClientIds(s);
+    }
+
+    function normalizeClient(raw, fallbackId){
+      const name = raw?.name || raw?.full || raw?.nome || 'Cliente';
+      const id = String(raw?.id || raw?.uid || raw?.email || fallbackId || name).replace(/\s+/g,'_');
+      const niche = raw?.niche || raw?.categoria || '';
+      const about = raw?.about || raw?.bio || raw?.descricao || '';
+      const city = raw?.city || raw?.cidade || '';
+      const platform = raw?.mainPlatform || raw?.plataforma || raw?.platform || '';
+      const whats = raw?.whats || raw?.whatsapp || '';
+      const tags = [];
+      if(niche) tags.push(niche);
+      if(platform) tags.push(platform);
+      const txt = (niche + ' ' + about).toLowerCase();
+      if(txt.includes('reels') || txt.includes('tiktok') || txt.includes('short')) tags.push('reels');
+      if(txt.includes('foto')) tags.push('foto');
+      if(txt.includes('áudio') || txt.includes('audio') || txt.includes('ruído') || txt.includes('ruido')) tags.push('audio');
+      if(txt.includes('legenda')) tags.push('legenda');
+      if(txt.includes('motion')) tags.push('motion');
+      const urgent = txt.includes('urgente') || txt.includes('hoje') || txt.includes('rápido') || txt.includes('rapido');
+      return { id, name, niche, about, city, platform, whats, tags, urgent };
+    }
+
+    function getLocalClientsFromAccounts(){
+      const acc = getAccounts();
+      const clMap = acc?.client || {};
+      const list = [];
+      Object.keys(clMap).forEach((k, idx)=>{
+        const prof = clMap[k]?.profile || clMap[k]?.perfil || clMap[k];
+        if(!prof) return;
+        const c = normalizeClient({
+          id: 'acc_' + k,
+          name: prof.full || prof.name || ('Cliente ' + (idx+1)),
+          niche: prof.niche,
+          about: prof.about,
+          city: prof.city,
+          mainPlatform: prof.mainPlatform,
+          whats: prof.whats
+        }, 'acc_' + k);
+        list.push(c);
+      });
+      return list;
+    }
+
+    const DEMO_CLIENTS = [
+      {id:'c1', name:'Loja de Roupas', niche:'Moda', mainPlatform:'instagram', about:'Preciso de 6 Reels por semana (cortes rápidos, cor cine).', whats:''},
+      {id:'c2', name:'Personal Trainer', niche:'Fitness', mainPlatform:'tiktok', about:'Vídeos curtos com legendas e limpeza de áudio. Prazo rápido.', whats:''},
+      {id:'c3', name:'Canal de Gameplay', niche:'Gaming', mainPlatform:'youtube', about:'Highlights com motion simples, zoom, SFX e ritmo.', whats:''},
+      {id:'c4', name:'Imobiliária', niche:'Negócios', mainPlatform:'instagram', about:'Edição de fotos + reels de imóveis com áudio limpo e cor.', whats:''},
+    ];
+
+    function getExploreClientsLocal(){
+      const list = [];
+      getLocalClientsFromAccounts().forEach(c=>list.push(c));
+      if(clientData && (clientData.full || clientData.first)){
+        list.push(normalizeClient({
+          id:'you_client',
+          name: clientData.full || 'Você',
+          niche: clientData.niche,
+          about: clientData.about,
+          city: clientData.city,
+          mainPlatform: clientData.mainPlatform,
+          whats: clientData.whats
+        }, 'you_client'));
+      }
+      DEMO_CLIENTS.forEach((c,i)=> list.push(normalizeClient(c,'demo_c_'+(i+1))));
+      // uniq
+      const seen = new Set();
+      const uniq = [];
+      list.forEach(c=>{ if(seen.has(c.id)) return; seen.add(c.id); uniq.push(c); });
+      return uniq;
+    }
+
+    function clientMatchesFilter(c){
+      if(exploreEFilter==='all') return true;
+      if(exploreEFilter==='urg') return !!c.urgent;
+      if(exploreEFilter==='fav') return getFavClientIds().has(String(c.id));
+      return (c.tags||[]).some(t=> String(t).toLowerCase().includes(exploreEFilter));
+    }
+    function clientMatchesSearch(c, q){
+      if(!q) return true;
+      const hay = `${c.name} ${c.niche} ${c.about} ${c.city} ${c.platform}`.toLowerCase();
+      return hay.includes(q);
+    }
+    function sortClients(arr, sort){
+      const a = arr.slice();
+      if(sort==='urg') a.sort((x,y)=> (y.urgent===x.urgent)?0:(y.urgent?1:-1));
+      else if(sort==='new') a.sort((x,y)=> String(y.id).localeCompare(String(x.id)));
+      else if(sort==='fit') a.sort((x,y)=> (y.tags?.length||0) - (x.tags?.length||0));
+      return a;
+    }
+
+    function renderClientCard(c){
+      const fav = getFavClientIds();
+      const isFav = fav.has(String(c.id));
+      const badges = (c.tags||[]).slice(0,6).map(t=>`<span class="badge">${escapeHtml(t)}</span>`).join('') || `<span class="badge off">Sem tags</span>`;
+      const meta = [c.niche, c.city].filter(Boolean).join(' • ');
+      return `
+        <div class="eTop">
+          <div class="eName">${escapeHtml(c.name)}</div>
+          <div class="pill" style="margin:0">${c.urgent ? 'Urgente' : 'Pedido'}</div>
+        </div>
+        <div class="eSub">${escapeHtml(meta || 'Cliente (demo)')}</div>
+        <div class="eBadges" style="margin-top:10px">${badges}</div>
+        <div class="hint" style="margin-top:10px">${escapeHtml((c.about||'').slice(0,120) + ((c.about||'').length>120?'…':''))}</div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px">
+          <button class="btn" type="button" onclick="openClientBriefing('${escapeHtml(c.id)}')">Ver briefing</button>
+          <button class="btn secondary" type="button" onclick="toggleExploreClientFav('${escapeHtml(c.id)}')">${isFav ? '★ Salvo' : '☆ Salvar'}</button>
+        </div>
+      `;
+    }
+
+    function toggleExploreClientFav(id){
+      toggleFavClient(String(id));
+      renderExploreClients();
+    }
+
+    let exploreClientsById = {};
+    function renderExploreClients(){
+      const q = String(exploreESearch?.value||'').trim().toLowerCase();
+      const sort = String(exploreESort?.value||'best');
+      let arr = getExploreClientsLocal().filter(c=> clientMatchesFilter(c) && clientMatchesSearch(c,q));
+      arr = sortClients(arr, sort);
+
+      exploreClientsById = {};
+      arr.forEach(c=> exploreClientsById[c.id]=c);
+
+      // carousel
+      if(exploreClientsCarousel){
+        exploreClientsCarousel.innerHTML = '';
+        arr.slice(0,8).forEach(c=>{
+          const d = document.createElement('div');
+          d.className = 'carItem';
+          d.innerHTML = `<div class="carTitle">${escapeHtml(c.name)}</div><div class="carSub">${escapeHtml(c.niche || 'Pedido')}</div>`;
+          d.addEventListener('click', ()=> openClientBriefing(c.id));
+          exploreClientsCarousel.appendChild(d);
+        });
+      }
+
+      if(exploreClientsGrid){
+        exploreClientsGrid.innerHTML = '';
+        if(!arr.length){
+          exploreClientsGrid.innerHTML = `<div class="card full" style="grid-column:1/-1"><h3>Nenhum cliente encontrado</h3><p>Tente outra busca ou troque os filtros.</p></div>`;
+        }else{
+          arr.forEach(c=>{
+            const card = document.createElement('div');
+            card.className = 'eCard';
+            card.innerHTML = renderClientCard(c);
+            exploreClientsGrid.appendChild(card);
+          });
+        }
+      }
+
+      if(exploreEHint){
+        exploreEHint.textContent = 'Dica: abra o briefing e combine pelo WhatsApp (se o cliente tiver informado).';
+      }
+    }
+
+    function openClientBriefing(id){
+      const c = exploreClientsById?.[id];
+      if(!c) return;
+      const txt = `Cliente: ${c.name}\nNicho: ${c.niche||'-'}\nCidade: ${c.city||'-'}\nPlataforma: ${c.platform||'-'}\n\nBriefing:\n${c.about||'(não informado)'}\n\n(OK = abrir WhatsApp se existir / Cancelar = fechar)`;
+      const ok = confirm(txt);
+      if(!ok) return;
+      const d = String(c.whats||'').replace(/\D/g,'');
+      if(!d){
+        alert('Este cliente ainda não informou WhatsApp. (demo)');
+        return;
+      }
+      const br = (d.length===10 || d.length===11) ? ('55'+d) : d;
+      const msg = encodeURIComponent('Olá! Vi seu pedido no Karamelo. Posso te ajudar com a edição?');
+      window.open(`https://wa.me/${br}?text=${msg}`, '_blank');
+    }
+
+    function goClientProfileFromExplore(){
+      if(!clientData) clientData = buildClientDefaults();
+      paintClientProfile();
+      showScreen(screenClientProfile);
+    }
+
+    function openExploreApiConfig(){
+      const cur = apiBase();
+      const v = prompt('Cole a URL do backend (ex: http://localhost:3000).\nDeixe vazio para usar modo LocalStorage.', cur || '');
+      if(v === null) return;
+      localStorage.setItem(LS_API_BASE, String(v||'').trim());
+      renderExploreEditors();
+    }
+
+    
+    function scrollToExploreGrid(){
+      const el = document.getElementById('exploreGridAnchor');
+      el?.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    function startBriefing(){
+      if(!isClientLogged()) return openCadastro('cliente');
+      // se ainda nao completou o perfil, vai para o perfil primeiro
+      if(!clientData) clientData = buildClientDefaults();
+      const hasProfile = !!(clientData?.whats || clientData?.city || clientData?.niche || clientData?.about);
+      if(!hasProfile){
+        paintClientProfile();
+        showScreen(screenClientProfile);
+        return;
+      }
+      // vai para pacotes e rola direto no personalizado
+      paintClientTop();
+      showScreen(screenClient);
+      setTimeout(()=>{
+        const h = document.querySelector('#screenClient .card.highlight');
+        h?.scrollIntoView({behavior:'smooth', block:'start'});
+      }, 80);
+    }
+function toggleExploreFav(id){
+      toggleFavEditor(String(id));
+      renderExploreEditors();
+    }
+
+    function openEditorProfile(id){
+      const e = exploreEditorsById?.[id];
+      if(!e) return;
+      addRecentEditor(e.id);
+
+      if(profileTitle) profileTitle.textContent = `Perfil: ${e.name}`;
+      if(profileBody){
+        const tags = (e.tags||[]).slice(0,10);
+        const pkgs = (e.packages||[]).slice(0,10);
+        const fav = getFavIds();
+        const isFav = fav.has(e.id);
+
+        const pkgBadges = pkgs.map(pid=>{
+          const p = packages.find(x=>x.id===pid);
+          return p ? `<span class="badge pillBlue">${escapeHtml(p.name)}</span>` : '';
+        }).join('');
+
+        profileBody.innerHTML = `
+          <div class="who" style="margin-bottom:12px">
+            <div class="avatar" id="profileAv" style="width:56px;height:56px"></div>
+            <div class="meta">
+              <div style="font-weight:900; font-size:1.15rem">${escapeHtml(e.name)}</div>
+              <div class="stars" style="margin-top:4px">${renderStarsHTML(e.stars ?? START_STARS, MAX_STARS)}</div>
+              <div class="pill" style="margin-top:8px">${escapeHtml(e.xp)} • Pacotes: <strong>${e.packages?.length||0}</strong> • ${e.available ? 'Disponível' : 'Off'}</div>
+            </div>
+          </div>
+
+          <div class="card" style="padding:14px">
+            <h3 style="margin:0 0 6px">Sobre</h3>
+            <p style="margin:0; color:rgba(229,231,235,.78)">${escapeHtml(e.bio || 'Bio não informada.')}</p>
+            <div class="eBadges" style="margin-top:12px">
+              ${tags.map(t=>`<span class="badge">${escapeHtml(t)}</span>`).join('') || `<span class="badge off">Sem tags</span>`}
+            </div>
+          </div>
+
+          <div class="card" style="padding:14px; margin-top:12px">
+            <h3 style="margin:0 0 6px">Pacotes aceitos</h3>
+            <div class="eBadges">${pkgBadges || `<span class="badge off">Nenhum pacote selecionado</span>`}</div>
+            <div class="hint" style="margin-top:10px">* Demo: o editor precisa marcar pacotes e ficar “Disponível”.</div>
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px">
+            ${isClientLogged() ? `<button class="btn" type="button" onclick="openEditorShop('${escapeHtml(e.id)}')">Ver pacotes deste editor</button>` : `<button class="btn" type="button" onclick="openCadastro('cliente')">Criar conta para contratar</button>`}
+            ${isClientLogged() ? `<button class="btn secondary" type="button" onclick="openChatWithEditor('${escapeHtml(e.id)}')">💬 Falar com o editor</button>` : ''}
+            <button class="btn secondary" type="button" onclick="toggleExploreFav('${escapeHtml(e.id)}')">${isFav ? '★ Remover dos salvos' : '☆ Salvar editor'}</button>
+            <button class="btn secondary" type="button" onclick="closeEditorProfile()">Fechar</button>
+          </div>
+        `;
+        const av = document.getElementById('profileAv');
+        if(av) setAvatar(av, e.photo || '', (e.name||'E')[0]);
+      }
+
+      if(profileOverlay){
+        profileOverlay.classList.remove('closing');
+        profileModal?.classList.remove('closing');
+        profileOverlay.classList.add('show');
+        profileOverlay.setAttribute('aria-hidden','false');
+      }
+    }
+
+    function closeEditorProfile(){
+      if(!profileOverlay) return;
+      profileOverlay.classList.add('closing');
+      profileModal?.classList.add('closing');
+      setTimeout(()=>{
+        profileOverlay.classList.remove('show','closing');
+        profileModal?.classList.remove('closing');
+        profileOverlay.setAttribute('aria-hidden','true');
+      }, 220);
+    }
+
+    profileOverlay?.addEventListener('click', (e)=>{ if(e.target === profileOverlay) closeEditorProfile(); });
+
+    // ===== Chat (demo local) =====
+    function clientChatId(){
+      const base = (clientData?.email || clientData?.cpf || clientData?.full || 'client');
+      return String(base).trim().toLowerCase().replace(/[^a-z0-9]+/g,'_').slice(0,72) || 'client';
+    }
+    function chatKeyFor(peerId){
+      return `karamelo_chat_${clientChatId()}_${String(peerId||'peer').replace(/[^a-z0-9_\-]+/gi,'_').slice(0,72)}`;
+    }
+    function renderChat(){
+      if(!chatMsgs || !chatCtx) return;
+      const arr = lsGet(chatCtx.key, []);
+      const msgs = Array.isArray(arr) ? arr : [];
+      chatMsgs.innerHTML = '';
+      msgs.forEach(m=>{
+        const div = document.createElement('div');
+        div.className = 'aiMsg' + (m.from==='me' ? ' me' : '');
+        div.textContent = m.text;
+        chatMsgs.appendChild(div);
+      });
+      chatMsgs.scrollTop = chatMsgs.scrollHeight;
+    }
+    function openChatWithEditor(editorId){
+      if(!isClientLogged()) return openCadastro('cliente');
+      const e = exploreEditorsById?.[editorId];
+      if(!e) return;
+      chatCtx = {
+        peerId: e.id,
+        peerName: e.name,
+        peerWhats: e.whats || '',
+        key: chatKeyFor(e.id)
+      };
+      if(chatTitle) chatTitle.textContent = `Falar com ${e.name}`;
+      closeEditorProfile();
+      renderChat();
+      if(chatOverlay){
+        chatOverlay.classList.remove('closing');
+        chatModal?.classList.remove('closing');
+        chatOverlay.classList.add('show');
+        chatOverlay.setAttribute('aria-hidden','false');
+        setTimeout(()=> chatInput?.focus(), 60);
+      }
+    }
+    function closeChat(){
+      if(!chatOverlay) return;
+      chatOverlay.classList.add('closing');
+      chatModal?.classList.add('closing');
+      setTimeout(()=>{
+        chatOverlay.classList.remove('show','closing');
+        chatModal?.classList.remove('closing');
+        chatOverlay.setAttribute('aria-hidden','true');
+      }, 220);
+    }
+    chatOverlay?.addEventListener('click', (e)=>{ if(e.target === chatOverlay) closeChat(); });
+    function sendChat(){
+      if(!chatCtx || !chatInput) return;
+      const txt = String(chatInput.value||'').trim();
+      if(!txt) return;
+      const arr = lsGet(chatCtx.key, []);
+      const msgs = Array.isArray(arr) ? arr : [];
+      msgs.push({from:'me', text: txt, ts: Date.now()});
+      lsSet(chatCtx.key, msgs);
+      chatInput.value = '';
+      renderChat();
+      // resposta simulada (demo)
+      setTimeout(()=>{
+        const a2 = lsGet(chatCtx.key, []);
+        const m2 = Array.isArray(a2) ? a2 : [];
+        m2.push({from:'them', text:`Recebi sua mensagem! Me conte: prazo, estilo e plataforma 🙂`, ts: Date.now()});
+        lsSet(chatCtx.key, m2);
+        renderChat();
+      }, 650);
+    }
+    chatInput?.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter'){ e.preventDefault(); sendChat(); }
+    });
+    function openChatWhats(){
+      if(!chatCtx) return;
+      const d = String(chatCtx.peerWhats||'').replace(/\D/g,'');
+      if(!d){
+        alert('Este editor ainda não informou WhatsApp. (demo)');
+        return;
+      }
+      const br = (d.length===10 || d.length===11) ? ('55'+d) : d;
+      const msg = encodeURIComponent('Olá! Vi seu perfil no Karamelo. Podemos conversar sobre meu pedido?');
+      window.open(`https://wa.me/${br}?text=${msg}`, '_blank');
+    }
+
+    // chips
+    document.querySelector('.chipsRow')?.addEventListener('click', (e)=>{
+      const btn = e.target?.closest('.chipBtn');
+      if(!btn) return;
+      exploreFilter = btn.getAttribute('data-filter') || 'all';
+      renderExploreEditors();
+    });
+
+    // inputs
+    exploreSearch?.addEventListener('input', ()=>{ renderExploreEditors(); });
+    exploreSort?.addEventListener('change', ()=>{ renderExploreEditors(); });
+
+    marketCats?.addEventListener('click', (ev)=>{
+      const btn = ev.target?.closest?.('.catBtn');
+      if(!btn) return;
+      const f = btn.getAttribute('data-filter') || 'all';
+      exploreFilter = f;
+      // ativa visual
+      marketCats.querySelectorAll('.catBtn').forEach(b=>b.classList.toggle('active', b===btn));
+      renderExploreEditors();
+    });
+
+    // Editor explore (clientes)
+    exploreESearch?.addEventListener('input', ()=>{ renderExploreClients(); });
+    exploreESort?.addEventListener('change', ()=>{ renderExploreClients(); });
+    marketCatsE?.addEventListener('click', (ev)=>{
+      const btn = ev.target?.closest?.('.catBtn');
+      if(!btn) return;
+      const f = btn.getAttribute('data-filter') || 'all';
+      exploreEFilter = f;
+      marketCatsE.querySelectorAll('.catBtn').forEach(b=>b.classList.toggle('active', b===btn));
+      renderExploreClients();
+    });
+
+
+    // ===== Loja do editor: filtrar pacotes pelo editor selecionado =====
+    function openEditorShop(editorId){
+      const e = exploreEditorsById?.[editorId];
+      if(!e) return;
+      if(!e.available){
+        alert('Esse editor está OFF no momento.');
+        return;
+      }
+      selectedEditorFromExplore = e;
+      closeEditorProfile();
+      paintClientTop();
+      goExplore();
+    }
+
 
     // ===== CLIENTE (perfil) =====
     const clientAvatarBox = document.getElementById('clientAvatarBox');
@@ -2009,8 +3314,7 @@
       clientData.stars = START_STARS;
       lsSet(LS_CLIENT, clientData);
       paintClientTop();
-      showScreen(screenClient);
-      setTimeout(()=>{ renderPackages(); calcCustom(); }, 80);
+      goExplore(true);
     }
 
     // ===== CUSTOM (Cliente) =====
@@ -2139,7 +3443,11 @@
         total: p.price,
         eta: p.eta
       };
-      startPickEditor();
+      if(typeof selectedEditorFromExplore !== "undefined" && selectedEditorFromExplore){
+        createOrderAndFinish();
+      }else{
+        startPickEditor();
+      }
     }
 
     function confirmCustom(){
@@ -2151,10 +3459,61 @@
         fotos: parseInt(custFotos?.value||'0',10),
         videos: parseInt(custVideos?.value||'0',10)
       };
-      startPickEditor();
+      if(typeof selectedEditorFromExplore !== "undefined" && selectedEditorFromExplore){
+        createOrderAndFinish();
+      }else{
+        startPickEditor();
+      }
     }
 
-    function startPickEditor(){
+    
+    // ===== Finalização simples (demo) =====
+    const LS_ORDERS = 'karamelo_orders_v1';
+
+    async function createOrderAndFinish(){
+      const order = {
+        ...currentOrder,
+        createdAt: Date.now(),
+        client: { name: clientData?.full || 'Cliente', email: clientData?.email || '' },
+        editor: selectedEditorFromExplore ? { id:selectedEditorFromExplore.id, name:selectedEditorFromExplore.name } : null
+      };
+
+      // Se tiver backend conectado, tenta enviar o pedido
+      try{
+        if(typeof apiBase === 'function' && apiBase()){
+          await apiFetch('/api/orders', { method:'POST', body: JSON.stringify({ order }) });
+        }else{
+          const arr = lsGet(LS_ORDERS, []);
+          const list = Array.isArray(arr) ? arr : [];
+          list.unshift(order);
+          lsSet(LS_ORDERS, list.slice(0, 50));
+        }
+      }catch(e){
+        // fallback local
+        const arr = lsGet(LS_ORDERS, []);
+        const list = Array.isArray(arr) ? arr : [];
+        list.unshift(order);
+        lsSet(LS_ORDERS, list.slice(0, 50));
+      }
+
+      alert(`Pedido criado! (demo)
+
+• ${order.title}
+• Total: ${order.totalText || brl(order.total || 0)}
+• Entrega: ${order.eta}
+• Editor: ${order.editor?.name || '—'}
+
+Próximo passo: checkout + upload de arquivos + chat.`);
+      backToExploreFromPackages();
+    }
+
+    function backToExploreFromPackages(){
+      selectedEditorFromExplore = null;
+      currentOrder = null;
+      goExplore(true);
+    }
+
+function startPickEditor(){
       const pickInfo = document.getElementById('pickInfo');
       const pickRatingChip = document.getElementById('pickRatingChip');
       if(pickRatingChip) pickRatingChip.textContent = `Avaliação: ${START_STARS.toFixed(0)}/${MAX_STARS} ⭐`;
@@ -2723,7 +4082,7 @@
           clientData.full = 'ADM';
           lsSet(LS_CLIENT, clientData);
           paintClientProfile();
-          showScreen(screenClientProfile);
+          goExplore(true);
         }else{
           editorData = buildEditorDefaults();
           editorData.first = 'ADM';
@@ -2778,7 +4137,7 @@
         saveAccount('client', { email:eKey, pass:senha, cpf:cpfD, profile: clientData });
 
         paintClientProfile();
-        showScreen(screenClientProfile);
+        goExplore(true);
       }else{
         ensureEditorData(nome, sobrenome);
         editorData.cpf = cpfD;
@@ -2814,7 +4173,7 @@
           lsSet(LS_CLIENT, clientData);
           paintClientProfile();
           paintClientTop();
-          showScreen(screenClientProfile);
+          goExplore(true);
         }else{
           // cria perfil de editor ADM e navega para o dashboard do editor
           editorData = buildEditorDefaults();
@@ -2837,7 +4196,7 @@
       closeCadastro();
       applyAccountToSession(kind, account);
 
-      if(role==='cliente') showScreen(screenClientProfile);
+      if(role==='cliente') goExplore(true);
       else showScreen(screenEditor);
     });
 
