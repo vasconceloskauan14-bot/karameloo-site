@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Karamelo | Edição Profissional</title>
+  <title>Karameloo | Edição Profissional</title>
 
   <style>
     :root{
@@ -454,14 +454,11 @@
       color:#e5e7eb;
       font-size:.92rem;
     }
-    .editor-cards{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:14px;
-      margin-top:12px;
-    }
-    @media (max-width: 980px){ .editor-cards{grid-template-columns: repeat(2, 1fr);} }
-    @media (max-width: 620px){ .editor-cards{grid-template-columns: 1fr;} }
+    .editor-cards{display:grid;grid-template-columns:repeat(5,minmax(160px,1fr));gap:12px}
+@media (max-width:1200px){.editor-cards{grid-template-columns:repeat(4,minmax(160px,1fr));}}
+@media (max-width:960px){.editor-cards{grid-template-columns:repeat(3,minmax(160px,1fr));}}
+@media (max-width:720px){.editor-cards{grid-template-columns:repeat(2,minmax(160px,1fr));}}
+@media (max-width:520px){.editor-cards{grid-template-columns:repeat(1,minmax(160px,1fr));}}
 
     .eCard{
       background: linear-gradient(180deg, rgba(11,18,38,.92), rgba(10,16,34,.88));
@@ -1173,7 +1170,7 @@
 
     .marketChips{ margin-top:12px; }
 
-    /* ===== IA Karamelo (Cliente + Editor) ===== */
+    /* ===== IA Karameloo (Cliente + Editor) ===== */
     .aiFab{
       position:fixed;
       right:18px;
@@ -1247,7 +1244,115 @@
       .aiPanel{ left:12px; right:12px; width:auto; }
       .marketSort{ min-width: 160px; }
     }
-</style>
+
+
+    /* ===== KARAMELoo MENU + CAPAS + THUMBS ===== */
+    .profileCover{
+      height:120px;
+      border-radius:18px;
+      margin:-2px -2px 14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: radial-gradient(1200px 220px at 20% 0%, rgba(255,224,138,.20), transparent 60%),
+                  radial-gradient(900px 240px at 80% 20%, rgba(255,193,61,.18), transparent 55%),
+                  linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      background-size: cover;
+      background-position:center;
+      overflow:hidden;
+    }
+    .profileCover::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background: linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.42));
+      opacity:.85;
+    }
+    .profileCover{ position:relative; }
+
+    .eThumb{
+      height:110px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(900px 220px at 20% 0%, rgba(255,224,138,.18), transparent 60%),
+        radial-gradient(800px 240px at 80% 20%, rgba(255,193,61,.14), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      background-size: cover;
+      background-position:center;
+      margin-bottom:12px;
+      overflow:hidden;
+    }
+
+    .pkgThumb{
+  height:86px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.10);
+  background-image:
+    var(--pkgthumb, radial-gradient(900px 240px at 20% 0%, rgba(255,224,138,.14), transparent 55%),
+      radial-gradient(800px 240px at 80% 20%, rgba(255,193,61,.12), transparent 55%),
+      linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02))),
+    var(--pkgpattern, none);
+  background-size: cover, auto;
+  background-position: center, center;
+  margin-bottom:10px;
+}
+
+    #menuBody .menuList{ display:grid; gap:10px; }
+    .menuBtn{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      font-weight:900;
+      cursor:pointer;
+    }
+    .menuBtn:hover{ filter: brightness(1.05); }
+    .menuBtn small{ opacity:.75; font-weight:800; }
+    .menuDanger{ border-color: rgba(255,120,120,.32); background: rgba(255,120,120,.08); }
+    .menuBack{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .noteWarn{
+      border:1px solid rgba(255,193,61,.26);
+      background: rgba(255,193,61,.08);
+      border-radius:14px;
+      padding:10px 12px;
+      color: rgba(255,255,255,.90);
+      margin-top:10px;
+    }
+
+    @media (max-width:520px){
+      .profileCover{ height:100px; }
+      .eThumb{ height:96px; }
+    }
+
+
+
+    /* Preview grande (Editor) */
+    .previewLarge{display:block;}
+    .previewLarge .previewCard{max-width:100%; width:100%; content-visibility:visible; contain:none;}
+    #edPublicPreview{min-height:210px;}
+
+    /* Animação de troca no menu */
+    #menuBody.swap{ animation: menuSwap .28s ease; }
+    @keyframes menuSwap{ from{ opacity:0; transform: translateY(8px);} to{ opacity:1; transform: translateY(0);} }
+
+    /* IA: clique + abrir */
+    .aiFab.kick{ animation: aiKick .38s ease; }
+    @keyframes aiKick{ 0%{ transform: translateY(0) scale(1);} 40%{ transform: translateY(-6px) scale(1.02);} 100%{ transform: translateY(0) scale(1);} }
+    .aiPanel.pop{ animation: aiPop .22s ease; }
+    @keyframes aiPop{ from{ opacity:0; transform: translateY(10px) scale(.98);} to{ opacity:1; transform: translateY(0) scale(1);} }
+
+  </style>
 </head>
 
 <body>
@@ -1260,7 +1365,7 @@
   <div class="page">
     <header id="siteHeader">
       <div class="wrap">
-        <h1>Karamelo</h1>
+        <h1>Karameloo</h1>
         <div class="subtitle">Plataforma profissional de edição de fotos e vídeos</div>
       </div>
     </header>
@@ -1272,8 +1377,8 @@
         <section id="screenStart" class="screen show">
           <div class="startPro">
             <div class="startCopy">
-              <div class="startBadge">✨ 2026 • Karamelo</div>
-              <h2 class="startTitle">Edição profissional de fotos e vídeos, com cara de premium.</h2>
+              <div class="startBadge">✨ 2026 • Karameloo</div>
+              <h2 class="startTitle">Edição profissional de fotos e vídeos, premium.</h2>
               <p class="startDesc">Escolha um pacote pronto ou monte um personalizado. Ideal para Reels, TikTok, Shorts e fotos com acabamento profissional.</p>
 
               <div class="startChips" aria-label="Destaques">
@@ -1288,7 +1393,7 @@
                   <div class="miniIco">🧩</div>
                   <div>
                     <div class="miniT">Um marketplace de edição (tipo Fiverr, só que focado em vídeo e foto)</div>
-                    <div class="miniP">No Karamelo você explora serviços, compara opções e monta seu pedido no seu ritmo, sem bagunça e com padrão premium.</div>
+                    <div class="miniP">No Karameloo você explora serviços, compara opções e monta seu pedido no seu ritmo, sem bagunça e com padrão premium.</div>
                   </div>
                 </div>
                 <div class="miniCard">
@@ -1309,7 +1414,7 @@
 
               
               <div class="startActions">
-                <button class="btn secondary" type="button" onclick="goExplore()">Explorar serviços (demo)</button>
+                <button class="btn secondary" type="button" onclick="goProcurar()">Procurar editores (demo)</button>
               </div>
 
               <div class="startNote">* Sem backend nesta versão: dados ficam salvos no navegador (LocalStorage).</div>
@@ -1353,13 +1458,13 @@
 
         <!-- ✅ EXPLORAR (Marketplace) -->
         
-        <section id="screenExplore" class="screen">
+        <section id="screenProcurar" class="screen">
           <div class="marketTop">
-            <div class="marketLogo" onclick="showScreen(screenExplore)">Kara<b>melo</b></div>
+            <div class="marketLogo" onclick="showScreen(screenProcurar,true)">Kara<b>meloo</b></div>
 
             <div class="marketSearch">
               <input id="exploreSearch" placeholder="Que serviço você está procurando hoje? (ex: reels, áudio, legenda)" maxlength="60" />
-              <button class="marketSearchBtn" type="button" onclick="renderExploreEditors()">🔎</button>
+              <button class="marketSearchBtn" type="button" onclick="renderProcurarEditors()">🔎</button>
             </div>
 
             <div class="marketActions">
@@ -1369,14 +1474,15 @@
                 <option value="pkgs">Mais pacotes</option>
                 <option value="new">Novos</option>
               </select>
-              <button class="iconBtn" type="button" onclick="openExploreApiConfig()" title="Conectar backend">⛓</button>
-              <button class="iconBtn" type="button" id="btnExploreProfile" onclick="goClientProfileFromExplore()" title="Meu perfil">👤</button>
-              <button class="iconBtn" type="button" onclick="backToExploreFromPackages()" title="Voltar">↩</button>
+              <button class="iconBtn" type="button" onclick="openProcurarApiConfig()" title="Conectar backend">⛓</button>
+              <button class="iconBtn" type="button" id="btnProcurarProfile" onclick="goClientProfileFromProcurar()" title="Meu perfil">👤</button>
+              <button class="iconBtn" type="button" onclick="backToProcurarFromPackages()" title="Voltar">↩</button>
             </div>
           </div>
 
           <div class="marketCats" id="marketCats">
             <button class="catBtn active" type="button" data-filter="all">Tendência 🔥</button>
+            <button class="catBtn" type="button" data-filter="pkgs">Pacotes</button>
             <button class="catBtn" type="button" data-filter="video">Edição de Vídeo</button>
             <button class="catBtn" type="button" data-filter="foto">Edição de Foto</button>
             <button class="catBtn" type="button" data-filter="audio">Música e Áudio</button>
@@ -1405,7 +1511,7 @@
           <div class="marketSection">
             <div class="secHead">
               <div class="secTitle">Com base no que você pode estar procurando</div>
-              <button class="secBtn" type="button" onclick="scrollToExploreGrid()">Continue explorando</button>
+              <button class="secBtn" type="button" onclick="scrollToProcurarGrid()">Continue explorando</button>
             </div>
             <div id="exploreEditorsCarousel" class="hScroll"></div>
           </div>
@@ -1434,13 +1540,13 @@
         </section>
 
         <!-- ✅ EXPLORAR (Editor → clientes) -->
-        <section id="screenExploreEditor" class="screen">
+        <section id="screenProcurarEditor" class="screen">
           <div class="marketTop">
-            <div class="marketLogo" onclick="showScreen(screenExploreEditor)">Kara<b>melo</b></div>
+            <div class="marketLogo" onclick="showScreen(screenProcurarEditor,true)">Kara<b>meloo</b></div>
 
             <div class="marketSearch">
               <input id="exploreESearch" placeholder="Que tipo de cliente/pedido você quer? (ex: reels, foto, áudio)" maxlength="60" />
-              <button class="marketSearchBtn" type="button" onclick="renderExploreClients()">🔎</button>
+              <button class="marketSearchBtn" type="button" onclick="renderProcurarClients()">🔎</button>
             </div>
 
             <div class="marketActions">
@@ -1467,7 +1573,7 @@
           </div>
 
           <div class="marketWelcome">
-            <div class="marketWelcomeTitle">Explore clientes, <span id="exploreEWelcomeName">Editor</span></div>
+            <div class="marketWelcomeTitle">Procurar clientes, <span id="exploreEWelcomeName">Editor</span></div>
             <div class="marketWelcomeSub" id="exploreESubtitle">Encontre pedidos compatíveis com seus pacotes e envie uma proposta (demo).</div>
           </div>
 
@@ -1480,7 +1586,7 @@
               </div>
             </div>
             <div class="promoRight">
-              <button class="btn" type="button" onclick="scrollToExploreClientsGrid()">Continue explorando</button>
+              <button class="btn" type="button" onclick="scrollToProcurarClientsGrid()">Continue explorando</button>
             </div>
           </div>
 
@@ -1530,6 +1636,19 @@
           </div>
         </div>
 
+        <!-- Menu do usuário -->
+        <div class="overlay" id="menuOverlay" aria-hidden="true">
+          <div class="modal" id="menuModal" style="max-width:640px">
+            <div class="modalHead">
+              <div class="modalTitle" id="menuTitle">Menu</div>
+              <button class="x" type="button" onclick="closeUserMenu()">✕</button>
+            </div>
+            <div class="modalBody" id="menuBody">
+              <!-- preenchido via JS -->
+            </div>
+          </div>
+        </div>
+
 
         <!-- CLIENTE: PERFIL (ANTES DOS PACOTES) -->
 
@@ -1537,7 +1656,15 @@
           <div class="section-title">Seu perfil (Cliente)</div>
           <div class="pill">Complete seu perfil para uma experiência melhor (começa com 5 estrelas).</div>
 
+          <div class="toolbar" style="margin-top:12px">
+            <div class="left"><span class="chip">👤 Perfil</span></div>
+            <div class="right">
+              <button class="iconBtn" type="button" onclick="openUserMenu('cliente')" title="Menu">☰</button>
+            </div>
+          </div>
+
           <div class="card" style="margin-top:12px">
+            <div class="profileCover" id="clientCover"></div>
             <div class="who">
               <div class="avatar" id="clientAvatarBox"></div>
               <div class="meta">
@@ -1553,6 +1680,29 @@
               </label>
               <button class="btn secondary small" type="button" onclick="removeClientPhoto()">Remover</button>
               <div class="hint" style="margin-top:0">* Foto opcional (salva no navegador).</div>
+            </div>
+
+            <div class="coverControls" style="margin-top:12px">
+              <div class="mini-grid">
+                <div class="mini">
+                  <label>Plano de fundo (preset)</label>
+                  <select id="clCoverPreset">
+                    <option value="none">Sem fundo</option>
+                    <option value="gold">Dourado suave</option>
+                    <option value="amber">Âmbar</option>
+                    <option value="graphite">Grafite</option>
+                    <option value="sunset">Pôr do sol</option>
+                  </select>
+                </div>
+                <div class="mini">
+                  <label>Enviar imagem (capa)</label>
+                  <input id="clCoverUpload" type="file" accept="image/*" />
+                </div>
+              </div>
+              <div style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap">
+                <button class="btn secondary small" type="button" onclick="removeClientCover()">Remover fundo</button>
+                <div class="hint" style="margin-top:0">* Seu plano de fundo aparece no seu perfil e no marketplace.</div>
+              </div>
             </div>
 
             <div class="mini-grid" style="margin-top:12px">
@@ -1593,7 +1743,7 @@
 
             <div class="mini-grid" style="margin-top:12px">
               <button class="btn" type="button" onclick="saveClientProfileAndGo()">Salvar e continuar</button>
-              <button class="btn secondary" type="button" onclick="backToExploreFromPackages()">Voltar</button>
+              <button class="btn secondary" type="button" onclick="backToProcurarFromPackages()">Voltar</button>
             </div>
           </div>
         </section>
@@ -1710,8 +1860,6 @@
               <div class="hint">* Os preços por item são internos e não aparecem.</div>
             </div>
           </div>
-
-          <button class="btn secondary" style="margin-top:18px" type="button" onclick="backToExploreFromPackages()">Voltar</button>
         </section>
 
         <!-- ✅ Seleção de Editor (Cliente) -->
@@ -1748,14 +1896,17 @@
               <span class="chip">Você também pode explorar clientes (demo)</span>
             </div>
             <div class="right">
-              <button class="btn secondary" type="button" onclick="goExploreEditor()">Explorar clientes</button>
-              <button class="btn secondary" type="button" onclick="goExplore()">Explorar editores</button>
+              <button class="iconBtn" type="button" onclick="goStartInstant()" title="Voltar ao início">↩</button>
+              <button class="iconBtn" type="button" onclick="openUserMenu('editor')" title="Menu">☰</button>
+              <button class="btn secondary" type="button" onclick="goProcurarEditor()">Procurar clientes</button>
+              <button class="btn secondary" type="button" onclick="goProcurar()">Procurar editores</button>
             </div>
           </div>
 
           <div class="editor-grid">
             <!-- Perfil -->
             <div class="card">
+              <div class="profileCover" id="editorCover"></div>
               <div class="row-inline">
                 <h3 style="margin:0;color:#c7d2fe">Seu perfil (Editor)</h3>
 
@@ -1786,7 +1937,29 @@
                 <div class="hint" style="margin-top:0">* Foto opcional (salva no navegador).</div>
               </div>
 
-              <!-- KPIs úteis (sem comissão/admin aqui) -->
+              <div class="coverControls" style="margin-top:12px">
+                <div class="mini-grid">
+                  <div class="mini">
+                    <label>Plano de fundo (preset)</label>
+                    <select id="edCoverPreset">
+                      <option value="none">Sem fundo</option>
+                      <option value="gold">Dourado suave</option>
+                      <option value="amber">Âmbar</option>
+                      <option value="graphite">Grafite</option>
+                      <option value="sunset">Pôr do sol</option>
+                    </select>
+                  </div>
+                  <div class="mini">
+                    <label>Enviar imagem (capa)</label>
+                    <input id="edCoverUpload" type="file" accept="image/*" />
+                  </div>
+                </div>
+                <div style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap">
+                  <button class="btn secondary small" type="button" onclick="removeEditorCover()">Remover fundo</button>
+                  <div class="hint" style="margin-top:0">* Sua capa aparece no marketplace (Procurar).</div>
+                </div>
+              </div>
+
               <div class="kpi">
                 <div class="k">
                   <div class="t">Avaliação</div>
@@ -1848,12 +2021,30 @@
               <!-- Preview público (movido para cima) -->
               <div class="section-title" style="margin:18px 0 8px">Como você aparece para o cliente</div>
               <div class="pill" style="margin:0 0 10px">Esse é o card que vai aparecer na tela de escolha do editor.</div>
-              <div class="editor-cards" style="margin-top:10px">
-                <div class="eCard" id="edPublicPreview"></div>
+              <div class="previewLarge" style="margin-top:10px">
+                <div class="eCard previewCard" id="edPublicPreview"></div>
               </div>
 
+              <!-- Portfólio do Editor (demo) -->
+              <div class="section-title" style="margin:18px 0 8px">Portfólio (trabalhos)</div>
+              <div class="pill" style="margin:0 0 10px">Carregue até <strong>30 fotos</strong> e <strong>10 vídeos</strong> para mostrar aos clientes (demo: não salva no navegador).</div>
+
+              <div class="mini-grid" style="margin-top:10px">
+                <label class="btn secondary small" style="cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px">
+                  Enviar fotos (até 30)
+                  <input id="edWorkPhotos" type="file" accept="image/*" multiple style="display:none" />
+                </label>
+                <label class="btn secondary small" style="cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px">
+                  Enviar vídeos (até 10)
+                  <input id="edWorkVideos" type="file" accept="video/*" multiple style="display:none" />
+                </label>
+              </div>
+              <div class="hint" id="edWorkCount" style="margin-top:10px">0/30 fotos • 0/10 vídeos</div>
+              <div id="edWorkGrid" class="work-grid"></div>
+              <button class="btn secondary small" type="button" style="margin-top:10px" onclick="clearEditorWorks()">Limpar portfólio</button>
+
               <div class="hint">
-                * Comissão é fixa e só aparece no painel ADM no futuro (Karamelo 25% / Editor 75%).
+                * Comissão é fixa e só aparece no painel ADM no futuro (Karameloo 25% / Editor 75%).
               </div>
             </div>
 
@@ -1905,33 +2096,12 @@
               <div class="hint">* Sem backend: isso é salvo no seu navegador (LocalStorage).</div>
             </div>
           </div>
-
-              <!-- Portfólio do Editor (demo) -->
-              <div class="section-title" style="margin:18px 0 8px">Portfólio (trabalhos)</div>
-              <div class="pill" style="margin:0 0 10px">Carregue até <strong>30 fotos</strong> e <strong>10 vídeos</strong> para mostrar aos clientes (demo: não salva no navegador).</div>
-
-              <div class="mini-grid" style="margin-top:10px">
-                <label class="btn secondary small" style="cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px">
-                  Enviar fotos (até 30)
-                  <input id="edWorkPhotos" type="file" accept="image/*" multiple style="display:none" />
-                </label>
-                <label class="btn secondary small" style="cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px">
-                  Enviar vídeos (até 10)
-                  <input id="edWorkVideos" type="file" accept="video/*" multiple style="display:none" />
-                </label>
-              </div>
-              <div class="hint" id="edWorkCount" style="margin-top:10px">0/30 fotos • 0/10 vídeos</div>
-              <div id="edWorkGrid" class="work-grid"></div>
-              <button class="btn secondary small" type="button" style="margin-top:10px" onclick="clearEditorWorks()">Limpar portfólio</button>
-
-
-          <button class="btn secondary" style="margin-top:18px" type="button" onclick="backToExploreFromPackages()">Voltar</button>
         </section>
 
       </div>
     </main>
 
-    <footer>© 2026 • Karamelo • Edição profissional</footer>
+    <footer>© 2026 • Karameloo • Edição profissional</footer>
   </div>
 
   <!-- MODAL CADASTRO -->
@@ -1978,8 +2148,8 @@
     </div>
   </div>
 
-  <!-- IA Karamelo (demo local) -->
-  <button class="aiFab" id="aiFab" aria-label="Abrir IA Karamelo">
+  <!-- IA Karameloo (demo local) -->
+  <button class="aiFab" id="aiFab" aria-label="Abrir IA Karameloo">
     <span class="dot" aria-hidden="true"></span>
     <span>IA</span>
   </button>
@@ -1987,7 +2157,7 @@
   <section class="aiPanel" id="aiPanel" aria-hidden="true">
     <div class="aiHead">
       <div>
-        <div class="aiTitle">IA Karamelo</div>
+        <div class="aiTitle">IA Karameloo</div>
         <div class="aiSub" id="aiSub">Ajuda para Cliente, Editor e novos usuários</div>
       </div>
       <button class="aiClose" id="aiClose" type="button" aria-label="Fechar">×</button>
@@ -2052,6 +2222,387 @@
       });
     }
 
+
+    // ===== Sessão (para permitir "Sair" sem apagar seus dados) =====
+    const LS_SESSION = 'karameloo_session_v1';
+    function getSession(){
+      return lsGet(LS_SESSION, { active:null, clientEmail:'', editorEmail:'' });
+    }
+    function setSession(s){ lsSet(LS_SESSION, s); }
+    function setActiveSession(kind){
+      const s = getSession();
+      if(kind==='cliente'){ s.active='cliente'; s.clientEmail = clientData?.email || s.clientEmail || ''; }
+      if(kind==='editor'){ s.active='editor'; s.editorEmail = editorData?.email || s.editorEmail || ''; }
+      setSession(s);
+    }
+    function logoutSession(){
+      const s = getSession();
+      s.active = null;
+      setSession(s);
+      try{ selectedEditorFromProcurar = null; }catch(e){}
+      try{ (function(){const __ci=document.getElementById('chatInput'); if(__ci) __ci.value='';})(); }catch(e){}
+    }
+    function isClientLogged(){
+      const s = getSession();
+      return s.active==='cliente' && !!(s.clientEmail);
+    }
+    function isEditorLogged(){
+      const s = getSession();
+      return s.active==='editor' && !!(s.editorEmail);
+    }
+
+    // ===== Moderação (frontend básico + ganchos para backend) =====
+    async function moderateText(text){
+      const t = String(text||'').trim();
+      if(!t) return { ok:true };
+
+      // 1) tenta backend (se existir)
+      try{
+        if(typeof apiBase==='function' && apiBase()){
+          const r = await apiFetch('/api/moderate/text', { method:'POST', body: JSON.stringify({ text:t }) });
+          if(typeof r?.ok==='boolean') return r;
+        }
+      }catch(e){ /* fallback */ }
+
+      // 2) fallback local (não é perfeito)
+      const bad = [
+        'porn','porno','putaria','p*','sexo','nude','nudes','pelado','pelada','xereca','pinto','buceta','caralho','fds','foda','foder',
+        'estupr','pedofil','cp','gore','suicid',
+      ];
+      const low = t.toLowerCase();
+      const hit = bad.find(w => low.includes(w));
+      if(hit){
+        return { ok:false, reason:'Mensagem bloqueada por linguagem imprópria (demo).'};
+      }
+      return { ok:true };
+    }
+
+    async function moderateImageDataUrl(dataUrl){
+      const img = String(dataUrl||'');
+      if(!img.startsWith('data:image/')) return { ok:true };
+
+      // 1) tenta backend (se existir)
+      try{
+        if(typeof apiBase==='function' && apiBase()){
+          const r = await apiFetch('/api/moderate/image', { method:'POST', body: JSON.stringify({ image: img }) });
+          if(typeof r?.ok==='boolean') return r;
+        }
+      }catch(e){ /* fallback */ }
+
+      // 2) fallback local: checagem simples (tamanho + heurística leve)
+      // OBS: isso NÃO garante 100% — moderação forte precisa de backend.
+      const approxBytes = Math.floor((img.split(',')[1]||'').length * 0.75);
+      if(approxBytes > 2_200_000){
+        return { ok:false, reason:'Imagem muito pesada. Envie uma imagem menor (até ~2MB).'};
+      }
+      // Heurística: se muita área com tons de pele + pouca variação, sinaliza (pode dar falso positivo).
+      try{
+        const im = await new Promise((res, rej)=>{
+          const i = new Image();
+          i.onload = ()=>res(i);
+          i.onerror = rej;
+          i.src = img;
+        });
+        const c = document.createElement('canvas');
+        const w = 96;
+        const h = Math.max(48, Math.round((im.height/im.width)*w));
+        c.width = w;
+        c.height = h;
+        const ctx = c.getContext('2d', { willReadFrequently:true });
+        ctx.drawImage(im, 0, 0, w, h);
+        const d = ctx.getImageData(0,0,w,h).data;
+        let skin=0, total=0;
+        for(let p=0; p<d.length; p+=16){
+          const r=d[p], g=d[p+1], b=d[p+2];
+          const maxv=Math.max(r,g,b), minv=Math.min(r,g,b);
+          const lum = (0.2126*r+0.7152*g+0.0722*b);
+          const cond = (r>95 && g>40 && b>20 && (maxv-minv)>15 && Math.abs(r-g)>15 && r>g && r>b && lum>60);
+          total++;
+          if(cond) skin++;
+        }
+        const ratio = skin/Math.max(1,total);
+        if(ratio > 0.42){
+          return { ok:false, reason:'Imagem suspeita de conteúdo sensível (demo).'};
+        }
+      }catch(e){ /* ignora */ }
+
+      return { ok:true };
+    }
+
+    async function checkAndReadImage(file){
+      const data = await readFileAsDataURL(file);
+      const m = await moderateImageDataUrl(data);
+      if(!m.ok) throw new Error(m.reason || 'Imagem bloqueada');
+      return data;
+    }
+
+    // ===== Capas (plano de fundo do perfil) =====
+    function pkgPattern(seed){
+      const n = Number(seed||1) || 1;
+      const deg = (n*37)%180;
+      const a = (n%3===0) ? 'rgba(255,224,138,.10)' : (n%3===1 ? 'rgba(255,193,61,.10)' : 'rgba(56,189,248,.08)');
+      return `repeating-linear-gradient(${deg}deg, ${a} 0, ${a} 1px, transparent 1px, transparent 10px)`;
+    }
+
+    function presetToCover(preset){
+      const p = String(preset||'none');
+      if(p==='gold') return 'radial-gradient(1200px 220px at 20% 0%, rgba(255,224,138,.32), transparent 60%), radial-gradient(900px 240px at 80% 20%, rgba(255,193,61,.22), transparent 55%), linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02))';
+      if(p==='amber') return 'radial-gradient(900px 220px at 20% 0%, rgba(255,193,61,.30), transparent 60%), radial-gradient(900px 240px at 80% 20%, rgba(255,224,138,.18), transparent 55%), linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02))';
+      if(p==='sunset') return 'radial-gradient(900px 220px at 15% 0%, rgba(255,120,120,.22), transparent 60%), radial-gradient(900px 240px at 80% 20%, rgba(255,193,61,.20), transparent 55%), linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02))';
+      if(p==='graphite') return 'radial-gradient(900px 220px at 20% 0%, rgba(255,224,138,.14), transparent 60%), linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.18))';
+      return '';
+    }
+    function applyCoverToEl(el, cover){
+      if(!el) return;
+      if(cover?.img){
+        el.style.backgroundImage = `url(${cover.img})`;
+      }else if(cover?.preset && cover.preset!=='none'){
+        el.style.backgroundImage = presetToCover(cover.preset);
+      }else{
+        el.style.backgroundImage = '';
+      }
+    }
+
+    function syncClientCoverControls(){
+      const preset = document.getElementById('clCoverPreset');
+      const up = document.getElementById('clCoverUpload');
+      applyCoverToEl(document.getElementById('clientCover'), clientData?.cover);
+      if(preset) preset.value = clientData?.cover?.preset || 'none';
+      if(!clientData) return;
+      // evita perder imagem se usuário trocar preset
+      if(clientData.cover && !clientData.cover.preset) clientData.cover.preset = 'none';
+    }
+
+    function syncEditorCoverControls(){
+      const preset = document.getElementById('edCoverPreset');
+      const up = document.getElementById('edCoverUpload');
+      applyCoverToEl(document.getElementById('editorCover'), editorData?.cover);
+      if(preset) preset.value = editorData?.cover?.preset || 'none';
+      if(!editorData) return;
+      if(editorData.cover && !editorData.cover.preset) editorData.cover.preset = 'none';
+    }
+
+    async function onClientCoverPreset(){
+      if(!clientData) return;
+      const preset = document.getElementById('clCoverPreset');
+      const v = preset ? preset.value : 'none';
+      clientData.cover = { preset:v, img:'' };
+      lsSet(LS_CLIENT, clientData);
+      applyCoverToEl(document.getElementById('clientCover'), clientData.cover);
+    }
+
+    async function onEditorCoverPreset(){
+      if(!editorData) return;
+      const preset = document.getElementById('edCoverPreset');
+      const v = preset ? preset.value : 'none';
+      editorData.cover = { preset:v, img:'' };
+      lsSet(LS_EDITOR, editorData);
+      persistEditorToAccount();
+      applyCoverToEl(document.getElementById('editorCover'), editorData.cover);
+    }
+
+    async function onClientCoverUpload(ev){
+      const file = ev?.target?.files?.[0];
+      if(!file || !clientData) return;
+      try{
+        const data = await checkAndReadImage(file);
+        clientData.cover = { preset:'none', img:data };
+        lsSet(LS_CLIENT, clientData);
+        applyCoverToEl(document.getElementById('clientCover'), clientData.cover);
+      }catch(err){
+        alert(String(err.message||err));
+        ev.target.value='';
+      }
+    }
+
+    async function onEditorCoverUpload(ev){
+      const file = ev?.target?.files?.[0];
+      if(!file || !editorData) return;
+      try{
+        const data = await checkAndReadImage(file);
+        editorData.cover = { preset:'none', img:data };
+        lsSet(LS_EDITOR, editorData);
+        persistEditorToAccount();
+        applyCoverToEl(document.getElementById('editorCover'), editorData.cover);
+      }catch(err){
+        alert(String(err.message||err));
+        ev.target.value='';
+      }
+    }
+
+    function removeClientCover(){
+      if(!clientData) return;
+      clientData.cover = { preset:'none', img:'' };
+      lsSet(LS_CLIENT, clientData);
+      applyCoverToEl(document.getElementById('clientCover'), clientData.cover);
+    }
+
+    function removeEditorCover(){
+      if(!editorData) return;
+      editorData.cover = { preset:'none', img:'' };
+      lsSet(LS_EDITOR, editorData);
+      persistEditorToAccount();
+      applyCoverToEl(document.getElementById('editorCover'), editorData.cover);
+    }
+
+    // ===== Menu do usuário =====
+    const menuOverlay = document.getElementById('menuOverlay');
+    const menuModal = document.getElementById('menuModal');
+    const menuTitle = document.getElementById('menuTitle');
+    const menuBody = document.getElementById('menuBody');
+    let menuCtxRole = 'cliente';
+
+    function openUserMenu(r){
+      menuCtxRole = (r==='editor') ? 'editor' : 'cliente';
+      renderUserMenuHome();
+      if(menuOverlay){
+        menuOverlay.classList.remove('closing');
+        menuModal?.classList.remove('closing');
+        menuOverlay.classList.add('show');
+        menuOverlay.setAttribute('aria-hidden','false');
+      }
+    }
+    function closeUserMenu(){
+      if(!menuOverlay) return;
+      menuOverlay.classList.add('closing');
+      menuModal?.classList.add('closing');
+      setTimeout(()=>{
+        menuOverlay.classList.remove('show','closing');
+        menuModal?.classList.remove('closing');
+        menuOverlay.setAttribute('aria-hidden','true');
+      }, 220);
+    }
+    menuOverlay?.addEventListener('click', (e)=>{ if(e.target===menuOverlay) closeUserMenu(); });
+
+    function menuBackBtn(label, fn){
+      return `<div class="menuBack"><button class="btn secondary small" type="button" onclick="${fn}">← Voltar</button><span class="chip">${label}</span></div>`;
+    }
+
+    function setMenuHTML(htmlStr){
+      if(!menuBody) return;
+      menuBody.classList.remove('swap');
+      void menuBody.offsetHeight;
+      menuBody.classList.add('swap');
+      menuBody.innerHTML = htmlStr;
+    }
+
+    function renderUserMenuHome(){
+      if(!menuBody) return;
+      if(menuTitle) menuTitle.textContent = 'Menu';
+
+      const isClient = menuCtxRole==='cliente';
+      const cpf = (isClient ? clientData?.cpf : editorData?.cpf) || '';
+      const otherEmail = cpf ? (isClient ? findEmailByCPF('editor', cpf) : findEmailByCPF('client', cpf)) : null;
+      const canSwitch = !!otherEmail;
+
+      const switchBtn = canSwitch ? `
+        <button class="menuBtn" type="button" onclick="${isClient ? 'switchToEditorFromClient()' : 'switchToClientFromEditor()'}">
+          <span>${isClient ? 'Entrar como Editor/Vendedor' : 'Entrar como Cliente'}</span>
+          <small>Trocar modo</small>
+        </button>` : '';
+
+      setMenuHTML(`
+        <div class="menuList">
+          ${switchBtn}
+          <button class="menuBtn" type="button" onclick="renderUserMenuSettings()">
+            <span>Configurações</span><small>Conta & perfil</small>
+          </button>
+          <button class="menuBtn" type="button" onclick="renderUserMenuPrivacy()">
+            <span>Privacidade</span><small>Dados & segurança</small>
+          </button>
+          <button class="menuBtn" type="button" onclick="renderUserMenuTerms()">
+            <span>Termos de uso</span><small>Regras do app</small>
+          </button>
+          <button class="menuBtn menuDanger" type="button" onclick="logoutAndGoStart()">
+            <span>Sair</span><small>Encerrar sessão</small>
+          </button>
+          <div class="noteWarn">
+            <strong>Importante:</strong> o filtro de mensagens/imagens aqui é <em>demo</em>.
+            Para ficar forte de verdade, a moderação com IA deve rodar no <strong>backend</strong>.
+          </div>
+        </div>`);
+    }
+
+    function renderUserMenuSettings(){
+      if(!menuBody) return;
+      if(menuTitle) menuTitle.textContent = 'Configurações';
+      const isClient = menuCtxRole==='cliente';
+      setMenuHTML(`
+        ${menuBackBtn('Configurações', 'renderUserMenuHome()')}
+        <div class="card" style="margin:0">
+          <h3 style="margin-top:0">Preferências do perfil</h3>
+          <p style="opacity:.9; margin:8px 0 0">Você pode trocar a foto e a capa do seu perfil na própria tela de perfil.</p>
+          <div class="pill" style="margin-top:10px">Dica: use uma capa clara para destacar seus cards no Procurar.</div>
+        </div>`);
+    }
+
+    function renderUserMenuPrivacy(){
+      if(!menuBody) return;
+      if(menuTitle) menuTitle.textContent = 'Privacidade';
+      setMenuHTML(`
+        ${menuBackBtn('Privacidade', 'renderUserMenuHome()')}
+        <div class="card" style="margin:0">
+          <h3 style="margin-top:0">Privacidade (demo)</h3>
+          <p style="opacity:.92">
+            • Suas informações ficam salvas apenas no seu navegador (LocalStorage).
+            <br>• Para um site real: precisa backend com banco de dados e políticas (LGPD).
+            <br>• Chat e moderação fortes também entram no backend.
+          </p>
+        </div>`);
+    }
+
+    function renderUserMenuTerms(){
+      if(!menuBody) return;
+      if(menuTitle) menuTitle.textContent = 'Termos de uso';
+      setMenuHTML(`
+        ${menuBackBtn('Termos', 'renderUserMenuHome()')}
+        <div class="card" style="margin:0">
+          <h3 style="margin-top:0">Termos (resumo)</h3>
+          <p style="opacity:.92">
+            Ao usar o Karameloo você concorda em não enviar conteúdo ilegal, ofensivo ou impróprio.
+            Perfis e mensagens podem ser filtrados e removidos.
+            <br><br><strong>Etapa real:</strong> termos completos + moderação com IA no backend.
+          </p>
+        </div>`);
+    }
+
+    function logoutAndGoStart(){
+      logoutSession();
+      try{ closeEditorProfile(); }catch(e){}
+      try{ closeChat(); }catch(e){}
+      try{ closeCadastro(); }catch(e){}
+      selectedEditorFromProcurar = null;
+      currentOrder = null;
+      closeUserMenu();
+      showScreen(screenStart, true);
+    }
+
+    function switchToEditorFromClient(){
+      const cpf = clientData?.cpf || '';
+      const email = cpf ? findEmailByCPF('editor', cpf) : null;
+      if(!email){ alert('Você ainda não tem conta de Editor neste navegador.'); return; }
+      const acc = loadAccount('editor', email);
+      if(!acc){ alert('Conta de Editor não encontrada.'); return; }
+      role = 'editor';
+      applyAccountToSession('editor', acc);
+      setActiveSession('editor');
+      closeUserMenu();
+      showScreen(screenEditor);
+    }
+    function switchToClientFromEditor(){
+      const cpf = editorData?.cpf || '';
+      const email = cpf ? findEmailByCPF('client', cpf) : null;
+      if(!email){ alert('Você ainda não tem conta de Cliente neste navegador.'); return; }
+      const acc = loadAccount('client', email);
+      if(!acc){ alert('Conta de Cliente não encontrada.'); return; }
+      role = 'cliente';
+      applyAccountToSession('client', acc);
+      setActiveSession('cliente');
+      closeUserMenu();
+      goProcurar(true);
+    }
+
+
     function lsGet(key, fallback){
       try{
         const raw = localStorage.getItem(key);
@@ -2070,8 +2621,8 @@
     const btnCadastrar = document.getElementById('btnCadastrar');
 
     const screenStart = document.getElementById('screenStart');
-    const screenExplore = document.getElementById('screenExplore');
-    const screenExploreEditor = document.getElementById('screenExploreEditor');
+    const screenProcurar = document.getElementById('screenProcurar');
+    const screenProcurarEditor = document.getElementById('screenProcurarEditor');
     const screenClientProfile = document.getElementById('screenClientProfile');
     const screenClient = document.getElementById('screenClient');
     const screenPickEditor = document.getElementById('screenPickEditor');
@@ -2270,19 +2821,25 @@
       if(overlay?.classList.contains('show')) syncAuthWrapHeight();
     });
 
-    function showScreen(which){
-      [screenStart, screenExplore, screenExploreEditor, screenClientProfile, screenClient, screenPickEditor, screenEditor].forEach(s => s.classList.remove('show'));
+    function showScreen(which, instant=false){
+      [screenStart, screenProcurar, screenProcurarEditor, screenClientProfile, screenClient, screenPickEditor, screenEditor].forEach(s => s.classList.remove('show'));
 
       // Header grande só na tela inicial (tira a "marca gigantesca" depois que entra)
       if(siteHeader){
         siteHeader.style.display = (which === screenStart) ? '' : 'none';
       }
-      setTimeout(() => {
+
+      const doShow = ()=>{
         which.classList.add('show');
-        window.scrollTo({top:0, behavior:'smooth'});
-      }, 50);
+        window.scrollTo({top:0, behavior: instant ? 'auto' : 'smooth'});
+      };
+
+      if(instant) doShow();
+      else setTimeout(doShow, 50);
     }
-    function goBackStart(){ showScreen(screenStart); }
+    function goBackStart(){ showScreen(screenStart,true); }
+    function goStart(){ goBackStart(); }
+    function goStartInstant(){ showScreen(screenStart,true); }
 
     // ===== Storage =====
     const LS_EDITOR = "karamello_editor_v6";
@@ -2331,12 +2888,12 @@
       // Se o cliente veio da tela Explorar, mostramos só os pacotes que esse editor aceita
       const ctx = document.getElementById('clientEditorContext');
       let arr = packages.slice();
-      if(typeof selectedEditorFromExplore !== 'undefined' && selectedEditorFromExplore){
-        const allow = new Set((selectedEditorFromExplore.packages||[]).map(n=>Number(n)));
+      if(typeof selectedEditorFromProcurar !== 'undefined' && selectedEditorFromProcurar){
+        const allow = new Set((selectedEditorFromProcurar.packages||[]).map(n=>Number(n)));
         arr = arr.filter(p=>allow.has(p.id));
         if(ctx){
           ctx.style.display = '';
-          ctx.innerHTML = `Editor selecionado: <strong>${escapeHtml(selectedEditorFromExplore.name)}</strong> • Pacotes: <strong>${arr.length}</strong> <span style="opacity:.85">(voltar para explorar para trocar)</span>`;
+          ctx.innerHTML = `Editor selecionado: <strong>${escapeHtml(selectedEditorFromProcurar.name)}</strong> • Pacotes: <strong>${arr.length}</strong> <span style="opacity:.85">(voltar para procurar para trocar)</span>`;
         }
       }else{
         if(ctx){ ctx.style.display='none'; ctx.textContent=''; }
@@ -2346,7 +2903,12 @@
       arr.forEach(p => {
         const card = document.createElement('div');
         card.className = 'card';
+        const nm = (p.name||'').toLowerCase();
+        const th = nm.includes('foto') ? presetToCover('graphite') : (nm.includes('vídeo') || nm.includes('video') || nm.includes('short') ? presetToCover('gold') : presetToCover('amber'));
+        if(th) card.style.setProperty('--pkgthumb', th);
+        card.style.setProperty('--pkgpattern', pkgPattern(p.id));
         card.innerHTML = `
+          <div class="pkgThumb"></div>
           <h3>${p.id}. ${escapeHtml(p.name)}</h3>
           <p>Entrega a partir de <strong>${escapeHtml(p.eta)}</strong> (mínimo 13h30)</p>
           <div class="price">${brl(p.price)}</div>
@@ -2356,7 +2918,7 @@
         grid.appendChild(card);
       });
 
-      if(selectedEditorFromExplore && !arr.length){
+      if(selectedEditorFromProcurar && !arr.length){
         grid.innerHTML = `
           <div class="card full" style="grid-column:1/-1">
             <h3>Esse editor ainda não selecionou pacotes</h3>
@@ -2375,7 +2937,26 @@
     let exploreFilter = 'all';
     let exploreEditorsCache = [];
     let exploreEditorsById = {};
-    let selectedEditorFromExplore = null; // editor selecionado (para filtrar pacotes)
+    let selectedEditorFromProcurar = null; // editor selecionado (para filtrar pacotes)
+
+    // intenção pós-login (fluxo A: navegar livre, e só criar conta ao falar/contratar)
+    let postLoginIntent = null; // {type:'chat'|'package', editorId?, packageId?}
+    function setPostLoginIntent(intent){ postLoginIntent = intent; }
+    function runPostLoginIntent(){
+      const intent = postLoginIntent;
+      if(!intent) return;
+      postLoginIntent = null;
+      if(intent.type==='chat' && intent.editorId){
+        try{ openEditorProfile(String(intent.editorId)); }catch(e){}
+        setTimeout(()=>{ try{ openChatWithEditor(String(intent.editorId)); }catch(e){} }, 140);
+        return;
+      }
+      if(intent.type==='package'){
+        // abre pacotes (demo)
+        try{ paintClientTop(); selectedEditorFromProcurar = null; renderPackages(); showScreen(screenClient); }catch(e){}
+      }
+    }
+
 
     const exploreEditorsGrid = document.getElementById('exploreEditorsGrid');
     const exploreSearch = document.getElementById('exploreSearch');
@@ -2400,7 +2981,7 @@
     const exploreClientsCarousel = document.getElementById('exploreClientsCarousel');
     const marketCatsE = document.getElementById('marketCatsE');
 
-    const btnExploreProfile = document.getElementById('btnExploreProfile');
+    const btnProcurarProfile = document.getElementById('btnProcurarProfile');
 
     const profileOverlay = document.getElementById('profileOverlay');
     const profileModal = document.getElementById('profileModal');
@@ -2414,9 +2995,6 @@
     const chatInput = document.getElementById('chatInput');
     let chatCtx = null; // { peerId, peerName, peerWhats, key }
 
-    function isClientLogged(){
-      return !!(clientData && (clientData.email || clientData.full));
-    }
 
     function apiBase(){
       const v = (localStorage.getItem(LS_API_BASE) || '').trim();
@@ -2500,7 +3078,9 @@
         photo: raw?.photo || '',
         bio: raw?.bio || '',
         soft: raw?.soft || raw?.software || '',
-        whats: raw?.whats || raw?.whatsapp || raw?.wpp || ''
+        whats: raw?.whats || raw?.whatsapp || raw?.wpp || '',
+        cover: raw?.cover || raw?.capa || raw?.bg || raw?.coverImg || raw?.coverImage || ''
+      
       };
     }
 
@@ -2522,14 +3102,15 @@
           photo: prof.photo,
           bio: prof.bio,
           soft: prof.soft,
-          whats: prof.whats
+          whats: prof.whats,
+          cover: prof.cover
         }, 'acc_' + k);
         list.push(e);
       });
       return list;
     }
 
-    function getExploreEditorsLocal(){
+    function getProcurarEditorsLocal(){
       const list = [];
 
       // editores cadastrados (no mesmo navegador)
@@ -2548,7 +3129,8 @@
           photo: editorData.photo,
           bio: editorData.bio,
           soft: editorData.soft,
-          whats: editorData.whats
+          whats: editorData.whats,
+          cover: editorData.cover
         }, 'you'));
       }
 
@@ -2566,7 +3148,7 @@
       return uniq;
     }
 
-    async function getExploreEditors(){
+    async function getProcurarEditors(){
       const base = apiBase();
       if(base){
         const ok = await apiHealth();
@@ -2580,7 +3162,7 @@
           }
         }
       }
-      return getExploreEditorsLocal();
+      return getProcurarEditorsLocal();
     }
 
     function editorMatchesSearch(e, q){
@@ -2611,9 +3193,9 @@
       return arr.sort((a,b)=>(Number(b.stars||START_STARS))-(Number(a.stars||START_STARS)));
     }
 
-    function updateExploreHeader(){
+    function updateProcurarHeader(){
       const logged = isClientLogged();
-      if(btnExploreProfile) btnExploreProfile.style.display = logged ? '' : 'none';
+      if(btnProcurarProfile) btnProcurarProfile.style.display = logged ? '' : 'none';
 
       if(exploreSubtitle){
         exploreSubtitle.textContent = logged
@@ -2633,7 +3215,20 @@
       }
     }
 
+    
+    function requestChatWithEditor(editorId){
+      const id = String(editorId||'');
+      if(!id) return;
+      if(!isClientLogged()){
+        setPostLoginIntent({ type:'chat', editorId:id });
+        openCadastro('cliente');
+        return;
+      }
+      openChatWithEditor(id);
+    }
+
     function renderEditorCard(e){
+
       const fav = getFavIds();
       const isFav = fav.has(e.id);
       const tags = (e.tags||[]).slice(0,6);
@@ -2641,13 +3236,14 @@
         ? `<span class="badge you">Disponível</span>`
         : `<span class="badge off">Off</span>`;
 
-      const btnPrimary = isClientLogged()
-        ? `<button class="btn" type="button" onclick="openEditorProfile('${escapeHtml(e.id)}')">Ver perfil</button>`
-        : `<button class="btn" type="button" onclick="openCadastro('cliente')">Criar conta para contratar</button>`;
+      const btnProfile = `<button class="btn" type="button" onclick="openEditorProfile('${escapeHtml(e.id)}')">Ver perfil</button>`;
 
-      const btnSecondary = `<button class="btn secondary" type="button" onclick="toggleExploreFav('${escapeHtml(e.id)}')">${isFav ? '★ Salvo' : '☆ Salvar'}</button>`;
+      const btnPrimary = `<button class="btn" type="button" onclick="requestChatWithEditor('${escapeHtml(e.id)}')">💬 Falar com o editor</button>`;
+
+      const btnSecondary = `<button class="btn secondary" type="button" onclick="toggleProcurarFav('${escapeHtml(e.id)}')">${isFav ? '★ Salvo' : '☆ Salvar'}</button>`;
 
       return `
+        <div class="eThumb" style="background-image: var(--thumb, none)"></div>
         <div class="eTop">
           <div style="display:flex; gap:10px; align-items:center;">
             <div class="avatar" style="width:46px;height:46px" id="exAv_${escapeHtml(e.id)}">${escapeHtml((e.name||'E')[0])}</div>
@@ -2664,13 +3260,14 @@
           ${tags.map(t=>`<span class="badge pillBlue">${escapeHtml(t)}</span>`).join('') || `<span class="badge off">Sem tags</span>`}
         </div>
         <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap">
+          ${btnProfile}
           ${btnPrimary}
           ${btnSecondary}
         </div>
       `;
     }
 
-    function renderExploreCarousel(list){
+    function renderProcurarCarousel(list){
       if(!exploreEditorsCarousel) return;
       exploreEditorsCarousel.innerHTML = '';
       const top = (list || []).slice(0, 10);
@@ -2684,8 +3281,10 @@
 
         const card = document.createElement('div');
         card.className = 'miniGig';
+        const mth = (e.cover && e.cover.img) ? `url(${e.cover.img})` : (e.cover && e.cover.preset && e.cover.preset!=='none' ? presetToCover(e.cover.preset) : '');
+        if(mth) card.style.setProperty('--miniThumb', mth);
         card.innerHTML = `
-          <div class="thumb"></div>
+          <div class="thumb" style="background-image: var(--miniThumb, none)"></div>
           <div class="info">
             <div class="whoMini">
               <div class="avMini" id="miniAv_${id}">${initials}</div>
@@ -2705,14 +3304,14 @@
     }
 
 
-    async function renderExploreEditors(){
+    async function renderProcurarEditors(){
       if(!exploreEditorsGrid) return;
-      updateExploreHeader();
+      updateProcurarHeader();
 
       const q = (exploreSearch?.value || '').trim().toLowerCase();
       const sort = exploreSort?.value || 'best';
 
-      const all = await getExploreEditors();
+      const all = await getProcurarEditors();
       exploreEditorsCache = all.slice();
       exploreEditorsById = {};
       exploreEditorsCache.forEach(e=>{ exploreEditorsById[e.id] = e; });
@@ -2724,7 +3323,7 @@
       arr = sortEditors(arr, sort);
       arr.sort((a,b)=> (b.available===a.available)?0:(b.available? -1: 1));
 
-      renderExploreCarousel(arr);
+      renderProcurarCarousel(arr);
 
       exploreEditorsGrid.innerHTML = '';
       if(!arr.length){
@@ -2739,6 +3338,8 @@
       arr.forEach(e=>{
         const card = document.createElement('div');
         card.className = 'eCard';
+        const th = (e.cover && e.cover.img) ? `url(${e.cover.img})` : (e.cover && e.cover.preset && e.cover.preset!=='none' ? presetToCover(e.cover.preset) : '');
+        if(th) card.style.setProperty('--thumb', th);
         card.innerHTML = renderEditorCard(e);
         exploreEditorsGrid.appendChild(card);
         const av = document.getElementById(`exAv_${e.id}`);
@@ -2763,23 +3364,33 @@
       if(exploreHint){
         exploreHint.textContent = isClientLogged()
           ? 'Dica: abra o perfil do editor e clique em “Ver pacotes deste editor”.'
-          : 'Dica: você pode explorar — para contratar, crie uma conta de cliente.';
+          : 'Dica: você pode procurar — para contratar, crie uma conta de cliente (ou fale com o editor e crie na hora).';
       }
     }
 
-    function goExplore(){
-      renderExploreEditors();
-      showScreen(screenExplore);
+    function goProcurar(instant=false){
+      if(instant){
+        showScreen(screenProcurar, true);
+        requestAnimationFrame(()=>{ try{ renderProcurarEditors(); }catch(e){} });
+      }else{
+        renderProcurarEditors();
+        showScreen(screenProcurar, false);
+      }
     }
 
-    function goExploreEditor(){
+    function goProcurarEditor(instant=false){
       if(!editorData) editorData = buildEditorDefaults();
       if(exploreEWelcomeName) exploreEWelcomeName.textContent = (editorData.full || editorData.first || 'Editor');
       if(exploreESubtitle){
         exploreESubtitle.textContent = 'Encontre clientes compatíveis com seus pacotes e envie uma proposta (demo).';
       }
-      renderExploreClients();
-      showScreen(screenExploreEditor);
+      if(instant){
+        showScreen(screenProcurarEditor, true);
+        requestAnimationFrame(()=>{ try{ renderProcurarClients(); }catch(e){} });
+      }else{
+        renderProcurarClients();
+        showScreen(screenProcurarEditor, false);
+      }
     }
 
     function goEditorDashboard(){
@@ -2788,7 +3399,7 @@
       showScreen(screenEditor);
     }
 
-    function scrollToExploreClientsGrid(){
+    function scrollToProcurarClientsGrid(){
       const el = document.getElementById('exploreClientsGridAnchor');
       el?.scrollIntoView({behavior:'smooth', block:'start'});
     }
@@ -2839,7 +3450,8 @@
           about: prof.about,
           city: prof.city,
           mainPlatform: prof.mainPlatform,
-          whats: prof.whats
+          whats: prof.whats,
+          cover: prof.cover
         }, 'acc_' + k);
         list.push(c);
       });
@@ -2853,7 +3465,7 @@
       {id:'c4', name:'Imobiliária', niche:'Negócios', mainPlatform:'instagram', about:'Edição de fotos + reels de imóveis com áudio limpo e cor.', whats:''},
     ];
 
-    function getExploreClientsLocal(){
+    function getProcurarClientsLocal(){
       const list = [];
       getLocalClientsFromAccounts().forEach(c=>list.push(c));
       if(clientData && (clientData.full || clientData.first)){
@@ -2900,6 +3512,7 @@
       const badges = (c.tags||[]).slice(0,6).map(t=>`<span class="badge">${escapeHtml(t)}</span>`).join('') || `<span class="badge off">Sem tags</span>`;
       const meta = [c.niche, c.city].filter(Boolean).join(' • ');
       return `
+        <div class="eThumb"></div>
         <div class="eTop">
           <div class="eName">${escapeHtml(c.name)}</div>
           <div class="pill" style="margin:0">${c.urgent ? 'Urgente' : 'Pedido'}</div>
@@ -2909,21 +3522,21 @@
         <div class="hint" style="margin-top:10px">${escapeHtml((c.about||'').slice(0,120) + ((c.about||'').length>120?'…':''))}</div>
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px">
           <button class="btn" type="button" onclick="openClientBriefing('${escapeHtml(c.id)}')">Ver briefing</button>
-          <button class="btn secondary" type="button" onclick="toggleExploreClientFav('${escapeHtml(c.id)}')">${isFav ? '★ Salvo' : '☆ Salvar'}</button>
+          <button class="btn secondary" type="button" onclick="toggleProcurarClientFav('${escapeHtml(c.id)}')">${isFav ? '★ Salvo' : '☆ Salvar'}</button>
         </div>
       `;
     }
 
-    function toggleExploreClientFav(id){
+    function toggleProcurarClientFav(id){
       toggleFavClient(String(id));
-      renderExploreClients();
+      renderProcurarClients();
     }
 
     let exploreClientsById = {};
-    function renderExploreClients(){
+    function renderProcurarClients(){
       const q = String(exploreESearch?.value||'').trim().toLowerCase();
       const sort = String(exploreESort?.value||'best');
-      let arr = getExploreClientsLocal().filter(c=> clientMatchesFilter(c) && clientMatchesSearch(c,q));
+      let arr = getProcurarClientsLocal().filter(c=> clientMatchesFilter(c) && clientMatchesSearch(c,q));
       arr = sortClients(arr, sort);
 
       exploreClientsById = {};
@@ -2972,32 +3585,34 @@
         return;
       }
       const br = (d.length===10 || d.length===11) ? ('55'+d) : d;
-      const msg = encodeURIComponent('Olá! Vi seu pedido no Karamelo. Posso te ajudar com a edição?');
+      const msg = encodeURIComponent('Olá! Vi seu pedido no Karameloo. Posso te ajudar com a edição?');
       window.open(`https://wa.me/${br}?text=${msg}`, '_blank');
     }
 
-    function goClientProfileFromExplore(){
+    function goClientProfileFromProcurar(){
       if(!clientData) clientData = buildClientDefaults();
       paintClientProfile();
+      if(typeof syncClientCoverControls==='function') syncClientCoverControls();
       showScreen(screenClientProfile);
     }
 
-    function openExploreApiConfig(){
+    function openProcurarApiConfig(){
       const cur = apiBase();
       const v = prompt('Cole a URL do backend (ex: http://localhost:3000).\nDeixe vazio para usar modo LocalStorage.', cur || '');
       if(v === null) return;
       localStorage.setItem(LS_API_BASE, String(v||'').trim());
-      renderExploreEditors();
+      renderProcurarEditors();
     }
 
     
-    function scrollToExploreGrid(){
+    function scrollToProcurarGrid(){
       const el = document.getElementById('exploreGridAnchor');
       el?.scrollIntoView({behavior:'smooth', block:'start'});
     }
 
     function startBriefing(){
-      if(!isClientLogged()) return openCadastro('cliente');
+      // pode ver pacotes sem conta; contratar pede conta
+      if(!clientData) clientData = buildClientDefaults();
       // se ainda nao completou o perfil, vai para o perfil primeiro
       if(!clientData) clientData = buildClientDefaults();
       const hasProfile = !!(clientData?.whats || clientData?.city || clientData?.niche || clientData?.about);
@@ -3014,9 +3629,9 @@
         h?.scrollIntoView({behavior:'smooth', block:'start'});
       }, 80);
     }
-function toggleExploreFav(id){
+function toggleProcurarFav(id){
       toggleFavEditor(String(id));
-      renderExploreEditors();
+      renderProcurarEditors();
     }
 
     function openEditorProfile(id){
@@ -3061,9 +3676,9 @@ function toggleExploreFav(id){
           </div>
 
           <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px">
-            ${isClientLogged() ? `<button class="btn" type="button" onclick="openEditorShop('${escapeHtml(e.id)}')">Ver pacotes deste editor</button>` : `<button class="btn" type="button" onclick="openCadastro('cliente')">Criar conta para contratar</button>`}
-            ${isClientLogged() ? `<button class="btn secondary" type="button" onclick="openChatWithEditor('${escapeHtml(e.id)}')">💬 Falar com o editor</button>` : ''}
-            <button class="btn secondary" type="button" onclick="toggleExploreFav('${escapeHtml(e.id)}')">${isFav ? '★ Remover dos salvos' : '☆ Salvar editor'}</button>
+            <button class="btn" type="button" onclick="openEditorShop('${escapeHtml(e.id)}')">Ver pacotes deste editor</button>
+            <button class="btn secondary" type="button" onclick="requestChatWithEditor('${escapeHtml(e.id)}')">💬 Falar com o editor</button>
+            <button class="btn secondary" type="button" onclick="toggleProcurarFav('${escapeHtml(e.id)}')">${isFav ? '★ Remover dos salvos' : '☆ Salvar editor'}</button>
             <button class="btn secondary" type="button" onclick="closeEditorProfile()">Fechar</button>
           </div>
         `;
@@ -3113,8 +3728,16 @@ function toggleExploreFav(id){
       });
       chatMsgs.scrollTop = chatMsgs.scrollHeight;
     }
+    function openChatWithEditorOrSignup(editorId){
+      requestChatWithEditor(editorId);
+    }
+
     function openChatWithEditor(editorId){
-      if(!isClientLogged()) return openCadastro('cliente');
+      if(!isClientLogged()){
+        setPostLoginIntent({ type:'chat', editorId:String(editorId||'') });
+        openCadastro('cliente');
+        return;
+      }
       const e = exploreEditorsById?.[editorId];
       if(!e) return;
       chatCtx = {
@@ -3145,10 +3768,12 @@ function toggleExploreFav(id){
       }, 220);
     }
     chatOverlay?.addEventListener('click', (e)=>{ if(e.target === chatOverlay) closeChat(); });
-    function sendChat(){
+    async function sendChat(){
       if(!chatCtx || !chatInput) return;
       const txt = String(chatInput.value||'').trim();
       if(!txt) return;
+      const mod = await moderateText(txt);
+      if(!mod.ok){ alert(mod.reason || 'Mensagem bloqueada.'); return; }
       const arr = lsGet(chatCtx.key, []);
       const msgs = Array.isArray(arr) ? arr : [];
       msgs.push({from:'me', text: txt, ts: Date.now()});
@@ -3175,7 +3800,7 @@ function toggleExploreFav(id){
         return;
       }
       const br = (d.length===10 || d.length===11) ? ('55'+d) : d;
-      const msg = encodeURIComponent('Olá! Vi seu perfil no Karamelo. Podemos conversar sobre meu pedido?');
+      const msg = encodeURIComponent('Olá! Vi seu perfil no Karameloo. Podemos conversar sobre meu pedido?');
       window.open(`https://wa.me/${br}?text=${msg}`, '_blank');
     }
 
@@ -3184,33 +3809,48 @@ function toggleExploreFav(id){
       const btn = e.target?.closest('.chipBtn');
       if(!btn) return;
       exploreFilter = btn.getAttribute('data-filter') || 'all';
-      renderExploreEditors();
+      renderProcurarEditors();
     });
 
     // inputs
-    exploreSearch?.addEventListener('input', ()=>{ renderExploreEditors(); });
-    exploreSort?.addEventListener('change', ()=>{ renderExploreEditors(); });
+    exploreSearch?.addEventListener('input', ()=>{ renderProcurarEditors(); });
+    exploreSort?.addEventListener('change', ()=>{ renderProcurarEditors(); });
 
     marketCats?.addEventListener('click', (ev)=>{
       const btn = ev.target?.closest?.('.catBtn');
       if(!btn) return;
       const f = btn.getAttribute('data-filter') || 'all';
+      if(f==='pkgs'){
+        // atalho para ver pacotes (pode sem conta)
+        if(!clientData) clientData = buildClientDefaults();
+        paintClientTop();
+        selectedEditorFromProcurar = null;
+        renderPackages();
+        showScreen(screenClient);
+        return;
+      }
       exploreFilter = f;
       // ativa visual
       marketCats.querySelectorAll('.catBtn').forEach(b=>b.classList.toggle('active', b===btn));
-      renderExploreEditors();
+      renderProcurarEditors();
     });
 
     // Editor explore (clientes)
-    exploreESearch?.addEventListener('input', ()=>{ renderExploreClients(); });
-    exploreESort?.addEventListener('change', ()=>{ renderExploreClients(); });
+    exploreESearch?.addEventListener('input', ()=>{ renderProcurarClients(); });
+    exploreESort?.addEventListener('change', ()=>{ renderProcurarClients(); });
     marketCatsE?.addEventListener('click', (ev)=>{
       const btn = ev.target?.closest?.('.catBtn');
       if(!btn) return;
       const f = btn.getAttribute('data-filter') || 'all';
+      if(f==='pkgs'){
+        // atalho: ir para seleção de pacotes do editor
+        if(!isEditorLogged()) return openCadastro('editor');
+        showScreen(screenEditor);
+        return;
+      }
       exploreEFilter = f;
       marketCatsE.querySelectorAll('.catBtn').forEach(b=>b.classList.toggle('active', b===btn));
-      renderExploreClients();
+      renderProcurarClients();
     });
 
 
@@ -3222,10 +3862,10 @@ function toggleExploreFav(id){
         alert('Esse editor está OFF no momento.');
         return;
       }
-      selectedEditorFromExplore = e;
+      selectedEditorFromProcurar = e;
       closeEditorProfile();
       paintClientTop();
-      goExplore();
+      goProcurar();
     }
 
 
@@ -3253,6 +3893,7 @@ function toggleExploreFav(id){
         full: full || 'Cliente',
         stars: START_STARS,
         photo:'',
+        cover:{preset:'none', img:''},
         whats:'',
         city:'',
         niche:'',
@@ -3273,11 +3914,13 @@ function toggleExploreFav(id){
       if(clientProfileName) clientProfileName.textContent = clientData?.full || 'Cliente';
       if(clientStars) clientStars.innerHTML = renderStarsHTML(clientData?.stars ?? START_STARS, MAX_STARS);
       setAvatar(clientAvatarBox, clientData?.photo, (clientData?.full||'C')[0]);
+      applyCoverToEl(document.getElementById('clientCover'), clientData?.cover);
       if(clWhats) clWhats.value = clientData?.whats || '';
       if(clCity) clCity.value = clientData?.city || '';
       if(clNiche) clNiche.value = clientData?.niche || '';
       if(clMainPlatform) clMainPlatform.value = clientData?.mainPlatform || 'instagram';
       if(clAbout) clAbout.value = clientData?.about || '';
+      if(typeof syncClientCoverControls==='function') syncClientCoverControls();
     }
 
     function paintClientTop(){
@@ -3289,8 +3932,14 @@ function toggleExploreFav(id){
     clientPhoto?.addEventListener('change', async (e)=>{
       const file = e.target.files?.[0];
       if(!file || !clientData) return;
-      const data = await readFileAsDataURL(file);
-      clientData.photo = data;
+      try{
+        const data = await checkAndReadImage(file);
+        clientData.photo = data;
+      }catch(err){
+        alert(String(err.message||err));
+        e.target.value='';
+        return;
+      }
       lsSet(LS_CLIENT, clientData);
       paintClientProfile();
       paintClientTop();
@@ -3314,7 +3963,7 @@ function toggleExploreFav(id){
       clientData.stars = START_STARS;
       lsSet(LS_CLIENT, clientData);
       paintClientTop();
-      goExplore(true);
+      goProcurar(true);
     }
 
     // ===== CUSTOM (Cliente) =====
@@ -3434,6 +4083,11 @@ function toggleExploreFav(id){
 
     // ===== Pedido -> Escolher Editor =====
     function choosePackage(id){
+      if(!isClientLogged()){
+        setPostLoginIntent({ type:'package', packageId:id });
+        openCadastro('cliente');
+        return;
+      }
       const p = packages.find(x => x.id === id);
       if(!p) return;
       currentOrder = {
@@ -3443,7 +4097,7 @@ function toggleExploreFav(id){
         total: p.price,
         eta: p.eta
       };
-      if(typeof selectedEditorFromExplore !== "undefined" && selectedEditorFromExplore){
+      if(typeof selectedEditorFromProcurar !== "undefined" && selectedEditorFromProcurar){
         createOrderAndFinish();
       }else{
         startPickEditor();
@@ -3451,6 +4105,11 @@ function toggleExploreFav(id){
     }
 
     function confirmCustom(){
+      if(!isClientLogged()){
+        setPostLoginIntent({ type:'package' });
+        openCadastro('cliente');
+        return;
+      }
       currentOrder = {
         kind: 'custom',
         title: 'Pacote Personalizado',
@@ -3459,7 +4118,7 @@ function toggleExploreFav(id){
         fotos: parseInt(custFotos?.value||'0',10),
         videos: parseInt(custVideos?.value||'0',10)
       };
-      if(typeof selectedEditorFromExplore !== "undefined" && selectedEditorFromExplore){
+      if(typeof selectedEditorFromProcurar !== "undefined" && selectedEditorFromProcurar){
         createOrderAndFinish();
       }else{
         startPickEditor();
@@ -3475,7 +4134,7 @@ function toggleExploreFav(id){
         ...currentOrder,
         createdAt: Date.now(),
         client: { name: clientData?.full || 'Cliente', email: clientData?.email || '' },
-        editor: selectedEditorFromExplore ? { id:selectedEditorFromExplore.id, name:selectedEditorFromExplore.name } : null
+        editor: selectedEditorFromProcurar ? { id:selectedEditorFromProcurar.id, name:selectedEditorFromProcurar.name } : null
       };
 
       // Se tiver backend conectado, tenta enviar o pedido
@@ -3504,13 +4163,13 @@ function toggleExploreFav(id){
 • Editor: ${order.editor?.name || '—'}
 
 Próximo passo: checkout + upload de arquivos + chat.`);
-      backToExploreFromPackages();
+      backToProcurarFromPackages();
     }
 
-    function backToExploreFromPackages(){
-      selectedEditorFromExplore = null;
+    function backToProcurarFromPackages(){
+      selectedEditorFromProcurar = null;
       currentOrder = null;
-      goExplore(true);
+      goProcurar(true);
     }
 
 function startPickEditor(){
@@ -3626,6 +4285,7 @@ function startPickEditor(){
         full: full || 'Editor',
         stars: START_STARS,
         photo:'',
+        cover:{preset:'none', img:''},
         available:false,
         xp:'iniciante',
         whats:'',
@@ -3677,6 +4337,7 @@ function startPickEditor(){
       if(edTags) edTags.value = (editorData?.tags || []).join(', ');
 
       setAvatar(editorAvatarBox, editorData?.photo, (editorData?.full||'E')[0]);
+      applyCoverToEl(document.getElementById('editorCover'), editorData?.cover);
 
       renderTagsPreview();
       renderEditorPackages();
@@ -3687,8 +4348,14 @@ function startPickEditor(){
     editorPhoto?.addEventListener('change', async (e)=>{
       const file = e.target.files?.[0];
       if(!file || !editorData) return;
-      const data = await readFileAsDataURL(file);
-      editorData.photo = data;
+      try{
+        const data = await checkAndReadImage(file);
+        editorData.photo = data;
+      }catch(err){
+        alert(String(err.message||err));
+        e.target.value='';
+        return;
+      }
       lsSet(LS_EDITOR, editorData);
       paintEditor();
     });
@@ -4023,6 +4690,7 @@ function startPickEditor(){
         first:'Cliente', last:'', full:'Cliente',
         stars: START_STARS,
         photo:'',
+        cover:{preset:'none', img:''},
         whats:'', city:'', niche:'', mainPlatform:'instagram', about:'',
         cpf:'', email:'', dob:''
       };
@@ -4032,6 +4700,7 @@ function startPickEditor(){
         first:'Editor', last:'', full:'Editor',
         stars: START_STARS,
         photo:'',
+        cover:{preset:'none', img:''},
         available:false,
         xp:'iniciante', whats:'', bio:'', soft:'', portfolio:'', tags:[],
         done:0, status:'Novo', packages:[],
@@ -4082,13 +4751,16 @@ function startPickEditor(){
           clientData.full = 'ADM';
           lsSet(LS_CLIENT, clientData);
           paintClientProfile();
-          goExplore(true);
+          setActiveSession('cliente');
+        goProcurar(true);
+        setTimeout(runPostLoginIntent, 80);
         }else{
           editorData = buildEditorDefaults();
           editorData.first = 'ADM';
           editorData.full = 'ADM';
           lsSet(LS_EDITOR, editorData);
           paintEditor();
+          setActiveSession('editor');
           showScreen(screenEditor);
         }
         return;
@@ -4137,7 +4809,9 @@ function startPickEditor(){
         saveAccount('client', { email:eKey, pass:senha, cpf:cpfD, profile: clientData });
 
         paintClientProfile();
-        goExplore(true);
+        setActiveSession('cliente');
+        goProcurar(true);
+        setTimeout(runPostLoginIntent, 80);
       }else{
         ensureEditorData(nome, sobrenome);
         editorData.cpf = cpfD;
@@ -4149,6 +4823,7 @@ function startPickEditor(){
         saveAccount('editor', { email:eKey, pass:senha, cpf:cpfD, profile: editorData });
 
         paintEditor();
+        setActiveSession('editor');
         showScreen(screenEditor);
       }
     });
@@ -4173,7 +4848,7 @@ function startPickEditor(){
           lsSet(LS_CLIENT, clientData);
           paintClientProfile();
           paintClientTop();
-          goExplore(true);
+          goProcurar(true);
         }else{
           // cria perfil de editor ADM e navega para o dashboard do editor
           editorData = buildEditorDefaults();
@@ -4181,6 +4856,7 @@ function startPickEditor(){
           editorData.full  = 'ADM';
           lsSet(LS_EDITOR, editorData);
           paintEditor();
+          setActiveSession('editor');
           showScreen(screenEditor);
         }
         return;
@@ -4195,12 +4871,14 @@ function startPickEditor(){
 
       closeCadastro();
       applyAccountToSession(kind, account);
+      if(role==='cliente') setActiveSession('cliente');
+      else setActiveSession('editor');
 
-      if(role==='cliente') goExplore(true);
+      if(role==='cliente') goProcurar(true);
       else showScreen(screenEditor);
     });
 
-    // ===== IA Karamelo (demo local — Cliente + Editor + novos usuários) =====
+    // ===== IA Karameloo (demo local — Cliente + Editor + novos usuários) =====
     const aiFab = document.getElementById('aiFab');
     const aiPanel = document.getElementById('aiPanel');
     const aiClose = document.getElementById('aiClose');
@@ -4247,7 +4925,7 @@ function startPickEditor(){
     function aiHelp(topic){
       const where = aiGetScreen();
       if(topic === 'novo'){
-        aiAdd('Bem-vindo(a) à Karamelo! ✨\n\n• Se você quer comprar edição: clique em “Sou Cliente” → Criar conta → preencha o perfil → escolha um pacote ou o Personalizado.\n• Se você quer trabalhar: clique em “Quero Trabalhar” → Criar conta → complete o perfil → selecione até 10 pacotes → ative “Disponível”.');
+        aiAdd('Bem-vindo(a) à Karameloo! ✨\n\n• Se você quer comprar edição: clique em “Sou Cliente” → Criar conta → preencha o perfil → escolha um pacote ou o Personalizado.\n• Se você quer trabalhar: clique em “Quero Trabalhar” → Criar conta → complete o perfil → selecione até 10 pacotes → ative “Disponível”.');
         return;
       }
       if(topic === 'cliente'){
@@ -4273,6 +4951,7 @@ function startPickEditor(){
     function aiOpen(){
       if(!aiPanel) return;
       aiPanel.classList.add('show');
+      aiPanel.classList.remove('pop'); void aiPanel.offsetHeight; aiPanel.classList.add('pop');
       aiPanel.setAttribute('aria-hidden','false');
       if(aiMsgs && aiMsgs.childElementCount === 0){
         aiHelp('novo');
@@ -4295,6 +4974,7 @@ function startPickEditor(){
     }
 
     aiFab?.addEventListener('click', ()=>{
+      try{ aiFab.classList.remove('kick'); void aiFab.offsetHeight; aiFab.classList.add('kick'); }catch(e){}
       if(aiPanel?.classList.contains('show')) aiClosePanel();
       else aiOpen();
     });
