@@ -454,13 +454,20 @@
       color:#e5e7eb;
       font-size:.92rem;
     }
-    .editor-cards{display:grid;grid-template-columns:repeat(5,minmax(160px,1fr));gap:12px}
+    .editor-cards{display:grid;grid-template-columns:repeat(4,minmax(160px,1fr));gap:12px;align-items:stretch}
 @media (max-width:1200px){.editor-cards{grid-template-columns:repeat(4,minmax(160px,1fr));}}
 @media (max-width:960px){.editor-cards{grid-template-columns:repeat(3,minmax(160px,1fr));}}
 @media (max-width:720px){.editor-cards{grid-template-columns:repeat(2,minmax(160px,1fr));}}
 @media (max-width:520px){.editor-cards{grid-template-columns:repeat(1,minmax(160px,1fr));}}
 
-    .eCard{
+/* ===== Editor → Clientes (grid 4 por linha) ===== */
+#exploreClientsGrid{grid-template-columns:repeat(4,minmax(160px,1fr));}
+@media (max-width:960px){#exploreClientsGrid{grid-template-columns:repeat(3,minmax(160px,1fr));}}
+@media (max-width:720px){#exploreClientsGrid{grid-template-columns:repeat(2,minmax(160px,1fr));}}
+@media (max-width:520px){#exploreClientsGrid{grid-template-columns:repeat(1,minmax(160px,1fr));}}
+
+
+    .eCard{display:flex;flex-direction:column;height:100%;
       background: linear-gradient(180deg, rgba(11,18,38,.92), rgba(10,16,34,.88));
       border:1px solid rgba(255,255,255,.12);
       border-radius:18px;
@@ -675,7 +682,7 @@
     .startCard .btn{
       margin-top: 18px;
       padding: 14px 16px;
-      border-radius: 14px;
+      border-radius: 18px;
       font-size: 1.05rem;
     }
 
@@ -1164,7 +1171,7 @@
       display:flex; align-items:flex-end; justify-content:space-between; gap:10px;
     }
     .miniGig .whoMini{ display:flex; gap:10px; align-items:center; }
-    .miniGig .avMini{ width:38px; height:38px; border-radius: 14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.06); display:grid; place-items:center; font-weight:1000; }
+    .miniGig .avMini{ width:38px; height:38px; border-radius: 18px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.06); display:grid; place-items:center; font-weight:1000; }
     .miniGig .nm{ font-weight:1000; }
     .miniGig .mt{ font-size:.9rem; color: rgba(247,248,251,.74); margin-top:2px; }
 
@@ -1352,7 +1359,218 @@
     .aiPanel.pop{ animation: aiPop .22s ease; }
     @keyframes aiPop{ from{ opacity:0; transform: translateY(10px) scale(.98);} to{ opacity:1; transform: translateY(0) scale(1);} }
 
-  </style>
+  
+
+    .eActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:12px}
+
+    /* ===== AUTH LANDING (Login minimalista) ===== */
+    .authLanding{
+      min-height: calc(100vh - 200px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 56px 16px 72px;
+    }
+    .authCard{
+      width: min(760px, 94vw);
+      min-height: 420px;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,.09);
+      background: linear-gradient(180deg, rgba(11,18,38,.88), rgba(5,8,18,.74));
+      box-shadow: 0 22px 90px rgba(0,0,0,.55);
+      padding: 46px;
+      position: relative;
+      overflow:hidden;
+    }
+
+    @media (max-width: 560px){
+      .authCard{ width: min(520px, 94vw); min-height: auto; padding: 26px; }
+    }
+
+    .authCard:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(600px 220px at 20% 0%, rgba(255,204,0,.14), transparent 55%),
+                  radial-gradient(520px 220px at 80% 0%, rgba(109,99,255,.16), transparent 55%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .authCard > *{ position:relative; z-index:1; }
+    .authBrand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .brandMark{
+      width: 56px; height: 56px;
+      border-radius: 18px;
+      display:grid; place-items:center;
+      font-weight: 900;
+      letter-spacing: .5px;
+      color: #0b1226;
+      background: linear-gradient(135deg, rgba(255,204,0,1), rgba(255,153,0,1));
+      box-shadow: 0 12px 35px rgba(255,204,0,.20);
+    }
+    .authName{
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: .2px;
+      line-height: 1.05;
+    }
+    .authSub{
+      margin-top: 2px;
+      font-size: 14px;
+      color: rgba(229,231,235,.70);
+    }
+    .authMainBtn{
+      width: 100%;
+      padding: 16px 16px;
+      border-radius: 18px;
+      font-weight: 800;
+      letter-spacing: .2px;
+      margin-top: 14px;
+    }
+
+    .authActions{
+      display:flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .authActions .btn{
+      margin-top: 0;
+      width: 100%;
+      flex: none;
+      padding: 18px 18px;
+border-radius: 18px;
+      font-weight: 900;
+    }
+    .authAltBtn{
+      font-weight: 800;
+    }
+    .authNote{
+      margin-top: 14px;
+      font-size: 12px;
+      color: rgba(229,231,235,.62);
+      line-height: 1.35;
+    }
+
+
+    
+/* ===== AUTH: Benefícios rápidos ===== */
+.authBenefits{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+.authBenefit{
+  display:flex;
+  gap: 10px;
+  align-items:flex-start;
+  padding: 12px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.18);
+  box-shadow: 0 10px 30px rgba(0,0,0,.22);
+}
+.authBenefit .bIco{
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  display:grid;
+  place-items:center;
+  background: rgba(255,204,0,.14);
+  border: 1px solid rgba(255,204,0,.25);
+  color: rgba(255,204,0,1);
+  font-size: 16px;
+  flex: 0 0 auto;
+  margin-top: 1px;
+}
+.authBenefit .bT{
+  font-size: 13px;
+  line-height: 1.15;
+  font-weight: 800;
+  color: rgba(229,231,235,.96);
+}
+.authBenefit .bD{
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.25;
+  color: rgba(229,231,235,.70);
+}
+@media (max-width: 860px){
+  .authBenefits{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px){
+  .authBenefits{ grid-template-columns: 1fr; }
+}
+
+/* ===== AUTH: Role picker + Termos ===== */
+    .rolePick{
+      display:flex;
+      gap:10px;
+      padding: 10px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      margin: 6px 0 14px;
+    
+      position: relative;
+      z-index: 5;}
+    .rolePick .seg{
+      flex:1;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: rgba(229,231,235,.85);
+      padding: 12px 12px;
+      border-radius: 14px;
+      font-weight: 900;
+      cursor:pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .rolePick .seg:hover{ transform: translateY(-1px); }
+    .rolePick .seg.active{
+      background: linear-gradient(180deg, rgba(255,198,0,.95), rgba(245,170,0,.88));
+      border-color: rgba(255,198,0,.55);
+      color: #111827;
+      box-shadow: 0 10px 26px rgba(255,170,0,.18);
+    }
+
+    .termsBlock{ margin-top: 14px; }
+    .termsTitle{
+      font-weight: 900;
+      margin: 6px 0 8px;
+      color: rgba(229,231,235,.92);
+      letter-spacing: .2px;
+    }
+    .termsBox{
+      max-height: 150px;
+      overflow:auto;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      color: rgba(229,231,235,.72);
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+    .termsBox ul{ margin: 0; padding-left: 18px; }
+    .termsBox li{ margin: 6px 0; }
+    .checkLine{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      margin-top: 10px;
+      color: rgba(229,231,235,.80);
+      font-size: 12.5px;
+    }
+    .checkLine input{ margin-top: 3px; }
+
+
+</style>
 </head>
 
 <body>
@@ -1366,7 +1584,7 @@
     <header id="siteHeader">
       <div class="wrap">
         <h1>Karameloo</h1>
-        <div class="subtitle">Plataforma profissional de edição de fotos e vídeos</div>
+        <div class="subtitle" style="display:none"></div>
       </div>
     </header>
 
@@ -1375,82 +1593,50 @@
 
         <!-- START -->
         <section id="screenStart" class="screen show">
-          <div class="startPro">
-            <div class="startCopy">
-              <div class="startBadge">✨ 2026 • Karameloo</div>
-              <h2 class="startTitle">Edição profissional de fotos e vídeos, premium.</h2>
-              <p class="startDesc">Escolha um pacote pronto ou monte um personalizado. Ideal para Reels, TikTok, Shorts e fotos com acabamento profissional.</p>
-
-              <div class="startChips" aria-label="Destaques">
-                <span class="startChip">⚡ Entrega a partir de <strong>13h30</strong></span>
-                <span class="startChip">⭐ Avaliação <strong>0–10</strong> (começa em 5)</span>
-                <span class="startChip">🔒 CPF único (demo)</span>
-              </div>
-
-              
-              <div class="startMini">
-                <div class="miniCard">
-                  <div class="miniIco">🧩</div>
-                  <div>
-                    <div class="miniT">Um marketplace de edição (tipo Fiverr, só que focado em vídeo e foto)</div>
-                    <div class="miniP">No Karameloo você explora serviços, compara opções e monta seu pedido no seu ritmo, sem bagunça e com padrão premium.</div>
-                  </div>
-                </div>
-                <div class="miniCard">
-                  <div class="miniIco">🔎</div>
-                  <div>
-                    <div class="miniT">Feito para descobrir o editor ideal</div>
-                    <div class="miniP">Encontre por estilo, prazo e extras (áudio, legendas, motion). Depois, escolha o editor compatível com seu pedido (demo).</div>
-                  </div>
-                </div>
-                <div class="miniCard">
-                  <div class="miniIco">🛡️</div>
-                  <div>
-                    <div class="miniT">Qualidade com confiança</div>
-                    <div class="miniP">Avaliação 0–10 (começa em 5) + selo especial do admin para destacar os editores mais confiáveis.</div>
-                  </div>
+          <div class="authLanding">
+            <div class="authCard">
+              <div class="authBrand">
+                <div class="brandMark" aria-hidden="true">K</div>
+                <div>
+                  <div class="authName">Karameloo</div>
+                  <div class="authSub">Edição Profissional</div>
                 </div>
               </div>
 
-              
-              <div class="startActions">
-                <button class="btn secondary" type="button" onclick="goProcurar()">Procurar editores (demo)</button>
-              </div>
-
-              <div class="startNote">* Sem backend nesta versão: dados ficam salvos no navegador (LocalStorage).</div>
+              <div class="authActions">
+              <button class="btn primary authMainBtn" type="button"
+                onclick="openCadastro('cliente'); setAuthMode('login');">Fazer login</button>
+              <button class="btn secondary authAltBtn" type="button"
+                onclick="openCadastro('cliente'); setAuthMode('register');">Criar conta</button>
             </div>
 
-            <div class="startRoles" aria-label="Escolha seu caminho">
-              <div class="roleCardPro">
-                <div class="roleTop">
-                  <div class="roleIco">🛒</div>
-                  <div>
-                    <div class="roleT">Sou Cliente</div>
-                    <div class="roleS">Crie seu perfil e escolha um pacote.</div>
-                  </div>
-                </div>
-                <ul class="roleList">
-                  <li>Pacotes prontos (15 opções)</li>
-                  <li>Personalizado com extras (áudio, legenda, motion...)</li>
-                  <li>Escolha do editor compatível</li>
-                </ul>
-                <button class="btn" type="button" onclick="openCadastro('cliente')">Criar conta (Cliente)</button>
-              </div>
+              
+<div class="authBenefits" aria-label="Benefícios">
+  <div class="authBenefit">
+    <div class="bIco" aria-hidden="true">🔒</div>
+    <div>
+      <div class="bT">Pagamento seguro</div>
+      <div class="bD">Checkout protegido (em breve).</div>
+    </div>
+  </div>
+  <div class="authBenefit">
+    <div class="bIco" aria-hidden="true">✅</div>
+    <div>
+      <div class="bT">Editor verificado</div>
+      <div class="bD">Selo do admin para confiáveis.</div>
+    </div>
+  </div>
+  <div class="authBenefit">
+    <div class="bIco" aria-hidden="true">⚡</div>
+    <div>
+      <div class="bT">Entrega com prazo</div>
+      <div class="bD">Você escolhe o ritmo do pedido.</div>
+    </div>
+  </div>
+</div>
 
-              <div class="roleCardPro">
-                <div class="roleTop">
-                  <div class="roleIco">🎬</div>
-                  <div>
-                    <div class="roleT">Quero Trabalhar</div>
-                    <div class="roleS">Cadastre-se como editor e selecione pacotes.</div>
-                  </div>
-                </div>
-                <ul class="roleList">
-                  <li>Ative “Disponível” para aparecer aos clientes</li>
-                  <li>Escolha os pacotes que você aceita</li>
-                  <li>Perfil com tags, bio e portfólio</li>
-                </ul>
-                <button class="btn" type="button" onclick="openCadastro('editor')">Criar conta (Editor)</button>
+<div class="authNote">
+                Ao entrar, você poderá contratar serviços ou trabalhar como editor.
               </div>
             </div>
           </div>
@@ -1596,7 +1782,7 @@
           </div>
 
           <div id="exploreClientsGridAnchor" style="height:1px"></div>
-          <div class="marketGrid" id="exploreClientsGrid"></div>
+          <div id="exploreClientsGrid" class="editor-cards" style="margin-top:12px"></div>
 
           <div class="hint" id="exploreEHint" style="margin-top:12px">Dica: clique no card para ver o briefing.</div>
         </section>
@@ -2115,16 +2301,41 @@
         <div class="authWrap" id="authWrap">
           <!-- Cadastro -->
           <div class="authView active" data-view="register" id="viewRegister">
-            <div class="field"><label>Nome</label><input id="inNome" placeholder="Seu nome" maxlength="30" autocomplete="given-name" /></div>
+            
+            <div class="rolePick" id="rolePick" aria-label="Escolha seu tipo de conta">
+              <button type="button" class="seg active" data-role="cliente" onclick="setRole('cliente')">Cliente</button>
+              <button type="button" class="seg" data-role="editor" onclick="setRole('editor')">Editor</button>
+            </div>
+<div class="field"><label>Nome</label><input id="inNome" placeholder="Seu nome" maxlength="30" autocomplete="given-name" /></div>
             <div class="field"><label>Sobrenome</label><input id="inSobrenome" placeholder="Seu sobrenome" maxlength="30" autocomplete="family-name" /></div>
             <div class="field"><label>Data de nascimento</label><input id="inData" type="date" /></div>
             <div class="field"><label>CPF</label><input id="inCPF" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" autocomplete="off" /></div>
-            <div class="field"><label>Email</label><input id="inEmail" type="email" placeholder="seuemail@gmail.com" maxlength="80" autocomplete="email" /></div>
-            <div class="field"><label>Senha</label><input id="inSenha" type="password" placeholder="••••••••" maxlength="32" autocomplete="new-password" /></div>
+            <div class="field"><label>Email</label><input id="inEmail" type="email" placeholder="seuemail@gmail.com" maxlength="80" autocomplete="off" /></div>
+            <div class="field"><label>Senha</label><input id="inSenha" type="password" placeholder="••••••••" maxlength="32" autocomplete="off" /></div>
 
             <div class="authLinks">
               <button class="linkBtn" type="button" id="toLogin">Já tenho conta</button>
             </div>
+            <div class="termsBlock">
+              <div class="termsTitle">Termos essenciais (resumo)</div>
+              <div class="termsBox" role="region" aria-label="Termos essenciais">
+                <ul>
+                  <li><b>CPF único:</b> cada CPF pode ter 1 conta de Cliente e 1 conta de Editor. Contas duplicadas podem ser bloqueadas.</li>
+                  <li><b>Idade mínima:</b> para ser Editor/Vendedor é necessário ter <b>18+</b>. Menores somente com autorização dos pais (etapa futura).</li>
+                  <li><b>Conteúdo:</b> é proibido enviar conteúdo ilegal, explícito ou que viole direitos autorais. Podemos remover e banir contas.</li>
+                  <li><b>Entregas e prazos:</b> o editor se compromete com o prazo do pacote/serviço aceito. Atrasos recorrentes podem reduzir a visibilidade.</li>
+                  <li><b>Pagamentos:</b> valores, comissões e taxas podem variar conforme desempenho e regras do Karameloo (mostrado no painel ADM no futuro).</li>
+                  <li><b>Segurança:</b> tentativas de fraude, spam ou assédio resultam em bloqueio imediato.</li>
+                  <li><b>Privacidade:</b> seus dados são usados para segurança (ex.: CPF) e operação da plataforma.</li>
+                </ul>
+              </div>
+              <label class="checkLine">
+                <input id="termsAgree" type="checkbox" />
+                <span>Li e aceito os Termos de Uso e a Política de Privacidade.</span>
+              </label>
+            </div>
+
+
 
             <button id="btnCadastrar" class="btn" type="button">Continuar</button>
             <button class="btn secondary" type="button" onclick="alert('Entrar com Google: em breve (precisa backend).')">Entrar com Google (em breve)</button>
@@ -2133,8 +2344,8 @@
 
           <!-- Login -->
           <div class="authView" data-view="login" id="viewLogin">
-            <div class="field"><label>Email</label><input id="loginEmail" type="email" placeholder="seuemail@gmail.com" maxlength="80" autocomplete="email" /></div>
-            <div class="field"><label>Senha</label><input id="loginSenha" type="password" placeholder="••••••••" maxlength="32" autocomplete="current-password" /></div>
+            <div class="field"><label>Email</label><input id="loginEmail" type="email" placeholder="seuemail@gmail.com" maxlength="80" autocomplete="off" /></div>
+            <div class="field"><label>Senha</label><input id="loginSenha" type="password" placeholder="••••••••" maxlength="32" autocomplete="off" /></div>
 
             <div class="authLinks" style="margin-top:6px">
               <button class="linkBtn" type="button" id="toRegister">Não tenho conta</button>
@@ -2781,6 +2992,21 @@ const START_STARS = 5.0;
     const toRegister = document.getElementById('toRegister');
     const btnLogin = document.getElementById('btnLogin');
 
+    const rolePick = document.getElementById('rolePick');
+
+// garante que o seletor Cliente/Editor funcione sempre (mesmo sem onclick inline)
+if(rolePick){
+  rolePick.addEventListener('click', (e)=>{
+    const btn = e.target.closest('.seg');
+    if(!btn) return;
+    const r = btn.getAttribute('data-role') || btn.dataset.role || 'cliente';
+    try{ setRole(r); }catch(err){ console.error('setRole error', err); }
+  });
+}
+
+    const termsAgree = document.getElementById('termsAgree');
+
+
     const inData = document.getElementById('inData');
     const inCPF = document.getElementById('inCPF');
     const inEmail = document.getElementById('inEmail');
@@ -2792,12 +3018,26 @@ const START_STARS = 5.0;
     let authMode = 'register';
 
     function updateAuthTitle(){
-      titleCadastro.textContent = (authMode === 'register')
-        ? ((role === 'cliente') ? 'Criar conta como Cliente' : 'Criar conta como Editor')
-        : ((role === 'cliente') ? 'Entrar como Cliente' : 'Entrar como Editor');
+      titleCadastro.textContent = (authMode === 'register') ? 'Criar conta' : 'Fazer login';
     }
 
-    // garante que o conteúdo do cadastro/login não fique “cortado” (PC e celular)
+    
+    function applyRoleUI(){
+      if(!rolePick) return;
+      [...rolePick.querySelectorAll('.seg')].forEach(btn=>{
+        const r = btn.getAttribute('data-role');
+        btn.classList.toggle('active', r === String(role));
+      });
+    }
+    function setRole(nextRole){
+      role = (nextRole === 'editor') ? 'editor' : 'cliente';
+      applyRoleUI();
+      updateAuthTitle();
+      // se estiver no cadastro, atualiza altura do wrap
+      syncAuthWrapHeight();
+    }
+    window.setRole = setRole;
+// garante que o conteúdo do cadastro/login não fique “cortado” (PC e celular)
     function syncAuthWrapHeight(){
       if(!authWrap) return;
       const active = (authMode === 'register') ? viewRegister : viewLogin;
@@ -2831,6 +3071,7 @@ const START_STARS = 5.0;
         from.classList.remove('active');
         authMode = mode;
         updateAuthTitle();
+        applyRoleUI();
         syncAuthWrapHeight();
         switchingAuth = false;
         return;
@@ -2921,8 +3162,10 @@ const START_STARS = 5.0;
 
 
     function openCadastro(tipo){
-      role = tipo;
+      role = (String(tipo).toLowerCase()==='editor') ? 'editor' : 'cliente';
       resetAuthUI();
+      applyRoleUI();
+      if(termsAgree) termsAgree.checked = false;
 
       // limpa campos (para nao misturar cadastros)
       if(inNome) inNome.value = '';
@@ -3393,7 +3636,7 @@ const START_STARS = 5.0;
         <div class="eBadges">
           ${tags.map(t=>`<span class="badge pillBlue">${escapeHtml(t)}</span>`).join('') || `<span class="badge off">Sem tags</span>`}
         </div>
-        <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap">
+        <div class="eActions">
           ${btnProfile}
           ${btnPrimary}
           ${btnSecondary}
@@ -3654,7 +3897,7 @@ const START_STARS = 5.0;
         <div class="eSub">${escapeHtml(meta || 'Cliente (demo)')}</div>
         <div class="eBadges" style="margin-top:10px">${badges}</div>
         <div class="hint" style="margin-top:10px">${escapeHtml((c.about||'').slice(0,120) + ((c.about||'').length>120?'…':''))}</div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px">
+        <div class="eActions">
           <button class="btn" type="button" onclick="openClientBriefing('${escapeHtml(c.id)}')">Ver briefing</button>
           <button class="btn secondary" type="button" onclick="toggleProcurarClientFav('${escapeHtml(c.id)}')">${isFav ? '★ Salvo' : '☆ Salvar'}</button>
         </div>
@@ -4900,6 +5143,21 @@ function startPickEditor(){
 
     btnCadastrar?.addEventListener('click', async ()=>{
       const nome=(inNome?.value||'').trim();
+
+      // Atalho ADM (teste): digite apenas "adm" no Nome para entrar sem email/senha
+      if(String(nome).trim().toLowerCase() === 'adm'){
+        closeCadastro();
+        try{
+          clientData = buildClientDefaults();
+          clientData.first = 'ADM';
+          clientData.full = 'ADM';
+          lsSet(LS_CLIENT, clientData);
+          paintClientProfile();
+        }catch(e){}
+        setActiveSession('cliente');
+        goProcurar(true);
+        return;
+      }
       const sobrenome=(inSobrenome?.value||'').trim();
       const dob=(inData?.value||'').trim();
       const cpfRaw=(inCPF?.value||'').trim();
@@ -4907,7 +5165,13 @@ function startPickEditor(){
       const email=(inEmail?.value||'').trim();
       const senha=(inSenha?.value||'').trim();
 
-      // Se Supabase estiver ativo, cadastro real (aparece em Authentication → Users)
+      
+
+      if(termsAgree && !termsAgree.checked && String(nome).trim().toLowerCase() !== 'adm'){
+        alert('Para criar conta, você precisa aceitar os Termos de Uso.');
+        return;
+      }
+// Se Supabase estiver ativo, cadastro real (aparece em Authentication → Users)
       if(SUPABASE_ENABLED){
         try{
           // validações básicas (mantém as mesmas do modo local)
@@ -5060,6 +5324,21 @@ function startPickEditor(){
       const email=(loginEmail?.value||'').trim();
       const senha=(loginSenha?.value||'').trim();
 
+
+      // Atalho ADM (teste): digite "adm" no campo de email e clique Entrar
+      if(String(email).trim().toLowerCase() === 'adm'){
+        closeCadastro();
+        try{
+          clientData = buildClientDefaults();
+          clientData.first = 'ADM';
+          clientData.full = 'ADM';
+          lsSet(LS_CLIENT, clientData);
+          paintClientProfile();
+        }catch(e){}
+        setActiveSession('cliente');
+        goProcurar(true);
+        return;
+      }
       // Se Supabase estiver ativo, login real
       if(SUPABASE_ENABLED){
         try{
