@@ -3,7 +3,8 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2714%27%20fill%3D%27%23facc15%27/%3E%3Ctext%20x%3D%2732%27%20y%3D%2742%27%20font-size%3D%2732%27%20text-anchor%3D%27middle%27%20font-family%3D%27Arial%27%20fill%3D%27%23111827%27%3EK%3C/text%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Karameloo | Edição Profissional</title>
 
   <style>
@@ -1236,7 +1237,66 @@
     .aiMsgs{ padding: 4px 14px 12px; overflow:auto; flex:1; display:grid; gap:10px; }
     .aiMsg{ padding:10px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.03); color: rgba(247,248,251,.92); line-height:1.35; }
     .aiMsg.me{ background: rgba(245,180,0,.10); border-color: rgba(245,180,0,.22); }
-    .aiForm{ display:flex; gap:10px; padding: 12px 14px 14px; border-top:1px solid rgba(255,255,255,.10); }
+    
+/* ===== Chat (profissional) ===== */
+.chatShell{display:flex; flex-direction:column; height:min(72vh, 640px);}
+.chatHeader{
+  display:flex; align-items:center; gap:12px;
+  padding:10px 12px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:14px;
+  background: rgba(255,255,255,.03);
+  margin-bottom:10px;
+}
+html[data-theme="light"] .chatHeader{
+  border-color: rgba(2,6,23,.10);
+  background: rgba(2,6,23,.03);
+}
+.chatHeader .chatWho{font-weight:800;}
+.chatHeader .chatSub{font-size:12px; opacity:.8; margin-top:2px;}
+.chatMessages{
+  flex:1; overflow:auto;
+  display:flex; flex-direction:column;
+  gap:10px;
+  padding:10px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:14px;
+  background: rgba(255,255,255,.03);
+}
+html[data-theme="light"] .chatMessages{
+  border-color: rgba(2,6,23,.10);
+  background: rgba(2,6,23,.02);
+}
+.chatBubble{
+  max-width:min(78%, 520px);
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  line-height:1.35;
+}
+.chatBubble.me{
+  align-self:flex-end;
+  border-color: rgba(245,180,0,.24);
+  background: rgba(245,180,0,.12);
+}
+html[data-theme="light"] .chatBubble{
+  border-color: rgba(2,6,23,.12);
+  background: rgba(255,255,255,.88);
+}
+html[data-theme="light"] .chatBubble.me{
+  border-color: rgba(245,180,0,.34);
+  background: rgba(255,220,90,.30);
+}
+.chatMeta{display:flex; justify-content:space-between; gap:10px; font-size:11px; opacity:.75; margin-top:6px;}
+.chatComposer{
+  display:flex; gap:10px; margin-top:10px;
+}
+.chatComposer input{
+  flex:1;
+}
+
+.aiForm{ display:flex; gap:10px; padding: 12px 14px 14px; border-top:1px solid rgba(255,255,255,.10); }
     .aiInput{ flex:1; padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03); }
     .aiSend{ padding:12px 14px; border:none; border-radius:12px; font-weight:1000; cursor:pointer; background: linear-gradient(90deg, var(--accent1), var(--accent2)); color:#0b0e14; }
     @media (max-width: 620px){
@@ -1370,24 +1430,30 @@
 
     /* ===== Light Theme ===== */
     html[data-theme="light"]{
-      --bg:#f6f7ff;
-      --panel:#ffffff;
-      --text:#0b1226;
-      --muted:rgba(17,24,39,.72);
-      --border:rgba(15,23,42,.14);
-    }
-    html[data-theme="light"] body{color:var(--text);}
-    html[data-theme="light"] .card,
-    html[data-theme="light"] .modal{
-      background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.92));
-      border-color: rgba(15,23,42,.12);
-      box-shadow: 0 10px 26px rgba(2,6,23,.10);
-    }
-    html[data-theme="light"] .pill{background: rgba(2,6,23,.04); border-color: rgba(2,6,23,.10); color: rgba(2,6,23,.80);}
-    html[data-theme="light"] .badge{background: rgba(2,6,23,.05); border-color: rgba(2,6,23,.14); color: rgba(2,6,23,.78);}
-    html[data-theme="light"] .btn.secondary{background: rgba(2,6,23,.04); border-color: rgba(2,6,23,.12); color: rgba(2,6,23,.78);}
-
-    /* ===== Editor cards (client choose + procurar) ===== */
+  --bg:#fffdf7;
+  --panel:#ffffff;
+  --text:#111827;
+  --muted:rgba(17,24,39,.64);
+  --border:rgba(15,23,42,.12);
+}
+html[data-theme="light"] body{color:var(--text);}
+html[data-theme="light"] .bg{
+  background:
+    radial-gradient(1200px 820px at 14% 12%, rgba(255,206,74,.28), transparent 62%),
+    radial-gradient(1000px 760px at 86% 18%, rgba(255,231,150,.24), transparent 62%),
+    radial-gradient(1200px 900px at 50% 88%, rgba(255,206,74,.12), transparent 62%),
+    linear-gradient(180deg, #fffdf7 0%, #ffffff 70%, #ffffff 100%);
+}
+html[data-theme="light"] .card,
+html[data-theme="light"] .modal{
+  background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.96));
+  border-color: rgba(15,23,42,.10);
+  box-shadow: 0 10px 26px rgba(2,6,23,.10);
+}
+html[data-theme="light"] .pill{background: rgba(2,6,23,.04); border-color: rgba(2,6,23,.10); color: rgba(2,6,23,.80);}
+html[data-theme="light"] .badge{background: rgba(2,6,23,.05); border-color: rgba(2,6,23,.14); color: rgba(2,6,23,.78);}
+html[data-theme="light"] .btn.secondary{background: rgba(2,6,23,.04); border-color: rgba(2,6,23,.12); color: rgba(2,6,23,.78);}
+/* ===== Editor cards (client choose + procurar) ===== */
     .editor-cards{
       display:grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -1401,6 +1467,33 @@
       min-height:520px;
     }
     .eBadges{gap:8px}
+
+/* ===== Marketplace grids (4 por linha no desktop) ===== */
+.marketGrid{
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap:14px;
+  align-items:start;
+  grid-auto-rows:min-content;
+  margin-top:12px;
+}
+@media (max-width: 1180px){ .marketGrid{ grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 860px){ .marketGrid{ grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px){ .marketGrid{ grid-template-columns: 1fr; } }
+.marketGrid > *{ align-self:start; height:auto; }
+
+/* Evita "vazio gigante" em cards no grid */
+.editor-cards{
+  align-items:start;
+  grid-auto-rows:min-content;
+}
+.eCard{
+  min-height:0;
+  height:auto;
+  align-self:start;
+}
+.eActions{ margin-top:auto; display:flex; gap:10px; flex-wrap:wrap; }
+
     .eBio{margin-top:6px}
     .eCard .btn{margin-top:auto}
 
@@ -1737,17 +1830,22 @@
               <button class="x" type="button" onclick="closeChat()">✕</button>
             </div>
             <div class="modalBody">
-              <div id="chatIntro" class="pill" style="margin:0 0 10px">* Demo: mensagens ficam salvas no seu navegador.</div>
-              <div id="chatMsgs" style="display:grid; gap:10px; max-height:380px; overflow:auto; padding:10px; border:1px solid rgba(255,255,255,.10); border-radius:14px; background: rgba(255,255,255,.03)"></div>
-              <div style="display:flex; gap:10px; margin-top:12px">
-                <input id="chatInput" class="aiInput" placeholder="Escreva sua mensagem…" maxlength="280" />
-                <button class="btn" type="button" onclick="sendChat()">Enviar</button>
-              </div>
-              <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px">
-                <button class="btn secondary small" type="button" onclick="openChatWhats()">📱 WhatsApp</button>
-                <button class="btn secondary small" type="button" onclick="closeChat()">Fechar</button>
-              </div>
-            </div>
+              <div class="chatShell">
+  <div class="chatHeader">
+    <div class="avatar" id="chatAvatar" style="width:42px;height:42px">E</div>
+    <div>
+      <div class="chatWho" id="chatWho">Conversar</div>
+      <div class="chatSub" id="chatSub">Demo: mensagens ficam salvas no seu navegador</div>
+    </div>
+  </div>
+
+  <div id="chatMsgs" class="chatMessages"></div>
+
+  <div class="chatComposer">
+    <input id="chatInput" class="aiInput" placeholder="Escreva sua mensagem…" maxlength="280" />
+    <button class="btn" type="button" onclick="sendChat()">Enviar</button>
+  </div>
+</div>
           </div>
         </div>
 
@@ -2615,7 +2713,25 @@ const START_STARS = 5.0;
       return s.active==='editor' && !!(s.editorEmail);
     }
 
-    // ===== Moderação (frontend básico + ganchos para backend) =====
+    
+function ensureDemoClient(){
+  // cria uma sessão cliente demo para permitir navegar sem login (frontend-only)
+  if(!clientData) clientData = lsGet(LS_CLIENT, null);
+  if(!clientData){
+    clientData = { first:'Cliente', last:'', full:'Cliente (demo)', email:'demo@karameloo.local', stars:START_STARS, mainPlatform:'instagram', niche:'Pedido', about:'' };
+    lsSet(LS_CLIENT, clientData);
+  }else{
+    if(!clientData.email) clientData.email = 'demo@karameloo.local';
+    if(!clientData.full) clientData.full = 'Cliente (demo)';
+    lsSet(LS_CLIENT, clientData);
+  }
+  const s = getSession();
+  s.active = 'cliente';
+  s.clientEmail = clientData.email || 'demo@karameloo.local';
+  setSession(s);
+  paintClientTop?.();
+}
+// ===== Moderação (frontend básico + ganchos para backend) =====
     async function moderateText(text){
       const t = String(text||'').trim();
       if(!t) return { ok:true };
@@ -3237,16 +3353,16 @@ const START_STARS = 5.0;
 
     // ===== Pacotes =====
     const packages = [
-      {id:1,  name:'Starter Foto',     price:27.40, eta:'13h30', items:['1 Foto (básica)','Cor + nitidez']},
-      {id:2,  name:'Duo Foto',         price:41.80, eta:'13h30', items:['2 Fotos (básicas)','Cor + nitidez']},
-      {id:3,  name:'Foto Pro 3',       price:53.60, eta:'14h30', items:['3 Fotos (pro)','Ajustes finos + cor']},
-      {id:4,  name:'Vídeo Short 15s',  price:63.90, eta:'14h30', items:['1 Vídeo curto (até 15s)','Cortes + ritmo']},
-      {id:5,  name:'Foto Pack 4',      price:73.50, eta:'15h00', items:['4 Fotos (pro)','Cor + detalhes']},
-      {id:6,  name:'Short Duo',        price:86.40, eta:'15h30', items:['2 Vídeos curtos (até 15s)','Cortes + transições simples']},
-      {id:7,  name:'Combo Social',     price:96.80, eta:'16h00', items:['1 Foto + 1 Vídeo curto','Look cinematográfico leve']},
-      {id:8,  name:'Foto Pack 5',      price:108.90,eta:'18h00', items:['5 Fotos (pro)','Padronização de cor']},
-      {id:9,  name:'Short Trio',       price:132.70,eta:'18h00', items:['3 Vídeos curtos (até 15s)','Cor + ritmo']},
-      {id:10, name:'Foto Pack 8',      price:151.40,eta:'24h',   items:['8 Fotos (pro)','Cor + retoques leves']},
+      {id:1,  name:'Starter Foto',     price:27.40, eta:'40min', items:['1 Foto (básica)','Cor + nitidez']},
+      {id:2,  name:'Duo Foto',         price:41.80, eta:'1h10', items:['2 Fotos (básicas)','Cor + nitidez']},
+      {id:3,  name:'Foto Pro 3',       price:53.60, eta:'1h40', items:['3 Fotos (pro)','Ajustes finos + cor']},
+      {id:4,  name:'Vídeo Short 15s',  price:63.90, eta:'2h00', items:['1 Vídeo curto (até 15s)','Cortes + ritmo']},
+      {id:5,  name:'Foto Pack 4',      price:73.50, eta:'2h30', items:['4 Fotos (pro)','Cor + detalhes']},
+      {id:6,  name:'Short Duo',        price:86.40, eta:'3h00', items:['2 Vídeos curtos (até 15s)','Cortes + transições simples']},
+      {id:7,  name:'Combo Social',     price:96.80, eta:'3h30', items:['1 Foto + 1 Vídeo curto','Look cinematográfico leve']},
+      {id:8,  name:'Foto Pack 5',      price:108.90,eta:'4h00', items:['5 Fotos (pro)','Padronização de cor']},
+      {id:9,  name:'Short Trio',       price:132.70,eta:'5h00', items:['3 Vídeos curtos (até 15s)','Cor + ritmo']},
+      {id:10, name:'Foto Pack 8',      price:151.40,eta:'6h00',   items:['8 Fotos (pro)','Cor + retoques leves']},
       {id:11, name:'Short 5',          price:176.90,eta:'24h',   items:['5 Vídeos curtos','Cortes + cor']},
       {id:12, name:'Creator Mix',      price:197.80,eta:'24h',   items:['10 Fotos + 1 Vídeo curto','Padronização completa']},
       {id:13, name:'Vídeo Médio 45s',  price:221.60,eta:'24h',   items:['1 Vídeo médio (30–45s)','Cor + transições']},
@@ -3283,7 +3399,7 @@ const START_STARS = 5.0;
         card.innerHTML = `
           <div class="pkgThumb"></div>
           <h3>${p.id}. ${escapeHtml(p.name)}</h3>
-          <p>Entrega a partir de <strong>${escapeHtml(p.eta)}</strong> (mínimo 13h30)</p>
+          <p>Entrega a partir de <strong>${escapeHtml(p.eta)}</strong> (mínimo 40min)</p>
           <div class="price">${brl(p.price)}</div>
           <ul>${p.items.map(i=>`<li>${escapeHtml(i)}</li>`).join('')}</ul>
           <button class="btn" type="button" onclick="choosePackage(${p.id})">Escolher pacote</button>
@@ -3633,7 +3749,7 @@ const START_STARS = 5.0;
         <div class="eBadges">
           ${tags.map(t=>`<span class="badge pillBlue">${escapeHtml(t)}</span>`).join('') || `<span class="badge off">Sem tags</span>`}
         </div>
-        <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap">
+        <div class="eActions">
           ${btnProfile}
           ${btnPrimary}
           ${btnSecondary}
@@ -3894,7 +4010,7 @@ const START_STARS = 5.0;
         <div class="eSub">${escapeHtml(meta || 'Cliente (demo)')}</div>
         <div class="eBadges" style="margin-top:10px">${badges}</div>
         <div class="hint" style="margin-top:10px">${escapeHtml((c.about||'').slice(0,120) + ((c.about||'').length>120?'…':''))}</div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px">
+        <div class="eActions">
           <button class="btn" type="button" onclick="openClientBriefing('${escapeHtml(c.id)}')">Ver briefing</button>
           <button class="btn secondary" type="button" onclick="toggleProcurarClientFav('${escapeHtml(c.id)}')">${isFav ? '★ Salvo' : '☆ Salvar'}</button>
         </div>
@@ -4093,19 +4209,35 @@ function toggleProcurarFav(id){
       return `karamelo_chat_${clientChatId()}_${String(peerId||'peer').replace(/[^a-z0-9_\-]+/gi,'_').slice(0,72)}`;
     }
     function renderChat(){
-      if(!chatMsgs || !chatCtx) return;
-      const arr = lsGet(chatCtx.key, []);
-      const msgs = Array.isArray(arr) ? arr : [];
-      chatMsgs.innerHTML = '';
-      msgs.forEach(m=>{
-        const div = document.createElement('div');
-        div.className = 'aiMsg' + (m.from==='me' ? ' me' : '');
-        div.textContent = m.text;
-        chatMsgs.appendChild(div);
-      });
-      chatMsgs.scrollTop = chatMsgs.scrollHeight;
-    }
-    function openChatWithEditorOrSignup(editorId){
+  if(!chatMsgs || !chatCtx) return;
+  const arr = lsGet(chatCtx.key, []);
+  const msgs = Array.isArray(arr) ? arr : [];
+  chatMsgs.innerHTML = '';
+
+  const fmtTime = (ts)=>{
+    try{
+      const d = new Date(ts||Date.now());
+      return d.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+    }catch(e){ return ''; }
+  };
+
+  msgs.forEach(m=>{
+    const wrap = document.createElement('div');
+    wrap.className = 'chatBubble' + (m.from==='me' ? ' me' : '');
+    wrap.innerHTML = `
+      <div>${escapeHtml(m.text||'')}</div>
+      <div class="chatMeta">
+        <span>${m.from==='me' ? 'Você' : (chatCtx?.label || 'Editor')}</span>
+        <span>${fmtTime(m.ts)}</span>
+      </div>
+    `;
+    chatMsgs.appendChild(wrap);
+  });
+  chatMsgs.scrollTop = chatMsgs.scrollHeight;
+}
+function openChatWithEditorOrSignup(editorId){
+  requestChatWithEditor(editorId);
+}(editorId){
       requestChatWithEditor(editorId);
     }
 
@@ -4124,6 +4256,15 @@ function toggleProcurarFav(id){
         key: chatKeyFor(e.id)
       };
       if(chatTitle) chatTitle.textContent = `Falar com ${e.name}`;
+
+// header bonito
+const whoEl = document.getElementById('chatWho');
+const subEl = document.getElementById('chatSub');
+const avEl  = document.getElementById('chatAvatar');
+if(whoEl) whoEl.textContent = `Chat • ${targetName}`;
+if(subEl) subEl.textContent = 'Demo: mensagens ficam salvas no seu navegador';
+if(avEl) avEl.textContent = (targetName||'E')[0];
+
       closeEditorProfile();
       renderChat();
       if(chatOverlay){
@@ -4470,16 +4611,16 @@ function toggleProcurarFav(id){
       const btn  = document.getElementById('toggleCustomOpts');
       if(more) more.classList.toggle('collapsed', !showAllCustomOptions);
       if(btn) btn.textContent = showAllCustomOptions ? 'Mostrar menos ↑' : 'Ver mais opções ↓';
+      splitCustomOptions();
     }
 
     // ===== Pedido -> Escolher Editor =====
-    function choosePackage(id){
-      if(!isClientLogged()){
-        setPostLoginIntent({ type:'package', packageId:id });
-        openCadastro('cliente');
-        return;
-      }
-      const p = packages.find(x => x.id === id);
+    
+function choosePackage(id){
+  if(!isClientLogged()){
+    ensureDemoClient();
+  }
+  const p = packages.find(x => x.id === id);
       if(!p) return;
       currentOrder = {
         kind: 'package',
@@ -4495,13 +4636,12 @@ function toggleProcurarFav(id){
       }
     }
 
-    function confirmCustom(){
-      if(!isClientLogged()){
-        setPostLoginIntent({ type:'package' });
-        openCadastro('cliente');
-        return;
-      }
-      currentOrder = {
+    
+function confirmCustom(){
+  if(!isClientLogged()){
+    ensureDemoClient();
+  }
+  currentOrder = {
         kind: 'custom',
         title: 'Pacote Personalizado',
         totalText: custTotal?.textContent || brl(0),
