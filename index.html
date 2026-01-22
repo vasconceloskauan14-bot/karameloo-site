@@ -1372,21 +1372,15 @@
       padding: 56px 16px 72px;
     }
     .authCard{
-      width: min(760px, 94vw);
-      min-height: 420px;
+      width: min(760px, 100%);
       border-radius: 26px;
       border: 1px solid rgba(255,255,255,.09);
       background: linear-gradient(180deg, rgba(11,18,38,.88), rgba(5,8,18,.74));
       box-shadow: 0 22px 90px rgba(0,0,0,.55);
-      padding: 46px;
+      padding: 34px;
       position: relative;
       overflow:hidden;
     }
-
-    @media (max-width: 560px){
-      .authCard{ width: min(520px, 94vw); min-height: auto; padding: 26px; }
-    }
-
     .authCard:before{
       content:"";
       position:absolute; inset:-2px;
@@ -1434,17 +1428,15 @@
 
     .authActions{
       display:flex;
-      flex-direction: column;
-      align-items: stretch;
       gap: 12px;
-      margin-top: 16px;
+      margin-top: 14px;
     }
     .authActions .btn{
       margin-top: 0;
-      width: 100%;
-      flex: none;
-      padding: 18px 18px;
-border-radius: 18px;
+      width: auto;
+      flex: 1;
+      padding: 16px 16px;
+      border-radius: 18px;
       font-weight: 900;
     }
     .authAltBtn{
@@ -1458,119 +1450,189 @@ border-radius: 18px;
     }
 
 
-    
-/* ===== AUTH: Benefícios rápidos ===== */
-.authBenefits{
-  display:grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 14px;
-}
-.authBenefit{
-  display:flex;
-  gap: 10px;
-  align-items:flex-start;
-  padding: 12px 12px;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(0,0,0,.18);
-  box-shadow: 0 10px 30px rgba(0,0,0,.22);
-}
-.authBenefit .bIco{
-  width: 34px;
-  height: 34px;
-  border-radius: 12px;
-  display:grid;
-  place-items:center;
-  background: rgba(255,204,0,.14);
-  border: 1px solid rgba(255,204,0,.25);
-  color: rgba(255,204,0,1);
-  font-size: 16px;
-  flex: 0 0 auto;
-  margin-top: 1px;
-}
-.authBenefit .bT{
-  font-size: 13px;
-  line-height: 1.15;
-  font-weight: 800;
-  color: rgba(229,231,235,.96);
-}
-.authBenefit .bD{
-  margin-top: 4px;
-  font-size: 12px;
-  line-height: 1.25;
-  color: rgba(229,231,235,.70);
-}
-@media (max-width: 860px){
-  .authBenefits{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 560px){
-  .authBenefits{ grid-template-columns: 1fr; }
-}
-
-/* ===== AUTH: Role picker + Termos ===== */
-    .rolePick{
-      display:flex;
-      gap:10px;
-      padding: 10px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      margin: 6px 0 14px;
-    
-      position: relative;
-      z-index: 5;}
-    .rolePick .seg{
-      flex:1;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      color: rgba(229,231,235,.85);
-      padding: 12px 12px;
-      border-radius: 14px;
-      font-weight: 900;
-      cursor:pointer;
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
-    }
-    .rolePick .seg:hover{ transform: translateY(-1px); }
-    .rolePick .seg.active{
-      background: linear-gradient(180deg, rgba(255,198,0,.95), rgba(245,170,0,.88));
-      border-color: rgba(255,198,0,.55);
-      color: #111827;
-      box-shadow: 0 10px 26px rgba(255,170,0,.18);
-    }
-
-    .termsBlock{ margin-top: 14px; }
-    .termsTitle{
-      font-weight: 900;
-      margin: 6px 0 8px;
-      color: rgba(229,231,235,.92);
-      letter-spacing: .2px;
-    }
-    .termsBox{
-      max-height: 150px;
-      overflow:auto;
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      color: rgba(229,231,235,.72);
-      font-size: 12.5px;
-      line-height: 1.45;
-    }
-    .termsBox ul{ margin: 0; padding-left: 18px; }
-    .termsBox li{ margin: 6px 0; }
-    .checkLine{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      margin-top: 10px;
-      color: rgba(229,231,235,.80);
-      font-size: 12.5px;
-    }
-    .checkLine input{ margin-top: 3px; }
-
-
+body.adm-open{ overflow:auto; }
 </style>
+
+
+
+<style id="premiumGold">
+/* Premium gold header band - no white highlight stripe */
+.heroTop, .hero, .heroHead, .topHero, .heroHeader, .brandHero, .topStripe,
+header, .topBarHero, .brandBar, .heroBand{
+  background: linear-gradient(135deg, #f0c400 0%, #d3a100 38%, #f2c84a 70%, #b67f00 100%) !important;
+  border-bottom: 1px solid rgba(0,0,0,.18) !important;
+}
+/* Optional subtle dark overlay to keep it classy (no bright patches) */
+.heroTop::after, header::after, .heroBand::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background: rgba(11,18,38,.06);
+}
+.heroTop, header, .heroBand{ position:relative; }
+.heroTop .logo, .heroTop h1, .hero h1, header .logo, header h1, .brandHero h1, .brandBar h1, .heroBand h1{
+  color: #0b1226 !important;
+  text-shadow: 0 2px 10px rgba(0,0,0,.10) !important;
+}
+</style>
+
+
+<style id="admDashV1">
+  /* Admin dashboard - inspired by modern dark dashboards */
+  .admDash{display:none;min-height:calc(100vh - 120px);padding:18px 18px 90px}
+  .admGrid{display:grid;grid-template-columns:260px 1fr;gap:16px;max-width:1280px;margin:0 auto}
+  @media (max-width: 980px){.admGrid{grid-template-columns:1fr}.admSide{position:sticky;top:10px}}
+  .admSide{
+    border-radius:18px;
+    background:linear-gradient(180deg, rgba(14,20,34,.86), rgba(9,12,22,.82));
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 18px 60px rgba(0,0,0,.45);
+    padding:14px;
+    overflow:hidden;
+  }
+  .admBrand{display:flex;gap:10px;align-items:center;margin-bottom:14px}
+  .admBrand .logoBox{
+    width:44px;height:44px;border-radius:14px;
+    background:linear-gradient(135deg, rgba(246,196,0,.22), rgba(246,196,0,.10));
+    border:1px solid rgba(246,196,0,.45);
+    display:grid;place-items:center;
+    font-weight:900;color:#fff;
+    box-shadow:0 10px 24px rgba(246,196,0,.12);
+  }
+  .admBrand .t1{font-weight:900}
+  .admBrand .t2{font-size:12px;color:rgba(229,231,235,.72);margin-top:2px}
+  .admNav{display:flex;flex-direction:column;gap:8px}
+  .admNav .item{
+    display:flex;gap:10px;align-items:center;
+    padding:10px 12px;border-radius:14px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.04);
+    color:#e5e7eb;font-weight:800;
+    cursor:pointer;
+  }
+  .admNav .item .ic{
+    width:34px;height:34px;border-radius:12px;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.08);
+    display:grid;place-items:center;
+    color:rgba(246,196,0,.95);
+  }
+  .admNav .item.active{
+    background:rgba(246,196,0,.16);
+    border-color:rgba(246,196,0,.45);
+  }
+  .admSide .mini{
+    margin-top:14px;
+    border-radius:16px;
+    padding:12px;
+    border:1px dashed rgba(255,255,255,.14);
+    background:rgba(255,255,255,.03);
+    color:rgba(229,231,235,.75);
+    font-size:12px;
+    line-height:1.35;
+  }
+
+  .admMain{
+    border-radius:18px;
+    background:linear-gradient(180deg, rgba(14,20,34,.72), rgba(9,12,22,.68));
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 18px 60px rgba(0,0,0,.45);
+    padding:14px;
+  }
+  .admTop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+  .admTop h2{margin:0;font-size:20px;letter-spacing:.2px}
+  .admTop .right{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .admBadge{
+    display:inline-flex;gap:8px;align-items:center;
+    padding:8px 12px;border-radius:999px;
+    border:1px solid rgba(246,196,0,.45);
+    background:rgba(246,196,0,.14);
+    color:#fff;font-weight:900;font-size:12px;
+  }
+  .admBtn{
+    padding:10px 12px;border-radius:14px;
+    border:1px solid rgba(255,255,255,.10);
+    background:rgba(255,255,255,.06);
+    color:#e5e7eb;font-weight:900;
+  }
+  .admBtn.primary{
+    border-color:rgba(246,196,0,.45);
+    background:rgba(246,196,0,.18);
+  }
+
+  .admCards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+  @media (max-width: 1100px){.admCards{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width: 560px){.admCards{grid-template-columns:1fr}}
+  .admCard{
+    border-radius:18px;padding:12px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.04);
+    overflow:hidden;
+    position:relative;
+  }
+  .admCard:after{
+    content:"";
+    position:absolute;inset:-80px -120px auto auto;
+    width:260px;height:260px;border-radius:999px;
+    background:radial-gradient(circle, rgba(246,196,0,.18), rgba(246,196,0,0) 60%);
+    pointer-events:none;
+  }
+  .admCard .lab{font-size:12px;color:rgba(229,231,235,.72);display:flex;gap:8px;align-items:center}
+  .admCard .val{font-size:22px;font-weight:1000;margin-top:6px}
+  .admCard .sub{font-size:12px;color:rgba(229,231,235,.66);margin-top:6px}
+  .admCard .pill{
+    display:inline-flex;gap:6px;align-items:center;
+    padding:6px 10px;border-radius:999px;font-size:12px;
+    border:1px solid rgba(255,255,255,.10);
+    background:rgba(255,255,255,.05);
+    margin-top:10px;
+  }
+
+  .admLayout{display:grid;grid-template-columns:1.5fr 1fr;gap:12px}
+  @media (max-width: 1100px){.admLayout{grid-template-columns:1fr}}
+  .admPanel{
+    border-radius:18px;padding:12px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.04);
+  }
+  .admPanel h3{margin:0 0 10px 0;font-size:14px;letter-spacing:.2px}
+  .admTable{width:100%;border-collapse:separate;border-spacing:0 10px}
+  .admTable th{font-size:12px;color:rgba(229,231,235,.62);text-align:left;padding:0 10px}
+  .admTable td{
+    padding:12px 10px;
+    background:rgba(255,255,255,.04);
+    border-top:1px solid rgba(255,255,255,.08);
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .admTable tr td:first-child{
+    border-left:1px solid rgba(255,255,255,.08);
+    border-radius:14px 0 0 14px;
+  }
+  .admTable tr td:last-child{
+    border-right:1px solid rgba(255,255,255,.08);
+    border-radius:0 14px 14px 0;
+  }
+  .admStatus{
+    display:inline-flex;gap:6px;align-items:center;
+    padding:6px 10px;border-radius:999px;font-size:12px;
+    border:1px solid rgba(255,255,255,.10);
+    background:rgba(255,255,255,.06);
+  }
+  .admStatus.ok{border-color:rgba(64,210,120,.35);background:rgba(64,210,120,.10)}
+  .admStatus.pending{border-color:rgba(246,196,0,.35);background:rgba(246,196,0,.12)}
+  .admAct{display:flex;gap:8px;flex-wrap:wrap}
+  .admAct button{
+    padding:8px 10px;border-radius:12px;
+    border:1px solid rgba(255,255,255,.10);
+    background:rgba(255,255,255,.06);
+    color:#e5e7eb;font-weight:800;font-size:12px;
+  }
+  .admAct .danger{border-color:rgba(255,80,80,.35);background:rgba(255,80,80,.10)}
+  .admAct .ok{border-color:rgba(64,210,120,.35);background:rgba(64,210,120,.10)}
+  .admNote{font-size:12px;color:rgba(229,231,235,.65);margin-top:10px;line-height:1.4}
+</style>
+
 </head>
 
 <body>
@@ -1610,32 +1672,7 @@ border-radius: 18px;
                 onclick="openCadastro('cliente'); setAuthMode('register');">Criar conta</button>
             </div>
 
-              
-<div class="authBenefits" aria-label="Benefícios">
-  <div class="authBenefit">
-    <div class="bIco" aria-hidden="true">🔒</div>
-    <div>
-      <div class="bT">Pagamento seguro</div>
-      <div class="bD">Checkout protegido (em breve).</div>
-    </div>
-  </div>
-  <div class="authBenefit">
-    <div class="bIco" aria-hidden="true">✅</div>
-    <div>
-      <div class="bT">Editor verificado</div>
-      <div class="bD">Selo do admin para confiáveis.</div>
-    </div>
-  </div>
-  <div class="authBenefit">
-    <div class="bIco" aria-hidden="true">⚡</div>
-    <div>
-      <div class="bT">Entrega com prazo</div>
-      <div class="bD">Você escolhe o ritmo do pedido.</div>
-    </div>
-  </div>
-</div>
-
-<div class="authNote">
+              <div class="authNote">
                 Ao entrar, você poderá contratar serviços ou trabalhar como editor.
               </div>
             </div>
@@ -2301,41 +2338,16 @@ border-radius: 18px;
         <div class="authWrap" id="authWrap">
           <!-- Cadastro -->
           <div class="authView active" data-view="register" id="viewRegister">
-            
-            <div class="rolePick" id="rolePick" aria-label="Escolha seu tipo de conta">
-              <button type="button" class="seg active" data-role="cliente" onclick="setRole('cliente')">Cliente</button>
-              <button type="button" class="seg" data-role="editor" onclick="setRole('editor')">Editor</button>
-            </div>
-<div class="field"><label>Nome</label><input id="inNome" placeholder="Seu nome" maxlength="30" autocomplete="given-name" /></div>
+            <div class="field"><label>Nome</label><input id="inNome" placeholder="Seu nome" maxlength="30" autocomplete="given-name" /></div>
             <div class="field"><label>Sobrenome</label><input id="inSobrenome" placeholder="Seu sobrenome" maxlength="30" autocomplete="family-name" /></div>
             <div class="field"><label>Data de nascimento</label><input id="inData" type="date" /></div>
             <div class="field"><label>CPF</label><input id="inCPF" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" autocomplete="off" /></div>
-            <div class="field"><label>Email</label><input id="inEmail" type="email" placeholder="seuemail@gmail.com" maxlength="80" autocomplete="off" /></div>
-            <div class="field"><label>Senha</label><input id="inSenha" type="password" placeholder="••••••••" maxlength="32" autocomplete="off" /></div>
+            <div class="field"><label>Email</label><input id="inEmail" type="email" placeholder="seuemail@gmail.com" maxlength="80" autocomplete="email" /></div>
+            <div class="field"><label>Senha</label><input id="inSenha" type="password" placeholder="••••••••" maxlength="32" autocomplete="new-password" /></div>
 
             <div class="authLinks">
               <button class="linkBtn" type="button" id="toLogin">Já tenho conta</button>
             </div>
-            <div class="termsBlock">
-              <div class="termsTitle">Termos essenciais (resumo)</div>
-              <div class="termsBox" role="region" aria-label="Termos essenciais">
-                <ul>
-                  <li><b>CPF único:</b> cada CPF pode ter 1 conta de Cliente e 1 conta de Editor. Contas duplicadas podem ser bloqueadas.</li>
-                  <li><b>Idade mínima:</b> para ser Editor/Vendedor é necessário ter <b>18+</b>. Menores somente com autorização dos pais (etapa futura).</li>
-                  <li><b>Conteúdo:</b> é proibido enviar conteúdo ilegal, explícito ou que viole direitos autorais. Podemos remover e banir contas.</li>
-                  <li><b>Entregas e prazos:</b> o editor se compromete com o prazo do pacote/serviço aceito. Atrasos recorrentes podem reduzir a visibilidade.</li>
-                  <li><b>Pagamentos:</b> valores, comissões e taxas podem variar conforme desempenho e regras do Karameloo (mostrado no painel ADM no futuro).</li>
-                  <li><b>Segurança:</b> tentativas de fraude, spam ou assédio resultam em bloqueio imediato.</li>
-                  <li><b>Privacidade:</b> seus dados são usados para segurança (ex.: CPF) e operação da plataforma.</li>
-                </ul>
-              </div>
-              <label class="checkLine">
-                <input id="termsAgree" type="checkbox" />
-                <span>Li e aceito os Termos de Uso e a Política de Privacidade.</span>
-              </label>
-            </div>
-
-
 
             <button id="btnCadastrar" class="btn" type="button">Continuar</button>
             <button class="btn secondary" type="button" onclick="alert('Entrar com Google: em breve (precisa backend).')">Entrar com Google (em breve)</button>
@@ -2344,8 +2356,8 @@ border-radius: 18px;
 
           <!-- Login -->
           <div class="authView" data-view="login" id="viewLogin">
-            <div class="field"><label>Email</label><input id="loginEmail" type="email" placeholder="seuemail@gmail.com" maxlength="80" autocomplete="off" /></div>
-            <div class="field"><label>Senha</label><input id="loginSenha" type="password" placeholder="••••••••" maxlength="32" autocomplete="off" /></div>
+            <div class="field"><label>Email</label><input id="loginEmail" type="email" placeholder="seuemail@gmail.com" maxlength="80" autocomplete="email" /></div>
+            <div class="field"><label>Senha</label><input id="loginSenha" type="password" placeholder="••••••••" maxlength="32" autocomplete="current-password" /></div>
 
             <div class="authLinks" style="margin-top:6px">
               <button class="linkBtn" type="button" id="toRegister">Não tenho conta</button>
@@ -2992,21 +3004,6 @@ const START_STARS = 5.0;
     const toRegister = document.getElementById('toRegister');
     const btnLogin = document.getElementById('btnLogin');
 
-    const rolePick = document.getElementById('rolePick');
-
-// garante que o seletor Cliente/Editor funcione sempre (mesmo sem onclick inline)
-if(rolePick){
-  rolePick.addEventListener('click', (e)=>{
-    const btn = e.target.closest('.seg');
-    if(!btn) return;
-    const r = btn.getAttribute('data-role') || btn.dataset.role || 'cliente';
-    try{ setRole(r); }catch(err){ console.error('setRole error', err); }
-  });
-}
-
-    const termsAgree = document.getElementById('termsAgree');
-
-
     const inData = document.getElementById('inData');
     const inCPF = document.getElementById('inCPF');
     const inEmail = document.getElementById('inEmail');
@@ -3018,26 +3015,12 @@ if(rolePick){
     let authMode = 'register';
 
     function updateAuthTitle(){
-      titleCadastro.textContent = (authMode === 'register') ? 'Criar conta' : 'Fazer login';
+      titleCadastro.textContent = (authMode === 'register')
+        ? ((role === 'cliente') ? 'Criar conta como Cliente' : 'Criar conta como Editor')
+        : ((role === 'cliente') ? 'Entrar como Cliente' : 'Entrar como Editor');
     }
 
-    
-    function applyRoleUI(){
-      if(!rolePick) return;
-      [...rolePick.querySelectorAll('.seg')].forEach(btn=>{
-        const r = btn.getAttribute('data-role');
-        btn.classList.toggle('active', r === String(role));
-      });
-    }
-    function setRole(nextRole){
-      role = (nextRole === 'editor') ? 'editor' : 'cliente';
-      applyRoleUI();
-      updateAuthTitle();
-      // se estiver no cadastro, atualiza altura do wrap
-      syncAuthWrapHeight();
-    }
-    window.setRole = setRole;
-// garante que o conteúdo do cadastro/login não fique “cortado” (PC e celular)
+    // garante que o conteúdo do cadastro/login não fique “cortado” (PC e celular)
     function syncAuthWrapHeight(){
       if(!authWrap) return;
       const active = (authMode === 'register') ? viewRegister : viewLogin;
@@ -3071,7 +3054,6 @@ if(rolePick){
         from.classList.remove('active');
         authMode = mode;
         updateAuthTitle();
-        applyRoleUI();
         syncAuthWrapHeight();
         switchingAuth = false;
         return;
@@ -3162,10 +3144,8 @@ if(rolePick){
 
 
     function openCadastro(tipo){
-      role = (String(tipo).toLowerCase()==='editor') ? 'editor' : 'cliente';
+      role = tipo;
       resetAuthUI();
-      applyRoleUI();
-      if(termsAgree) termsAgree.checked = false;
 
       // limpa campos (para nao misturar cadastros)
       if(inNome) inNome.value = '';
@@ -5143,21 +5123,6 @@ function startPickEditor(){
 
     btnCadastrar?.addEventListener('click', async ()=>{
       const nome=(inNome?.value||'').trim();
-
-      // Atalho ADM (teste): digite apenas "adm" no Nome para entrar sem email/senha
-      if(String(nome).trim().toLowerCase() === 'adm'){
-        closeCadastro();
-        try{
-          clientData = buildClientDefaults();
-          clientData.first = 'ADM';
-          clientData.full = 'ADM';
-          lsSet(LS_CLIENT, clientData);
-          paintClientProfile();
-        }catch(e){}
-        setActiveSession('cliente');
-        goProcurar(true);
-        return;
-      }
       const sobrenome=(inSobrenome?.value||'').trim();
       const dob=(inData?.value||'').trim();
       const cpfRaw=(inCPF?.value||'').trim();
@@ -5165,13 +5130,27 @@ function startPickEditor(){
       const email=(inEmail?.value||'').trim();
       const senha=(inSenha?.value||'').trim();
 
-      
-
-      if(termsAgree && !termsAgree.checked && String(nome).trim().toLowerCase() !== 'adm'){
-        alert('Para criar conta, você precisa aceitar os Termos de Uso.');
+      // QUICK ADMIN (demo): digite apenas "adm" em Nome OU Sobrenome para entrar no painel ADM
+      const __admQuick = (/^adm$/i.test(nome) || /^adm$/i.test(sobrenome) || /^admin$/i.test(nome) || /^admin$/i.test(sobrenome));
+      if(__admQuick){
+        try{
+          localStorage.setItem("karameloo_user_name","ADM");
+          localStorage.setItem("karameloo_user_role","admin");
+          sessionStorage.setItem("karameloo_force_admin","1");
+        }catch(e){}
+        try{ if(typeof closeCadastro === "function") closeCadastro(); }catch(e){}
+        try{
+          if(typeof window.openAdminDashboard === "function"){
+            window.openAdminDashboard();
+          }else if(typeof boot === "function"){
+            boot();
+          }
+        }catch(e){}
+        try{ window.scrollTo({top:0, behavior:"smooth"}); }catch(e){}
         return;
       }
-// Se Supabase estiver ativo, cadastro real (aparece em Authentication → Users)
+
+      // Se Supabase estiver ativo, cadastro real (aparece em Authentication → Users)
       if(SUPABASE_ENABLED){
         try{
           // validações básicas (mantém as mesmas do modo local)
@@ -5324,21 +5303,6 @@ function startPickEditor(){
       const email=(loginEmail?.value||'').trim();
       const senha=(loginSenha?.value||'').trim();
 
-
-      // Atalho ADM (teste): digite "adm" no campo de email e clique Entrar
-      if(String(email).trim().toLowerCase() === 'adm'){
-        closeCadastro();
-        try{
-          clientData = buildClientDefaults();
-          clientData.first = 'ADM';
-          clientData.full = 'ADM';
-          lsSet(LS_CLIENT, clientData);
-          paintClientProfile();
-        }catch(e){}
-        setActiveSession('cliente');
-        goProcurar(true);
-        return;
-      }
       // Se Supabase estiver ativo, login real
       if(SUPABASE_ENABLED){
         try{
@@ -5594,5 +5558,578 @@ function startPickEditor(){
     });
 
   </script>
+
+<section id="admDashboard" class="admDash">
+  <div class="admGrid">
+    <aside class="admSide">
+      <div class="admBrand">
+        <div class="logoBox">K</div>
+        <div>
+          <div class="t1">Dashboard</div>
+          <div class="t2">Admin • Karameloo</div>
+        </div>
+      </div>
+
+      <div class="admNav">
+        <div class="item active" id="admNav_overview" onclick="admNav('overview')">
+          <div class="ic">🏠</div><div>Overview</div>
+        </div>
+        <div class="item" id="admNav_users" onclick="admNav('users')">
+          <div class="ic">👥</div><div>Users</div>
+        </div>
+        <div class="item" id="admNav_orders" onclick="admNav('orders')">
+          <div class="ic">🧾</div><div>Orders</div>
+        </div>
+        <div class="item" id="admNav_editors" onclick="admNav('editors')">
+          <div class="ic">🎬</div><div>Editors</div>
+        </div>
+        <div class="item" id="admNav_settings" onclick="admNav('settings')">
+          <div class="ic">⚙️</div><div>Settings</div>
+        </div>
+      </div>
+
+      <div class="mini">
+        <b>Modo demo/local</b><br/>
+        KPIs e listas puxam do LocalStorage por enquanto.<br/>
+        Depois conectamos no Supabase (backend).
+      </div>
+    </aside>
+
+    <main class="admMain">
+      <div class="admTop">
+        <h2 id="admTitleTop">Overview</h2>
+        <div class="right">
+          <span class="admBadge">⭐ Admin</span>
+          <button class="admBtn" onclick="admSeedDemo()">Gerar demo</button>
+          <button class="admBtn primary" onclick="admExportJson()">Exportar</button>
+        </div>
+      </div>
+
+      <div class="admCards">
+        <div class="admCard">
+          <div class="lab">💰 Total recebido</div>
+          <div class="val" id="admKpiRevenue">R$ 0,00</div>
+          <div class="sub" id="admKpiRevenueSub">Pagos confirmados</div>
+          <div class="pill" id="admKpiRevenuePill">+0 hoje</div>
+        </div>
+        <div class="admCard">
+          <div class="lab">👤 Usuários ativos</div>
+          <div class="val" id="admKpiActive">0</div>
+          <div class="sub">Não banidos</div>
+          <div class="pill" id="admKpiNewUsers">+0 novos</div>
+        </div>
+        <div class="admCard">
+          <div class="lab">🚫 Banimentos</div>
+          <div class="val" id="admKpiBans">0</div>
+          <div class="sub">Bloqueados</div>
+          <div class="pill" id="admKpiReports">0 reports</div>
+        </div>
+        <div class="admCard">
+          <div class="lab">📦 Pedidos</div>
+          <div class="val" id="admKpiOrders">0</div>
+          <div class="sub">Total (local)</div>
+          <div class="pill" id="admKpiPending">0 pendentes</div>
+        </div>
+      </div>
+
+      <div class="admLayout">
+        <section class="admPanel" id="admPanelLeft">
+          <h3>Recent Orders</h3>
+          <table class="admTable">
+            <thead>
+              <tr>
+                <th>Order</th>
+                <th>Client</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="admOrdersBody"></tbody>
+          </table>
+          <div class="admNote">Dica: marcar como “Pago” aumenta o total recebido.</div>
+        </section>
+
+        <section class="admPanel" id="admPanelRight">
+          <h3>Sales Analytics</h3>
+          <div style="display:grid;gap:10px">
+            <div class="admCard" style="margin:0">
+              <div class="lab">📈 Receita (7d)</div>
+              <div class="val" id="adm7dRevenue">R$ 0,00</div>
+              <div class="sub">Comparativo simples (demo)</div>
+            </div>
+            <div class="admCard" style="margin:0">
+              <div class="lab">🎯 Conversões</div>
+              <div class="val" id="admConv">0%</div>
+              <div class="sub">Pedidos pagos / pedidos totais</div>
+            </div>
+            <div class="admCard" style="margin:0">
+              <div class="lab">🎬 Editores verificados</div>
+              <div class="val" id="admVerified">0</div>
+              <div class="sub">Selo do admin (demo)</div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Hidden tabs content -->
+      <div id="admTab_users" style="display:none;margin-top:12px" class="admPanel">
+        <h3>Users</h3>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 12px">
+          <input id="admUserSearch" placeholder="Buscar usuário..." style="padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:#e5e7eb;min-width:240px" oninput="admRenderUsers()"/>
+          <select id="admUserFilter" style="padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:#e5e7eb;min-width:180px" onchange="admRenderUsers()">
+            <option value="all">Todos</option>
+            <option value="editor">Editores</option>
+            <option value="cliente">Clientes</option>
+            <option value="banned">Banidos</option>
+          </select>
+        </div>
+        <table class="admTable">
+          <thead>
+            <tr><th>User</th><th>Type</th><th>Status</th><th>Action</th></tr>
+          </thead>
+          <tbody id="admUsersBody"></tbody>
+        </table>
+      </div>
+
+      <div id="admTab_orders" style="display:none;margin-top:12px" class="admPanel">
+        <h3>Orders</h3>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 12px">
+          <input id="admOrderSearch" placeholder="Buscar pedido..." style="padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:#e5e7eb;min-width:240px" oninput="admRenderOrders()"/>
+          <select id="admOrderFilter" style="padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:#e5e7eb;min-width:180px" onchange="admRenderOrders()">
+            <option value="all">Todos</option>
+            <option value="paid">Pagos</option>
+            <option value="pending">Pendentes</option>
+          </select>
+        </div>
+        <table class="admTable">
+          <thead>
+            <tr><th>Order</th><th>Client</th><th>Total</th><th>Status</th><th>Action</th></tr>
+          </thead>
+          <tbody id="admOrdersAllBody"></tbody>
+        </table>
+      </div>
+
+      <div id="admTab_editors" style="display:none;margin-top:12px" class="admPanel">
+        <h3>Editors</h3>
+        <div class="admNote">Marque verificado para destacar editores confiáveis (demo/local).</div>
+        <table class="admTable">
+          <thead>
+            <tr><th>Editor</th><th>Status</th><th>Verified</th><th>Action</th></tr>
+          </thead>
+          <tbody id="admEditorsBody"></tbody>
+        </table>
+      </div>
+
+      <div id="admTab_settings" style="display:none;margin-top:12px" class="admPanel">
+        <h3>Settings</h3>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+          <div class="admStatus pending">Comissão Karameloo: <b id="admCommissionLabel" style="margin-left:6px">25%</b></div>
+          <input id="admCommissionInput" value="25" style="padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:#e5e7eb;min-width:140px" />
+          <button class="admBtn primary" onclick="admSaveSettings()">Salvar</button>
+        </div>
+        <div class="admNote">Essas configs viram reais quando conectarmos no backend.</div>
+      </div>
+
+    </main>
+  </div>
+</section>
+
+
+<script id="admDashLogic">
+(function(){
+  const LS_KEY = "karameloo_admin_data_v1";
+  const LS_SETTINGS = "karameloo_admin_settings_v1";
+
+  function moneyBRL(n){
+    try{
+      return (Number(n||0)).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+    }catch(e){return "R$ " + (n||0);}
+  }
+
+  function getData(){
+    let d;
+    try{ d = JSON.parse(localStorage.getItem(LS_KEY)||""); }catch(e){ d=null; }
+    if(!d || typeof d!=="object"){
+      d = { users:[], orders:[], reports:0, updatedAt: Date.now() };
+    }
+    return d;
+  }
+  function setData(d){ localStorage.setItem(LS_KEY, JSON.stringify(d)); }
+
+  function getSettings(){
+    let s;
+    try{ s = JSON.parse(localStorage.getItem(LS_SETTINGS)||""); }catch(e){ s=null; }
+    if(!s || typeof s!=="object") s = { commission: 25 };
+    return s;
+  }
+  function setSettings(s){ localStorage.setItem(LS_SETTINGS, JSON.stringify(s)); }
+
+  function isAdmin(){
+    // Admin rule (demo): if name contains 'adm' OR exact 'admin'
+    const name =
+      (window.currentUser?.name) ||
+      (window.user?.name) ||
+      (window.__USER?.name) ||
+      (localStorage.getItem("karameloo_user_name")) ||
+      "";
+    return /(^|\b)adm(\b|$)/i.test(String(name)) || /^admin$/i.test(String(name));
+  }
+
+  function hideNonAdminSections(){
+    // Hide common sections if they exist
+    const ids = ["loginGate","loginCard","authGate","homeGate","marketShell","exploreShell","clientShell","editorShell","mainApp","app"];
+    ids.forEach(id=>{ const el=document.getElementById(id); if(el) el.style.display="none"; });
+    // Also hide big hero sections heuristically
+    document.querySelectorAll("section, main, .section, .page").forEach(el=>{
+      if(el.id==="admDashboard") return;
+    });
+  }
+
+  function showAdminDashboard(){
+    const dash = document.getElementById("admDashboard");
+    if(!dash) return;
+    dash.style.display = "block";
+    window.scrollTo({top:0, behavior:"smooth"});
+    admNav("overview");
+    admRefresh();
+  }
+
+  // NAV
+  window.admNav = function(tab){
+    ["overview","users","orders","editors","settings"].forEach(t=>{
+      const nav=document.getElementById("admNav_"+t);
+      if(nav) nav.classList.toggle("active", t===tab);
+    });
+
+    document.getElementById("admPanelLeft").style.display = (tab==="overview") ? "" : "none";
+    document.getElementById("admPanelRight").style.display = (tab==="overview") ? "" : "none";
+
+    const tabs = ["users","orders","editors","settings"];
+    tabs.forEach(t=>{
+      const el=document.getElementById("admTab_"+t);
+      if(el) el.style.display = (tab===t) ? "" : "none";
+    });
+
+    const title = document.getElementById("admTitleTop");
+    if(title) title.textContent = tab.charAt(0).toUpperCase()+tab.slice(1);
+  };
+
+  // Seed demo
+  window.admSeedDemo = function(){
+    const d = getData();
+    if(d.users.length || d.orders.length){
+      // don't duplicate; just add a few more
+    }
+    const baseUsers = [
+      {id:"u1", name:"Kauan", email:"kauan@email.com", type:"cliente", banned:false, verified:false, createdAt:Date.now()-86400000*6},
+      {id:"u2", name:"João Editor", email:"joao@edit.com", type:"editor", banned:false, verified:true, createdAt:Date.now()-86400000*5},
+      {id:"u3", name:"Maria", email:"maria@email.com", type:"cliente", banned:false, verified:false, createdAt:Date.now()-86400000*3},
+      {id:"u4", name:"Pedro Editor", email:"pedro@edit.com", type:"editor", banned:false, verified:false, createdAt:Date.now()-86400000*2},
+      {id:"u5", name:"Spammer", email:"spam@x.com", type:"cliente", banned:true, verified:false, createdAt:Date.now()-86400000*1},
+    ];
+    const baseOrders = [
+      {id:"o1", title:"Reels Loja de Roupas", client:"Maria", total:79.9, status:"paid", createdAt:Date.now()-86400000*4},
+      {id:"o2", title:"Shorts Gameplay", client:"Kauan", total:49.9, status:"pending", createdAt:Date.now()-86400000*2},
+      {id:"o3", title:"Fotos Instagram (Cine)", client:"Maria", total:27.4, status:"paid", createdAt:Date.now()-86400000*1},
+      {id:"o4", title:"Legendas + Ajuste Áudio", client:"Kauan", total:39.9, status:"pending", createdAt:Date.now()-3600000*14},
+    ];
+    // Merge unique by id
+    const uMap = new Map(d.users.map(u=>[u.id,u]));
+    baseUsers.forEach(u=>{ if(!uMap.has(u.id)) uMap.set(u.id,u); });
+    d.users = Array.from(uMap.values());
+
+    const oMap = new Map(d.orders.map(o=>[o.id,o]));
+    baseOrders.forEach(o=>{ if(!oMap.has(o.id)) oMap.set(o.id,o); });
+    d.orders = Array.from(oMap.values());
+
+    d.reports = d.reports || 3;
+    d.updatedAt = Date.now();
+    setData(d);
+    admRefresh();
+    alert("Dados demo gerados ✅");
+  };
+
+  window.admExportJson = function(){
+    const d = getData();
+    const blob = new Blob([JSON.stringify(d,null,2)], {type:"application/json"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "karameloo_admin_export.json";
+    a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 500);
+  };
+
+  function calc7dRevenue(d){
+    const now = Date.now();
+    const weekAgo = now - 86400000*7;
+    return d.orders.filter(o=>o.status==="paid" && (o.createdAt||0)>=weekAgo).reduce((s,o)=>s+Number(o.total||0),0);
+  }
+
+  function renderKPIs(){
+    const d = getData();
+    const revenue = d.orders.filter(o=>o.status==="paid").reduce((s,o)=>s+Number(o.total||0),0);
+    const pending = d.orders.filter(o=>o.status!=="paid").length;
+    const active = d.users.filter(u=>!u.banned).length;
+    const bans = d.users.filter(u=>u.banned).length;
+    const verified = d.users.filter(u=>u.type==="editor" && u.verified).length;
+    const revenue7d = calc7dRevenue(d);
+    const conv = d.orders.length ? Math.round((d.orders.filter(o=>o.status==="paid").length / d.orders.length)*100) : 0;
+
+    document.getElementById("admKpiRevenue").textContent = moneyBRL(revenue);
+    document.getElementById("admKpiActive").textContent = String(active);
+    document.getElementById("admKpiBans").textContent = String(bans);
+    document.getElementById("admKpiOrders").textContent = String(d.orders.length);
+    document.getElementById("admKpiPending").textContent = String(pending) + " pendentes";
+    document.getElementById("adm7dRevenue").textContent = moneyBRL(revenue7d);
+    document.getElementById("admConv").textContent = String(conv) + "%";
+    document.getElementById("admVerified").textContent = String(verified);
+    document.getElementById("admKpiReports").textContent = String(d.reports||0) + " reports";
+
+    // "today" pill (demo): payments in last 24h
+    const last24 = Date.now()-86400000;
+    const today = d.orders.filter(o=>o.status==="paid" && (o.createdAt||0)>=last24).reduce((s,o)=>s+Number(o.total||0),0);
+    document.getElementById("admKpiRevenuePill").textContent = (today>0?"+":"") + moneyBRL(today) + " (24h)";
+    const newUsers = d.users.filter(u=>(u.createdAt||0)>=last24).length;
+    document.getElementById("admKpiNewUsers").textContent = "+"+newUsers+" novos (24h)";
+
+    // settings
+    const s = getSettings();
+    const lab = document.getElementById("admCommissionLabel");
+    if(lab) lab.textContent = String(s.commission||25) + "%";
+    const inp = document.getElementById("admCommissionInput");
+    if(inp) inp.value = String(s.commission||25);
+  }
+
+  function orderRow(o, full){
+    const status = o.status==="paid" ? "ok" : "pending";
+    const statusText = o.status==="paid" ? "Paid" : "Pending";
+    const action = `
+      <div class="admAct">
+        ${o.status==="paid"
+          ? `<button onclick="admMarkPending('${o.id}')">Marcar pendente</button>`
+          : `<button class="ok" onclick="admMarkPaid('${o.id}')">Marcar pago</button>`
+        }
+        <button class="danger" onclick="admDeleteOrder('${o.id}')">Excluir</button>
+      </div>`;
+    return `<tr>
+      <td><b>${escapeHtml(o.title||"Pedido")}</b><div style="font-size:12px;color:rgba(229,231,235,.65)">${escapeHtml(o.id||"")}</div></td>
+      <td>${escapeHtml(o.client||"-")}</td>
+      <td>${moneyBRL(o.total||0)}</td>
+      <td><span class="admStatus ${status}">${statusText}</span></td>
+      <td>${action}</td>
+    </tr>`;
+  }
+
+  function userRow(u, kind){
+    const status = u.banned ? "pending" : "ok";
+    const stText = u.banned ? "Banned" : "Active";
+    const verified = (u.type==="editor" && u.verified) ? "✅" : "—";
+    const actions = `
+      <div class="admAct">
+        ${u.banned
+          ? `<button class="ok" onclick="admUnban('${u.id}')">Desbanir</button>`
+          : `<button class="danger" onclick="admBan('${u.id}')">Banir</button>`
+        }
+        ${u.type==="editor"
+          ? (u.verified
+              ? `<button onclick="admUnverify('${u.id}')">Remover selo</button>`
+              : `<button class="ok" onclick="admVerify('${u.id}')">Verificar</button>`
+            )
+          : `<button onclick="admPromoteEditor('${u.id}')">Tornar editor</button>`
+        }
+      </div>`;
+    return `<tr>
+      <td><b>${escapeHtml(u.name||"Usuário")}</b><div style="font-size:12px;color:rgba(229,231,235,.65)">${escapeHtml(u.email||"")}</div></td>
+      <td>${escapeHtml(u.type||"-")}</td>
+      <td><span class="admStatus ${status}">${stText}</span></td>
+      <td>${actions}</td>
+    </tr>`;
+  }
+
+  function editorRow(u){
+    const st = u.banned ? "pending" : "ok";
+    const stText = u.banned ? "Banned" : "Active";
+    const ver = u.verified ? "Yes" : "No";
+    const actions = `
+      <div class="admAct">
+        ${u.verified
+          ? `<button onclick="admUnverify('${u.id}')">Remover selo</button>`
+          : `<button class="ok" onclick="admVerify('${u.id}')">Verificar</button>`
+        }
+        ${u.banned
+          ? `<button class="ok" onclick="admUnban('${u.id}')">Desbanir</button>`
+          : `<button class="danger" onclick="admBan('${u.id}')">Banir</button>`
+        }
+      </div>`;
+    return `<tr>
+      <td><b>${escapeHtml(u.name||"Editor")}</b><div style="font-size:12px;color:rgba(229,231,235,.65)">${escapeHtml(u.email||"")}</div></td>
+      <td><span class="admStatus ${st}">${stText}</span></td>
+      <td>${ver}</td>
+      <td>${actions}</td>
+    </tr>`;
+  }
+
+  function escapeHtml(s){
+    return String(s||"").replace(/[&<>"']/g, m => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+    }[m]));
+  }
+
+  window.admRefresh = function(){
+    renderKPIs();
+    admRenderOrders();
+    admRenderUsers();
+    admRenderEditors();
+  };
+
+  window.admRenderOrders = function(){
+    const d = getData();
+    const q = (document.getElementById("admOrderSearch")?.value||"").toLowerCase();
+    const f = (document.getElementById("admOrderFilter")?.value||"all");
+    let orders = [...d.orders].sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+    if(q){
+      orders = orders.filter(o => (o.title||"").toLowerCase().includes(q) || (o.client||"").toLowerCase().includes(q));
+    }
+    if(f==="paid") orders = orders.filter(o=>o.status==="paid");
+    if(f==="pending") orders = orders.filter(o=>o.status!=="paid");
+
+    const tbodyAll = document.getElementById("admOrdersAllBody");
+    if(tbodyAll) tbodyAll.innerHTML = orders.map(o=>orderRow(o,true)).join("") || `<tr><td colspan="5" style="padding:10px;color:rgba(229,231,235,.7)">Sem pedidos.</td></tr>`;
+
+    const tbody = document.getElementById("admOrdersBody");
+    if(tbody){
+      const recent = orders.slice(0,5);
+      tbody.innerHTML = recent.map(o=>orderRow(o,false)).join("") || `<tr><td colspan="5" style="padding:10px;color:rgba(229,231,235,.7)">Sem pedidos.</td></tr>`;
+    }
+    renderKPIs();
+  };
+
+  window.admRenderUsers = function(){
+    const d = getData();
+    const q = (document.getElementById("admUserSearch")?.value||"").toLowerCase();
+    const f = (document.getElementById("admUserFilter")?.value||"all");
+    let users = [...d.users].sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+    if(q){
+      users = users.filter(u => (u.name||"").toLowerCase().includes(q) || (u.email||"").toLowerCase().includes(q));
+    }
+    if(f==="editor") users = users.filter(u=>u.type==="editor");
+    if(f==="cliente") users = users.filter(u=>u.type!=="editor");
+    if(f==="banned") users = users.filter(u=>u.banned);
+
+    const tbody = document.getElementById("admUsersBody");
+    if(tbody) tbody.innerHTML = users.map(u=>userRow(u)).join("") || `<tr><td colspan="4" style="padding:10px;color:rgba(229,231,235,.7)">Sem usuários.</td></tr>`;
+    renderKPIs();
+  };
+
+  window.admRenderEditors = function(){
+    const d = getData();
+    const editors = d.users.filter(u=>u.type==="editor").sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+    const tbody = document.getElementById("admEditorsBody");
+    if(tbody) tbody.innerHTML = editors.map(e=>editorRow(e)).join("") || `<tr><td colspan="4" style="padding:10px;color:rgba(229,231,235,.7)">Sem editores.</td></tr>`;
+    renderKPIs();
+  };
+
+  // actions
+  function updateUser(id, patch){
+    const d = getData();
+    const u = d.users.find(x=>String(x.id)===String(id));
+    if(!u) return;
+    Object.assign(u, patch);
+    d.updatedAt = Date.now();
+    setData(d);
+    admRefresh();
+  }
+  function updateOrder(id, patch){
+    const d = getData();
+    const o = d.orders.find(x=>String(x.id)===String(id));
+    if(!o) return;
+    Object.assign(o, patch);
+    d.updatedAt = Date.now();
+    setData(d);
+    admRefresh();
+  }
+  window.admBan = (id)=>updateUser(id,{banned:true});
+  window.admUnban = (id)=>updateUser(id,{banned:false});
+  window.admVerify = (id)=>updateUser(id,{verified:true});
+  window.admUnverify = (id)=>updateUser(id,{verified:false});
+  window.admPromoteEditor = (id)=>updateUser(id,{type:"editor", verified:false});
+
+  window.admMarkPaid = (id)=>updateOrder(id,{status:"paid"});
+  window.admMarkPending = (id)=>updateOrder(id,{status:"pending"});
+  window.admDeleteOrder = (id)=>{
+    const d = getData();
+    d.orders = d.orders.filter(o=>String(o.id)!==String(id));
+    d.updatedAt = Date.now();
+    setData(d);
+    admRefresh();
+  };
+
+  window.admSaveSettings = ()=>{
+    const inp = document.getElementById("admCommissionInput");
+    const v = Math.max(0, Math.min(100, parseFloat(inp?.value||"25")));
+    const s = getSettings();
+    s.commission = isFinite(v)?v:25;
+    setSettings(s);
+    admRefresh();
+    alert("Configurações salvas ✅");
+  };
+
+  // Boot: show ADM if admin is logged (or if localStorage flag exists)
+  function boot(){
+    const force = (sessionStorage.getItem('karameloo_force_admin')==='1');
+    if(force){
+      const page = document.querySelector('.page');
+      if(page) page.style.display = 'none';
+
+      // Esconde qualquer modal/overlay de cadastro/login que esteja aberto
+      try{
+        const modal = document.getElementById('cadastroModal');
+        if(modal) modal.classList.remove('show');
+        const ov = document.getElementById('overlay');
+        if(ov) ov.classList.remove('show');
+      }catch(e){}
+
+      const dash = document.getElementById('admDashboard');
+      if(dash){
+        dash.style.display = 'block';
+        dash.style.visibility = 'visible';
+      }
+
+      document.body.classList.add('adm-open');
+      // Garante que o dashboard apareça no topo (sem precisar rolar)
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      return;
+    }
+
+    // modo normal (não-ADM)
+    document.body.classList.remove('adm-open');
+    const page = document.querySelector('.page');
+    if(page) page.style.display = '';
+    const dash = document.getElementById('admDashboard');
+    if(dash){
+      dash.style.display = 'none';
+      dash.style.visibility = 'hidden';
+    }
+  }
+
+  // expose manual open for debugging
+  window.openAdminDashboard = function(){
+    sessionStorage.setItem('karameloo_force_admin','1');
+    boot();
+  };
+
+  window.closeAdminDashboard = function(){
+    sessionStorage.removeItem('karameloo_force_admin');
+    boot();
+    // volta para o topo/entrada
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  };
+
+  // run boot now and on hash change
+  setTimeout(boot, 50);
+})();
+</script>
+
 </body>
 </html>
