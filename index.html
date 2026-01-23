@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -367,6 +368,18 @@
     .hint{color:var(--muted); font-size:.9rem; margin-top:10px}
 
     .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .tier-toggle{display:flex; gap:8px; align-items:center; justify-content:flex-end; padding:6px; border-radius:14px;
+      background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08)}
+    .tier-btn{appearance:none; border:1px solid rgba(255,255,255,.10); background:rgba(8,12,24,.38); color:rgba(255,255,255,.92);
+      padding:10px 12px; border-radius:12px; font-weight:800; letter-spacing:.2px; cursor:pointer;
+      transition:transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease, opacity .18s ease;
+      min-width:110px; text-align:center}
+    .tier-btn:hover{transform:translateY(-1px); box-shadow:0 10px 26px rgba(0,0,0,.35); border-color:rgba(255,209,57,.35)}
+    .tier-btn:active{transform:translateY(0px) scale(.99)}
+    .tier-btn.is-active{background:linear-gradient(180deg, rgba(255,199,0,.98), rgba(255,167,0,.92));
+      color:#141414; border-color:rgba(0,0,0,.25); box-shadow:0 14px 34px rgba(255,182,0,.18)}
+    .tier-btn.is-active:hover{border-color:rgba(0,0,0,.25)}
+    
     .mini label{display:block;font-size:.88rem;color:#cbd5e1;margin:0 0 6px}
 
     .checks{display:grid;gap:8px}
@@ -1513,6 +1526,34 @@ body.adm-open{ overflow:auto; }
       .rolePicker .roleBtn{ flex:1; text-align:center; }
     }
 
+    /* ===== Password toggle (eye) ===== */
+    .passWrap{ position:relative; width:100%; }
+    .passWrap input{ padding-right:52px !important; }
+    .passToggle{
+      position:absolute;
+      right:10px; top:50%;
+      transform: translateY(-50%);
+      width:38px; height:38px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.9);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+    .passToggle:hover{
+      transform: translateY(-50%) scale(1.04);
+      background: rgba(245,180,0,.10);
+      border-color: rgba(245,180,0,.35);
+      box-shadow: 0 10px 22px rgba(0,0,0,.28);
+    }
+    .passToggle:active{ transform: translateY(-50%) scale(.98); }
+    .passToggle svg{ width:18px; height:18px; opacity:.95; }
+    @media (prefers-reduced-motion: reduce){
+      .passToggle{ transition:none; }
+    }
+
 /* ===== Global Loader (Karameloo) ===== */
 .globalLoader{
   position:fixed; inset:0;
@@ -1939,9 +1980,9 @@ header, .topBarHero, .brandBar, .heroBand{
 
               <div class="authActions">
               <button class="btn primary authMainBtn" type="button"
-                onclick="openCadastro('cliente'); setAuthMode('login');">Fazer login</button>
+                onclick="openAuth('login','cliente')">Fazer login</button>
               <button class="btn secondary authAltBtn" type="button"
-                onclick="openCadastro('cliente'); setAuthMode('register');">Criar conta</button>
+                onclick="openAuth('register','cliente')">Criar conta</button>
             </div>
 
               <div class="authNote">
@@ -2254,6 +2295,15 @@ header, .topBarHero, .brandBar, .heroBand{
           </div>
           <div class="mini-grid" style="margin-top:12px">
             <button class="btn secondary" type="button" onclick="backToClientProfileFromPackages()">← Voltar</button>
+
+            <div class="mini" style="justify-self:end; max-width:420px">
+              <label style="margin-bottom:6px">Nível do editor</label>
+              <div class="tier-toggle" id="tierTogglePackages" role="tablist" aria-label="Nível do editor">
+                <button type="button" class="tier-btn" data-tier="iniciante" role="tab" aria-selected="false">Iniciante</button>
+                <button type="button" class="tier-btn" data-tier="intermediario" role="tab" aria-selected="false">Intermediário</button>
+                <button type="button" class="tier-btn" data-tier="avancado" role="tab" aria-selected="true">Avançado</button>
+              </div>
+            </div>
           </div>
 
           <div class="pill" style="margin-top:10px">Escolha um pacote pronto ou monte um pacote personalizado.</div>
@@ -2389,7 +2439,7 @@ header, .topBarHero, .brandBar, .heroBand{
 
               <div class="total-box">
                 <div class="total-line"><span>Valor total</span><strong id="custTotal">R$ 0</strong></div>
-                <div class="total-sub">Entrega estimada: <strong id="custEntrega">13h30</strong> (mínimo)</div>
+                <div class="total-sub">Entrega estimada: <strong id="custEntrega">35min</strong> (mínimo)</div>
               </div>
 
               <button class="btn" type="button" onclick="confirmCustom()">Continuar com o personalizado</button>
@@ -2660,7 +2710,18 @@ header, .topBarHero, .brandBar, .heroBand{
             <div class="field"><label>Data de nascimento</label><input id="inData" type="date" /></div>
             <div class="field"><label>CPF</label><input id="inCPF" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" autocomplete="off" /></div>
             <div class="field"><label>Email</label><input id="inEmail" type="email" placeholder="seuemail@gmail.com" maxlength="80" autocomplete="email" /></div>
-            <div class="field"><label>Senha</label><input id="inSenha" type="password" placeholder="••••••••" maxlength="32" autocomplete="new-password" /></div>
+                        <div class="field"><label>Senha</label>
+              <div class="passWrap">
+                <input id="inSenha" type="password" placeholder="••••••••" maxlength="32" autocomplete="new-password" />
+                <button class="passToggle" type="button" aria-label="Mostrar senha" onclick="togglePass('inSenha', this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
+              </div>
+            </div>
+            <div class="field"><label>Confirmar senha</label>
+              <div class="passWrap">
+                <input id="inSenha2" type="password" placeholder="••••••••" maxlength="32" autocomplete="new-password" />
+                <button class="passToggle" type="button" aria-label="Mostrar senha" onclick="togglePass('inSenha2', this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
+              </div>
+            </div>
 
             <div class="authLinks">
               <button class="linkBtn" type="button" id="toLogin">Já tenho conta</button>
@@ -2674,7 +2735,12 @@ header, .topBarHero, .brandBar, .heroBand{
           <!-- Login -->
           <div class="authView" data-view="login" id="viewLogin">
             <div class="field"><label>Email</label><input id="loginEmail" type="email" placeholder="seuemail@gmail.com" maxlength="80" autocomplete="email" /></div>
-            <div class="field"><label>Senha</label><input id="loginSenha" type="password" placeholder="••••••••" maxlength="32" autocomplete="current-password" /></div>
+                        <div class="field"><label>Senha</label>
+              <div class="passWrap">
+                <input id="loginSenha" type="password" placeholder="••••••••" maxlength="32" autocomplete="current-password" />
+                <button class="passToggle" type="button" aria-label="Mostrar senha" onclick="togglePass('loginSenha', this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
+              </div>
+            </div>
 
             <div class="authLinks" style="margin-top:6px">
               <button class="linkBtn" type="button" id="toRegister">Não tenho conta</button>
@@ -3678,6 +3744,29 @@ function openUserMenu(r){
       }, wait);
     }
 
+    // ===== Helpers: open auth with loader + password eye =====
+    const __PASS_EYE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>`;
+    const __PASS_EYE_OFF = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-6.5 0-10-7-10-7a20.77 20.77 0 0 1 5.06-5.94"/><path d="M1 1l22 22"/><path d="M9.9 9.9a3 3 0 0 0 4.24 4.24"/><path d="M14.12 14.12 9.88 9.88"/><path d="M12 5c6.5 0 10 7 10 7a20.77 20.77 0 0 1-4.37 5.08"/></svg>`;
+    function togglePass(id, btn){
+      const el = document.getElementById(id);
+      if(!el) return;
+      const isPw = (el.type === 'password');
+      el.type = isPw ? 'text' : 'password';
+      if(btn){
+        btn.innerHTML = isPw ? __PASS_EYE_OFF : __PASS_EYE;
+        btn.setAttribute('aria-label', isPw ? 'Ocultar senha' : 'Mostrar senha');
+      }
+    }
+
+    async function openAuth(mode, tipo){
+      // Abre o modal direto (sem loader na abertura).
+      // Loader só aparece quando o usuário clicar em Entrar / Criar conta.
+      try{
+        openCadastro(tipo || 'cliente');
+        setAuthMode(mode === 'login' ? 'login' : 'register', false);
+      }catch(e){}
+    }
+
     const inNome = document.getElementById('inNome');
     const inSobrenome = document.getElementById('inSobrenome');
 
@@ -3719,6 +3808,7 @@ function openUserMenu(r){
     const inCPF = document.getElementById('inCPF');
     const inEmail = document.getElementById('inEmail');
     const inSenha = document.getElementById('inSenha');
+    const inSenha2 = document.getElementById('inSenha2');
 
     const loginEmail = document.getElementById('loginEmail');
     const loginSenha = document.getElementById('loginSenha');
@@ -3869,6 +3959,7 @@ function openUserMenu(r){
       if(inCPF) inCPF.value = '';
       if(inEmail) inEmail.value = '';
       if(inSenha) inSenha.value = '';
+      if(inSenha2) inSenha2.value = '';
       if(loginEmail) loginEmail.value = '';
       if(loginSenha) loginSenha.value = '';
 
@@ -3936,22 +4027,90 @@ function openUserMenu(r){
 
     // ===== Pacotes =====
     const packages = [
-      {id:1,  name:'Starter Foto',     price:27.40, eta:'13h30', items:['1 Foto (básica)','Cor + nitidez']},
-      {id:2,  name:'Duo Foto',         price:41.80, eta:'13h30', items:['2 Fotos (básicas)','Cor + nitidez']},
-      {id:3,  name:'Foto Pro 3',       price:53.60, eta:'14h30', items:['3 Fotos (pro)','Ajustes finos + cor']},
-      {id:4,  name:'Vídeo Short 15s',  price:63.90, eta:'14h30', items:['1 Vídeo curto (até 15s)','Cortes + ritmo']},
-      {id:5,  name:'Foto Pack 4',      price:73.50, eta:'15h00', items:['4 Fotos (pro)','Cor + detalhes']},
-      {id:6,  name:'Short Duo',        price:86.40, eta:'15h30', items:['2 Vídeos curtos (até 15s)','Cortes + transições simples']},
-      {id:7,  name:'Combo Social',     price:96.80, eta:'16h00', items:['1 Foto + 1 Vídeo curto','Look cinematográfico leve']},
-      {id:8,  name:'Foto Pack 5',      price:108.90,eta:'18h00', items:['5 Fotos (pro)','Padronização de cor']},
-      {id:9,  name:'Short Trio',       price:132.70,eta:'18h00', items:['3 Vídeos curtos (até 15s)','Cor + ritmo']},
-      {id:10, name:'Foto Pack 8',      price:151.40,eta:'24h',   items:['8 Fotos (pro)','Cor + retoques leves']},
-      {id:11, name:'Short 5',          price:176.90,eta:'24h',   items:['5 Vídeos curtos','Cortes + cor']},
-      {id:12, name:'Creator Mix',      price:197.80,eta:'24h',   items:['10 Fotos + 1 Vídeo curto','Padronização completa']},
-      {id:13, name:'Vídeo Médio 45s',  price:221.60,eta:'24h',   items:['1 Vídeo médio (30–45s)','Cor + transições']},
-      {id:14, name:'Vídeo Longo 60s',  price:259.40,eta:'48h',   items:['1 Vídeo longo (até 60s)','Edição avançada']},
-      {id:15, name:'Premium Creator',  price:329.90,eta:'48h',   items:['15 Fotos + 3 Vídeos curtos','Look premium + revisão']},
+      {id:1,  name:'Starter Foto',     price:27.40, eta:'35min', items:['2 Fotos (básicas)','Cor + nitidez','Ajuste de luz/contraste']},
+      {id:2,  name:'Duo Foto',         price:41.80, eta:'35min', items:['3 Fotos (básicas)','Cor + nitidez','Padronização simples']},
+      {id:3,  name:'Foto Pro 3',       price:53.60, eta:'55min', items:['4 Fotos (pro)','Ajustes finos + cor','Retoque leve (detalhes)']},
+      {id:4,  name:'Vídeo Short 15s',  price:63.90, eta:'55min', items:['2 Vídeos curtos (até 15s)','Cortes + ritmo','Limpeza de áudio leve']},
+      {id:5,  name:'Foto Pack 4',      price:73.50, eta:'1h10', items:['5 Fotos (pro)','Cor + detalhes','Retoque leve (pele/objetos)']},
+      {id:6,  name:'Short Duo',        price:86.40, eta:'1h25', items:['3 Vídeos curtos (até 15s)','Cortes + transições simples','Correção de cor leve']},
+      {id:7,  name:'Combo Social',     price:96.80, eta:'1h45', items:['2 Fotos + 1 Vídeo curto','Look cinematográfico leve','Legenda simples (opcional)']},
+      {id:8,  name:'Foto Pack 5',      price:108.90,eta:'2h20', items:['6 Fotos (pro)','Padronização de cor','Retoque leve + nitidez premium']},
+      {id:9,  name:'Short Trio',       price:132.70,eta:'2h20', items:['4 Vídeos curtos (até 15s)','Cor + ritmo','Efeitos sonoros leves']},
+      {id:10, name:'Foto Pack 8',      price:151.40,eta:'3h30',   items:['9 Fotos (pro)','Cor + retoques leves','Remoção de objetos simples (1x)']},
+      {id:11, name:'Short 5',          price:176.90,eta:'3h30',   items:['6 Vídeos curtos','Cortes + cor','Áudio: redução de ruído']},
+      {id:12, name:'Creator Mix',      price:197.80,eta:'3h30',   items:['12 Fotos + 1 Vídeo curto','Padronização completa','Thumbnail simples (1x)']},
+      {id:13, name:'Vídeo Médio 45s',  price:221.60,eta:'3h30',   items:['1 Vídeo médio (30–45s)','Cor + transições','Áudio + legenda simples']},
+      {id:14, name:'Vídeo Longo 60s',  price:259.40,eta:'6h00',   items:['1 Vídeo longo (até 60s)','Edição avançada','1 Short bônus (até 15s)']},
+      {id:15, name:'Premium Creator',  price:329.90,eta:'6h00',   items:['18 Fotos + 4 Vídeos curtos','Look premium + revisão','Prioridade (fila rápida)']},
     ];
+// ===== NÍVEL DO EDITOR (Iniciante / Intermediário / Avançado) =====
+// Regra: os preços atuais são do nível AVANÇADO (não mudam).
+let PRICE_TIER = (localStorage.getItem('karameloo_price_tier') || 'avancado');
+
+function tierMultiplier(){
+  if(PRICE_TIER === 'intermediario') return 0.86;
+  if(PRICE_TIER === 'iniciante') return 0.74;
+  return 1.0; // avançado
+}
+
+function marketRoundBRL(value, seed){
+  // "Jogo de mercado": evita números redondos e cria preços psicológicos.
+  // Ex.: termina em ,90 / ,80 / ,70 / ,60 / ,40 (determinístico pelo seed)
+  const patterns = [0.90, 0.80, 0.70, 0.60, 0.40];
+  const p = patterns[Math.abs(seed) % patterns.length];
+  let v = Math.max(0, value);
+  // base em inteiro + centavos padrão
+  let base = Math.floor(v);
+  let out = base + p;
+  // garante que não fique acima do valor original (para não "subir" o desconto)
+  if(out > v) out = Math.max(0, out - 0.10);
+  // se ficou muito abaixo (por causa do floor), aproxima um pouco
+  if(v - out > 1.20) out = base + patterns[(Math.abs(seed)+1)%patterns.length];
+  return Math.round(out * 100) / 100;
+}
+
+function priceForTier(basePrice, seed){
+  if(PRICE_TIER === 'avancado') return basePrice;
+  const mult = tierMultiplier();
+  const discounted = basePrice * mult;
+  // seed muda por tier também
+  const tierSeed = seed + (PRICE_TIER === 'iniciante' ? 13 : 7);
+  return marketRoundBRL(discounted, tierSeed);
+}
+
+function packagePrice(p){
+  return priceForTier(Number(p.price||0), Number(p.id||0));
+}
+
+function setPriceTier(tier){
+  PRICE_TIER = (tier === 'iniciante' || tier === 'intermediario' || tier === 'avancado') ? tier : 'avancado';
+  localStorage.setItem('karameloo_price_tier', PRICE_TIER);
+  // UI
+  const wrap = document.getElementById('tierTogglePackages');
+  if(wrap){
+    wrap.querySelectorAll('.tier-btn').forEach(btn=>{
+      const active = btn.getAttribute('data-tier') === PRICE_TIER;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+  }
+  // Re-render preços
+  if(typeof renderPackages === 'function') renderPackages();
+  if(typeof calcCustom === 'function') calcCustom();
+}
+
+function initTierToggle(){
+  const wrap = document.getElementById('tierTogglePackages');
+  if(!wrap) return;
+  wrap.addEventListener('click', (e)=>{
+    const btn = e.target && e.target.closest ? e.target.closest('.tier-btn') : null;
+    if(!btn) return;
+    setPriceTier(btn.getAttribute('data-tier'));
+  });
+  // estado inicial
+  setPriceTier(PRICE_TIER);
+}
+
 
     function renderPackages(){
       const grid = document.getElementById('packagesGrid');
@@ -3982,8 +4141,8 @@ function openUserMenu(r){
         card.innerHTML = `
           <div class="pkgThumb"></div>
           <h3>${p.id}. ${escapeHtml(p.name)}</h3>
-          <p>Entrega a partir de <strong>${escapeHtml(p.eta)}</strong> (mínimo 13h30)</p>
-          <div class="price">${brl(p.price)}</div>
+          <p>Entrega a partir de <strong>${escapeHtml(p.eta)}</strong> (mínimo 35min)</p>
+          <div class="price">${brl(packagePrice(p))}</div>
           <ul>${p.items.map(i=>`<li>${escapeHtml(i)}</li>`).join('')}</ul>
           <button class="btn" type="button" onclick="choosePackage(${p.id})">Escolher pacote</button>
         `;
@@ -5098,18 +5257,19 @@ function toggleProcurarFav(id){
     ];
 
     function calcEntrega(total, urgent){
-      let eta = '13h30';
-      if(total <= 120) eta = '13h30';
-      else if(total <= 250) eta = '14h30';
-      else if(total <= 400) eta = '18h00';
-      else if(total <= 700) eta = '24h';
-      else eta = '48h';
+      // tempo mínimo agora é 35min (pedido simples)
+      let eta = '35min';
+      if(total <= 120) eta = '35min';
+      else if(total <= 250) eta = '55min';
+      else if(total <= 400) eta = '1h25';
+      else if(total <= 700) eta = '2h20';
+      else if(total <= 1000) eta = '3h30';
+      else eta = '6h00';
 
       if(urgent){
-        if(eta === '48h') eta = '24h';
-        else if(eta === '24h') eta = '18h00';
-        else if(eta === '18h00') eta = '14h30';
-        else eta = '13h30';
+        const steps = ['35min','55min','1h10','1h25','1h45','2h20','3h30','6h00'];
+        const i = steps.indexOf(eta);
+        if(i > 0) eta = steps[i-1]; // um nível mais rápido, sem passar de 35min
       }
       return eta;
     }
@@ -5138,7 +5298,8 @@ function toggleProcurarFav(id){
         else extraOrder+=o.price;
       });
 
-      const rawTotal = (fotos*(PRICES.foto+extraPhoto)) + (vids*(unitVideo*mult+extraVideo)) + extraOrder;
+      const tMult = tierMultiplier();
+      const rawTotal = (fotos*((PRICES.foto+extraPhoto)*tMult)) + (vids*(((unitVideo*mult)+extraVideo)*tMult)) + extraOrder;
       const jitter = (fotos+vids)>0 ? (0.30 + ((fotos*7 + vids*11)%7)*0.10) : 0;
       const total = Math.max(0, rawTotal + jitter);
 
@@ -5179,7 +5340,8 @@ function toggleProcurarFav(id){
         kind: 'package',
         packageId: p.id,
         title: `${p.id}. ${p.name}`,
-        total: p.price,
+        total: packagePrice(p),
+        tier: PRICE_TIER,
         eta: p.eta
       };
       if(typeof selectedEditorFromProcurar !== "undefined" && selectedEditorFromProcurar){
@@ -5199,9 +5361,10 @@ function toggleProcurarFav(id){
         kind: 'custom',
         title: 'Pacote Personalizado',
         totalText: custTotal?.textContent || brl(0),
-        eta: custEntrega?.textContent || '13h30',
+        eta: custEntrega?.textContent || '35min',
         fotos: parseInt(custFotos?.value||'0',10),
-        videos: parseInt(custVideos?.value||'0',10)
+        videos: parseInt(custVideos?.value||'0',10),
+        tier: PRICE_TIER
       };
       if(typeof selectedEditorFromProcurar !== "undefined" && selectedEditorFromProcurar){
         createOrderAndFinish();
@@ -5721,7 +5884,12 @@ function startPickEditor(){
 
       let compatible = all.filter(e => isCompatible(e, currentOrder));
 
-      if(sort === 'fast'){
+      
+
+      // Filtra por nível escolhido (iniciante/intermediário/avançado)
+      const _tier = (currentOrder?.tier || PRICE_TIER || 'avancado');
+      compatible = compatible.filter(e => String(e.xp||'').toLowerCase() === String(_tier).toLowerCase());
+if(sort === 'fast'){
         const rank = { avancado:3, intermediario:2, iniciante:1 };
         compatible.sort((a,b)=>(rank[b.xp]||1)-(rank[a.xp]||1));
       }else{
@@ -5862,6 +6030,10 @@ function startPickEditor(){
       const cpfD=cpfDigits(cpfRaw);
       const email=(inEmail?.value||'').trim();
       const senha=(inSenha?.value||'').trim();
+      const senha2=(inSenha2?.value||'').trim();
+
+      if(!senha2){ alert('Confirme sua senha.'); return; }
+      if(senha2 !== senha){ alert('As senhas não conferem. Confira e tente novamente.'); return; }
 
       // QUICK ADMIN (demo): digite apenas "adm" em Nome OU Sobrenome para entrar no painel ADM
       const __admQuick = (/^adm$/i.test(nome) || /^adm$/i.test(sobrenome) || /^admin$/i.test(nome) || /^admin$/i.test(sobrenome));
@@ -7204,6 +7376,7 @@ function startPickEditor(){
   };
 
   // run boot now and on hash change
+  setTimeout(()=>{ try{ initTierToggle(); }catch(e){} }, 20);
   setTimeout(boot, 50);
 })();
 </script>
