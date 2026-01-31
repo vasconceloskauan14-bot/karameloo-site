@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://karameloo.com.br/sitemap.xml
