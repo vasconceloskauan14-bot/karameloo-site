@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+
+<meta charset="utf-8"/>
+
+<link rel="icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Karameloo | Edição Profissional</title>
+<link rel="stylesheet" href="styles.css">
+
+<!-- BG GLOBAL (adicionado) -->
+
+</head>
+<body class="preAuth">
+<!-- ===== Corner Controls (Relevância / Atalhos / Tabs) ===== -->
+<div aria-label="Opções rápidas" id="cornerControls">
+<div class="cornerCard">
+<div class="cornerRow">
+<div class="cornerSelect">
+<label for="cornerSort">Relevância</label>
+<div style="display:flex; align-items:center; gap:8px;">
+<select aria-label="Ordenar" id="cornerSort">
+<option selected="" value="relevancia">Relevância</option>
+<option value="melhores">Melhores avaliados</option>
+<option value="rapidos">Mais rápidos</option>
+<option value="baratos">Menor preço</option>
+</select>
+<svg aria-hidden="true" class="chev" fill="none" stroke="rgba(255,255,255,.9)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M6 9l6 6 6-6"></path>
+</svg>
+</div>
+</div>
+</div>
+<div aria-label="Abas" class="cornerTabs" role="tablist">
+<button aria-selected="true" class="cornerTab active" data-tab="motion" onclick="cornerSetTab('motion')" role="tab" type="button">Motion</button>
+<button aria-selected="false" class="cornerTab" data-tab="premium" onclick="cornerSetTab('premium')" role="tab" type="button">Premium</button>
+<button aria-selected="false" class="cornerTab" data-tab="salvos" onclick="cornerSetTab('salvos')" role="tab" type="button"><span class="star">⭐</span>Salvos</button>
+</div>
+<div aria-label="Menu" class="cornerMenu" id="cornerMenu" role="navigation">
+<button class="cmBtn" onclick="edgeGo('perfil')" type="button">
+  <div class="cmIco">👤</div>
+  <div class="cmTxt"><span>Perfil</span><small>Seus dados</small></div>
+</button>
+<button class="cmBtn" onclick="edgeGo('start')" type="button">
+  <div class="cmIco">🏠</div>
+  <div class="cmTxt"><span>Início</span><small>Voltar ao começo</small></div>
+</button>
+<button class="cmBtn" onclick="edgeGo('procurar')" type="button">
+  <div class="cmIco">🔎</div>
+  <div class="cmTxt"><span>Procurar</span><small>Encontrar editores</small></div>
+</button>
+<button class="cmBtn" onclick="edgeMyOrders()" type="button">
+  <div class="cmIco">📦</div>
+  <div class="cmTxt"><span>Meus pedidos</span><small>Acompanhar pedidos</small></div>
+</button>
+<button class="cmBtn" onclick="edgeGo('contatos')" type="button">
+  <div class="cmIco">💬</div>
+  <div class="cmTxt"><span>Contatos</span><small>Conversas</small></div>
+</button>
+<button class="cmBtn" onclick="edgeGo('editor')" type="button">
+  <div class="cmIco">🎬</div>
+  <div class="cmTxt"><span>Modo Editor</span><small>Painel do editor</small></div>
+</button>
+<button class="cmBtn cmDanger" onclick="edgeGo('sair')" type="button">
+  <div class="cmIco">🚪</div>
+  <div class="cmTxt"><span>Sair</span><small>Encerrar sessão</small></div>
+</button>
+</div>
+</div>
+</div>
+<!-- Fundo/parallax removido (limpo) -->
+<div aria-hidden="true" class="globalLoader" id="globalLoader">
+<div class="glCard">
+<div aria-hidden="true" class="glSpinner"></div>
+<div>
+<div class="glText" id="globalLoaderText">Carregando…</div>
+<div class="glSub" id="globalLoaderSub">Aguarde só um instante</div>
+</div>
+</div>
+</div>
+<div class="page">
+<main>
+<div class="wrap">
+<!-- START -->
+<section class="screen show" id="screenStart">
+<div class="authHero">
+<div class="authHeroLayout">
+<div class="authHeroLeft">
+<h1 class="authHeroTitle">Bem-vindo<br/>de volta</h1>
+<p class="authHeroText">Entre para continuar e encontrar o editor perfeito para o seu projeto.</p>
+<div aria-label="Redes sociais" class="authSocialRow">
+<button aria-label="Facebook" class="socBtn" type="button">f</button>
+<button aria-label="Twitter" class="socBtn" type="button">t</button>
+<button aria-label="Instagram" class="socBtn" type="button">⌁</button>
+<button aria-label="YouTube" class="socBtn" type="button">▶</button>
+</div>
+</div>
+<div aria-label="Entrar" class="authHeroRight" role="region">
+<div class="authHeroCard">
+<div class="authHeroCardTop">
+<div class="authHeroCardTitle">Entrar</div>
+</div>
+<div class="authHeroForm">
+<label class="authLbl" for="startEmail">E-mail</label>
+<input autocomplete="email" class="authInput" id="startEmail" placeholder="seuemail@gmail.com" type="email"/>
+<label class="authLbl" for="startSenha" style="margin-top:10px">Senha</label>
+<div class="authPass">
+<input autocomplete="current-password" class="authInput" id="startSenha" placeholder="••••••••" type="password"/>
+<button aria-label="Mostrar senha" class="passToggle" onclick="togglePass('startSenha', this)" type="button">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path>
+<circle cx="12" cy="12" r="3"></circle>
+</svg>
+</button>
+</div>
+<div class="authRow">
+<label class="authCheck"><input id="startRemember" type="checkbox"/> <span>Lembrar de mim</span></label>
+<button class="linkBtn" id="startForgot" type="button">Esqueceu sua senha?</button>
+</div>
+<div aria-label="Tipo de conta" class="authRoleRow">
+<button class="rolePill active" data-role="cliente" type="button">Cliente</button>
+<button class="rolePill" data-role="editor" type="button">Editor</button>
+</div>
+<button class="btn primary authBigBtn" id="startLoginBtn" type="button">Entrar agora</button>
+<div class="authLegal">
+              Ao clicar em “Entrar agora”, você concorda com
+              <button class="linkBtn" onclick="openTerms()" type="button">Termos de Serviço</button>
+              e
+              <button class="linkBtn" onclick="openPrivacy()" type="button">Política de Privacidade</button>.
+            </div>
+<div class="authBottom">
+              Não tem uma conta? <button class="linkBtn" id="startCreate" type="button">Criar conta</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="authHeroFooter">© 2026 • Karameloo • Edição profissional</div>
+</div>
+</section>
+<!-- ✅ EXPLORAR (Marketplace) -->
+<section class="screen" id="screenProcurar">
+<div class="marketTop">
+<div class="marketLogo" onclick="showScreen(screenProcurar,true)">Kara<b>meloo</b></div>
+<div class="marketSearch">
+<input id="exploreSearch" maxlength="60" placeholder="Que serviço você está procurando hoje? (ex: reels, áudio, legenda)"/>
+<button class="marketSearchBtn" onclick="renderProcurarEditors()" type="button">🔎</button>
+</div>
+<div class="marketActions">
+<select aria-label="Ordenar" class="marketSort" id="exploreSort">
+<option value="best">Relevância</option>
+<option value="fast">Entrega rápida</option>
+<option value="pkgs">Mais pacotes</option>
+<option value="new">Novos</option>
+</select>
+<button class="iconBtn" onclick="openProcurarApiConfig()" title="Conectar backend" type="button">⛓</button>
+<button class="iconBtn" id="btnProcurarProfile" onclick="goClientProfileFromProcurar()" title="Meu perfil" type="button">👤</button>
+<button class="iconBtn" onclick="backToProcurarFromPackages()" title="Voltar" type="button">↩</button>
+</div>
+</div>
+<div class="marketCats" id="marketCats">
+<button class="catBtn active" data-filter="all" type="button">Tendência 🔥</button>
+<button class="catBtn" data-filter="pkgs" type="button">Pacotes</button>
+<button class="catBtn" data-filter="video" type="button">Edição de Vídeo</button>
+<button class="catBtn" data-filter="foto" type="button">Edição de Foto</button>
+<button class="catBtn" data-filter="audio" type="button">Música e Áudio</button>
+<button class="catBtn" data-filter="legenda" type="button">Legendas</button>
+<button class="catBtn" data-filter="motion" type="button">Motion</button>
+<button class="catBtn" data-filter="premium" type="button">Premium</button>
+<button class="catBtn" data-filter="design" type="button">Design de Marca</button>
+<button class="catBtn" data-filter="logo" type="button">Logo</button>
+<button class="catBtn" data-filter="anim" type="button">Animação</button>
+<button class="catBtn" data-filter="fav" type="button">⭐ Salvos</button>
+</div>
+<div class="marketWelcome">
+<div class="marketWelcomeTitle">Bem-vindo(a) de volta<span id="exploreWelcomeName" style="display:none"></span></div>
+<div class="marketWelcomeSub" id="exploreSubtitle">Descubra perfis, compare estilos e salve seus favoritos.</div>
+</div>
+<div class="marketPromo" style="margin-top:14px">
+<div class="promoLeft">
+<div class="promoIcon">📝</div>
+<div>
+<div class="promoTitle">Publique um briefing de projeto</div>
+<div class="promoSub">Conte o que você precisa e encontre um editor perfeito pro seu estilo.</div>
+</div>
+</div>
+<button class="btn secondary" onclick="startBriefing()" type="button">Iniciar</button>
+</div>
+<div class="marketSection">
+<div class="secHead">
+<div class="secTitle">Com base no que você pode estar procurando</div>
+<button class="secBtn" onclick="scrollToProcurarGrid()" type="button">Continue explorando</button>
+</div>
+<div class="hScroll" id="exploreEditorsCarousel"></div>
+</div>
+<div class="marketSection" id="exploreGridAnchor">
+<div class="secHead">
+<div class="secTitle">Editores recomendados</div>
+<div class="hint" id="exploreBackendStatus" style="margin:0"></div>
+</div>
+<div class="chipsRow marketChips" style="margin-top:12px">
+<button class="chipBtn" data-filter="all" type="button">Todos</button>
+<button class="chipBtn" data-filter="video" type="button">Vídeo</button>
+<button class="chipBtn" data-filter="foto" type="button">Foto</button>
+<button class="chipBtn" data-filter="audio" type="button">Áudio</button>
+<button class="chipBtn" data-filter="legenda" type="button">Legendas</button>
+<button class="chipBtn" data-filter="motion" type="button">Motion</button>
+<button class="chipBtn" data-filter="premium" type="button">Premium</button>
+<button class="chipBtn" data-filter="fav" type="button">⭐ Favoritos</button>
+</div>
+<div class="hint" id="exploreHint" style="margin-top:10px">Dica: clique em um editor para ver o perfil completo.</div>
+<div class="editor-cards" id="exploreEditorsGrid" style="margin-top:12px"></div>
+</div>
+</section>
+<!-- ✅ EXPLORAR (Editor → clientes) -->
+<section class="screen" id="screenProcurarEditor">
+<div class="marketTop">
+
+<button class="navBack" type="button" onclick="goBack()" aria-label="Voltar"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="width:22px;height:22px;display:block"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="marketLogo" onclick="showScreen(screenProcurarEditor,true)">Kara<b>meloo</b></div>
+<div class="marketSearch">
+<input id="exploreESearch" maxlength="60" placeholder="Que tipo de cliente/pedido você quer? (ex: reels, foto, áudio)"/>
+<button class="marketSearchBtn" onclick="renderProcurarClients()" type="button">🔎</button>
+</div>
+<div class="marketActions">
+<select aria-label="Ordenar" class="marketSort" id="exploreESort">
+<option value="best">Relevância</option>
+<option value="new">Novos</option>
+<option value="urg">Urgentes</option>
+<option value="fit">Melhor encaixe</option>
+</select>
+<button class="iconBtn" onclick="goEditorDashboard()" title="Meu painel" type="button">👤</button>
+<button class="iconBtn" onclick="goBack()" title="Voltar" type="button">↩</button>
+</div>
+</div>
+<div class="marketCats" id="marketCatsE">
+<button class="catBtn active" data-filter="all" type="button">Tendência 🔥</button>
+<button class="catBtn" data-filter="reels" type="button">Reels/TikTok</button>
+<button class="catBtn" data-filter="foto" type="button">Fotos</button>
+<button class="catBtn" data-filter="audio" type="button">Áudio</button>
+<button class="catBtn" data-filter="legenda" type="button">Legendas</button>
+<button class="catBtn" data-filter="motion" type="button">Motion</button>
+<button class="catBtn" data-filter="urg" type="button">Urgente</button>
+<button class="catBtn" data-filter="fav" type="button">⭐ Salvos</button>
+</div>
+<div class="marketWelcome">
+<div class="marketWelcomeTitle">Procurar clientes, <span id="exploreEWelcomeName">Editor</span></div>
+<div class="marketWelcomeSub" id="exploreESubtitle">Encontre pedidos compatíveis com seus pacotes e envie uma proposta (demo).</div>
+</div>
+<div class="marketPromo" style="margin-top:14px">
+<div class="promoLeft">
+<div class="promoIcon">📌</div>
+<div>
+<div class="promoTitle">Clientes procurando editores agora</div>
+<div class="promoSub">Escolha um pedido, veja o briefing e chame o cliente (demo).</div>
+</div>
+</div>
+<div class="promoRight">
+<button class="btn" onclick="scrollToProcurarClientsGrid()" type="button">Continue explorando</button>
+</div>
+</div>
+<div class="marketSection" style="margin-top:16px">
+<div class="marketSectionTitle">Com base no que você pode estar procurando</div>
+<div class="carousel" id="exploreClientsCarousel"></div>
+</div>
+<div id="exploreClientsGridAnchor" style="height:1px"></div>
+<div class="editor-cards" id="exploreClientsGrid" style="margin-top:12px"></div>
+<div class="hint" id="exploreEHint" style="margin-top:12px">Dica: clique no card para ver o briefing.</div>
+</section>
+<!-- Perfil do editor (modal) -->
+<div aria-hidden="true" class="overlay" id="profileOverlay">
+<div class="modal" id="profileModal">
+<div class="modalHead">
+<div class="modalTitle" id="profileTitle">Perfil do editor</div>
+<button class="x" onclick="closeEditorProfile()" type="button">✕</button>
+</div>
+<div class="modalBody" id="profileBody"></div>
+</div>
+</div>
+<!-- Visualizar trabalho (modal) -->
+<div aria-hidden="true" class="overlay" id="workOverlay">
+<div class="modal" id="workModal" style="max-width:980px">
+<div class="modalHead">
+<div class="modalTitle" id="workTitle">Trabalho</div>
+<button class="x" onclick="closeWorkLightbox()" type="button">✕</button>
+</div>
+<div class="modalBody" id="workBody" style="padding-top:14px"></div>
+</div>
+</div>
+<!-- Chat (Inbox) -->
+<div aria-hidden="true" class="chatWidget" id="chatOverlay">
+  <div class="modal inboxModal inboxFull" id="chatModal">
+    <aside class="inboxLeft">
+      <div class="inboxLeftHead">
+        <div class="inboxLeftTitle">Contatos</div>
+        <button class="x" onclick="toggleChatContacts(false)" type="button" aria-label="Fechar">✕</button>
+      </div>
+      <div class="inboxSearch">
+        <input id="chatContactsSearch" class="aiInput" placeholder="Buscar contato..." maxlength="40"/>
+      </div>
+      <div id="chatContacts" class="contactsList" role="list"></div>
+      <div class="contactsHint">* Conversas e contatos ficam salvos no seu navegador.</div>
+    </aside>
+
+    <section class="inboxRight">
+      <div class="inboxTop">
+        <div class="inboxTopLeft">
+<div class="chatAvatar" id="chatAvatar" aria-hidden="true">
+            <img id="chatAvatarImg" alt="" />
+            <span id="chatAvatarInitial">K</span>
+          </div>
+
+          <div class="chatHeadText">
+            <div class="inboxPeer" id="chatTitle">Selecione um contato</div>
+            <div class="inboxPeerSub" id="chatPeerSub">Cliente ⇄ Editor</div>
+          </div>
+        </div>
+        <div class="inboxTopBtns">
+          <button class="btn secondary small" onclick="toggleChatContacts()" type="button" title="Contatos" aria-label="Contatos">👥</button>
+          <button class="btn secondary small" onclick="toggleChatInfo()" type="button" title="Detalhes" aria-label="Detalhes">ℹ️</button>
+<button class="btn secondary small" onclick="closeChat()" type="button" title="Fechar" aria-label="Fechar">✕</button>
+        </div>
+      </div>
+
+      <div class="inboxBody">
+        <div class="pill" id="chatIntro" style="margin:0 0 10px">* Selecione um contato à esquerda para abrir a conversa.</div>
+        <div id="chatMsgs" class="chatMsgs"></div>
+
+        <div class="chatComposer">
+          <button class="waIconBtn" type="button" aria-label="Emoji" title="Emoji" onclick="try{document.getElementById('chatInput')?.focus()}catch(e){}">🙂</button>
+          <div class="waInputWrap">
+            <input class="aiInput" id="chatInput" maxlength="280" placeholder="Mensagem"/>
+          </div>
+          <button class="waIconBtn" type="button" aria-label="Anexar" title="Anexar (demo)" onclick="alert('Anexos: em breve 🙂 (demo)')">📎</button>
+          <button class="waSend" onclick="sendChat()" type="button" aria-label="Enviar" title="Enviar">➤</button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="inboxInfo" id="chatInfo">
+      <div class="inboxInfoHead">
+        <div class="infoTitle">Sobre <span id="chatInfoName">—</span></div>
+        <div class="infoSub" id="chatInfoSub">Selecione um contato para ver detalhes</div>
+      </div>
+
+      <div class="infoCard">
+        <div class="infoRow"><div class="k">Tipo</div><div class="v" id="chatInfoRole">—</div></div>
+        <div class="infoRow"><div class="k">Telefone</div><div class="v" id="chatInfoPhone">—</div></div>
+        <div class="infoRow"><div class="k">Tags</div><div class="v" id="chatInfoTags">—</div></div>
+      </div>
+
+      <div class="infoCard">
+        <div class="infoSecTitle">Atividade</div>
+        <div class="infoMetric">
+          <div class="mTop"><span>Pedidos concluídos</span><span id="chatInfoDone">—</span></div>
+          <div class="mBar"><div class="mFill" id="chatInfoDoneBar"></div></div>
+        </div>
+        <div class="infoMetric">
+          <div class="mTop"><span>Taxa de resposta</span><span id="chatInfoResp">—</span></div>
+          <div class="mBar"><div class="mFill" id="chatInfoRespBar"></div></div>
+        </div>
+        <div class="infoMetric">
+          <div class="mTop"><span>Repetição de pedidos</span><span id="chatInfoRepeat">—</span></div>
+          <div class="mBar"><div class="mFill" id="chatInfoRepeatBar"></div></div>
+        </div>
+        <div class="infoHint">* No beta, esses números podem ser estimativas (sem backend).</div>
+      </div>
+    </aside>
+  </div>
+</div>
+<!-- Menu do usuário -->
+<div aria-hidden="true" class="overlay" id="menuOverlay">
+<div class="modal" id="menuModal" style="max-width:640px">
+<div class="modalHead">
+<div class="modalTitle" id="menuTitle">Menu</div>
+
+
+<button class="x" onclick="closeUserMenu()" type="button">✕</button>
+</div>
+<div class="modalBody" id="menuBody">
+<!-- preenchido via JS -->
+</div>
+</div>
+</div>
+
+<!-- ✅ LEGAL: Termos e Privacidade -->
+<div aria-hidden="true" class="overlay" id="legalOverlay">
+  <div class="modal" id="legalModal" style="max-width:920px">
+    <div class="modalHead">
+      <div class="modalTitle" id="legalTitle">Termos de Uso</div>
+      <button aria-label="Fechar" class="close" onclick="closeLegal()" type="button">×</button>
+    </div>
+    <div class="modalBody" id="legalBody" style="max-height:78vh; overflow:auto"></div>
+  </div>
+</div>
+
+<!-- CLIENTE: PERFIL (ANTES DOS PACOTES) -->
+<section class="screen" id="screenClientProfile">
+<div class="section-title">Seu perfil (Cliente)</div>
+<div class="pill">Complete seu perfil para uma experiência melhor (começa com 5 estrelas).</div>
+<div class="toolbar" style="margin-top:12px">
+<div class="left"><span class="chip">👤 Perfil</span></div>
+<div class="right">
+<button class="iconBtn" onclick="openUserMenu('cliente')" title="Menu" type="button">⋮</button>
+</div>
+</div>
+<div class="card" style="margin-top:12px">
+<div class="profileCover" id="clientCover"></div>
+<div class="who">
+<div class="avatar" id="clientAvatarBox"></div>
+<div class="meta">
+<div id="clientProfileName" style="font-weight:900">Cliente</div>
+<div class="stars" id="clientStars"></div>
+</div>
+</div>
+<div class="uploadRow">
+<label class="btn secondary small" style="cursor:pointer">
+                Enviar foto
+                <input accept="image/*" id="clientPhoto" style="display:none" type="file"/>
+</label>
+<button class="btn secondary small" onclick="removeClientPhoto()" type="button">Remover</button>
+<div class="hint" style="margin-top:0">* Foto opcional (salva no navegador).</div>
+</div>
+<div class="coverControls" style="margin-top:12px">
+<div class="mini-grid">
+<div class="mini">
+<label>Plano de fundo (preset)</label>
+<select id="clCoverPreset">
+<option value="none">Sem fundo</option>
+<option value="gold">Dourado suave</option>
+<option value="amber">Âmbar</option>
+<option value="graphite">Grafite</option>
+<option value="sunset">Pôr do sol</option>
+</select>
+</div>
+<div class="mini">
+<label>Enviar imagem (capa)</label>
+<input accept="image/*" id="clCoverUpload" type="file">
+</input></div>
+</div>
+<div style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap">
+<button class="btn secondary small" onclick="removeClientCover()" type="button">Remover fundo</button>
+<div class="hint" style="margin-top:0">* Seu plano de fundo aparece no seu perfil e no marketplace.</div>
+</div>
+</div>
+<div class="mini-grid" style="margin-top:12px">
+<div class="mini">
+<label>Telefone</label>
+<input id="clWhats" inputmode="tel" maxlength="15" placeholder="(DDD) 99999-9999"/>
+</div>
+<div class="mini">
+<label>Cidade</label>
+<input id="clCity" maxlength="40" placeholder="Ex: São Paulo - SP"/>
+</div>
+</div>
+<div class="mini-grid" style="margin-top:10px">
+<div class="mini">
+<label>Nicho / Categoria</label>
+<input id="clNiche" maxlength="40" placeholder="Ex: Moda, Gaming, Fitness, Loja, Influencer..."/>
+</div>
+<div class="mini">
+<label>Rede principal</label>
+<select id="clMainPlatform">
+<option value="instagram">Instagram</option>
+<option value="tiktok">TikTok</option>
+<option value="youtube">YouTube</option>
+<option value="facebook">Facebook</option>
+<option value="kwai">Kwai</option>
+<option value="pinterest">Pinterest</option>
+<option value="linkedin">LinkedIn</option>
+<option value="x">X (Twitter)</option>
+</select>
+</div>
+</div>
+
+<div class="mini-grid" style="margin-top:10px">
+  <div class="mini">
+    <label>Tipo de conteúdo</label>
+    <select id="clContentType">
+      <option value="reels">Reels / TikTok (9:16)</option>
+      <option value="feed">Instagram Feed</option>
+      <option value="ytshorts">YouTube Shorts</option>
+      <option value="youtube">YouTube (vídeo normal)</option>
+      <option value="ads">Anúncios</option>
+      <option value="podcast">Podcast / Áudio</option>
+      <option value="foto">Foto / Produto</option>
+    </select>
+  </div>
+  <div class="mini">
+    <label>Objetivo principal</label>
+    <select id="clGoal">
+      <option value="engajamento">Engajamento</option>
+      <option value="vendas">Vendas / Conversão</option>
+      <option value="marca">Marca / Autoridade</option>
+      <option value="conteudo">Conteúdo frequente</option>
+      <option value="lancamento">Lançamento</option>
+    </select>
+  </div>
+</div>
+<div class="mini-grid" style="margin-top:10px">
+  <div class="mini">
+    <label>Frequência (média)</label>
+    <select id="clFrequency">
+      <option value="1sem">1x por semana</option>
+      <option value="3sem">3x por semana</option>
+      <option value="diario">Diário</option>
+      <option value="sobdemanda">Sob demanda</option>
+    </select>
+  </div>
+  <div class="mini">
+    <label>Prazo típico</label>
+    <select id="clDeadline">
+      <option value="24h">Até 24h</option>
+      <option value="48h">Até 48h</option>
+      <option value="3d">3 dias</option>
+      <option value="7d">7 dias</option>
+      <option value="flex">Flexível</option>
+    </select>
+  </div>
+</div>
+<div class="field" style="margin-top:10px">
+  <label>Referências / links (opcional)</label>
+  <input id="clRefs" maxlength="220" placeholder="Ex: @perfil, link do drive, link de referência..."/>
+</div>
+
+<div class="field" style="margin-top:10px">
+<label>Sobre você / Objetivo</label>
+<textarea id="clAbout" maxlength="420" placeholder="Ex: Quero vídeos curtos para Reels/TikTok, estilo cinematográfico, cortes rápidos, legendas..."></textarea>
+</div>
+<div class="mini-grid" style="margin-top:12px">
+<button class="btn" onclick="saveClientProfileAndGo()" type="button">Salvar e continuar</button>
+<button class="btn secondary" onclick="backToProcurarFromPackages()" type="button">Voltar</button>
+</div>
+</div>
+</section>
+<!-- CLIENTE: PACOTES -->
+<section class="screen" id="screenClient">
+<div class="who">
+<div class="avatar" id="clientAvatarTop"></div>
+<div class="meta">
+<div class="section-title" style="margin:0">Bem-vindo, <span id="clientName">Cliente</span> 👋</div>
+<div class="stars" id="clientStarsTop"></div>
+</div>
+</div>
+<div class="mini-grid" style="margin-top:12px">
+<button class="btn secondary" onclick="goBack()" type="button">← Voltar</button>
+<div class="mini" style="justify-self:end; max-width:420px">
+<label style="margin-bottom:6px">Nível do editor</label>
+<div aria-label="Nível do editor" class="tier-toggle" id="tierTogglePackages" role="tablist">
+<button aria-selected="false" class="tier-btn" data-tier="iniciante" role="tab" type="button">Iniciante</button>
+<button aria-selected="false" class="tier-btn" data-tier="intermediario" role="tab" type="button">Intermediário</button>
+<button aria-selected="true" class="tier-btn" data-tier="avancado" role="tab" type="button">Avançado</button>
+</div>
+</div>
+</div>
+<div class="pill" style="margin-top:10px">Escolha um pacote pronto ou monte um pacote personalizado.</div>
+<div class="pill" id="clientEditorContext" style="margin-top:10px; display:none"></div>
+<div class="section-title" style="margin-top:18px">Pacotes prontos (15 opções)</div>
+<div class="grid" id="packagesGrid" style="margin-top:12px"></div>
+<div class="section-title" style="margin-top:26px">Pacote Personalizado ✨</div>
+<div class="grid" style="margin-top:12px">
+<div class="card highlight full">
+<h3>Monte seu pacote</h3>
+<p>Escolha quantas fotos/vídeos você quer, plataforma e tipo de vídeo. O site soma tudo por trás e mostra só o total.</p>
+<div class="mini-grid" style="margin-top:12px">
+<div class="mini">
+<label>Fotos</label>
+<input id="custFotos" inputmode="numeric" max="999" min="0" type="number" value="0"/>
+</div>
+<div class="mini">
+<label>Vídeos</label>
+<input id="custVideos" inputmode="numeric" max="999" min="0" type="number" value="0"/>
+</div>
+</div>
+<div class="mini-grid" style="margin-top:10px">
+<div class="mini">
+<label>Plataforma / Rede</label>
+<select id="custPlataforma">
+<option value="reels">Instagram Reels</option>
+<option value="tiktok">TikTok</option>
+<option value="insta">Instagram Feed</option>
+<option value="shorts">YouTube Shorts</option>
+<option value="ytlong">YouTube (vídeo normal)</option>
+<option value="facebookreels">Facebook Reels</option>
+<option value="kwai">Kwai</option>
+<option value="snap">Snapchat Spotlight</option>
+<option value="pinterest">Pinterest Idea Pins</option>
+<option value="linkedin">LinkedIn</option>
+<option value="x">X (Twitter)</option>
+</select>
+</div>
+<div class="mini">
+<label>Tipo de vídeo</label>
+<select id="custTipoVideo">
+<option value="15">Curto (até 15s)</option>
+<option value="45">Médio (30–45s)</option>
+<option value="60">Longo (até 60s)</option>
+<option value="90">+ 1min30</option>
+<option value="120">+ 2 minutos</option>
+<option value="180">+ 3 minutos</option>
+<option value="300">+ 5 minutos</option>
+<option value="600">+ 10 minutos</option>
+<option value="1200">+ 20 minutos</option>
+<option value="1800">+ 30 minutos</option>
+<option value="3600">+ 1 hora</option>
+<option value="7200">+ 2 horas</option>
+<option value="10800">+ 3 horas</option>
+</select>
+</div>
+</div>
+<div class="checks" id="customChecks" style="margin-top:10px">
+<!-- principais (5) -->
+<div id="customOptsMain">
+<div class="customGroup">
+<div class="customGroupTitle">🎬 Extras para Vídeo</div>
+<div class="customGroupGrid">
+<label class="chk"><input data-custom-opt="" id="optCorCine" type="checkbox"/> Cor cinematográfica (vídeos)</label>
+<label class="chk"><input data-custom-opt="" id="optLegenda" type="checkbox"/> Legendas (vídeos)</label>
+<label class="chk"><input data-custom-opt="" id="optTransicoes" type="checkbox"/> Transições premium (vídeos)</label>
+<label class="chk"><input data-custom-opt="" id="optAudio" type="checkbox"/> Melhorar áudio + reduzir ruído (vídeos)</label>
+<label class="chk"><input data-custom-opt="" id="optMusicSync" type="checkbox"/> Sincronizar cortes com música (vídeos)</label>
+</div>
+</div>
+<div class="customGroup">
+<div class="customGroupTitle">📷 Extras para Foto</div>
+<div class="customGroupGrid">
+<label class="chk"><input data-custom-opt="" id="optRetoquePro" type="checkbox"/> Retoque avançado (fotos)</label>
+<label class="chk"><input data-custom-opt="" id="optHDR" type="checkbox"/> HDR / nitidez premium (fotos)</label>
+<label class="chk"><input data-custom-opt="" id="optFundo" type="checkbox"/> Remover/alterar fundo (fotos)</label>
+<label class="chk"><input data-custom-opt="" id="optObjeto" type="checkbox"/> Remover objetos (fotos)</label>
+<label class="chk"><input data-custom-opt="" id="optPele" type="checkbox"/> Suavizar pele (fotos)</label>
+</div>
+</div>
+</div>
+<!-- mais opções (colapsado) -->
+<div class="collapsed" id="customOptsMore">
+<div class="customGroup">
+<div class="customGroupTitle">🎬 Mais extras de Vídeo</div>
+<div class="customGroupGrid">
+<label class="chk"><input data-custom-opt="" id="optMotion" type="checkbox"/> Motion graphics (títulos) (vídeos)</label>
+<label class="chk"><input data-custom-opt="" id="optIntroOutro" type="checkbox"/> Intro/Outro + CTA (vídeos)</label>
+<label class="chk"><input data-custom-opt="" id="optEstabilizar" type="checkbox"/> Estabilização (vídeos)</label>
+<label class="chk"><input data-custom-opt="" id="optSpeedRamp" type="checkbox"/> Speed ramp / slow motion (vídeos)</label>
+<label class="chk"><input data-custom-opt="" id="optSFX" type="checkbox"/> Efeitos sonoros (SFX) (vídeos)</label>
+<label class="chk"><input data-custom-opt="" id="optVoiceClean" type="checkbox"/> Limpeza de voz / clareza (vídeos)</label>
+<label class="chk"><input data-custom-opt="" id="optHook" type="checkbox"/> Hook inicial (0–3s) mais forte (vídeos)</label>
+<label class="chk"><input data-custom-opt="" id="optCutsPro" type="checkbox"/> Cortes avançados + ritmo (vídeos)</label>
+<label class="chk"><input data-custom-opt="" id="optColorMatch" type="checkbox"/> Match de cor entre cenas (vídeos)</label>
+<label class="chk"><input data-custom-opt="" id="optVfxLite" type="checkbox"/> VFX leve (glow, shake, zoom) (vídeos)</label>
+<label class="chk"><input data-custom-opt="" id="optReframe" type="checkbox"/> Reenquadrar para 9:16/1:1 (vídeos)</label>
+<label class="chk"><input data-custom-opt="" id="optCapStyle" type="checkbox"/> Estilo premium de legenda (vídeos)</label>
+</div>
+</div>
+<div class="customGroup">
+<div class="customGroupTitle">📷 Mais extras de Foto</div>
+<div class="customGroupGrid">
+<label class="chk"><input data-custom-opt="" id="optCoresFoto" type="checkbox"/> Cor cinematográfica (fotos)</label>
+<label class="chk"><input data-custom-opt="" id="optTexto" type="checkbox"/> Texto/arte simples (fotos)</label>
+<label class="chk"><input data-custom-opt="" id="optDodgeBurn" type="checkbox"/> Luz &amp; sombra (Dodge &amp; Burn) (fotos)</label>
+<label class="chk"><input data-custom-opt="" id="optNoisePhoto" type="checkbox"/> Redução de ruído + textura (fotos)</label>
+<label class="chk"><input data-custom-opt="" id="optBatchPreset" type="checkbox"/> Preset em lote (consistência) (fotos)</label>
+<label class="chk"><input data-custom-opt="" id="optBlurBG" type="checkbox"/> Desfoque/Profundidade no fundo (fotos)</label>
+<label class="chk"><input data-custom-opt="" id="optLensFix" type="checkbox"/> Correções de lente + perspectiva (fotos)</label>
+</div>
+</div>
+<div class="customGroup">
+  <div class="subExtrasTitle">🎨 Design &amp; Marca</div>
+  <div class="extras2col">
+    <label class="chkRow">
+      <input id="optLogoDesign" type="checkbox" data-custom-opt />
+      <span>Design de logo (1 conceito)</span>
+    </label>
+    <label class="chkRow">
+      <input id="optBrandKit" type="checkbox" data-custom-opt />
+      <span>Kit de marca p/ redes (5 artes)</span>
+    </label>
+
+    <label class="chkRow">
+      <input id="optIdentityBasic" type="checkbox" data-custom-opt />
+      <span>Identidade visual básica</span>
+    </label>
+    <span></span>
+  </div>
+</div>
+
+<div class="customGroup">
+  <div class="subExtrasTitle">✨ Animação &amp; Motion</div>
+  <div class="extras2col">
+    <label class="chkRow">
+      <input id="optLogoAnim" type="checkbox" data-custom-opt />
+      <span>Logo animado (5–7s)</span>
+    </label>
+    <label class="chkRow">
+      <input id="optIntroAnim" type="checkbox" data-custom-opt />
+      <span>Intro animada (até 7s)</span>
+    </label>
+
+    <label class="chkRow">
+      <input id="optLowerThirds" type="checkbox" data-custom-opt />
+      <span>Lower thirds (pack 3)</span>
+    </label>
+    <span></span>
+  </div>
+</div>
+
+<div class="customGroup">
+  <div class="subExtrasTitle">🎵 Música &amp; Áudio</div>
+  <div class="extras2col">
+    <label class="chkRow">
+      <input id="optTrilhaSimples" type="checkbox" data-custom-opt />
+      <span>Trilha simples (licença)</span>
+    </label>
+    <label class="chkRow">
+      <input id="optSfxBasic" type="checkbox" data-custom-opt />
+      <span>Sound design (SFX) básico</span>
+    </label>
+
+    <label class="chkRow">
+      <input id="optMixMaster" type="checkbox" data-custom-opt />
+      <span>Mixagem + master (áudio)</span>
+    </label>
+    <span></span>
+  </div>
+</div>
+
+<div class="customGroup">
+  <div class="subExtrasTitle">🖼️ Arte &amp; IA</div>
+  <div class="extras2col">
+    <label class="chkRow">
+      <input id="optArtePeca" type="checkbox" data-custom-opt />
+      <span>Arte / ilustração (1 peça)</span>
+    </label>
+    <label class="chkRow">
+      <input id="optArteIA" type="checkbox" data-custom-opt />
+      <span>Arte em IA (pack 10 variações)</span>
+    </label>
+
+    <label class="chkRow">
+      <input id="optPackArtes" type="checkbox" data-custom-opt />
+      <span>Pack de artes (3 peças)</span>
+    </label>
+    <span></span>
+  </div>
+</div><div class="customGroup">
+<div class="customGroupTitle">📌 Extras do Pedido</div>
+<div class="customGroupGrid">
+<label class="chk"><input data-custom-opt="" id="optThumbnail" type="checkbox"/> Thumbnail (capa) (1 unidade)</label>
+<label class="chk"><input data-custom-opt="" id="optUrgente" type="checkbox"/> Prioridade (entrega mais rápida)</label>
+</div>
+</div>
+</div>
+</div>
+<div class="moreRow">
+<button class="btn secondary small" id="toggleCustomOpts" onclick="toggleCustomOptions()" type="button">Ver mais opções ↓</button>
+</div>
+<div class="field" style="margin-top:12px">
+<label>Categoria detalhada</label>
+<textarea id="custDetalhe" maxlength="700" placeholder="Descreva exatamente como você quer: estilo, referência, cores, cortes, músicas, legendas, plataformas, etc..."></textarea>
+</div>
+<div class="total-box">
+<div class="total-line"><span>Valor total</span><strong id="custTotal">R$ 0</strong></div>
+<div class="total-sub">Entrega estimada: <strong id="custEntrega">35min</strong> (mínimo)</div>
+</div>
+<button class="btn" onclick="confirmCustom()" type="button">Continuar com o personalizado</button>
+<div class="hint">* Os preços por item são internos e não aparecem.</div>
+</div>
+</div>
+</section>
+<!-- ✅ Seleção de Editor (Cliente) -->
+<section class="screen" id="screenPickEditor">
+<div class="section-title">Escolha seu Editor ⭐</div>
+<div class="pill">Você verá editores compatíveis com o seu pedido (avaliação começa em 5 estrelas).</div>
+<div class="toolbar">
+<div class="left">
+<span class="chip" id="pickInfo">Pedido: —</span>
+<span class="chip" id="pickRatingChip">Avaliação: 5/10 ⭐</span>
+</div>
+<div class="right">
+<select id="pickSort" style="min-width:240px">
+<option value="best">Melhores avaliados</option>
+<option value="fast">Mais rápidos (simulado)</option>
+</select>
+</div>
+</div>
+<div class="editor-cards" id="editorsGrid"></div>
+<button class="btn secondary" onclick="backToOrder()" style="margin-top:18px" type="button">Voltar</button>
+</section>
+<!-- ✅ EDITOR DASHBOARD -->
+<section class="screen" id="screenEditor">
+<div class="section-title">Bem-vindo, <span id="editorName">Editor</span> 👋</div>
+<div class="pill">Complete seu perfil, selecione pacotes e fique disponível para receber pedidos.</div>
+<div class="toolbar" style="margin-top:14px">
+<div class="left">
+<span class="chip">🔎 Marketplace</span>
+<span class="chip">Você também pode explorar clientes (demo)</span>
+</div>
+<div class="right">
+<button class="iconBtn" onclick="openUserMenu('editor')" title="Menu" type="button">⋮</button>
+<button class="iconBtn" onclick="openEditorOrders()" title="Pedidos" type="button">📦</button>
+<button class="iconBtn" onclick="openEditorMessages()" title="Mensagens" type="button">💬</button>
+<button class="btn secondary" onclick="goProcurarEditor()" type="button">Procurar clientes</button>
+</div>
+</div>
+<div class="editor-grid">
+<!-- Perfil -->
+<div class="card">
+<div class="profileCover" id="editorCover"></div>
+<div class="row-inline">
+<h3 style="margin:0;color:#c7d2fe">Seu perfil (Editor)</h3>
+<label class="switch" title="Aparecer para clientes">
+<input id="edAvailable" type="checkbox"/>
+<span class="track"><span class="thumb"></span></span>
+<span>
+<div class="label">Disponível</div>
+<div class="sub" id="edAvailText">Off</div>
+</span>
+</label>
+</div>
+<div class="who" style="margin-top:12px">
+<div class="avatar" id="editorAvatarBox"></div>
+<div class="meta">
+<div id="editorFullName" style="font-weight:900">Editor</div>
+<div class="stars" id="editorStars"></div>
+</div>
+</div>
+<div class="uploadRow">
+<label class="btn secondary small" style="cursor:pointer">
+                  Enviar foto
+                  <input accept="image/*" id="editorPhoto" style="display:none" type="file"/>
+</label>
+<button class="btn secondary small" onclick="removeEditorPhoto()" type="button">Remover</button>
+<div class="hint" style="margin-top:0">* Foto opcional (salva no navegador).</div>
+</div>
+<div class="coverControls" style="margin-top:12px">
+<div class="mini-grid">
+<div class="mini">
+<label>Plano de fundo (preset)</label>
+<select id="edCoverPreset">
+<option value="none">Sem fundo</option>
+<option value="gold">Dourado suave</option>
+<option value="amber">Âmbar</option>
+<option value="graphite">Grafite</option>
+<option value="sunset">Pôr do sol</option>
+</select>
+</div>
+<div class="mini">
+<label>Enviar imagem (capa)</label>
+<input accept="image/*" id="edCoverUpload" type="file">
+</input></div>
+</div>
+<div style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap">
+<button class="btn secondary small" onclick="removeEditorCover()" type="button">Remover fundo</button>
+<div class="hint" style="margin-top:0">* Sua capa aparece no marketplace (Procurar).</div>
+</div>
+</div>
+<div class="kpi">
+<div class="k">
+<div class="t">Avaliação</div>
+<div class="v"><span id="edRatingTxt">5.0</span><small>/10</small></div>
+<div class="stars" id="edStarsRow" style="margin-top:6px"></div>
+</div>
+<div class="k">
+<div class="t">Concluídos</div>
+<div class="v"><span id="edDone">0</span><small> pedidos</small></div>
+</div>
+<div class="k">
+<div class="t">Status</div>
+<div class="v"><span id="edStatus">Novo</span></div>
+</div>
+</div>
+<div class="mini-grid" style="margin-top:12px">
+<div class="mini">
+<label>Experiência</label>
+<select id="edXp">
+<option value="iniciante">Iniciante</option>
+<option value="intermediario">Intermediário</option>
+<option value="avancado">Avançado</option>
+</select>
+</div>
+<div class="mini">
+<label>Telefone (opcional)</label>
+<input id="edWhats" inputmode="tel" maxlength="15" placeholder="(DDD) 99999-9999"/>
+</div>
+</div>
+<div class="field" style="margin-top:10px">
+<label>Bio (curta e forte)</label>
+<textarea id="edBio" maxlength="320" placeholder="Ex: cortes rápidos + cor cinematográfica + áudio limpo. Especialista em Reels e TikTok."></textarea>
+</div>
+<div class="mini-grid" style="margin-top:10px">
+<div class="mini">
+<label>Softwares</label>
+<input id="edSoft" maxlength="80" placeholder="CapCut, Premiere, Lightroom..."/>
+</div>
+<div class="mini">
+<label>Portfólio (link)</label>
+<input id="edPortfolio" inputmode="url" maxlength="120" placeholder="https://..."/>
+</div>
+</div>
+<div class="field" style="margin-top:10px">
+<label>Tags (separe por vírgula)</label>
+<input id="edTags" maxlength="120" placeholder="Reels, TikTok, Motion, Cor cine, Foto pro, Áudio..."/>
+<div class="tags" id="edTagsPreview"></div>
+</div>
+<div class="mini-grid" style="margin-top:12px">
+<button class="btn" onclick="saveEditorProfile()" type="button">Salvar perfil</button>
+<button class="btn secondary" onclick="resetEditor()" type="button">Reset (demo)</button>
+</div>
+<!-- Preview público (movido para cima) -->
+<div class="section-title" style="margin:18px 0 8px">Como você aparece para o cliente</div>
+<div class="pill" style="margin:0 0 10px">Esse é o card que vai aparecer na tela de escolha do editor.</div>
+<div class="previewLarge" style="margin-top:10px">
+<div class="eCard previewCard" id="edPublicPreview"></div>
+</div>
+<!-- Portfólio do Editor (demo) -->
+<div class="section-title" style="margin:18px 0 8px">Portfólio (trabalhos)</div>
+<div class="pill" style="margin:0 0 10px">Carregue até <strong>30 fotos</strong> e <strong>10 vídeos</strong> para mostrar aos clientes (demo: não salva no navegador).</div>
+<div class="mini-grid" style="margin-top:10px">
+<label class="btn secondary small" style="cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px">
+                  Enviar fotos (até 30)
+                  <input accept="image/*" id="edWorkPhotos" multiple="" style="display:none" type="file"/>
+</label>
+<label class="btn secondary small" style="cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px">
+                  Enviar vídeos (até 10)
+                  <input accept="video/*" id="edWorkVideos" multiple="" style="display:none" type="file"/>
+</label>
+</div>
+<div class="hint" id="edWorkCount" style="margin-top:10px">0/30 fotos • 0/10 vídeos</div>
+<div class="work-grid" id="edWorkGrid"></div>
+<button class="btn secondary small" onclick="clearEditorWorks()" style="margin-top:10px" type="button">Limpar portfólio</button>
+<div class="hint">
+                * Comissão é fixa e só aparece no painel ADM no futuro (Karameloo 25% / Editor 75%).
+              </div>
+</div>
+<!-- Pacotes -->
+<div class="card">
+<h3>Pacotes que você quer trabalhar</h3>
+<p>Marque os pacotes que você aceita. Assim você só aparece em pedidos compatíveis.</p>
+<div class="mini-grid" style="margin-top:10px">
+<div class="mini">
+<label>Buscar pacote</label>
+<input id="edSearchPkg" maxlength="40" placeholder="Ex: Foto, Short, 45s..."/>
+</div>
+<div class="mini">
+<label>Atalhos</label>
+<select id="edQuick">
+<option value="all">—</option>
+<option value="video">Só Vídeo</option>
+<option value="foto">Só Foto</option>
+<option value="mix">Mix (Foto + Vídeo)</option>
+<option value="audio">Áudio</option>
+</select>
+</div>
+</div>
+<div class="pkg-list" id="editorPackages"></div>
+<!-- ✅ BOTÃO SETA: mostra só 5 e abre o resto -->
+<div class="moreRow">
+<button class="btn secondary small" id="toggleMorePkgs" onclick="toggleMorePackages()" type="button">
+                  Ver mais pacotes ↓
+                </button>
+</div>
+<div class="total-box" style="margin-top:12px">
+<div class="total-line">
+<span>Selecionados</span>
+<strong id="edPkgCount">0</strong>
+</div>
+<div class="total-sub" id="edPkgHint">Dica: selecione pelo menos 1 pacote para aparecer para clientes.</div>
+</div>
+<div class="mini-grid" style="margin-top:12px">
+<button class="btn" onclick="saveEditorPackages()" type="button">Salvar pacotes</button>
+<button class="btn secondary" onclick="selectAllEditorPackages(true)" type="button">Marcar todos</button>
+</div>
+<button class="btn secondary" onclick="selectAllEditorPackages(false)" style="margin-top:10px" type="button">Desmarcar todos</button>
+<div class="hint">* Sem backend: isso é salvo no seu navegador (LocalStorage).</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<footer>© 2026 • Karameloo • Edição profissional • <button class="linkBtn" type="button" onclick="openTerms()">Termos de Uso</button> • <button class="linkBtn" type="button" onclick="openPrivacy()">Política de Privacidade</button></footer>
+</div>
+<!-- AUTH (tela inteira: Registro / Login) -->
+<section class="screen" id="screenAuth">
+<div class="authFull">
+<div aria-label="Autenticação" class="authFullCard" role="region">
+<div class="authTopBar">
+<strong id="titleCadastro">Criar conta</strong>
+<button aria-label="Voltar" class="close" onclick="closeCadastro()" type="button">×</button>
+</div>
+<div class="authFullBody">
+<div aria-label="Tipo de conta" class="rolePicker" id="rolePicker">
+<button class="roleBtn" data-role="cliente" type="button">Cliente</button>
+<button class="roleBtn" data-role="editor" type="button">Editor</button>
+</div>
+<div class="authWrap" id="authWrap">
+<!-- Cadastro -->
+<div class="authView active" data-view="register" id="viewRegister">
+  <div class="authFormLike">
+    <div class="authGrid2">
+      <div>
+        <label class="authLbl" for="inNome">Nome</label>
+        <input class="authInput" autocomplete="given-name" id="inNome" maxlength="30" placeholder="Seu nome"/>
+      </div>
+      <div>
+        <label class="authLbl" for="inSobrenome">Sobrenome</label>
+        <input class="authInput" autocomplete="family-name" id="inSobrenome" maxlength="30" placeholder="Seu sobrenome"/>
+      </div>
+    </div>
+
+    <div class="authGrid2" style="margin-top:10px">
+  <div>
+    <label class="authLbl" for="inData">Data de nascimento</label>
+    <div class="inWrap">
+      <input id="inData" type="date" class="in" />
+    </div>
+  </div>
+  <div>
+    <label class="authLbl" for="inCPF">CPF</label>
+    <div class="inWrap">
+      <input id="inCPF" type="text" class="in" placeholder="000.000.000-00" inputmode="numeric" />
+    </div>
+  </div>
+</div>
+
+<div class="authSectionCard" id="addrSection" style="margin-top:14px">
+  <div class="authSectionHead">
+    <div class="authSectionTitle">Endereço (criação de conta)</div>
+    <div class="authSectionSub">Pedimos apenas no cadastro para segurança e verificação (especialmente para Requisito de idade).</div>
+  </div>
+
+  <div class="authGrid2" style="margin-top:10px">
+    <div>
+      <label class="authLbl" for="inCEP">CEP</label>
+      <div class="inWrap"><input id="inCEP" type="text" class="in" placeholder="00000-000" inputmode="numeric" /></div>
+    </div>
+    <div>
+      <label class="authLbl" for="inUF">UF</label>
+      <div class="inWrap"><input id="inUF" type="text" class="in" placeholder="SP" maxlength="2" style="text-transform:uppercase" /></div>
+    </div>
+  </div>
+
+  <div style="margin-top:10px">
+    <label class="authLbl" for="inEndereco">Rua / Avenida</label>
+    <div class="inWrap"><input id="inEndereco" type="text" class="in" placeholder="Ex: Av. Paulista" /></div>
+  </div>
+
+  <div class="authGrid2" style="margin-top:10px">
+    <div>
+      <label class="authLbl" for="inNumero">Número</label>
+      <div class="inWrap"><input id="inNumero" type="text" class="in" placeholder="123" /></div>
+    </div>
+    <div>
+      <label class="authLbl" for="inBairro">Bairro</label>
+      <div class="inWrap"><input id="inBairro" type="text" class="in" placeholder="Ex: Centro" /></div>
+    </div>
+  </div>
+
+  <div class="authGrid2" style="margin-top:10px">
+    <div>
+      <label class="authLbl" for="inCidade">Cidade</label>
+      <div class="inWrap"><input id="inCidade" type="text" class="in" placeholder="Ex: São Paulo" /></div>
+    </div>
+    <div>
+      <label class="authLbl" for="inComplemento">Complemento (opcional)</label>
+      <div class="inWrap"><input id="inComplemento" type="text" class="in" placeholder="Apto, bloco, etc." /></div>
+    </div>
+  </div>
+
+  <div class="authHintMini">No beta, os dados podem ficar salvos no navegador. No backend (Supabase) com regras de acesso (RLS), isso fica 100% seguro.</div>
+</div>
+
+<label class="authLbl" for="inEmail" style="margin-top:10px">E-mail</label>
+    <input class="authInput" autocomplete="email" id="inEmail" maxlength="80" placeholder="seuemail@gmail.com" type="email"/>
+
+    <label class="authLbl" for="inSenha" style="margin-top:10px">Senha</label>
+    <div class="authPass">
+      <input class="authInput" autocomplete="new-password" id="inSenha" maxlength="32" placeholder="••••••••" type="password"/>
+      <button aria-label="Mostrar senha" class="passToggle" onclick="togglePass('inSenha', this)" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+    </div>
+
+    <label class="authLbl" for="inSenha2" style="margin-top:10px">Confirmar senha</label>
+    <div class="authPass">
+      <input class="authInput" autocomplete="new-password" id="inSenha2" maxlength="32" placeholder="••••••••" type="password"/>
+      <button aria-label="Mostrar senha" class="passToggle" onclick="togglePass('inSenha2', this)" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+    </div>
+
+    
+    <!-- Requisito de idade -->
+    <div id="minorEditorBox" class="minorBox" style="display:none" aria-live="polite">
+      <div class="minorHdr">
+        <span class="minorDot"></span>
+        <div class="minorTitle">Idade mínima: 16 anos</div>
+      </div>
+      <div id="minorEditorMsg" class="minorMsg">—</div>
+
+      <div id="minorConsentWrap" class="minorRow" style="display:none">
+        <label class="chkLine">
+          <input type="checkbox" id="minorConsent">
+          <span>Tenho autorização do responsável (pai/mãe) para trabalhar como editor no Karameloo.</span>
+        </label>
+      </div>
+
+      <div id="minorRgWrap" class="minorRow" style="display:none">
+        <div class="minorLabel">Foto do RG (beta)</div>
+        <input id="minorRG" type="file" accept="image/*" class="minorFile">
+        <div class="minorHint">No beta, o arquivo não é enviado para servidor (backend). Guardaremos apenas o nome e a confirmação. Depois vamos automatizar com Supabase.</div>
+      </div>
+    </div>
+    <div class="authBtnRow" style="margin-top:12px">
+      <button class="btn primary authBigBtn" id="btnCadastrar" type="button">Criar conta</button>
+      <button class="btn ghost authBigBtn" id="btnPreviewJuniorCreate" type="button" title="Preenche como 16+ para você visualizar"></button>
+    </div>
+<div class="authLegal">
+      Ao criar sua conta, você concorda com
+      <button class="linkBtn" onclick="openTerms()" type="button">Termos de Serviço</button>
+      e
+      <button class="linkBtn" onclick="openPrivacy()" type="button">Política de Privacidade</button>.
+    </div>
+
+    <div class="authBottom">
+      Já tem uma conta?
+      <button class="linkBtn" id="toLogin" type="button">Fazer login</button>
+    </div>
+
+    <div class="hint" style="margin-top:10px">
+      * No beta, alguns dados podem ser salvos no navegador. No backend (Supabase) isso ficará 100% seguro.
+    </div>
+  </div>
+</div>
+<!-- Login -->
+<div class="authView" data-view="login" id="viewLogin">
+<div class="field"><label>Email</label><input autocomplete="email" id="loginEmail" maxlength="80" placeholder="seuemail@gmail.com" type="email"/></div>
+<div class="field"><label>Senha</label>
+<div class="passWrap">
+<input autocomplete="current-password" id="loginSenha" maxlength="32" placeholder="••••••••" type="password"/>
+<button aria-label="Mostrar senha" class="passToggle" onclick="togglePass('loginSenha', this)" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+</div>
+</div>
+<div class="authLinks" style="margin-top:6px">
+<button class="linkBtn" id="toRegister" type="button">Não tenho conta</button>
+</div>
+<button class="btn" id="btnLogin" type="button">Entrar</button>
+  <button class="btn ghost" id="btnPreviewJunior" type="button" style="margin-top:10px">Preview: Requisito de idade</button>
+<div class="hint">* Demo sem backend: login valida os dados salvos neste navegador.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- IA Karameloo (demo local) -->
+<button aria-label="Abrir IA Karameloo" class="aiFab" id="aiFab">
+<span aria-hidden="true" class="dot"></span>
+<span>IA</span>
+</button>
+<section aria-hidden="true" class="aiPanel" id="aiPanel">
+<div class="aiHead">
+<div>
+<div class="aiTitle">IA Karameloo</div>
+<div class="aiSub" id="aiSub">Ajuda para Cliente, Editor e novos usuários</div>
+</div>
+<button aria-label="Fechar" class="aiClose" id="aiClose" type="button">×</button>
+</div>
+<div class="aiChips" id="aiChips">
+<button data-ai="novo" type="button">Primeiros passos</button>
+<button data-ai="cliente" type="button">Sou Cliente</button>
+<button data-ai="editor" type="button">Sou Editor</button>
+<button data-ai="pacotes" type="button">Sugestão de pacotes</button>
+<button data-ai="bio" type="button">Bio/Tags</button>
+</div>
+<div aria-live="polite" class="aiMsgs" id="aiMsgs"></div>
+<form class="aiForm" id="aiForm">
+<input autocomplete="off" class="aiInput" id="aiInput" placeholder="Pergunte algo..."/>
+<button class="aiSend" type="submit">Enviar</button>
+</form>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="app.js" defer></script>
+
+<section class="admDash" id="admDashboard">
+<div class="admGrid">
+<aside class="admSide">
+<div class="admBrand">
+<div class="logoBox">K</div>
+<div>
+<div class="t1">Dashboard</div>
+<div class="t2">Admin • Karameloo</div>
+</div>
+</div>
+<div class="admNav">
+<div class="item active" id="admNav_overview" onclick="admNav('overview')">
+<div class="ic">🏠</div><div>Overview</div>
+</div>
+<div class="item" id="admNav_users" onclick="admNav('users')">
+<div class="ic">👥</div><div>Users</div>
+</div>
+<div class="item" id="admNav_orders" onclick="admNav('orders')">
+<div class="ic">🧾</div><div>Orders</div>
+</div>
+<div class="item" id="admNav_analytics" onclick="admNav('analytics')">
+<div class="ic">📈</div><div>Analytics</div>
+</div>
+<div class="item" id="admNav_editors" onclick="admNav('editors')">
+<div class="ic">🎬</div><div>Editors</div>
+</div>
+<div class="item" id="admNav_settings" onclick="admNav('settings')">
+<div class="ic">⚙️</div><div>Settings</div>
+</div>
+</div>
+<div class="mini">
+<b>Modo demo/local</b><br/>
+        KPIs e listas puxam do LocalStorage por enquanto.<br/>
+        Depois conectamos no Supabase (backend).
+      </div>
+</aside>
+<main class="admMain">
+<div class="admTop">
+<h2 id="admTitleTop">Overview</h2>
+<div class="right">
+<span class="admBadge">⭐ Admin</span>
+<button class="admBtn" onclick="admSeedDemo()">Gerar demo</button>
+<button class="admBtn primary" onclick="admExportJson()">Exportar</button>
+<button class="admBtn danger" onclick="closeAdminDashboard()">Sair</button>
+</div>
+</div>
+<div class="admCards">
+<div class="admCard">
+<div class="lab">💰 Total recebido</div>
+<div class="val" id="admKpiRevenue">R$ 0,00</div>
+<div class="sub" id="admKpiRevenueSub">Pagos confirmados</div>
+<div class="pill" id="admKpiRevenuePill">+0 hoje</div>
+</div>
+<div class="admCard">
+<div class="lab">👤 Usuários ativos</div>
+<div class="val" id="admKpiActive">0</div>
+<div class="sub">Não banidos</div>
+<div class="pill" id="admKpiNewUsers">+0 novos</div>
+</div>
+<div class="admCard">
+<div class="lab">🚫 Banimentos</div>
+<div class="val" id="admKpiBans">0</div>
+<div class="sub">Bloqueados</div>
+<div class="pill" id="admKpiReports">0 reports</div>
+</div>
+<div class="admCard">
+<div class="lab">📦 Pedidos</div>
+<div class="val" id="admKpiOrders">0</div>
+<div class="sub">Total (local)</div>
+<div class="pill" id="admKpiPending">0 pendentes</div>
+</div>
+</div>
+<div class="admLayout">
+<section class="admPanel" id="admPanelLeft">
+<h3>Recent Orders</h3>
+<table class="admTable">
+<thead>
+<tr>
+<th>Order</th>
+<th>Client</th>
+<th>Total</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="admOrdersBody"></tbody>
+</table>
+<div class="admNote">Dica: marcar como “Pago” aumenta o total recebido.</div>
+</section>
+<section class="admPanel" id="admPanelRight">
+<h3>Sales Analytics</h3>
+<div style="display:grid;gap:10px">
+<div class="admCard" style="margin:0">
+<div class="lab">📈 Receita (7d)</div>
+<div class="val" id="adm7dRevenue">R$ 0,00</div>
+<div class="sub">Comparativo simples (demo)</div>
+</div>
+<div class="admCard" style="margin:0">
+<div class="lab">🎯 Conversões</div>
+<div class="val" id="admConv">0%</div>
+<div class="sub">Pedidos pagos / pedidos totais</div>
+</div>
+<div class="admCard" style="margin:0">
+<div class="lab">🎬 Editores verificados</div>
+<div class="val" id="admVerified">0</div>
+<div class="sub">Selo do admin (demo)</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Hidden tabs content -->
+<div class="admPanel" id="admTab_users" style="display:none;margin-top:12px">
+<h3>Users</h3>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 12px">
+<input id="admUserSearch" oninput="admRenderUsers()" placeholder="Buscar usuário..." style="padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:#e5e7eb;min-width:240px"/>
+<select id="admUserFilter" onchange="admRenderUsers()" style="padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:#e5e7eb;min-width:180px">
+<option value="all">Todos</option>
+<option value="editor">Editores</option>
+<option value="cliente">Clientes</option>
+<option value="banned">Banidos</option>
+</select>
+</div>
+<table class="admTable">
+<thead>
+<tr><th>User</th><th>Type</th><th>Status</th><th>Action</th></tr>
+</thead>
+<tbody id="admUsersBody"></tbody>
+</table>
+</div>
+<div class="admPanel" id="admTab_orders" style="display:none;margin-top:12px">
+<h3>Orders</h3>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 12px">
+<input id="admOrderSearch" oninput="admRenderOrders()" placeholder="Buscar pedido..." style="padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:#e5e7eb;min-width:240px"/>
+<select id="admOrderFilter" onchange="admRenderOrders()" style="padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:#e5e7eb;min-width:180px">
+<option value="all">Todos</option>
+<option value="paid">Pagos</option>
+<option value="pending">Pendentes</option>
+</select>
+</div>
+<table class="admTable">
+<thead>
+<tr><th>Order</th><th>Client</th><th>Total</th><th>Status</th><th>Action</th></tr>
+</thead>
+<tbody id="admOrdersAllBody"></tbody>
+</table>
+</div>
+<div class="admPanel" id="admTab_analytics" style="display:none;margin-top:12px">
+<h3>Analytics</h3>
+<div class="admNote">Gráficos essenciais (demo/local). Depois conectamos ao Supabase (backend).</div>
+<div class="admChartGrid">
+<div class="admChartCard">
+<div class="admChartHead">
+<b>Receita (7 dias)</b>
+<span class="admChartMeta" id="admChartRevenueMeta"></span>
+</div>
+<canvas height="190" id="admChartRevenue" width="700"></canvas>
+</div>
+<div class="admChartCard">
+<div class="admChartHead">
+<b>Pedidos (7 dias)</b>
+<span class="admChartMeta" id="admChartOrdersMeta"></span>
+</div>
+<canvas height="190" id="admChartOrders" width="700"></canvas>
+</div>
+<div class="admChartCard">
+<div class="admChartHead">
+<b>Status dos pedidos</b>
+<span class="admChartMeta" id="admChartStatusMeta"></span>
+</div>
+<canvas height="220" id="admChartStatus" width="420"></canvas>
+</div>
+<div class="admChartCard">
+<div class="admChartHead">
+<b>Novos usuários (7 dias)</b>
+<span class="admChartMeta" id="admChartUsersMeta"></span>
+</div>
+<canvas height="190" id="admChartUsers" width="700"></canvas>
+</div>
+</div>
+</div>
+<div class="admPanel" id="admTab_editors" style="display:none;margin-top:12px">
+<h3>Editors</h3>
+<div class="admNote">Marque verificado para destacar editores confiáveis (demo/local).</div>
+<table class="admTable">
+<thead>
+<tr><th>Editor</th><th>Status</th><th>Verified</th><th>Action</th></tr>
+</thead>
+<tbody id="admEditorsBody"></tbody>
+</table>
+</div>
+<div class="admPanel" id="admTab_settings" style="display:none;margin-top:12px">
+<h3>Settings</h3>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+<div class="admStatus pending">Comissão Karameloo: <b id="admCommissionLabel" style="margin-left:6px">25%</b></div>
+<input id="admCommissionInput" style="padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);color:#e5e7eb;min-width:140px" value="25"/>
+<button class="admBtn primary" onclick="admSaveSettings()">Salvar</button>
+</div>
+<div class="admNote">Essas configs viram reais quando conectarmos no backend.</div>
+</div>
+</main>
+</div>
+</section>
+
+
+<!-- Perfil do editor em nova aba (estilo Fiverr) -->
+<div aria-hidden="true" id="profilePage">
+<div class="ppShell">
+<div class="ppTopbar">
+<a class="ppBack" href="#" id="ppBackLink">← Voltar</a>
+<div class="ppBrand"><span aria-hidden="true" class="dot"></span> Karameloo</div>
+</div>
+<div id="profilePageBody"></div>
+<div class="ppFooterNote">Dica: você pode salvar este editor e voltar para escolher um pacote quando quiser.</div>
+</div>
+</div>
+<!-- Resumo do pedido em nova aba -->
+
+<!-- ===== Resumo do Pedido (overlay na mesma aba) ===== -->
+<div aria-hidden="true" class="orderOverlay" id="orderOverlay">
+<div aria-label="Resumo do Pedido" aria-modal="true" class="opCard" role="dialog">
+<div class="opTop">
+<div class="opTitle">Resumo do pedido</div>
+<div class="opActions">
+<button class="opBtn" onclick="closeOrderSummaryInline()" type="button">Voltar</button>
+<button class="opBtn primary" onclick="closeOrderSummaryInline(true)" type="button">Ir para início</button>
+</div>
+</div>
+
+<!-- ===== Pagamento PIX (overlay) ===== -->
+<div class="payOverlay" id="payOverlay" aria-hidden="true">
+  <div class="payCard" role="dialog" aria-modal="true" aria-label="Pagamento PIX">
+    <div class="payTop amendment">
+      <div>
+        <div class="payTitle">Pagamento via PIX</div>
+        <div class="paySubtitle">Finalize seu pedido com segurança. Assim que confirmar, a conversa com o editor é liberada.</div>
+      </div>
+      <div class="payActions">
+        <button class="payBtn" type="button" onclick="closePaymentInline()">Voltar</button>
+        <button class="payBtn danger" type="button" onclick="cancelPaymentAndClose()">Cancelar pedido</button>
+      </div>
+    </div>
+
+    <div class="payBody" id="payPageBody">
+      <!-- preenchido por JS -->
+    </div>
+  </div>
+</div>
+
+<div class="opBody" id="orderPageBody"></div>
+</div>
+</div>
+
+
+
+
+<!-- Karameloo: Order Chat + Confirm before PIX (override patch v3) -->
+
+
+
+
+
+      <button aria-label="Fechar" class="close" onclick="closeLegal()" type="button">×</button>
+    </div>
+    <div class="modalBody" id="legalBody" style="max-height:78vh; overflow:auto"></div>
+  </div>
+</div>
+
+</body>
+</html>
