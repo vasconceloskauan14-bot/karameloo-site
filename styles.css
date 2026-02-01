@@ -20,3 +20,35 @@
     z-index: -1;
   }
 }
+
+/* =============================
+   CornerControls (menu do topo)
+   Fix celular: sem hover + botão
+   ============================= */
+
+/* Ícone do botão */
+.cornerMenuIcon{font-size:18px;line-height:1;display:inline-block;transform:translateY(-1px)}
+
+/* No touch, não abrir por :hover (evita ficar preso aberto no celular) */
+@media (hover: none) and (pointer: coarse){
+  #cornerControls:hover .cornerMenu{
+    max-height:0 !important;
+    opacity:0 !important;
+    transform:translateY(-6px) !important;
+    overflow:hidden !important;
+  }
+  /* quando aberto por clique */
+  #cornerControls.menuOpen .cornerMenu{
+    max-height:calc(100vh - 160px) !important;
+    overflow:auto !important;
+    -webkit-overflow-scrolling:touch;
+  }
+  /* garante que o card não fique gigante e corte */
+  #cornerControls{top:10px !important;left:10px !important;right:10px !important;}
+  #cornerControls .cornerCard{width:100% !important;}
+}
+
+/* No desktop, manter hover (só quando realmente existe hover) */
+@media (hover:hover) and (pointer:fine){
+  #cornerControls:hover .cornerMenu{max-height:420px;opacity:1;transform:translateY(0)}
+}

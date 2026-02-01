@@ -6538,6 +6538,29 @@ function cornerToggleMenu(force){
   if(v === '1') el.classList.add('menuOpen');
 })();
 
+// Celular: fecha o menu ao tocar fora (e ESC no desktop)
+(function(){
+  const el = document.getElementById('cornerControls');
+  if(!el) return;
+  const isTouch = () => {
+    try{ return window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches; }
+    catch(e){ return false; }
+  };
+  const close = () => {
+    el.classList.remove('menuOpen');
+    try{ sessionStorage.setItem('kar_corner_menu_open','0'); }catch(e){}
+  };
+  document.addEventListener('click', (ev)=>{
+    if(!isTouch()) return;
+    if(!el.classList.contains('menuOpen')) return;
+    if(el.contains(ev.target)) return;
+    close();
+  }, {capture:true});
+  document.addEventListener('keydown', (ev)=>{
+    if(ev.key === 'Escape' && el.classList.contains('menuOpen')) close();
+  });
+})();
+
 function cornerSetTab(tab, silent){
   try{ sessionStorage.setItem('kar_corner_tab', tab); }catch(e){}
   document.querySelectorAll('.cornerTab').forEach(btn=>{

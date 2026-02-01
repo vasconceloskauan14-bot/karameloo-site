@@ -19,23 +19,30 @@
 <body class="preAuth">
 <!-- ===== Corner Controls (Relevância / Atalhos / Tabs) ===== -->
 <div aria-label="Opções rápidas" id="cornerControls">
-<div class="cornerCard">
-<div class="cornerRow">
-<div class="cornerSelect">
-<label for="cornerSort">Relevância</label>
-<div style="display:flex; align-items:center; gap:8px;">
-<select aria-label="Ordenar" id="cornerSort">
-<option selected="" value="relevancia">Relevância</option>
-<option value="melhores">Melhores avaliados</option>
-<option value="rapidos">Mais rápidos</option>
-<option value="baratos">Menor preço</option>
-</select>
-<svg aria-hidden="true" class="chev" fill="none" stroke="rgba(255,255,255,.9)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<path d="M6 9l6 6 6-6"></path>
-</svg>
-</div>
-</div>
-</div>
+    <div class="cornerCard">
+      <div class="cornerRow">
+        <div class="cornerSelect">
+          <label for="cornerSort">Relevância</label>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <select aria-label="Ordenar" id="cornerSort">
+              <option selected="" value="relevancia">Relevância</option>
+              <option value="melhores">Melhores avaliados</option>
+              <option value="rapidos">Mais rápidos</option>
+              <option value="baratos">Menor preço</option>
+            </select>
+            <svg aria-hidden="true" class="chev" fill="none" stroke="rgba(255,255,255,.9)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+              <path d="M6 9l6 6 6-6"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Botão do menu (no celular não existe hover, então precisa de clique) -->
+        <div class="cornerQuick" aria-label="Menu">
+          <button class="cornerQBtn cornerMenuToggle" type="button" aria-label="Abrir menu" onclick="cornerToggleMenu()">
+            <span class="cornerMenuIcon">☰</span>
+          </button>
+        </div>
+      </div>
 <div aria-label="Abas" class="cornerTabs" role="tablist">
 <button aria-selected="true" class="cornerTab active" data-tab="motion" onclick="cornerSetTab('motion')" role="tab" type="button">Motion</button>
 <button aria-selected="false" class="cornerTab" data-tab="premium" onclick="cornerSetTab('premium')" role="tab" type="button">Premium</button>
@@ -325,6 +332,7 @@
           <button class="btn secondary small" onclick="toggleChatInfo()" type="button" title="Detalhes" aria-label="Detalhes">ℹ️</button>
 <button class="btn secondary small" onclick="closeChat()" type="button" title="Fechar" aria-label="Fechar">✕</button>
         </div>
+
       </div>
 
       <div class="inboxBody">
