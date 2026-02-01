@@ -21,34 +21,46 @@
   }
 }
 
+
 /* =============================
    CornerControls (menu do topo)
-   Fix celular: sem hover + botão
+   Mobile: botão minimalista (só em telas pequenas)
+   Desktop: zero mudanças (sem botão)
    ============================= */
 
-/* Ícone do botão */
+/* Por padrão (PC), o botão não aparece */
+.cornerQuick{display:none !important;}
+
+/* Ícone */
 .cornerMenuIcon{font-size:18px;line-height:1;display:inline-block;transform:translateY(-1px)}
 
-/* No touch, não abrir por :hover (evita ficar preso aberto no celular) */
-@media (hover: none) and (pointer: coarse){
+/* Mobile: mostra botão e abre por clique (não por hover) */
+@media (max-width: 820px){
+  .cornerQuick{display:block !important;}
+  .cornerQBtn{width:34px !important;height:34px !important;border-radius:14px !important;border:1px solid rgba(255,255,255,.12) !important;background:rgba(255,255,255,.06) !important;}
+  .cornerMenuIcon{font-size:18px !important;transform:none !important;opacity:.95;}
+
+  /* desativa abrir por hover no mobile (evita o menu ficar por cima da tela) */
   #cornerControls:hover .cornerMenu{
     max-height:0 !important;
     opacity:0 !important;
     transform:translateY(-6px) !important;
     overflow:hidden !important;
   }
+
   /* quando aberto por clique */
   #cornerControls.menuOpen .cornerMenu{
-    max-height:calc(100vh - 160px) !important;
+    max-height:calc(100dvh - 160px) !important;
     overflow:auto !important;
     -webkit-overflow-scrolling:touch;
   }
-  /* garante que o card não fique gigante e corte */
+
+  /* layout do topo no mobile */
   #cornerControls{top:10px !important;left:10px !important;right:10px !important;}
   #cornerControls .cornerCard{width:100% !important;}
 }
 
-/* No desktop, manter hover (só quando realmente existe hover) */
-@media (hover:hover) and (pointer:fine){
+/* Desktop: mantém hover normal (sem botão) */
+@media (min-width: 821px){
   #cornerControls:hover .cornerMenu{max-height:420px;opacity:1;transform:translateY(0)}
 }

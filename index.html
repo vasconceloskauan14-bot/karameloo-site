@@ -36,10 +36,12 @@
           </div>
         </div>
 
-        <!-- Botão do menu (no celular não existe hover, então precisa de clique) -->
+        <!-- Botão do menu (mobile): no touch não existe hover, então precisa de clique.
+             No desktop esse botão fica oculto via CSS (não muda nada no modo PC). -->
         <div class="cornerQuick" aria-label="Menu">
           <button class="cornerQBtn cornerMenuToggle" type="button" aria-label="Abrir menu" onclick="cornerToggleMenu()">
-            <span class="cornerMenuIcon">☰</span>
+            <!-- Ícone minimalista (sem as 3 barrinhas) -->
+            <span class="cornerMenuIcon" aria-hidden="true">⋮</span>
           </button>
         </div>
       </div>
@@ -127,7 +129,7 @@
 </div>
 <div class="authRow">
 <label class="authCheck"><input id="startRemember" type="checkbox"/> <span>Lembrar de mim</span></label>
-<button class="linkBtn" id="startForgot" type="button">Esqueceu sua senha?</button>
+<button class="linkBtn" id="startForgot" type="button" title="Em breve">Esqueceu sua senha? (em breve)</button>
 </div>
 <div aria-label="Tipo de conta" class="authRoleRow">
 <button class="rolePill active" data-role="cliente" type="button">Cliente</button>

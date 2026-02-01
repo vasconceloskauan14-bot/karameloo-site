@@ -6080,7 +6080,18 @@ const kind = roleKey();
 
   // Esqueci senha (placeholder)
   startForgot?.addEventListener('click', ()=>{
-    alert('Recuperação de senha será ativada quando o backend estiver completo.');
+    // Evita o alert nativo (especialmente chato no mobile). Usa aviso leve.
+    try{
+      const em = (startEmail?.value || '').trim();
+      if(em){
+        toast(`Recuperação de senha: em breve.\nNo beta, se precisar resetar, fale com o ADM. (e-mail: ${em})`);
+      }else{
+        toast('Recuperação de senha: em breve.\nNo beta, se precisar resetar, fale com o ADM.');
+      }
+    }catch(e){
+      // fallback silencioso
+      console.log('Recuperação de senha (placeholder).');
+    }
   });
 
   // Links legais (placeholder, se não existir no site)
@@ -6533,6 +6544,12 @@ function cornerToggleMenu(force){
 (function(){
   const el = document.getElementById('cornerControls');
   if(!el) return;
+  // Só restaura no mode celular (tela pequena) (pra não mudar nada no modo PC)
+  const isTouch = () => {
+    try{ return window.matchMedia && window.matchMedia("(max-width: 820px)").matches; }
+    catch(e){ return false; }
+  };
+  if(!isTouch()) return;
   let v = null;
   try{ v = sessionStorage.getItem('kar_corner_menu_open'); }catch(e){}
   if(v === '1') el.classList.add('menuOpen');
@@ -6543,7 +6560,7 @@ function cornerToggleMenu(force){
   const el = document.getElementById('cornerControls');
   if(!el) return;
   const isTouch = () => {
-    try{ return window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches; }
+    try{ return window.matchMedia && window.matchMedia("(max-width: 820px)").matches; }
     catch(e){ return false; }
   };
   const close = () => {
