@@ -6387,6 +6387,20 @@ function buildQrUrl(payload){
     });
   }
 
+
+  const isMobile = () => window.matchMedia && window.matchMedia('(max-width: 820px)').matches;
+  const closeEdgeNav = () => { if(nav) nav.classList.remove('open'); };
+
+  // Close menu when tapping outside (mobile)
+  document.addEventListener('click', (e) => {
+    if(!isMobile()) return;
+    if(!nav || !nav.classList.contains('open')) return;
+    const wrap = nav.querySelector('.edgeWrap');
+    const handleEl = document.getElementById('edgeHandle');
+    if((wrap && wrap.contains(e.target)) || (handleEl && handleEl.contains(e.target))) return;
+    closeEdgeNav();
+  }, { capture: true });
+
   function safe(fn){ try{ return fn(); }catch(e){ return null; } }
 
   window.edgeGo = function(which){
@@ -6399,32 +6413,27 @@ function buildQrUrl(payload){
     // If not logged in, always go to login/start
     if(mode === 'guest'){
       go('screenStart');
-      return;
-    }
+      if(isMobile()) closeEdgeNav(); return; }
 
     // Common
     if(which === 'contatos'){
       safe(()=> window.openInbox && window.openInbox());
-      return;
-    }
+      if(isMobile()) closeEdgeNav(); return; }
     if(which === 'sair'){
       safe(()=> window.logout && window.logout());
-      return;
-    }
+      if(isMobile()) closeEdgeNav(); return; }
 
     // Home / inicio
     if(which === 'start'){
       if(mode === 'editor') go('screenEditor');
       else go('screenProcurar'); // cliente
-      return;
-    }
+      if(isMobile()) closeEdgeNav(); return; }
 
     // Procurar / marketplace
     if(which === 'procurar'){
       if(mode === 'editor') go('screenProcurarEditor');
       else go('screenProcurar');
-      return;
-    }
+      if(isMobile()) closeEdgeNav(); return; }
 
     // Pacotes
     if(which === 'pacotes'){
@@ -6435,8 +6444,7 @@ function buildQrUrl(payload){
       }else{
         go('screenPacotes');
       }
-      return;
-    }
+      if(isMobile()) closeEdgeNav(); return; }
 
     // Perfil
     if(which === 'perfil'){
@@ -6446,15 +6454,13 @@ function buildQrUrl(payload){
       }else{
         go('screenClientProfile');
       }
-      return;
-    }
+      if(isMobile()) closeEdgeNav(); return; }
 
     // Switch mode
     if(which === 'editor'){
       // If already editor, go to editor dashboard; if client, go to editor dashboard demo
       go('screenEditor');
-      return;
-    }
+      if(isMobile()) closeEdgeNav(); return; }
   };
 
   // Meus pedidos (placeholder: vamos ligar no backend depois)
