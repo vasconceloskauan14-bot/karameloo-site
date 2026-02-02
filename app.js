@@ -1,4 +1,5 @@
-/* Karameloo - app.js (build v28 - editor_supabase_ready)
+/* Karameloo - app.js (deploy fix) ...
+
    - Frontend dividido (index + styles + app)
    - Gatilhos Supabase centralizados: Auth, profiles, orders, chat
    - Mantém modo demo/local quando Supabase não estiver disponível
