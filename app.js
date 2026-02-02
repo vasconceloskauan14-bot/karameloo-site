@@ -2005,71 +2005,6 @@ function initTierToggle(){
       return list;
     }
 
-
-    // Lista editores públicos direto do Supabase (sem precisar de backend /api)
-    async function supaGetPublicEditors(){
-      if(!(typeof SUPABASE_ENABLED !== 'undefined' && SUPABASE_ENABLED && window.supaClient)) return [];
-      try{
-        const { data: epRows, error: epErr } = await window.supaClient
-          .from('editor_profiles')
-          .select('user_id, available, xp, whatsapp, bio, softwares, tags, portfolio_text');
-        if(epErr) throw epErr;
-
-        const rows = Array.isArray(epRows) ? epRows : [];
-        const ids = rows.map(r=>r.user_id).filter(Boolean);
-        if(!ids.length) return [];
-
-        const { data: pRows, error: pErr } = await window.supaClient
-          .from('profiles')
-          .select('user_id, display_name, role')
-          .in('user_id', ids);
-        if(pErr) throw pErr;
-
-        const pMap = new Map((pRows||[]).map(p=>[p.user_id, p]));
-
-        // 'editors.is_active' ajuda a esconder clientes (que também têm row em editors)
-        let aMap = new Map();
-        try{
-          const { data: aRows, error: aErr } = await window.supaClient
-            .from('editors')
-            .select('user_id, is_active')
-            .in('user_id', ids);
-          if(!aErr && Array.isArray(aRows)){
-            aMap = new Map(aRows.map(x=>[x.user_id, x]));
-          }
-        }catch(e){}
-
-        const list = [];
-        rows.forEach((r,i)=>{
-          const prof = pMap.get(r.user_id) || {};
-          const act = aMap.get(r.user_id);
-          const isActive = act ? !!act.is_active : (String(prof.role||'') === 'editor');
-          if(!isActive) return;
-
-          list.push(normalizeEditor({
-            id: r.user_id,
-            name: prof.display_name || 'Editor',
-            xp: r.xp || 'iniciante',
-            tags: Array.isArray(r.tags)
-              ? r.tags
-              : (typeof r.tags === 'string' ? r.tags.split(',').map(s=>s.trim()).filter(Boolean) : []),
-            available: (r.available != null) ? !!r.available : false,
-            whats: r.whatsapp || '',
-            bio: r.bio || '',
-            soft: r.softwares || '',
-            portfolio: r.portfolio_text || '',
-            packages: [], // pacotes ainda são locais neste MVP
-            stars: START_STARS
-          }, 'supa_'+(i+1)));
-        });
-
-        return list;
-      }catch(e){
-        console.warn('[Explore] supaGetPublicEditors falhou:', e);
-        return [];
-      }
-    }
-
     function getFavIds(){
       const arr = lsGet(LS_FAV_EDITORS, []);
       return new Set(Array.isArray(arr) ? arr : []);
@@ -2215,28 +2150,18 @@ function initTierToggle(){
 
     async function getProcurarEditors(){
       const base = apiBase();
-
-      // 1) Backend próprio (/api) — se configurado
       if(base){
         const ok = await apiHealth();
         if(ok){
           try{
             const apiEditors = await apiGetEditors();
             const list = apiEditors.map((e,i)=>normalizeEditor(e, 'api_'+(i+1)));
-            if(list.length) return list;
+            return list;
           }catch(e){
-            // se falhar, cai para Supabase ou local
+            // cai para local
           }
         }
       }
-
-      // 2) Supabase direto (quando não há backend /api)
-      if(typeof SUPABASE_ENABLED !== 'undefined' && SUPABASE_ENABLED && window.supaClient){
-        const supaEditors = await supaGetPublicEditors();
-        if(supaEditors && supaEditors.length) return supaEditors;
-      }
-
-      // 3) Fallback demo/local
       return getProcurarEditorsLocal();
     }
 
@@ -2285,13 +2210,7 @@ function initTierToggle(){
 
       if(exploreBackendStatus){
         const base = apiBase();
-        if(base){
-          exploreBackendStatus.textContent = `Backend conectado: ${base}`;
-        }else if(typeof SUPABASE_ENABLED !== 'undefined' && SUPABASE_ENABLED && window.supaClient){
-          exploreBackendStatus.textContent = 'Supabase conectado.';
-        }else{
-          exploreBackendStatus.textContent = 'Modo demo/local (sem backend).';
-        }
+        exploreBackendStatus.textContent = base ? `Backend conectado: ${base}` : 'Modo demo/local (sem backend).';
         exploreBackendStatus.style.opacity = '.9';
       }
     }
